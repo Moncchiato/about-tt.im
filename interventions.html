@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-69RR52KN9Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-69RR52KN9Y');
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TTIM — Intervention Explorer</title>
@@ -278,17 +269,20 @@ const DATA = [
     { name:"Attention-bias modification", modality:"CBT", how:"Retrain automatic orienting away from threat cues." },
     { name:"Yoga / tai chi", modality:"Somatic", how:"Movement-anchored attention de-automatizes habitual responses." }
   ]},
-{ pillar:"cognitions", target:"Commitment",
-  why:"Willingness to engage with effort and change underpins every other intervention; a sense of control also lowers SNS activation and allostatic load.",
-  questions:["Does the client demonstrate the willingness to engage with effort and change?"],
+{ pillar:"cognitions", target:"Locus of Control",
+  why:"An adaptive balance between believing one drives outcomes and recognizing the role of external forces supports motivation, healthy responsibility, and emotional regulation. Too far internal breeds over-responsibility and shame; too far external breeds helplessness.",
+  questions:["Does the client have an adaptive balance of believing they drive outcomes versus external forces driving outcomes?"],
   interventions:[
-    { name:"Motivational interviewing", modality:"Motivational", how:"Resolve ambivalence and evoke the client's own change talk." },
-    { name:"Eliciting commitment", modality:"DBT", how:"Structured strategies to obtain and strengthen commitment." },
-    { name:"Committed action", modality:"ACT", how:"Link concrete behavior to chosen values." },
-    { name:"Behavioral activation", modality:"Behavioral", how:"Action first — engagement builds motivation, not the reverse." },
-    { name:"Building Mastery", modality:"DBT", how:"Scheduled competence-building tasks raise agency." },
-    { name:"Growth-mindset / grit coaching", modality:"Psychoeducation", how:"Frame effort and setbacks as part of learning." },
-    { name:"Parts Work", modality:"IFS", how:"Discover which 'parts' may be in conflict over goals." }
+    { name:"Problem-solving therapy", modality:"CBT", how:"Increases locus of control." },
+    { name:"Cognitive Restructuring", modality:"CBT", how:"Building an adaptive balance of internal vs external locus of control." },
+    { name:"SAGE Skill", modality:"DBT", how:"RO-DBT skill targeting whether shame is warranted for an overpowering internal locus of control." },
+    { name:"Responsibility Pie Chart", modality:"CBT", how:"Visual representation of the percentage of responsibility for a situation." },
+    { name:"Socratic Reframing", modality:"CBT", how:"If a friend did this, who is responsible?" },
+    { name:"Behavioral Experimenting", modality:"Behavioral", how:"What happens if you do X or Y?" },
+    { name:"Radical Openness", modality:"DBT", how:"RO-DBT skill focused on seeking discomfort, being wrong, and being willing to learn." },
+    { name:"Self-Enquiry", modality:"DBT", how:"RO-DBT skill that checks what underlying motives an urge may have." },
+    { name:"Radical Acceptance", modality:"DBT", how:"Turning the Mind, Willingness, and acceptance of reality as it is." },
+    { name:"Mindfulness of Present Moment", modality:"Mindfulness", how:"Bring attention to the current moment rather than a personal belief about attribution." }
   ]},
 { pillar:"cognitions", target:"Respondent Conditioning",
   why:"Learned associations drive automatic emotional and physiological reactions that operate outside conscious control — and that cognition alone often can't reach.",
@@ -504,6 +498,31 @@ const DATA = [
     { name:"ACT matrix", modality:"ACT", how:"Map values into prosocial committed action." },
     { name:"Mentorship roles", modality:"Behavioral", how:"Being needed reinforces meaning and worth." },
     { name:"Vocational Pursuits", modality:"Behavioral", how:"Explore how a role in society can provide purpose." }
+  ]},
+{ pillar:"purpose", target:"Commitment",
+  why:"Willingness to engage with effort and change underpins every other intervention; a sense of control also lowers SNS activation and allostatic load. As a facet of Purpose, it reflects the chosen, values-driven decision to keep moving toward a life worth living.",
+  questions:["Does the client demonstrate the willingness to engage with effort and change?"],
+  interventions:[
+    { name:"Motivational interviewing", modality:"Motivational", how:"Resolve ambivalence and evoke the client's own change talk." },
+    { name:"Eliciting commitment", modality:"DBT", how:"Structured strategies to obtain and strengthen commitment." },
+    { name:"Committed action", modality:"ACT", how:"Link concrete behavior to chosen values." },
+    { name:"Behavioral activation", modality:"Behavioral", how:"Action first — engagement builds motivation, not the reverse." },
+    { name:"Building Mastery", modality:"DBT", how:"Scheduled competence-building tasks raise agency." },
+    { name:"Growth-mindset / grit coaching", modality:"Psychoeducation", how:"Frame effort and setbacks as part of learning." },
+    { name:"Parts Work", modality:"IFS", how:"Discover which 'parts' may be in conflict over goals." }
+  ]},
+{ pillar:"purpose", target:"Accomplishment",
+  why:"The satisfaction that follows direct effort reinforces agency and healthy reward pathways. Without experiences of earned accomplishment, motivation and self-efficacy erode even when meaning and connection are present.",
+  questions:["Has the client experienced the feelings of satisfaction that follow direct effort?"],
+  interventions:[
+    { name:"WOOP Method", modality:"CBT", how:"Positive visualization paired with realistic obstacle planning." },
+    { name:"Micro-Goal Chunking", modality:"Behavioral", how:"Break big goals into smaller, more approachable ones." },
+    { name:"Progress Journaling", modality:"CBT", how:"Keep a record of steps completed." },
+    { name:"Habit Stacking", modality:"Behavioral", how:"Build an automated routine toward goals." },
+    { name:"Deliberate Practice", modality:"Behavioral", how:"Isolate sub-skills to develop." },
+    { name:"Best-Possible-Self imagery", modality:"Positive Psychology", how:"Write about the path you took to your accomplishments." },
+    { name:"The Progress Principle", modality:"Positive Psychology", how:"Keep a 'Done List' rather than only a 'To-Do List'." },
+    { name:"Growth Mindset", modality:"CBT", how:"Focus on effort and strategy over talent." }
   ]},
 
 { pillar:"metabolic", collab:true, target:"Substance Use",
