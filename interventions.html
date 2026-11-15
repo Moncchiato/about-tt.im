@@ -34,14 +34,25 @@ nav.top{position:sticky;top:0;z-index:100;display:flex;align-items:center;justif
 .navlinks a{text-decoration:none;opacity:.85}
 .navlinks a:hover{opacity:1}
 .navlinks a.active{color:var(--cognitions);opacity:1;font-weight:600}
+.navtoggle{display:none;flex-direction:column;justify-content:center;gap:4px;width:40px;height:40px;
+  padding:0 10px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.navtoggle span{display:block;height:2px;border-radius:2px;background:var(--ink);transition:transform .25s,opacity .2s}
+nav.top.open .navtoggle span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+nav.top.open .navtoggle span:nth-child(2){opacity:0}
+nav.top.open .navtoggle span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 @media(max-width:720px){
   nav.top{padding:10px 16px}
-  /* keep a usable header: links become a horizontal swipe strip */
-  .navlinks{display:flex;flex:1;min-width:0;overflow-x:auto;gap:16px;margin:0 10px;font-size:13px;
-    -webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .navlinks a{white-space:nowrap}
-  .navlinks::-webkit-scrollbar{display:none}
-  .navback{display:none}
+  /* links collapse into a drop-down menu behind a hamburger button */
+  nav.top .navback{display:none}
+  .navtoggle{display:inline-flex}
+  .navlinks{position:absolute;top:calc(100% + 6px);left:12px;right:12px;flex-direction:column;gap:2px;
+    padding:8px;border-radius:16px;background:rgba(247,245,241,.98);color:var(--ink);
+    box-shadow:0 18px 40px rgba(11,14,22,.22);border:1px solid var(--line);
+    opacity:0;transform:translateY(-8px);pointer-events:none;visibility:hidden;
+    transition:opacity .2s,transform .2s,visibility 0s .2s}
+  nav.top.open .navlinks{opacity:1;transform:none;pointer-events:auto;visibility:visible;transition:opacity .2s,transform .2s}
+  .navlinks a{display:block;padding:12px 14px;border-radius:10px;font-size:16px;opacity:1}
+  .navlinks a:active,.navlinks a:hover{background:rgba(124,92,255,.08)}
   /* filter bar: each control becomes one swipeable row instead of a tall wrapping block */
   .controls{top:46px;padding:10px 0}
   .control-row + .control-row{margin-top:8px}
@@ -112,14 +123,16 @@ footer a{color:rgba(255,255,255,.85)}
 
 <nav class="top">
   <a href="index.html" style="text-decoration:none"><div class="brand"><span class="dot"></span> TTIM</div></a>
-  <div class="navlinks">
+  <div class="navlinks" id="navLinks">
     <a href="index.html">Home</a>
     <a href="index.html#explorer">Model Explorer</a>
     <a href="interventions.html" class="active">Interventions</a>
+    <a href="diagnoses.html">Diagnoses</a>
     <!-- Builder hidden for now: <a href="builder.html">Builder</a> -->
     <a href="index.html#use">In Practice</a>
   </div>
   <a href="index.html" class="tab navback" style="padding:8px 14px">← Back to model</a>
+  <button class="navtoggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
 </nav>
 
 <header class="hero">
@@ -163,6 +176,18 @@ footer a{color:rgba(255,255,255,.85)}
 </footer>
 
 <script>
+/* mobile menu */
+(()=>{
+  const nav=document.querySelector('nav.top'), btn=document.getElementById('navToggle'), links=document.getElementById('navLinks');
+  if(!nav||!btn||!links) return;
+  const set=open=>{ nav.classList.toggle('open',open); btn.setAttribute('aria-expanded',open);
+    btn.setAttribute('aria-label',open?'Close menu':'Open menu'); };
+  btn.addEventListener('click',e=>{ e.stopPropagation(); set(!nav.classList.contains('open')); });
+  links.addEventListener('click',e=>{ if(e.target.closest('a')) set(false); });
+  document.addEventListener('click',e=>{ if(!nav.contains(e.target)) set(false); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') set(false); });
+  window.addEventListener('resize',()=>{ if(innerWidth>720) set(false); });
+})();
 /* ============================================================================
    HOW TO EDIT THIS PAGE  (no other files needed)
    ----------------------------------------------------------------------------
@@ -659,7 +684,9 @@ const DATA = [
 
 /* ============================ RENDER ============================ */
 const modColor = m => MODALITY_COLORS[m] || DEFAULT_MOD_COLOR;
-const state = { pillar:"all", modality:null, q:"" };
+const state = { pillar:"all", modality:null, q:"", only:null };
+/* links like interventions.html?target=Sleep open straight to one target */
+(()=>{ const t=new URLSearchParams(location.search).get("target"); if(t && DATA.some(d=>d.target===t)) state.only=t; })();
 
 // Pillar tabs
 const pillarTabs = document.getElementById("pillarTabs");
@@ -668,7 +695,7 @@ pillarOrder.forEach(id=>{
   const b=document.createElement("button"); b.className="tab"; b.dataset.p=id;
   if(id==="all"){ b.textContent="All pillars"; }
   else { const m=PILLAR_META[id]; b.innerHTML=`<span class="swatch" style="background:${m.hex}"></span>${m.name}`; }
-  b.addEventListener("click",()=>{ state.pillar=id; syncTabs(); render(); });
+  b.addEventListener("click",()=>{ state.pillar=id; clearOnly(); syncTabs(); render(); });
   pillarTabs.appendChild(b);
 });
 function syncTabs(){
@@ -704,7 +731,10 @@ function syncMods(){
 }
 buildModChips();
 
-document.getElementById("search").addEventListener("input",e=>{ state.q=e.target.value.toLowerCase().trim(); render(); });
+document.getElementById("search").addEventListener("input",e=>{ state.only=null; state.q=e.target.value.toLowerCase().trim(); render(); });
+/* when opened for one target (from the Diagnoses page), show its name in the search box; any filter change shows everything again */
+function clearOnly(){ if(!state.only) return; const s=document.getElementById("search"); if(s.value===state.only) s.value=""; state.only=null; }
+if(state.only) document.getElementById("search").value=state.only;
 
 const out=document.getElementById("out");
 const countEl=document.getElementById("count");
@@ -719,6 +749,7 @@ function render(){
   out.innerHTML="";
   let shownTargets=0, shownCross=0, shownIv=0;
   DATA.forEach(t=>{
+    if(state.only && t.target!==state.only) return;
     if(state.pillar!=="all" && t.pillar!==state.pillar) return;
     // filter interventions
     const ivs=t.interventions.filter(iv=>{

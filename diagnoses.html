@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TTIM — Targets by Diagnosis</title>
+<meta name="description" content="Sample combinations of Treatment Target Identification Model (TTIM) treatment targets for common psychiatric diagnoses — start with a diagnosis or reverse engineer from targets.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#11131a; --ink-soft:#3a3f4d; --muted:#6b7180;
+  --paper:#f7f5f1; --paper-2:#efece5; --line:rgba(17,19,26,.12);
+  --night:#0b0e16; --night-2:#121726;
+  --cognitions:#7c5cff; --allostatic:#ff4d6d; --relationships:#ff9f1c; --purpose:#ff5db1; --metabolic:#16c2c2;
+  --shadow:0 18px 50px -20px rgba(8,10,20,.45);
+  --maxw:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.1;letter-spacing:-.01em}
+a{color:inherit}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.eyebrow{font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:12px;color:var(--muted)}
+
+/* nav */
+nav.top{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:12px 28px;background:rgba(247,245,241,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
+.brand .dot{width:22px;height:22px;border-radius:7px;background:conic-gradient(from 200deg,var(--cognitions),var(--purpose),var(--relationships),var(--metabolic),var(--cognitions))}
+.navlinks{display:flex;gap:22px;font-size:14px;font-weight:500;color:var(--ink-soft)}
+.navlinks a{text-decoration:none;opacity:.85}
+.navlinks a:hover{opacity:1}
+.navlinks a.active{color:var(--cognitions);opacity:1;font-weight:600}
+.navtoggle{display:none;flex-direction:column;justify-content:center;gap:4px;width:40px;height:40px;
+  padding:0 10px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.navtoggle span{display:block;height:2px;border-radius:2px;background:var(--ink);transition:transform .25s,opacity .2s}
+nav.top.open .navtoggle span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+nav.top.open .navtoggle span:nth-child(2){opacity:0}
+nav.top.open .navtoggle span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+@media(max-width:720px){
+  nav.top{padding:10px 16px}
+  /* links collapse into a drop-down menu behind a hamburger button */
+  nav.top .navback{display:none}
+  .navtoggle{display:inline-flex}
+  .navlinks{position:absolute;top:calc(100% + 6px);left:12px;right:12px;flex-direction:column;gap:2px;
+    padding:8px;border-radius:16px;background:rgba(247,245,241,.98);color:var(--ink);
+    box-shadow:0 18px 40px rgba(11,14,22,.22);border:1px solid var(--line);
+    opacity:0;transform:translateY(-8px);pointer-events:none;visibility:hidden;
+    transition:opacity .2s,transform .2s,visibility 0s .2s}
+  nav.top.open .navlinks{opacity:1;transform:none;pointer-events:auto;visibility:visible;transition:opacity .2s,transform .2s}
+  .navlinks a{display:block;padding:12px 14px;border-radius:10px;font-size:16px;opacity:1}
+  .navlinks a:active,.navlinks a:hover{background:rgba(124,92,255,.08)}
+  /* filter bar: each control becomes one swipeable row instead of a tall wrapping block */
+  .controls{top:46px;padding:10px 0}
+  .control-row + .control-row{margin-top:8px}
+  #pillarTabs,#modTabs{flex-wrap:nowrap!important;overflow-x:auto;flex:1 1 0!important;min-width:0;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+  #pillarTabs::-webkit-scrollbar,#modTabs::-webkit-scrollbar{display:none}
+  .tab,.chip-f{flex-shrink:0}
+  .searchbox{max-width:none}
+  .ivx{grid-template-columns:1fr}
+  .hero{padding:48px 0 40px}
+}
+
+/* hero */
+.hero{background:radial-gradient(120% 100% at 80% 0,#1b2336,#0b0e16 60%);color:#fff;padding:70px 0 56px}
+.hero h1{font-size:clamp(34px,5vw,60px);font-weight:600}
+.hero h1 em{font-style:italic;background:linear-gradient(120deg,#c4b5ff,#ffb3da 55%,#9be7e7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding-right:.14em;margin-right:-.08em}
+.hero p{margin-top:18px;max-width:660px;color:rgba(255,255,255,.78);font-weight:300;font-size:clamp(16px,2vw,19px)}
+.hero .backlink{display:inline-flex;align-items:center;gap:7px;margin-bottom:22px;font-size:14px;color:rgba(255,255,255,.7);text-decoration:none}
+.hero .backlink:hover{color:#fff}
+
+/* controls */
+.controls{position:sticky;top:47px;z-index:90;background:rgba(247,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:16px 0}
+.control-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.control-row + .control-row{margin-top:12px}
+.clabel{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-right:4px;flex-shrink:0}
+.tab{cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink);padding:8px 15px;border-radius:100px;font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+.tab .swatch{width:10px;height:10px;border-radius:50%}
+.tab:hover{border-color:var(--muted)}
+.tab.active{color:#fff;border-color:transparent}
+.chip-f{cursor:pointer;border:1px solid var(--line);background:#fff;padding:6px 12px;border-radius:100px;font-size:12.5px;font-weight:600;color:var(--ink-soft);display:inline-flex;align-items:center;gap:7px;transition:all .18s}
+.chip-f .dot2{width:9px;height:9px;border-radius:50%}
+.chip-f:hover{border-color:var(--muted)}
+.chip-f.active{color:#fff;border-color:transparent}
+.searchbox{flex:1;min-width:180px;max-width:340px;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:100px;padding:8px 14px}
+.searchbox input{border:none;outline:none;font-family:inherit;font-size:14px;width:100%;background:transparent;color:var(--ink)}
+.count{font-size:13px;color:var(--muted);margin-left:auto}
+
+/* body */
+.results{padding:38px 0 90px}
+.tcard{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);margin-bottom:22px;overflow:hidden}
+.tcard .thead{display:flex;align-items:flex-start;gap:14px;padding:24px 26px 18px;border-bottom:1px solid var(--line);position:relative}
+.tcard .bar{position:absolute;left:0;top:0;bottom:0;width:6px}
+.tcard .pill-badge{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#fff;padding:4px 10px;border-radius:100px;white-space:nowrap}
+.tcard h3{font-size:22px;margin-top:2px}
+.tcard .why{color:var(--ink-soft);font-size:14.5px;margin-top:8px;font-weight:300}
+.tcard .q{margin-top:12px;background:rgba(124,92,255,.07);border:1px solid rgba(124,92,255,.22);border-radius:11px;padding:10px 14px;font-size:13.5px;color:var(--ink-soft)}
+.tcard .q b{color:var(--cognitions);font-weight:600}
+.thead-txt{flex:1}
+.ivx{padding:16px 26px 24px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:760px){.ivx{grid-template-columns:1fr}}
+.iv{border:1px solid var(--line);border-radius:12px;padding:13px 15px;transition:transform .18s,box-shadow .18s;background:#fff}
+.iv:hover{transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(8,10,20,.4)}
+.iv.dim{display:none}
+.iv .iv-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.iv .iv-name{font-weight:600;font-size:14.5px}
+.iv .mod{font-size:11px;font-weight:700;padding:3px 9px;border-radius:100px;color:#fff;white-space:nowrap;flex-shrink:0}
+.iv .how{font-size:13px;color:var(--ink-soft);font-weight:300;line-height:1.5}
+.tcount{font-size:12px;color:var(--muted);font-weight:500}
+.empty{text-align:center;color:var(--muted);padding:80px 20px;font-size:16px}
+.collab{margin:0 26px 18px;background:#eafaf7;border:1px solid rgba(22,194,194,.35);border-radius:11px;padding:10px 14px;font-size:13px;color:#0c6b6b}
+
+footer{background:var(--night);color:rgba(255,255,255,.7);padding:44px 0;font-size:13px}
+footer a{color:rgba(255,255,255,.85)}
+.disc{max-width:820px;font-weight:300;color:rgba(255,255,255,.5);margin-top:10px}
+
+/* ---------- diagnoses page ---------- */
+.preface{margin:-34px auto 0;position:relative;z-index:2;background:#fff;border:1px solid var(--line);border-radius:18px;
+  box-shadow:var(--shadow);padding:22px 26px;display:flex;gap:16px;align-items:flex-start}
+.preface .pi{flex:none;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;color:#fff;font-weight:700;
+  background:conic-gradient(from 200deg,var(--cognitions),var(--purpose),var(--relationships),var(--metabolic),var(--cognitions))}
+.preface p{font-size:15.5px;color:var(--ink-soft);line-height:1.65}
+
+.modes{display:flex;gap:10px;flex-wrap:wrap;margin:30px 0 6px}
+.mode{cursor:pointer;flex:1;min-width:240px;text-align:left;border:1px solid var(--line);background:#fff;border-radius:16px;padding:16px 18px;
+  font-family:inherit;color:var(--ink);transition:border-color .2s,box-shadow .2s,transform .2s}
+.mode:hover{border-color:var(--muted)}
+.mode b{display:block;font-size:15.5px;font-weight:600}
+.mode span{display:block;font-size:13px;color:var(--muted);margin-top:3px}
+.mode.active{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink),0 14px 30px -18px rgba(8,10,20,.45)}
+.mode .k{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cognitions);margin-bottom:4px}
+
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted);margin:16px 0 4px}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:0}
+
+.dx-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0 22px}
+#groupTabs{display:flex;flex-wrap:wrap;gap:8px}
+
+.dxgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,500px),1fr));gap:20px;align-items:start}
+.dx{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;scroll-margin-top:90px}
+.dx.flash{animation:flash 1.6s ease}
+@keyframes flash{0%,40%{box-shadow:0 0 0 3px var(--cognitions),var(--shadow)}100%{box-shadow:var(--shadow)}}
+.dx-head{padding:20px 22px 14px;border-bottom:1px solid var(--line)}
+.dx-group{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dx h3{font-size:21px;margin-top:4px}
+.dx h3 small{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--muted);margin-left:6px;letter-spacing:0}
+.dx-body{padding:14px 22px 20px}
+.sec{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:6px 0 10px}
+.core{list-style:none;display:flex;flex-direction:column;gap:9px}
+.core li{display:flex;gap:10px;align-items:flex-start}
+.core .why{font-size:13px;color:var(--ink-soft);font-weight:300;line-height:1.45;padding-top:4px}
+.tchip{display:inline-flex;align-items:center;gap:6px;flex:none;font-size:12.5px;font-weight:600;color:#fff;padding:5px 11px;border-radius:100px;
+  text-decoration:none;white-space:nowrap;transition:filter .15s,transform .15s}
+.tchip:hover{filter:brightness(1.07);transform:translateY(-1px)}
+.also{display:flex;flex-wrap:wrap;gap:7px}
+.ochip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--ink-soft);background:#fff;
+  border:1px solid var(--line);padding:4px 10px;border-radius:100px;text-decoration:none;white-space:nowrap}
+.ochip i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.ochip:hover{border-color:var(--muted)}
+.dx-note{margin-top:14px;background:rgba(124,92,255,.07);border:1px solid rgba(124,92,255,.22);border-radius:11px;padding:10px 13px;font-size:13px;color:var(--ink-soft)}
+.dx-note b{color:var(--cognitions)}
+.cross{margin-top:12px;background:#eef7ff;border:1px solid rgba(56,182,255,.35);border-radius:11px;padding:10px 13px;font-size:13px;color:#0d4d7a}
+
+/* reverse mode */
+.picker{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:20px 22px;margin:16px 0 24px}
+.prow{display:flex;gap:14px;align-items:flex-start;padding:10px 0}
+.prow + .prow{border-top:1px solid var(--line)}
+.plabel{flex:none;width:130px;font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:7px;padding-top:6px}
+.plabel i{width:10px;height:10px;border-radius:50%}
+.pchips{display:flex;flex-wrap:wrap;gap:7px;flex:1}
+.pick{cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--ink-soft);background:#fff;border:1px solid var(--line);
+  padding:6px 12px;border-radius:100px;transition:all .15s}
+.pick:hover{border-color:var(--muted)}
+.pick.on{color:#fff;border-color:transparent}
+.pbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;padding-top:14px;border-top:1px solid var(--line)}
+.pbar .count{margin-left:0}
+.clear{cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;background:none;border:none;color:var(--cognitions);padding:0}
+.rnote{font-size:13px;color:var(--muted);margin-bottom:14px}
+.match{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 20px;margin-bottom:12px;display:grid;
+  grid-template-columns:minmax(0,1fr) auto;gap:6px 18px;align-items:center}
+.match h4{font-size:18px}
+.match h4 a{text-decoration:none}
+.match h4 a:hover{text-decoration:underline}
+.match .mg{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.match .meter{grid-row:1/span 2;grid-column:2;text-align:right;font-size:12.5px;color:var(--muted);min-width:120px}
+.match .meter .track{height:7px;border-radius:7px;background:var(--paper-2);margin-top:6px;overflow:hidden}
+.match .meter .fill{height:100%;border-radius:7px;background:linear-gradient(90deg,var(--cognitions),var(--purpose))}
+.match .hits{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.match .tchip,.match .ochip{font-size:11.5px;padding:3px 9px}
+@media(max-width:720px){
+  .preface{padding:18px;margin-top:-26px}
+  .preface .pi{display:none}
+  #groupTabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;width:100%;padding-bottom:2px}
+  #groupTabs::-webkit-scrollbar{display:none}
+  #groupTabs .chip-f{flex-shrink:0}
+  .prow{flex-direction:column;gap:8px}
+  .plabel{width:auto;padding-top:0}
+  .match{grid-template-columns:1fr}
+  .match .meter{grid-row:auto;grid-column:1;text-align:left}
+  .dx-head,.dx-body{padding-left:18px;padding-right:18px}
+  .core li{flex-direction:column;gap:4px}
+  .core .why{padding-top:0}
+}
+
+.tchip,.ochip{white-space:normal;text-align:left;line-height:1.35}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a href="index.html" style="text-decoration:none"><div class="brand"><span class="dot"></span> TTIM</div></a>
+  <div class="navlinks" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="index.html#explorer">Model Explorer</a>
+    <a href="interventions.html">Interventions</a>
+    <a href="diagnoses.html" class="active">Diagnoses</a>
+    <a href="index.html#use">In Practice</a>
+  </div>
+  <a href="index.html" class="tab navback" style="padding:8px 14px">← Back to model</a>
+  <button class="navtoggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="hero" style="padding-bottom:84px">
+  <div class="wrap">
+    <a href="index.html" class="backlink">← The TTIM model</a>
+    <div class="eyebrow" style="color:rgba(255,255,255,.6)">Deeper exploration</div>
+    <h1 style="margin-top:14px">Targets by <em>Diagnosis</em></h1>
+    <p>Sample combinations of TTIM treatment targets for common psychiatric disorders — each with the reason it so often belongs in the formulation.</p>
+  </div>
+</header>
+
+<main class="results" style="padding-top:0">
+  <div class="wrap">
+    <div class="preface">
+      <div class="pi" aria-hidden="true">i</div>
+      <p>Here are some sample Treatment Target combinations for common psychiatric disorders. These are meant to be samples of possible combinations, and not govern the decision making process for every individual with a specific diagnosis. Various combinations of Treatment Targets will be necessary for different individuals at different points in treatment. You can start with a diagnosis, or you can start with Treatment Targets and reverse engineer them back to a diagnosis.</p>
+    </div>
+
+    <div class="modes" role="tablist">
+      <button class="mode active" id="modeDx" role="tab" aria-selected="true"><div class="k">Option 1</div><b>Start with a diagnosis</b><span>See the targets that commonly anchor treatment.</span></button>
+      <button class="mode" id="modeT" role="tab" aria-selected="false"><div class="k">Option 2</div><b>Start with treatment targets</b><span>Pick the targets you're seeing and find diagnoses that share them.</span></button>
+    </div>
+
+    <div class="legend" id="legend"></div>
+
+    <!-- diagnosis-first -->
+    <section id="viewDx">
+      <div class="dx-controls">
+        <div id="groupTabs"></div>
+        <div class="searchbox">
+          <span style="opacity:.5">🔎</span>
+          <input id="dxSearch" type="text" placeholder="Search diagnoses or targets…" aria-label="Search diagnoses or targets">
+        </div>
+        <span class="count" id="dxCount"></span>
+      </div>
+      <div class="dxgrid" id="dxGrid"></div>
+    </section>
+
+    <!-- target-first -->
+    <section id="viewT" hidden>
+      <div class="picker">
+        <div id="picker"></div>
+        <div class="pbar">
+          <span class="count" id="pickCount">Select the treatment targets you're seeing.</span>
+          <button class="clear" id="clearPicks" hidden>Clear selection</button>
+          <button class="clear" id="seeMatches" hidden style="margin-left:auto">See matches ↓</button>
+        </div>
+      </div>
+      <p class="rnote">Ranked by overlap: a target listed as <b>core</b> for a diagnosis counts double. A match suggests diagnoses worth assessing for — it is not a diagnosis.</p>
+      <div id="matches"></div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>Treatment Target Identification Model (TTIM) · Targets by Diagnosis · <a href="index.html">Return to the model →</a></div>
+    <p class="disc">Sample target combinations are illustrative, not exhaustive or prescriptive, and are not diagnostic or treatment advice. Diagnosis requires a full clinical assessment; target selection requires clinical judgment and, for metabolic and medication targets, interdisciplinary collaboration. © 2026 Alexey Breuss, Psy.D. · CC BY-NC-ND 4.0.</p>
+  </div>
+</footer>
+
+<script>
+/* ==========================================================================
+   HOW TO EDIT THIS PAGE
+   - Each diagnosis below has: name, abbr (optional), group, core, also, note (optional).
+   - core: [ targetKey, "why it often belongs" ] pairs.
+   - also: [ targetKey ] or [ targetKey, "short reason (shown on hover)" ].
+   - targetKey must be one of the keys in T (the 32 TTIM treatment targets).
+   ========================================================================== */
+const PILLARS = {
+  cognitions:{name:"Cognitions", hex:"#7c5cff"},
+  allostatic:{name:"Allostatic Load", hex:"#ff4d6d"},
+  relationships:{name:"Relationships", hex:"#ff9f1c"},
+  purpose:{name:"Purpose", hex:"#ff5db1"},
+  metabolic:{name:"Metabolic Health", hex:"#16a3a3"}
+};
+const T = {
+  beliefs:["Beliefs / Education / Experience / Language","cognitions"],
+  distortions:["Cognitive Distortions","cognitions"],
+  acceptance:["Acceptance","cognitions"],
+  attention:["Attention Regulation","cognitions"],
+  locus:["Locus of Control","cognitions"],
+  respondent:["Respondent Conditioning","cognitions"],
+  control:["Control / Demand / Predictability","allostatic"],
+  performance:["Evaluation of Performance","allostatic"],
+  hierarchy:["Social Hierarchy","allostatic"],
+  trauma:["Sympathetic Learning History / Trauma","allostatic"],
+  sns:["Chronic SNS Activation","allostatic"],
+  dopamine:["Dopamine System Disruption","allostatic"],
+  affect:["Affect Tolerance","allostatic"],
+  social:["Social Homeostatic Needs","relationships"],
+  relskills:["Relationship Skills","relationships"],
+  others:["How You Make Others Feel","relationships"],
+  connection:["Experiencing Connection","relationships"],
+  meaning:["Meaning for Living","purpose"],
+  goodthings:["Good Things Are Coming","purpose"],
+  agency:["Agency Over Future","purpose"],
+  lookfwd:["Looking Forward to Experiences","purpose"],
+  purposeothers:["Purpose to Others","purpose"],
+  commitment:["Commitment","purpose"],
+  accomplishment:["Accomplishment","purpose"],
+  substance:["Substance Use","metabolic"],
+  gut:["Gut Microbiome (Probiotics / Prebiotics)","metabolic"],
+  food:["Content of Food","metabolic"],
+  sugar:["Refined Sugars / Fructose Consumption","metabolic"],
+  inflammation:["Inflammation","metabolic"],
+  activity:["Physical Activity","metabolic"],
+  sleep:["Sleep","metabolic"],
+  circadian:["Circadian Rhythm","metabolic"]
+};
+
+const DX = [
+/* --- Neurodevelopmental --- */
+{ id:"adhd", name:"Attention-Deficit/Hyperactivity Disorder", abbr:"ADHD", group:"Neurodevelopmental",
+  core:[
+    ["dopamine","Hypodopaminergic reward signaling drives novelty-seeking, boredom intolerance and difficulty sustaining effort."],
+    ["hierarchy","Years of criticism and comparison leave intense rejection sensitivity and a felt loss of standing."],
+    ["performance","A long history of negative feedback on performance breeds shame and avoidance of tasks."],
+    ["accomplishment","Earned, visible wins rebuild self-efficacy that repeated unfinished work has eroded."],
+    ["sleep","Delayed sleep onset and short sleep are very common and worsen attention and mood."],
+    ["circadian","A delayed circadian phase often underlies the late nights and hard mornings."],
+    ["activity","Exercise acutely improves attention and executive control."]],
+  also:[["substance","Self-medication and higher rates of substance use disorders"],["food","Regular meals and protein when stimulants suppress appetite"],["relskills"],["commitment"]],
+  cross:"Executive Functioning is central here. In the TTIM it is a cross-cutting area rather than a target: scaffold it (external structure, reminders, environment design) instead of assuming it can be permanently trained." },
+
+/* --- Schizophrenia spectrum --- */
+{ id:"scz", name:"Schizophrenia", group:"Schizophrenia Spectrum",
+  core:[
+    ["beliefs","How delusions and voices are appraised shapes the distress they cause (the focus of CBT for psychosis)."],
+    ["attention","Aberrant salience and attention captured by voices or threat cues."],
+    ["dopamine","Dysregulated dopamine signaling is central to positive symptoms and the target of antipsychotics."],
+    ["substance","Cannabis and stimulants raise relapse risk; smoking rates and their health toll are very high."],
+    ["social","Isolation and shrinking networks often follow illness onset and negative symptoms."],
+    ["lookfwd","Negative symptoms blunt anticipatory pleasure and the drive to pursue goals."],
+    ["activity","Antipsychotic-related metabolic syndrome drives a large life-expectancy gap; movement is protective."],
+    ["food","Diet quality is a lever against antipsychotic-related weight gain and insulin resistance."]],
+  also:[["sleep"],["inflammation"],["relskills","Social skills training"],["meaning","Recovery-oriented care"]] },
+{ id:"sza", name:"Schizoaffective Disorder", group:"Schizophrenia Spectrum",
+  core:[
+    ["beliefs","Appraisal of psychotic experiences shapes distress and functioning."],
+    ["attention","Aberrant salience and attention captured by voices or threat cues."],
+    ["dopamine","Dopamine dysregulation underlies psychotic symptoms and is a primary medication target."],
+    ["substance","Substance use destabilizes both psychotic and mood symptoms."],
+    ["social","Isolation commonly follows illness onset and negative symptoms."],
+    ["sleep","Sleep loss is an early warning sign and trigger for mood and psychotic episodes."],
+    ["circadian","Stable daily rhythms help prevent manic and depressive episodes."],
+    ["activity","Medication-related metabolic risk makes movement a core health target."],
+    ["food","Diet quality counters medication-related weight gain and insulin resistance."]],
+  also:[["goodthings","Hopelessness in the depressive type"],["lookfwd"],["commitment","Medication adherence"],["sugar"]] },
+
+/* --- Bipolar --- */
+{ id:"bd", name:"Bipolar I & II Disorders", abbr:"BD", group:"Bipolar",
+  core:[
+    ["circadian","Disrupted social and circadian rhythms precede episodes — the focus of IPSRT."],
+    ["sleep","Sleep loss can trigger mania; protecting sleep is a frontline relapse-prevention strategy."],
+    ["dopamine","Reward hypersensitivity: goal pursuit and goal-attainment events can tip into hypomania."],
+    ["substance","Highly comorbid and destabilizing to mood and medication response."],
+    ["commitment","Sustained commitment to medication and routine during well periods prevents relapse."]],
+  also:[["activity"],["food","Metabolic effects of lithium and antipsychotics"],["sugar"],["performance","Ambitious goal-striving"]],
+  cross:"Executive Functioning often dips during and between episodes — scaffold it rather than assume it will return on its own." },
+
+/* --- Depressive --- */
+{ id:"mdd", name:"Major Depressive Disorder", abbr:"MDD", group:"Depressive",
+  core:[
+    ["lookfwd","Anhedonia: nothing ahead feels worth anticipating."],
+    ["goodthings","Hopelessness about the future maintains withdrawal and low effort."],
+    ["accomplishment","Behavioral activation works through earned wins that restart reward learning."],
+    ["distortions","The negative cognitive triad biases how the self, world and future are read."],
+    ["sleep","Insomnia and hypersomnia both maintain depression and predict relapse."],
+    ["inflammation","An inflammatory subtype is linked to fatigue, anhedonia and treatment resistance."]],
+  also:[["activity"],["social"],["dopamine"],["meaning"],["circadian"]] },
+{ id:"pdd", name:"Persistent Depressive Disorder", abbr:"PDD", group:"Depressive",
+  core:[
+    ["beliefs","Long-standing self-schemas — “this is just who I am” — keep low mood entrenched."],
+    ["agency","Years of low mood breed learned helplessness about changing outcomes."],
+    ["connection","Chronic depression often involves interpersonal detachment (a focus of CBASP)."],
+    ["others","Learning one's impact on others is central to CBASP's interpersonal work."],
+    ["meaning","A reason for living sustains effort when mood offers little reward."]],
+  also:[["goodthings"],["commitment"],["activity"],["inflammation"],["sleep"]] },
+
+/* --- Anxiety --- */
+{ id:"sad", name:"Social Anxiety Disorder", group:"Anxiety",
+  core:[
+    ["hierarchy","Fear of negative evaluation is fundamentally a fear of losing social standing."],
+    ["performance","Social situations are experienced as performances that are being judged."],
+    ["attention","Self-focused attention fuels anxiety and blocks disconfirming evidence (Clark & Wells)."],
+    ["respondent","Avoidance and safety behaviors keep conditioned fear alive; exposure updates it."],
+    ["social","Avoidance leaves social needs chronically unmet."]],
+  also:[["distortions","Mind reading, fortune telling"],["relskills"],["substance","Alcohol as social lubricant"]] },
+{ id:"ago", name:"Agoraphobia", group:"Anxiety",
+  core:[
+    ["respondent","Situational and interoceptive exposure extinguish conditioned fear of places and sensations."],
+    ["distortions","Catastrophic misinterpretation of bodily sensations drives panic and avoidance."],
+    ["affect","Building tolerance for physiological arousal without escaping."],
+    ["control","Fear centers on being trapped or unable to get help."],
+    ["sns","Elevated baseline arousal keeps the alarm system primed."]],
+  also:[["social","A shrinking life"],["lookfwd"],["activity"],["substance","Caffeine, alcohol"]] },
+{ id:"gad", name:"Generalized Anxiety Disorder", abbr:"GAD", group:"Anxiety",
+  core:[
+    ["control","Intolerance of uncertainty is a primary maintaining factor."],
+    ["sns","Chronic tension, restlessness and insomnia reflect sustained sympathetic activation."],
+    ["attention","Attention is biased toward threat and captured by worry."],
+    ["acceptance","Accepting realistic probabilities rather than seeking certainty."],
+    ["affect","Worry can function to avoid sharp emotional shifts (the contrast-avoidance model)."]],
+  also:[["distortions"],["performance"],["sleep"],["substance","Alcohol or benzodiazepines as self-medication"]] },
+
+/* --- OC-related --- */
+{ id:"ocd", name:"Obsessive-Compulsive Disorder", abbr:"OCD", group:"Obsessive-Compulsive",
+  core:[
+    ["respondent","Exposure and response prevention breaks the obsession–compulsion conditioning loop."],
+    ["control","Intolerance of uncertainty drives checking and reassurance seeking."],
+    ["locus","Inflated responsibility for preventing harm."],
+    ["beliefs","Thought–action fusion and overestimation of threat."],
+    ["affect","Sitting with anxiety, disgust or “not just right” feelings without performing the compulsion."]],
+  also:[["acceptance","ACT-informed ERP"],["attention"]] },
+
+/* --- Trauma & stressor --- */
+{ id:"ptsd", name:"Posttraumatic Stress Disorder", abbr:"PTSD", group:"Trauma & Stressor",
+  core:[
+    ["trauma","The trauma history itself sensitizes the nervous system to threat."],
+    ["respondent","Fear conditioning and failed extinction keep reminders dangerous."],
+    ["sns","Hyperarousal, startle and hypervigilance."],
+    ["beliefs","Trauma-related “stuck points” about safety, trust, blame and worth (the focus of CPT)."],
+    ["sleep","Nightmares and insomnia maintain symptoms and are independently treatable."],
+    ["affect","A narrowed window of tolerance for trauma-related emotion."]],
+  also:[["connection"],["substance"],["agency","Sense of a foreshortened future"],["activity"],["inflammation"]] },
+{ id:"adj", name:"Adjustment Disorder", group:"Trauma & Stressor",
+  core:[
+    ["control","The stressor has abruptly shifted demand and predictability."],
+    ["acceptance","Coming to terms with a changed reality."],
+    ["agency","Restoring a sense of influence over what comes next."],
+    ["social","Mobilizing support during the transition."],
+    ["sleep","Stress-related sleep disruption amplifies distress."]],
+  also:[["meaning"],["activity"],["commitment"]],
+  note:"Usually time-limited and strengths-based: often fewer targets, worked more briefly." },
+
+/* --- Personality: Cluster A --- */
+{ id:"ppd", name:"Paranoid Personality Disorder", group:"Personality · Cluster A",
+  core:[
+    ["beliefs","Hostile-attribution schemas: others are presumed to intend harm."],
+    ["trauma","Mistrust is often learned in threatening or betraying environments."],
+    ["hierarchy","Heightened sensitivity to slights and threats to status."],
+    ["connection","Trust is the barrier to feeling connected."],
+    ["others","Guardedness elicits the very rejection the client expects, confirming the belief."]],
+  also:[["sns"],["distortions"]] },
+{ id:"spd", name:"Schizoid Personality Disorder", group:"Personality · Cluster A",
+  core:[
+    ["connection","The capacity to experience connection itself may be the target."],
+    ["lookfwd","Restricted pleasure and anticipation (anhedonia)."],
+    ["meaning","A sense of meaning that fits the client's own values."]],
+  also:[["purposeothers"],["activity"],["social","Only if the client experiences it as a need"]],
+  note:"Social needs may genuinely be lower for this client. Target Social Homeostatic Needs or connection only if the client experiences distress or wants change." },
+{ id:"stpd", name:"Schizotypal Personality Disorder", group:"Personality · Cluster A",
+  core:[
+    ["beliefs","Magical thinking and ideas of reference."],
+    ["attention","Unusual perceptual experiences and idiosyncratic attention to cues."],
+    ["social","Few close relationships beyond family."],
+    ["relskills","Odd communication creates friction and distance."],
+    ["sns","Social anxiety that doesn't fade with familiarity."]],
+  also:[["substance","Cannabis and psychosis risk"],["sleep"]] },
+
+/* --- Personality: Cluster B --- */
+{ id:"aspd", name:"Antisocial Personality Disorder", group:"Personality · Cluster B",
+  core:[
+    ["dopamine","Sensation and reward seeking with low sensitivity to punishment."],
+    ["substance","Very high comorbidity; intoxication amplifies impulsive harm."],
+    ["others","Limited awareness of one's impact on others."],
+    ["locus","Externalizing blame for outcomes."],
+    ["purposeothers","Prosocial roles build an identity incompatible with harming others."],
+    ["commitment","Sustained, values-driven willingness to change."]],
+  also:[["trauma"],["accomplishment","Wins earned prosocially"],["activity"]] },
+{ id:"bpd", name:"Borderline Personality Disorder", abbr:"BPD", group:"Personality · Cluster B",
+  core:[
+    ["affect","Emotional intensity and slow return to baseline — the heart of DBT."],
+    ["hierarchy","Rejection sensitivity and unstable self-worth react strongly to perceived devaluation."],
+    ["trauma","Invalidating or traumatic environments shape the biosocial vulnerability."],
+    ["relskills","Interpersonal effectiveness for stable, less chaotic relationships."],
+    ["connection","Fear of abandonment and insecure attachment."],
+    ["substance","Substance use as impulsive emotional escape."]],
+  also:[["acceptance","Radical acceptance"],["meaning","Chronic emptiness"],["social"],["commitment"],["sleep"]] },
+{ id:"hpd", name:"Histrionic Personality Disorder", abbr:"HPD", group:"Personality · Cluster B",
+  core:[
+    ["hierarchy","Self-worth is tied to attention and standing in others' eyes."],
+    ["social","A strong need for attention and approval."],
+    ["others","Impact on others when bids for attention escalate."],
+    ["connection","Relationships may feel closer than they are; depth over surface."],
+    ["affect","Rapidly shifting emotion; tolerating not being the center."],
+    ["meaning","An identity that doesn't depend on others' attention."]],
+  also:[["relskills"],["performance"]] },
+{ id:"npd", name:"Narcissistic Personality Disorder", abbr:"NPD", group:"Personality · Cluster B",
+  core:[
+    ["hierarchy","Central: worth is contingent on status and rank."],
+    ["performance","Achievement props up a fragile self-image."],
+    ["others","Empathic accuracy and awareness of impact."],
+    ["affect","Intolerance of shame, especially in vulnerable presentations."],
+    ["connection","Relationships organized around admiration rather than mutuality."]],
+  also:[["beliefs","Grandiose self-schema over a defective one"],["purposeothers"],["acceptance"]] },
+
+/* --- Personality: Cluster C --- */
+{ id:"avpd", name:"Avoidant Personality Disorder", group:"Personality · Cluster C",
+  core:[
+    ["hierarchy","Pervasive feelings of inadequacy and sensitivity to rejection."],
+    ["respondent","Graded exposure to the social situations that are avoided."],
+    ["beliefs","A defectiveness schema: “if they really knew me…”"],
+    ["social","Social needs go chronically unmet."],
+    ["relskills","Skills to enter and sustain relationships."]],
+  also:[["performance"],["affect"]] },
+{ id:"dpd", name:"Dependent Personality Disorder", group:"Personality · Cluster C",
+  core:[
+    ["agency","Little belief in one's ability to steer one's own future."],
+    ["locus","Outcomes are attributed to others' care and decisions."],
+    ["accomplishment","Independent wins build self-efficacy."],
+    ["relskills","Assertiveness and the ability to disagree."],
+    ["control","Fear of facing life's demands alone."]],
+  also:[["connection"],["commitment"]] },
+{ id:"ocpd", name:"Obsessive-Compulsive Personality Disorder", abbr:"OCPD", group:"Personality · Cluster C",
+  core:[
+    ["control","A strong need for order, control and predictability."],
+    ["performance","Perfectionism that interferes with finishing tasks."],
+    ["acceptance","Accepting imperfection and other people's ways of doing things."],
+    ["others","Rigidity leaves others feeling controlled (RO-DBT's overcontrol model)."],
+    ["relskills","Flexibility, delegation and repair in relationships."]],
+  also:[["lookfwd","Work crowds out leisure"],["locus","Over-responsibility"],["sns"]] }
+];
+
+const GROUPS = ["Neurodevelopmental","Schizophrenia Spectrum","Bipolar","Depressive","Anxiety","Obsessive-Compulsive","Trauma & Stressor","Personality"];
+const groupOf = d => d.group.startsWith("Personality") ? "Personality" : d.group;
+const tName = k => T[k][0];
+const tHex = k => PILLARS[T[k][1]].hex;
+const link = k => "interventions.html?target=" + encodeURIComponent(tName(k));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const tchip = k => `<a class="tchip" style="background:${tHex(k)}" href="${link(k)}" title="See interventions for ${esc(tName(k))}">${esc(tName(k))}</a>`;
+const ochip = (k, why) => `<a class="ochip" href="${link(k)}" title="${esc(why ? why + " · see interventions" : "See interventions")}"><i style="background:${tHex(k)}"></i>${esc(tName(k))}</a>`;
+
+/* sanity check while editing */
+DX.forEach(d => [...d.core.map(c=>c[0]), ...d.also.map(a=>a[0])].forEach(k => { if(!T[k]) console.warn("Unknown target key", k, "in", d.name); }));
+
+/* ---------- legend ---------- */
+document.getElementById("legend").innerHTML =
+  Object.values(PILLARS).map(p => `<span><i style="background:${p.hex}"></i>${p.name}</span>`).join("") +
+  `<span style="margin-left:auto">Click any target to see its interventions →</span>`;
+
+/* ---------- diagnosis-first view ---------- */
+const st = { group:"All", q:"" };
+const grid = document.getElementById("dxGrid"), gt = document.getElementById("groupTabs");
+["All", ...GROUPS].forEach(g => {
+  const b = document.createElement("button"); b.className = "chip-f"; b.textContent = g; b.dataset.g = g;
+  b.onclick = () => { st.group = g; renderDx(); };
+  gt.appendChild(b);
+});
+document.getElementById("dxSearch").addEventListener("input", e => { st.q = e.target.value.trim().toLowerCase(); renderDx(); });
+
+function dxCard(d){
+  const head = `<div class="dx-head"><div class="dx-group">${esc(d.group)}</div><h3>${esc(d.name)}${d.abbr ? `<small>${esc(d.abbr)}</small>` : ""}</h3></div>`;
+  const core = `<div class="sec">Core targets</div><ul class="core">${d.core.map(([k,w]) => `<li>${tchip(k)}<span class="why">${esc(w)}</span></li>`).join("")}</ul>`;
+  const also = d.also.length ? `<div class="sec" style="margin-top:18px">Also consider</div><div class="also">${d.also.map(([k,w]) => ochip(k,w)).join("")}</div>` : "";
+  const note = d.note ? `<div class="dx-note"><b>Note:</b> ${esc(d.note)}</div>` : "";
+  const cross = d.cross ? `<div class="cross">${esc(d.cross)}</div>` : "";
+  return `<article class="dx" id="dx-${d.id}">${head}<div class="dx-body">${core}${also}${cross}${note}</div></article>`;
+}
+function renderDx(){
+  gt.querySelectorAll(".chip-f").forEach(b => {
+    const on = b.dataset.g === st.group;
+    b.classList.toggle("active", on); b.style.background = on ? "#11131a" : "#fff";
+  });
+  const list = DX.filter(d => {
+    if(st.group !== "All" && groupOf(d) !== st.group) return false;
+    if(!st.q) return true;
+    const hay = [d.name, d.abbr||"", d.group, ...d.core.map(c => tName(c[0]) + " " + c[1]), ...d.also.map(a => tName(a[0]))].join(" ").toLowerCase();
+    return hay.includes(st.q);
+  });
+  grid.innerHTML = list.length ? list.map(dxCard).join("") : `<div class="empty" style="grid-column:1/-1">No matches. Try another search or choose “All”.</div>`;
+  document.getElementById("dxCount").textContent = `${list.length} diagnos${list.length === 1 ? "is" : "es"}`;
+}
+
+/* ---------- target-first view ---------- */
+const picked = new Set();
+const picker = document.getElementById("picker");
+picker.innerHTML = Object.entries(PILLARS).map(([pid,p]) => `
+  <div class="prow"><div class="plabel"><i style="background:${p.hex}"></i>${p.name}</div>
+    <div class="pchips">${Object.entries(T).filter(([,v]) => v[1] === pid).map(([k,v]) =>
+      `<button class="pick" data-k="${k}" aria-pressed="false">${esc(v[0])}</button>`).join("")}</div></div>`).join("");
+picker.addEventListener("click", e => {
+  const b = e.target.closest(".pick"); if(!b) return;
+  const k = b.dataset.k;
+  picked.has(k) ? picked.delete(k) : picked.add(k);
+  renderMatches();
+});
+document.getElementById("clearPicks").onclick = () => { picked.clear(); renderMatches(); };
+document.getElementById("seeMatches").onclick = () => document.querySelector(".rnote").scrollIntoView({behavior:"smooth", block:"start"});
+
+function renderMatches(){
+  picker.querySelectorAll(".pick").forEach(b => {
+    const on = picked.has(b.dataset.k);
+    b.classList.toggle("on", on); b.setAttribute("aria-pressed", on);
+    b.style.background = on ? tHex(b.dataset.k) : "#fff";
+  });
+  const n = picked.size;
+  document.getElementById("clearPicks").hidden = !n;
+  document.getElementById("seeMatches").hidden = !n;
+  document.getElementById("pickCount").textContent = n ? `${n} target${n > 1 ? "s" : ""} selected` : "Select the treatment targets you're seeing.";
+  const out = document.getElementById("matches");
+  if(!n){ out.innerHTML = `<div class="empty" style="padding:40px 20px">Your matching diagnoses will appear here.</div>`; return; }
+
+  const scored = DX.map(d => {
+    const core = d.core.map(c => c[0]).filter(k => picked.has(k));
+    const also = d.also.map(a => a[0]).filter(k => picked.has(k));
+    const total = d.core.length * 2 + d.also.length;
+    return { d, core, also, score: core.length * 2 + also.length,
+             coverage: (core.length + also.length) / n, fit: (core.length * 2 + also.length) / total };
+  }).filter(s => s.score > 0)
+    .sort((a,b) => b.score - a.score || b.fit - a.fit);
+
+  if(!scored.length){ out.innerHTML = `<div class="empty" style="padding:40px 20px">None of the sample diagnoses list this combination. That's a useful signal in itself — formulate from the targets.</div>`; return; }
+  const top = scored[0].score;
+  out.innerHTML = scored.map(s => {
+    const matched = s.core.length + s.also.length;
+    return `<div class="match">
+      <div><div class="mg">${esc(s.d.group)}</div><h4><a href="#dx-${s.d.id}" data-jump="${s.d.id}">${esc(s.d.name)}${s.d.abbr ? ` (${esc(s.d.abbr)})` : ""}</a></h4></div>
+      <div class="meter">${matched} of your ${n} target${n > 1 ? "s" : ""}${s.core.length ? ` · ${s.core.length} core` : ""}
+        <div class="track"><div class="fill" style="width:${Math.round(s.score / top * 100)}%"></div></div></div>
+      <div class="hits">${s.core.map(k => tchip(k)).join("")}${s.also.map(k => ochip(k)).join("")}</div>
+    </div>`;
+  }).join("");
+}
+document.getElementById("matches").addEventListener("click", e => {
+  const a = e.target.closest("[data-jump]"); if(!a) return;
+  e.preventDefault(); setMode("dx");
+  st.group = "All"; st.q = ""; document.getElementById("dxSearch").value = ""; renderDx();
+  const el = document.getElementById("dx-" + a.dataset.jump);
+  if(el){ el.scrollIntoView({behavior:"smooth", block:"start"}); el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+});
+
+/* ---------- mode switch ---------- */
+function setMode(m){
+  const dx = m === "dx";
+  document.getElementById("viewDx").hidden = !dx;
+  document.getElementById("viewT").hidden = dx;
+  document.getElementById("modeDx").classList.toggle("active", dx);
+  document.getElementById("modeT").classList.toggle("active", !dx);
+  document.getElementById("modeDx").setAttribute("aria-selected", dx);
+  document.getElementById("modeT").setAttribute("aria-selected", !dx);
+}
+document.getElementById("modeDx").onclick = () => setMode("dx");
+document.getElementById("modeT").onclick = () => setMode("t");
+
+/* ---------- mobile menu ---------- */
+(()=>{
+  const nav=document.querySelector('nav.top'), btn=document.getElementById('navToggle'), links=document.getElementById('navLinks');
+  const set=open=>{ nav.classList.toggle('open',open); btn.setAttribute('aria-expanded',open);
+    btn.setAttribute('aria-label',open?'Close menu':'Open menu'); };
+  btn.addEventListener('click',e=>{ e.stopPropagation(); set(!nav.classList.contains('open')); });
+  links.addEventListener('click',e=>{ if(e.target.closest('a')) set(false); });
+  document.addEventListener('click',e=>{ if(!nav.contains(e.target)) set(false); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') set(false); });
+  window.addEventListener('resize',()=>{ if(innerWidth>720) set(false); });
+})();
+
+renderDx(); renderMatches();
+</script>
+</body>
+</html>

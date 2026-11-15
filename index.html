@@ -67,7 +67,33 @@ nav.top.scrolled .brand{color:var(--ink)}
 nav.top.scrolled .navlinks{color:var(--ink-soft)}
 .navlinks a{text-decoration:none;opacity:.85;transition:opacity .2s}
 .navlinks a:hover{opacity:1}
-@media(max-width:780px){.navlinks{display:none}}
+.navtoggle{display:none}
+nav.top.scrolled .navcta,nav.top.open .navcta{background:#fff;color:var(--ink);border-color:var(--line)}
+@media(max-width:780px){
+  nav.top{padding:12px 16px;gap:10px}
+  nav.top.scrolled{padding:10px 16px}
+  nav.top .navcta{margin-left:auto;padding:8px 13px!important;font-size:13px!important}
+  /* hamburger */
+  .navtoggle{display:inline-flex;flex-direction:column;justify-content:center;gap:4px;width:40px;height:40px;
+    padding:0 10px;border-radius:12px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);cursor:pointer}
+  .navtoggle span{display:block;height:2px;border-radius:2px;background:#fff;transition:transform .25s,opacity .2s,background .4s}
+  nav.top.scrolled .navtoggle,nav.top.open .navtoggle{border-color:var(--line);background:#fff}
+  nav.top.scrolled .navtoggle span,nav.top.open .navtoggle span{background:var(--ink)}
+  nav.top.open .navtoggle span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  nav.top.open .navtoggle span:nth-child(2){opacity:0}
+  nav.top.open .navtoggle span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+  /* the links become a drop-down panel */
+  .navlinks{position:absolute;top:calc(100% + 6px);left:12px;right:12px;flex-direction:column;gap:2px;
+    padding:8px;border-radius:16px;background:rgba(247,245,241,.97);color:var(--ink)!important;
+    box-shadow:0 18px 40px rgba(11,14,22,.28);border:1px solid var(--line);
+    opacity:0;transform:translateY(-8px);pointer-events:none;visibility:hidden;
+    transition:opacity .2s,transform .2s,visibility 0s .2s}
+  nav.top.open .navlinks{opacity:1;transform:none;pointer-events:auto;visibility:visible;transition:opacity .2s,transform .2s}
+  nav.top.open{background:rgba(247,245,241,.92)}
+  nav.top.open .brand{color:var(--ink)}
+  .navlinks a{display:block;padding:12px 14px;border-radius:10px;font-size:16px;opacity:1}
+  .navlinks a:active,.navlinks a:hover{background:rgba(124,92,255,.08)}
+}
 
 /* ---------- hero ---------- */
 .hero{
@@ -300,17 +326,19 @@ footer .auth b{color:#fff}
 
 <nav class="top" id="nav">
   <div class="brand"><span class="dot"></span> TTIM</div>
-  <div class="navlinks">
+  <div class="navlinks" id="navLinks">
     <a href="#why">Why</a>
     <a href="#model">The Model</a>
     <a href="#emotion">Emotion</a>
     <a href="#pillars">Five Pillars</a>
     <a href="#explorer">Explore</a>
     <a href="interventions.html">Interventions</a>
+    <a href="diagnoses.html">Diagnoses</a>
     <!-- Builder hidden for now: <a href="builder.html">Builder</a> -->
     <a href="#use">In Practice</a>
   </div>
-  <a href="TTIM.png" target="_blank" class="btn btn-ghost" style="padding:9px 16px;font-size:13.5px">Open diagram ↗</a>
+  <a href="TTIM.png" target="_blank" class="btn btn-ghost navcta" style="padding:9px 16px;font-size:13.5px">Open diagram ↗</a>
+  <button class="navtoggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- HERO -->
@@ -856,6 +884,18 @@ const io=new IntersectionObserver((ents)=>{
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 const nav=document.getElementById('nav'), prog=document.getElementById('progress');
+/* mobile menu */
+(()=>{
+  const btn=document.getElementById('navToggle'), links=document.getElementById('navLinks');
+  if(!btn||!links) return;
+  const set=open=>{ nav.classList.toggle('open',open); btn.setAttribute('aria-expanded',open);
+    btn.setAttribute('aria-label',open?'Close menu':'Open menu'); };
+  btn.addEventListener('click',e=>{ e.stopPropagation(); set(!nav.classList.contains('open')); });
+  links.addEventListener('click',e=>{ if(e.target.closest('a')) set(false); });
+  document.addEventListener('click',e=>{ if(!nav.contains(e.target)) set(false); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') set(false); });
+  window.addEventListener('resize',()=>{ if(innerWidth>780) set(false); });
+})();
 function onScroll(){
   const y=window.scrollY;
   nav.classList.toggle('scrolled',y>40);
