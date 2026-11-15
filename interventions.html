@@ -116,6 +116,7 @@ footer a{color:rgba(255,255,255,.85)}
     <a href="index.html">Home</a>
     <a href="index.html#explorer">Model Explorer</a>
     <a href="interventions.html" class="active">Interventions</a>
+    <!-- Builder hidden for now: <a href="builder.html">Builder</a> -->
     <a href="index.html#use">In Practice</a>
   </div>
   <a href="index.html" class="tab navback" style="padding:8px 14px">← Back to model</a>
@@ -203,7 +204,8 @@ const MODALITY_COLORS = {
   "Metabolic / Lifestyle":"#16a34a",
   "Psychoeducation":"#4f46e5",
   "Compassion-Focused":"#db2777",
-  "IFS":"#9333ea"
+  "IFS":"#9333ea",
+  "Experiential":"#c026d3"
 };
 const DEFAULT_MOD_COLOR = "#64748b";
 
@@ -392,6 +394,26 @@ const DATA = [
     { name:"Letting Go of Expectations", modality:"CBT", how:"Denied expectations cause a severe dopamine drop; reframing expectations reduces the crash." }
   ]},
 
+{ pillar:"allostatic", target:"Affect Tolerance",
+  why:"Affect varies along two axes: energy (arousal) and valence. When some regions of that space feel intolerable — high-energy distress like panic or rage, low-energy states like emptiness or boredom, even calm or joy — clients escape them through avoidance, numbing, impulsive action or dissociation. Widening the window of tolerance lets a client stay present and regulated across the full affective range.",
+  questions:["Does the client have the capacity to handle a range of affective experiences, including all combinations of high and low energy and high and low valence?"],
+  interventions:[
+    { name:"Somatic Experiencing", modality:"Somatic", how:"Titrate activation in small doses and pendulate between distress and safety to gradually stretch nervous-system capacity." },
+    { name:"Sensorimotor Psychotherapy", modality:"Somatic", how:"Track posture, movement and autonomic shifts at the edges of the window; build physical containment and grounding." },
+    { name:"Integral Somatic Psychology", modality:"Somatic", how:"Spread emotional resonance across more of the body so an emotion feels less concentrated and easier to hold." },
+    { name:"Trauma-informed yoga", modality:"Somatic", how:"Build interoceptive awareness and tolerance for fear-linked sensations without dissociating." },
+    { name:"DBT Distress Tolerance", modality:"DBT", how:"TIPP, self-soothing and radical acceptance to ride out acute high-energy spikes without impulsive action." },
+    { name:"DBT Emotion Regulation", modality:"DBT", how:"Reduce emotional vulnerability so intense affect arrives less often and is easier to stay with." },
+    { name:"ACT willingness & defusion", modality:"ACT", how:"Target experiential avoidance; make room for uncomfortable affect while acting on values." },
+    { name:"Emotion Regulation Therapy", modality:"CBT", how:"Mindful attention regulation plus metacognitive reframing to allow anxiety, anger or sadness instead of worrying or ruminating." },
+    { name:"STAIR", modality:"Trauma-Focused", how:"Builds emotional awareness and modulation skills before trauma narrative work; designed for complex trauma." },
+    { name:"AEDP / ISTDP", modality:"Psychodynamic", how:"Treat 'affect phobia': name the defenses against core emotions, then experience them to completion in a safe dyad." },
+    { name:"Emotion-Focused Therapy", modality:"Experiential", how:"Deepen emotional processing in session, rather than intellectualizing or bypassing, to transform maladaptive emotion schemes." },
+    { name:"Parts Work", modality:"IFS", how:"Unblend from overwhelmed or protective 'parts' so intense states can be witnessed with curiosity rather than flooding." },
+    { name:"EMDR", modality:"Trauma-Focused", how:"Process distressing memories with dual attention while staying anchored in the present." },
+    { name:"Positive Affect Tolerance (PAT) protocol", modality:"Trauma-Focused", how:"EMDR adaptation for clients who can't tolerate praise, warmth or connection — common after neglect." },
+    { name:"Accelerated Resolution Therapy", modality:"Trauma-Focused", how:"Eye movements with imagery rescripting to reduce physiological reactivity and expand emotional resilience." }
+  ]},
 { pillar:"relationships", target:"Social Homeostatic Needs",
   why:"Isolation produces real physiological consequences and rising allostatic load; unmet social needs are statistically probable for almost anyone presenting for care.",
   questions:["Close relationships (family/friend/romantic)? Lonely?","Happy with the closeness of their relationships?","How often do they speak with and see people?"],
@@ -695,7 +717,7 @@ function matchesSearch(t, iv){
 
 function render(){
   out.innerHTML="";
-  let shownTargets=0, shownIv=0;
+  let shownTargets=0, shownCross=0, shownIv=0;
   DATA.forEach(t=>{
     if(state.pillar!=="all" && t.pillar!==state.pillar) return;
     // filter interventions
@@ -705,7 +727,9 @@ function render(){
       return true;
     });
     if(ivs.length===0) return;
-    shownTargets++; shownIv+=ivs.length;
+    /* cross-cutting areas (e.g. Executive Functioning) aren't counted as treatment targets */
+    if(t.pillar==="crosscutting") shownCross++; else shownTargets++;
+    shownIv+=ivs.length;
     const meta=PILLAR_META[t.pillar];
     const card=document.createElement("section"); card.className="tcard";
     const q=(t.questions||[]).map(x=>`<div class="q"><b>Guiding question:</b> ${x}</div>`).join("");
@@ -733,8 +757,9 @@ function render(){
       </div>`;
     out.appendChild(card);
   });
-  if(shownTargets===0){ out.innerHTML=`<div class="empty">No matches. Try clearing the search or choosing “All modalities.”</div>`; }
-  countEl.textContent=`${shownTargets} target${shownTargets!==1?"s":""} · ${shownIv} intervention${shownIv!==1?"s":""}`;
+  if(shownTargets+shownCross===0){ out.innerHTML=`<div class="empty">No matches. Try clearing the search or choosing “All modalities.”</div>`; }
+  const crossTxt = shownCross ? ` + ${shownCross} cross-cutting area${shownCross!==1?"s":""}` : "";
+  countEl.textContent=`${shownTargets} target${shownTargets!==1?"s":""}${crossTxt} · ${shownIv} intervention${shownIv!==1?"s":""}`;
 }
 
 syncTabs(); syncMods(); render();

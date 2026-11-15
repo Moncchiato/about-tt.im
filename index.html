@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-69RR52KN9Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-69RR52KN9Y');
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Treatment Target Identification Model (TTIM)</title>
@@ -316,6 +307,7 @@ footer .auth b{color:#fff}
     <a href="#pillars">Five Pillars</a>
     <a href="#explorer">Explore</a>
     <a href="interventions.html">Interventions</a>
+    <!-- Builder hidden for now: <a href="builder.html">Builder</a> -->
     <a href="#use">In Practice</a>
   </div>
   <a href="TTIM.png" target="_blank" class="btn btn-ghost" style="padding:9px 16px;font-size:13.5px">Open diagram ↗</a>
@@ -332,7 +324,7 @@ footer .auth b{color:#fff}
         <p class="lede">A unifying map for clinicians: instead of inventing new therapies, the TTIM helps you find <strong>what is missing</strong> in a person's life for a good lived experience — and which evidence-based targets to treat.</p>
         <div class="meta">
           <span class="pill">✦ Five interconnected pillars</span>
-          <span class="pill">◆ 31 treatment targets</span>
+          <span class="pill">◆ 32 treatment targets</span>
         </div>
         <div class="hero-cta">
           <a href="#explorer" class="btn btn-primary">Explore the model →</a>
@@ -468,6 +460,20 @@ footer .auth b{color:#fff}
       </div>
     </div>
 
+    <!-- Builder promo hidden for now (restore by removing this comment wrapper)
+    <div class="reveal" style="margin:34px 0 10px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;
+         justify-content:space-between;padding:22px 24px;border-radius:18px;
+         background:linear-gradient(120deg,rgba(124,92,255,.22),rgba(255,93,177,.18) 55%,rgba(22,194,194,.18));
+         border:1px solid rgba(255,255,255,.16)">
+      <div style="min-width:250px;flex:1">
+        <strong style="display:block;font-size:16.5px;color:#fff;margin-bottom:4px">Build your own formulation</strong>
+        <span style="font-size:14px;color:rgba(255,255,255,.76);line-height:1.55">Open the model as a live figure —
+        drag treatment targets between pillars, add your own, and export the map for a session or a supervision group.</span>
+      </div>
+      <a href="builder.html" class="btn btn-primary" style="flex:none;text-decoration:none">Open the TTIM Builder →</a>
+    </div>
+    -->
+
     <div class="svg-viewer reveal">
       <div class="hint">Drag to pan · use + / − to zoom</div>
       <div class="svg-stage" id="svgStage"><img src="TTIM.svg" id="svgImg" alt="The complete TTIM diagram"></div>
@@ -539,7 +545,7 @@ footer .auth b{color:#fff}
       <a class="btn btn-primary" href="mailto:dr.alexeybreuss@gmail.com?subject=TTIM%20Inquiry">✉&nbsp; Email Dr. Breuss</a>
     </div>
 
-    <p class="disclaimer">The TTIM is a theoretically grounded, evidence-based proposal — not yet an empirically validated instrument. It is intended to scaffold clinical reasoning, education, and supervision, and does not replace clinical judgment, diagnosis, or appropriate interdisciplinary collaboration (e.g., with physicians or dietitians for metabolic targets). This site summarizes the model for educational purposes.</p>
+    <p class="disclaimer">The TTIM is a theoretically grounded, evidence-based proposal — not yet an empirically validated instrument. It is intended to scaffold clinical reasoning, education, and supervision, and does not replace clinical judgment, diagnosis, or appropriate interdisciplinary collaboration (e.g., with physicians or dietitians for metabolic targets). This site summarizes the model for educational purposes. A formal peer reviewed publication is in the process of being submitted.</p>
 
     <div class="license">
       <a class="cc-badge" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="license noopener" aria-label="Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License">
@@ -620,7 +626,11 @@ const PILLARS = [
       {name:"Dopamine System Disruption",
         why:"Dopamine governs reward, motivation and movement, and operates on relative, prediction-based stimulation. Modern life over-stimulates it; under- and over-activation both produce mental-health consequences.",
         q:["Does the client feel unpleasant when prevented from doing what they want?","Does the client feel their best when they do new things?","Does the client feel their best when pursuing a goal?","Does the client enjoy the early stages of new things, then struggle once novelty wears off?"],
-        ix:["Abstinence from highly dopaminergic activity (reset)","Aligning values to behavior","Increasing non-dopaminergic pleasures","Structural schedule adjustments","Lifestyle exploration","Pharmacology (stimulants / dopamine modulators; antagonists for excess)"]}
+        ix:["Abstinence from highly dopaminergic activity (reset)","Aligning values to behavior","Increasing non-dopaminergic pleasures","Structural schedule adjustments","Lifestyle exploration","Pharmacology (stimulants / dopamine modulators; antagonists for excess)"]},
+      {name:"Affect Tolerance",
+        why:"Affect varies along two axes: energy (arousal) and valence. When some regions of that space feel intolerable — high-energy distress like panic or rage, low-energy states like emptiness or boredom, even calm or joy — clients escape them through avoidance, numbing, impulsive action or dissociation. Widening the window of tolerance lets a client stay present and regulated across the full affective range.",
+        q:["Does the client have the capacity to handle a range of affective experiences, including all combinations of high and low energy and high and low valence?"],
+        ix:["Somatic Experiencing (titration & pendulation)", "Sensorimotor Psychotherapy", "Integral Somatic Psychology", "Trauma-informed yoga", "DBT Distress Tolerance", "DBT Emotion Regulation", "ACT willingness & defusion", "Emotion Regulation Therapy", "STAIR", "AEDP / ISTDP", "Emotion-Focused Therapy", "IFS parts work", "EMDR (incl. Positive Affect Tolerance protocol)", "Accelerated Resolution Therapy"]}
     ]
   },
   {

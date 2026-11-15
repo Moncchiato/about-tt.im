@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>TTIM Builder — Interactive Treatment Target Map</title>
+<meta name="description" content="An interactive, drag-and-drop version of the Treatment Target Identification Model (TTIM). Move treatment targets between pillars, create your own, and build an idiographic case formulation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#11131a; --ink-soft:#3a3f4d; --muted:#6b7180;
+  --paper:#f7f5f1; --line:rgba(17,19,26,.12);
+  --night:#0b0e16;
+  --cognitions:#7c5cff; --allostatic:#ff4d6d; --relationships:#ff9f1c;
+  --purpose:#ff5db1; --metabolic:#16c2c2;
+  --target:#00bf63;
+  --bank-w:262px; --insp-w:340px; --nav-h:54px; --bar-h:52px;
+  --ease:cubic-bezier(.22,.9,.26,1);
+  --spring:cubic-bezier(.34,1.28,.44,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--ink);
+  background:var(--night);line-height:1.55;-webkit-font-smoothing:antialiased;
+  overflow:hidden;overscroll-behavior:none;
+}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.1;letter-spacing:-.01em}
+a{color:inherit} a.tool,a.brand{text-decoration:none}
+button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:rgba(120,126,145,.42);border-radius:9px}
+::-webkit-scrollbar-thumb:hover{background:rgba(120,126,145,.65)}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ---------- nav ---------- */
+nav.top{
+  position:relative;z-index:60;height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 18px;
+  background:rgba(11,14,22,.96);border-bottom:1px solid rgba(255,255,255,.09);
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14.5px;color:#fff;white-space:nowrap}
+.brand .dot{width:22px;height:22px;border-radius:7px;flex:none;
+  background:conic-gradient(from 200deg,var(--cognitions),var(--purpose),var(--relationships),var(--metabolic),var(--cognitions))}
+.navlinks{display:flex;gap:20px;font-size:13.5px;font-weight:500;color:rgba(255,255,255,.72);min-width:0;overflow-x:auto;scrollbar-width:none}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{white-space:nowrap;text-decoration:none;transition:color .2s}
+.navlinks a:hover{color:#fff}
+.navlinks a.active{color:#fff;font-weight:600}
+
+/* ---------- shell ---------- */
+.app{
+  position:relative;height:calc(100vh - var(--nav-h));height:calc(100dvh - var(--nav-h));
+  display:grid;grid-template-columns:var(--bank-w) minmax(0,1fr) var(--insp-w);
+  background:radial-gradient(120% 110% at 50% -10%,#1b2336 0%,#0b0e16 62%);
+}
+
+/* ---------- bank ---------- */
+.bank{
+  position:relative;z-index:30;display:flex;flex-direction:column;min-height:0;
+  background:rgba(255,255,255,.035);border-right:1px solid rgba(255,255,255,.09);
+  backdrop-filter:blur(8px);transition:background .25s ease,box-shadow .25s ease;
+}
+.bank.drop-armed{background:rgba(0,191,99,.13);box-shadow:inset 0 0 0 2px rgba(0,191,99,.55)}
+.bank-head{padding:14px 16px 10px;border-bottom:1px solid rgba(255,255,255,.08)}
+.bank-title{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.bank-title h2{font-size:15px;color:#fff}
+.count-pill{font-size:11px;font-weight:600;color:rgba(255,255,255,.62);font-family:'Inter',sans-serif;
+  border:1px solid rgba(255,255,255,.18);border-radius:100px;padding:2px 8px}
+.bank-sub{font-size:11.5px;color:rgba(255,255,255,.46);margin-top:5px;line-height:1.45}
+.bank-scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:14px 12px 16px}
+.bank-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-content:flex-start;min-height:70px}
+.bank-empty{width:100%;border:1.5px dashed rgba(255,255,255,.18);border-radius:14px;
+  padding:24px 14px;text-align:center;font-size:12px;color:rgba(255,255,255,.4);line-height:1.5}
+.bank-foot{padding:11px 12px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;gap:8px}
+.mini-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;
+  font-size:12.5px;font-weight:600;color:#fff;padding:9px 12px;border-radius:9px;
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);
+  transition:background .18s ease,transform .18s var(--ease)}
+.mini-btn:hover{background:rgba(255,255,255,.17)}
+.mini-btn:active{transform:scale(.975)}
+.mini-btn.green{background:linear-gradient(180deg,#00c96a,#00a758);border-color:rgba(255,255,255,.28);
+  box-shadow:0 8px 22px -10px rgba(0,191,99,.9)}
+.mini-btn.green:hover{background:linear-gradient(180deg,#0ad97a,#00b862)}
+
+/* ---------- canvas ---------- */
+.canvas{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0}
+.bar{height:var(--bar-h);flex:none;display:flex;align-items:center;gap:8px;padding:0 14px;
+  border-bottom:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);
+  overflow-x:auto;scrollbar-width:none;z-index:20}
+.bar::-webkit-scrollbar{display:none}
+.tool{display:inline-flex;align-items:center;gap:6px;flex:none;
+  font-size:12.5px;font-weight:500;color:rgba(255,255,255,.82);
+  padding:7px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.05);white-space:nowrap;
+  transition:background .18s,color .18s,border-color .18s,transform .15s var(--ease)}
+.tool:hover{background:rgba(255,255,255,.14);color:#fff}
+.tool:active{transform:scale(.97)}
+.tool.on{background:rgba(255,255,255,.92);color:var(--night);border-color:transparent;font-weight:600}
+.tool.danger:hover{background:rgba(255,77,109,.24);border-color:rgba(255,77,109,.5);color:#ffd7de}
+.bar .sep{width:1px;height:22px;background:rgba(255,255,255,.14);flex:none;margin:0 3px}
+.bar .spacer{flex:1 1 auto;min-width:4px}
+.saved-note{font-size:11.5px;color:rgba(255,255,255,.42);flex:none;white-space:nowrap;
+  opacity:0;transition:opacity .35s ease}
+.saved-note.show{opacity:1}
+
+.viewport{position:relative;flex:1;min-height:0;overflow:hidden;touch-action:none;cursor:grab}
+.viewport.panning{cursor:grabbing}
+.stage{position:absolute;left:50%;top:50%;transform-origin:center center;will-change:transform}
+.stage svg{display:block;width:100%;height:100%;overflow:visible;pointer-events:none}
+#hexlayer{position:absolute;inset:0;pointer-events:none}
+
+.hint{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);
+  font-size:11.5px;color:rgba(255,255,255,.4);pointer-events:none;z-index:5;
+  text-align:center;white-space:nowrap;transition:opacity .4s ease}
+.zoombar{position:absolute;right:14px;bottom:14px;z-index:8;display:flex;gap:6px;
+  background:rgba(11,14,22,.72);border:1px solid rgba(255,255,255,.14);
+  border-radius:11px;padding:5px;backdrop-filter:blur(8px)}
+.zoombar button{width:30px;height:30px;border-radius:7px;color:rgba(255,255,255,.85);
+  font-size:15px;line-height:1;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.zoombar button:hover{background:rgba(255,255,255,.15);color:#fff}
+.zoombar .lvl{width:auto;padding:0 9px;font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums}
+
+/* ---------- diagram ---------- */
+.zone-hl{opacity:0;transition:opacity .2s ease;pointer-events:none}
+.zone-ring{fill:none;stroke:#fff;stroke-width:2.2;stroke-linejoin:round;
+  opacity:0;transition:opacity .2s ease;pointer-events:none;
+  filter:drop-shadow(0 0 5px rgba(255,255,255,.9))}
+.ttl{font-family:'Nunito','Inter',sans-serif;font-weight:800;fill:#fff;
+  paint-order:stroke;stroke:rgba(0,0,0,.10);stroke-width:1.1}
+.ttl.dark{fill:#0b0e16;stroke:none}
+
+/* ---------- targets ---------- */
+.hex{position:absolute;pointer-events:auto;cursor:grab;touch-action:none;
+  user-select:none;-webkit-user-select:none;will-change:transform}
+.hex .sq{position:absolute;inset:0;will-change:transform}
+.hex .body{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:0 5%;
+  font-family:'Nunito','Inter',sans-serif;font-weight:700;color:#fff;
+  letter-spacing:.002em;overflow:hidden;overflow-wrap:anywhere;word-break:normal;
+  background:var(--c-base);
+  clip-path:polygon(0% 9.81%,50% 0%,100% 9.81%,100% 90.19%,50% 100%,0% 90.19%);
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+.hex .body{transition:transform .18s var(--ease),filter .18s ease}
+.hex:hover .body{transform:scale(1.07);filter:drop-shadow(0 5px 10px rgba(0,0,0,.5)) brightness(1.1)}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.05ms!important}}
+.hex.sel .body{box-shadow:none;filter:drop-shadow(0 0 0 2px #fff) drop-shadow(0 5px 12px rgba(0,0,0,.55))}
+.hex.dragging{z-index:900;cursor:grabbing}
+.hex.dragging .body{filter:drop-shadow(0 14px 22px rgba(0,0,0,.6)) brightness(1.12)}
+.hex.in-bank{position:relative;left:auto!important;top:auto!important}
+.hex.pop .body{animation:pop .5s var(--spring)}
+@keyframes pop{0%{transform:scale(.3);opacity:0}60%{opacity:1}100%{transform:scale(1);opacity:1}}
+.hex.leaving .body{transform:scale(.2) rotate(9deg);opacity:0;transition:transform .3s ease,opacity .3s ease}
+.hex[data-tone="green"]{--c-base:#00bf63}
+.hex[data-tone="amber"]{--c-base:#ffab2e}
+.hex[data-tone="red"]{--c-base:#ff4d6d}
+.hex[data-tone="violet"]{--c-base:#8c52ff}
+.hex[data-tone="blue"]{--c-base:#38b6ff}
+.hex[data-tone="slate"]{--c-base:#7b8496}
+
+/* ---------- inspector ---------- */
+.inspector{position:relative;z-index:30;min-height:0;display:flex;flex-direction:column;
+  background:rgba(255,255,255,.035);border-left:1px solid rgba(255,255,255,.09);
+  backdrop-filter:blur(8px);overflow:hidden}
+.insp-head{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.08);flex:none;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.insp-head h2{font-size:15px;color:#fff}
+.insp-head .x{font-size:19px;line-height:1;color:rgba(255,255,255,.45);padding:2px 5px;border-radius:6px;flex:none}
+.insp-head .x:hover{color:#fff;background:rgba(255,255,255,.1)}
+.insp-body{flex:1;min-height:0;overflow-y:auto;padding:16px}
+.insp-empty{color:rgba(255,255,255,.4);font-size:12.5px;text-align:center;padding:48px 18px;line-height:1.6}
+.insp-empty .ring{width:44px;height:44px;margin:0 auto 14px;border-radius:50%;
+  border:1.5px dashed rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;
+  font-size:15px;color:rgba(255,255,255,.4)}
+.t-name{font-family:'Fraunces',serif;font-size:21px;color:#fff;line-height:1.14;margin-bottom:8px}
+.t-where{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.72);
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);
+  border-radius:100px;padding:4px 11px}
+.t-where .sw{width:8px;height:8px;border-radius:2px;flex:none}
+.moved-note{margin-top:10px;font-size:11.5px;color:#ffd27a;background:rgba(255,189,89,.12);
+  border:1px solid rgba(255,189,89,.3);border-radius:8px;padding:7px 10px;line-height:1.45}
+.insp-sec{margin-top:20px}
+.insp-sec h4{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.46);margin-bottom:8px;font-family:'Inter',sans-serif}
+.insp-sec p{font-size:13px;color:rgba(255,255,255,.8);line-height:1.62}
+.qlist{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qlist li{font-size:12.5px;color:rgba(255,255,255,.82);line-height:1.5;padding-left:15px;position:relative}
+.qlist li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--target)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:11.5px;color:rgba(255,255,255,.84);background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);border-radius:100px;padding:4px 10px;line-height:1.35}
+.tones{display:flex;gap:7px;flex-wrap:wrap}
+.tone{width:26px;height:26px;border-radius:8px;border:2px solid transparent;transition:transform .15s var(--ease)}
+.tone:hover{transform:scale(1.12)}
+.tone.on{border-color:#fff}
+.notes{width:100%;min-height:92px;resize:vertical;border-radius:10px;padding:10px 11px;
+  font-family:'Inter',sans-serif;font-size:12.5px;line-height:1.55;color:#fff;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);outline:none}
+.notes:focus{border-color:rgba(0,191,99,.7)}
+.notes::placeholder{color:rgba(255,255,255,.34)}
+.acts{display:flex;gap:7px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1)}
+.acts .tool{font-size:12px}
+
+/* ---------- modal + toast ---------- */
+.veil{position:fixed;inset:0;z-index:1000;background:rgba(6,8,14,.66);backdrop-filter:blur(5px);
+  display:flex;align-items:center;justify-content:center;padding:22px;
+  opacity:0;pointer-events:none;transition:opacity .25s ease}
+.veil.open{opacity:1;pointer-events:auto}
+.modal{width:min(430px,100%);background:#171c2b;border:1px solid rgba(255,255,255,.14);
+  border-radius:18px;padding:22px;box-shadow:0 40px 90px -30px rgba(0,0,0,.9);
+  transform:translateY(16px) scale(.97);transition:transform .3s var(--spring)}
+.veil.open .modal{transform:none}
+.modal h3{font-size:19px;color:#fff;margin-bottom:5px}
+.modal p.sub{font-size:12.5px;color:rgba(255,255,255,.55);margin-bottom:16px;line-height:1.5}
+.modal label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.13em;
+  text-transform:uppercase;color:rgba(255,255,255,.46);margin:14px 0 7px}
+.modal input[type=text],.modal textarea{width:100%;border-radius:10px;padding:10px 12px;
+  font-family:'Inter',sans-serif;font-size:13.5px;color:#fff;background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.18);outline:none}
+.modal input[type=text]:focus,.modal textarea:focus{border-color:rgba(0,191,99,.75)}
+.modal textarea{min-height:70px;resize:vertical;font-size:12.5px}
+.modal .row{display:flex;gap:9px;justify-content:flex-end;margin-top:20px}
+.modal .row .tool{padding:9px 16px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,16px);z-index:1200;
+  background:rgba(23,28,43,.97);color:#fff;font-size:12.5px;font-weight:500;
+  border:1px solid rgba(255,255,255,.16);border-radius:100px;padding:9px 18px;
+  box-shadow:0 20px 45px -18px rgba(0,0,0,.9);opacity:0;pointer-events:none;
+  transition:opacity .3s ease,transform .3s var(--spring);max-width:calc(100vw - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- responsive ---------- */
+.mobile-only{display:none}
+@media(max-width:1180px){:root{--insp-w:302px;--bank-w:234px}}
+@media(max-width:980px){
+  .app{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}
+  .canvas{order:1}
+  .bank{order:2;border-right:none;border-top:1px solid rgba(255,255,255,.12);max-height:37vh}
+  .inspector{position:fixed;top:var(--nav-h);right:0;bottom:0;width:min(360px,100%);
+    z-index:80;background:#141927;box-shadow:-20px 0 60px -20px rgba(0,0,0,.8);
+    transform:translateX(100%);transition:transform .34s var(--ease);display:flex!important}
+  .inspector.open{transform:none}
+  .mobile-only{display:inline-flex}
+  .navlinks{display:none}
+  .hint{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a class="brand" href="index.html"><span class="dot"></span> TTIM</a>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="index.html#model">The Model</a>
+    <a href="index.html#explorer">Model Explorer</a>
+    <a href="interventions.html">Interventions</a>
+    <a href="builder.html" class="active">Builder</a>
+  </div>
+  <a href="index.html" class="tool" style="flex:none">← Back to model</a>
+</nav>
+
+<div class="app" id="app">
+  <aside class="bank" id="bank">
+    <div class="bank-head">
+      <div class="bank-title"><h2>Target bank</h2><span class="count-pill" id="bankCount">0</span></div>
+      <p class="bank-sub">Drag a target onto any level of the model. Drag one back here to park it.</p>
+    </div>
+    <div class="bank-scroll"><div class="bank-grid" id="bankGrid"></div></div>
+    <div class="bank-foot">
+      <button class="mini-btn green" id="btnNew">＋ New treatment target</button>
+      <button class="mini-btn mobile-only" id="btnInspM">Open target details</button>
+    </div>
+  </aside>
+
+  <main class="canvas">
+    <div class="bar">
+      <button class="tool" id="btnTidy" title="Neatly re-pack every level">✦ Tidy up</button>
+      <button class="tool" id="btnSave" title="Save this formulation in your browser">⌸ Save</button>
+      <button class="tool" id="btnReset" title="Return every target to where it sits in the published model">↺ Reset</button>
+      <span class="sep"></span>
+      <button class="tool" id="btnPng" title="Download a PNG of the current map">⤓ PNG</button>
+      <button class="tool" id="btnJson" title="Download this formulation as a file you can re-open">⤓ File</button>
+      <button class="tool" id="btnLoad" title="Open a formulation file">⤒ Open</button>
+      <input type="file" id="fileIn" accept="application/json,.json" hidden>
+      <span class="sep"></span>
+      <button class="tool" id="btnArrows" title="Show the connections between levels">⇢ Arrows</button>
+      <button class="tool" id="btnLabels" title="Show the name of every level">◉ Level names</button>
+      <button class="tool" id="btnJelly" title="Springy, deformable drag-and-drop">◠ Stretch</button>
+      <button class="tool" id="btnAuto" title="Re-space a level automatically whenever a target lands in it">⬚ Auto-space</button>
+      <span class="spacer"></span>
+      <span class="saved-note" id="savedNote">Saved</span>
+    </div>
+
+    <div class="viewport" id="viewport">
+      <div class="stage" id="stage">
+        <svg id="diagram" viewBox="0 0 1440 810" xmlns="http://www.w3.org/2000/svg" aria-label="The Treatment Target Identification Model">
+          <defs id="gDefs"></defs>
+          <g id="gShell"></g>
+          <g id="gZones"></g>
+          <g id="gDecor"></g>
+          <g id="gArrows"></g>
+          <g id="gHighlight"></g>
+          <g id="gTitles"></g>
+        </svg>
+        <div id="hexlayer"></div>
+      </div>
+      <div class="hint" id="hint">Drag any target to a new level · click one for its rationale · double-click to rename · scroll or pinch to zoom</div>
+      <div class="zoombar">
+        <button id="zOut" title="Zoom out" aria-label="Zoom out">−</button>
+        <button class="lvl" id="zFit" title="Fit the whole model">Fit</button>
+        <button id="zIn" title="Zoom in" aria-label="Zoom in">+</button>
+      </div>
+    </div>
+  </main>
+
+  <aside class="inspector" id="inspector">
+    <div class="insp-head">
+      <h2>Target details</h2>
+      <button class="x" id="btnInspClose" aria-label="Close">×</button>
+    </div>
+    <div class="insp-body" id="inspBody">
+      <div class="insp-empty"><div class="ring">◆</div>
+        Select a treatment target to see why it matters, the guiding questions, and sample interventions.</div>
+    </div>
+  </aside>
+</div>
+
+<div class="veil" id="veil">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3 id="mTitle">New treatment target</h3>
+    <p class="sub" id="mSub">It will appear in your target bank, ready to drag onto the model.</p>
+    <label for="mName">Name</label>
+    <input type="text" id="mName" maxlength="70" placeholder="e.g. Sensory Environment" autocomplete="off">
+    <label for="mWhy">Why it matters <span style="text-transform:none;letter-spacing:0;font-weight:500">(optional)</span></label>
+    <textarea id="mWhy" maxlength="700" placeholder="The rationale you'd give a client or supervisee."></textarea>
+    <div class="row">
+      <button class="tool" id="mCancel">Cancel</button>
+      <button class="tool on" id="mOk">Add target</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* ==========================================================================
+   TTIM BUILDER
+   Geometry is lifted verbatim from Dr. Breuss's labelled TTIM.svg: every
+   banner silhouette, gradient, arrow and target position is the original
+   artwork's, re-expressed as live objects so they can be moved.
+   Coordinate space: the SVG's own 1440 x 810 viewBox.
+   ========================================================================== */
+
+const G = {"vb":[1440,810],"zones":{"greaterworld":{"label":"Greater World Banner","poly":[[314.9,422.1],[314.9,153.6],[316.4,147.5],[718.1,86],[725.3,86.6],[1119.8,147],[1124.5,150.3],[1124.5,418.8],[1120.5,422.1],[322.2,422.1]],"fill":"url(\"#36a122addd\")","d":"M 10.917969 345.082031 L 10.917969 70.746094 L 415.714844 8.746094 L 820.515625 70.746094 L 820.515625 345.082031 Z M 10.917969 345.082031 ","tx":304,"ty":77,"g":{"kind":"l","x1":719.724,"y1":422.082,"x2":719.724,"y2":85.745,"s":[[0,"rgb(255, 152, 105)"],[0.0391,"rgb(255, 154, 108)"],[0.0703,"rgb(255, 156, 111)"],[0.1094,"rgb(255, 158, 114)"],[0.1484,"rgb(255, 160, 117)"],[0.1875,"rgb(255, 163, 120)"],[0.2188,"rgb(255, 164, 123)"],[0.2578,"rgb(255, 167, 126)"],[0.2969,"rgb(255, 169, 130)"],[0.3359,"rgb(255, 171, 133)"],[0.3672,"rgb(255, 173, 136)"],[0.4063,"rgb(255, 175, 139)"],[0.4453,"rgb(255, 178, 142)"],[0.4844,"rgb(255, 180, 145)"],[0.5156,"rgb(255, 182, 148)"],[0.5547,"rgb(255, 184, 151)"],[0.5938,"rgb(255, 186, 155)"],[0.6328,"rgb(255, 188, 158)"],[0.6641,"rgb(255, 190, 160)"],[0.7031,"rgb(255, 193, 164)"],[0.7422,"rgb(255, 195, 167)"],[0.7813,"rgb(255, 197, 170)"],[0.8125,"rgb(255, 199, 173)"],[0.8516,"rgb(255, 201, 176)"],[0.8906,"rgb(255, 203, 179)"],[0.9297,"rgb(255, 206, 183)"],[0.9609,"rgb(255, 207, 185)"],[1,"rgb(255, 210, 189)"]],"fitted":{"x1":719.88,"y1":690.46,"x2":720.29,"y2":-98.57}}},"culture":{"label":"Culture Banner","poly":[[345.5,422.1],[345.5,216.7],[350.1,214],[715.3,141.5],[721.6,141],[1093.1,214.7],[1093.9,220.4],[1093.9,419.4],[1090.2,422.1],[351.9,422.1]],"fill":"url(\"#b8d03805d7\")","d":"M 10.519531 289.078125 L 10.519531 81.878906 L 384.726562 7.652344 L 758.933594 81.878906 L 758.933594 289.078125 Z M 10.519531 289.078125 ","tx":335,"ty":133,"g":{"kind":"l","x1":1093.933,"y1":281.367,"x2":345.529,"y2":281.367,"s":[[0,"rgb(255, 222, 89)"],[0.0391,"rgb(255, 219, 89)"],[0.0703,"rgb(255, 217, 88)"],[0.1094,"rgb(255, 214, 88)"],[0.1484,"rgb(255, 211, 87)"],[0.1875,"rgb(255, 208, 87)"],[0.2188,"rgb(255, 205, 86)"],[0.2578,"rgb(255, 202, 86)"],[0.2969,"rgb(255, 199, 85)"],[0.3359,"rgb(255, 196, 85)"],[0.3672,"rgb(255, 194, 85)"],[0.4063,"rgb(255, 191, 84)"],[0.4453,"rgb(255, 188, 84)"],[0.4844,"rgb(255, 185, 83)"],[0.5156,"rgb(255, 183, 83)"],[0.5547,"rgb(255, 180, 82)"],[0.5938,"rgb(255, 177, 82)"],[0.6328,"rgb(255, 174, 81)"],[0.6641,"rgb(255, 171, 81)"],[0.7031,"rgb(255, 168, 81)"],[0.7422,"rgb(255, 165, 80)"],[0.7813,"rgb(255, 162, 80)"],[0.8125,"rgb(255, 160, 79)"],[0.8516,"rgb(255, 157, 79)"],[0.8906,"rgb(255, 154, 78)"],[0.9297,"rgb(255, 151, 78)"],[0.9609,"rgb(255, 148, 78)"],[1,"rgb(255, 145, 77)"]],"fitted":{"x1":1148.1,"y1":131.64,"x2":260.66,"y2":446.31}}},"relationships":{"label":"Relationships Banner","poly":[[383.6,422.1],[383.6,272.9],[387.3,270.5],[718.8,209.7],[1055.8,271.1],[1055.9,420.3],[1052.2,422.1],[389.1,422.1]],"fill":"url(\"#b08c363ad3\")","d":"M 6.578125 220.078125 L 6.578125 69.152344 L 342.726562 7.515625 L 678.871094 69.152344 L 678.871094 220.078125 Z M 6.578125 220.078125 ","tx":377,"ty":202,"g":{"kind":"l","x1":719.73,"y1":422.08,"x2":719.73,"y2":209.514,"s":[[0,"rgb(255, 87, 142)"],[0.0352,"rgb(255, 92, 140)"],[0.0742,"rgb(255, 97, 138)"],[0.1094,"rgb(255, 102, 136)"],[0.1484,"rgb(255, 107, 134)"],[0.1836,"rgb(255, 112, 132)"],[0.2227,"rgb(255, 117, 130)"],[0.2578,"rgb(255, 122, 128)"],[0.2969,"rgb(255, 127, 126)"],[0.332,"rgb(255, 132, 124)"],[0.3711,"rgb(255, 137, 122)"],[0.4063,"rgb(255, 142, 120)"],[0.4453,"rgb(255, 147, 118)"],[0.4805,"rgb(255, 152, 117)"],[0.5195,"rgb(255, 157, 114)"],[0.5547,"rgb(255, 162, 113)"],[0.5938,"rgb(255, 167, 111)"],[0.6289,"rgb(255, 172, 109)"],[0.668,"rgb(255, 177, 107)"],[0.7031,"rgb(255, 182, 105)"],[0.7422,"rgb(255, 187, 103)"],[0.7773,"rgb(255, 192, 101)"],[0.8164,"rgb(255, 197, 99)"],[0.8516,"rgb(255, 202, 97)"],[0.8906,"rgb(255, 207, 95)"],[0.9258,"rgb(255, 212, 93)"],[0.9648,"rgb(255, 217, 91)"],[1,"rgb(255, 222, 89)"]],"fitted":{"x1":669.92,"y1":482.86,"x2":687.44,"y2":181.24}}},"behavior":{"label":"Behavior Banner","poly":[[601.5,422.1],[601.5,344.3],[719.4,322.7],[837.2,344.4],[837.1,422.1],[603.6,422.1]],"fill":"rgb(255, 189, 89)","d":"M 7.523438 106.082031 L 7.523438 28.253906 L 125.355469 6.648438 L 243.191406 28.253906 L 243.191406 106.082031 Z M 7.523438 106.082031 ","tx":594,"ty":316,"g":{"fill":"rgb(255, 189, 89)"}},"purpose":{"label":"Purpose Banner","poly":[[901.2,418.7],[901.2,203.9],[903.5,203.9],[1007.6,230.1],[1010.4,230.3],[1117.4,203.5],[1117.8,205.8],[1117.8,417.7],[1116,418.7],[904.1,418.7]],"fill":"rgb(255, 87, 142)","d":"M 1.203125 215.699219 L 1.203125 0.363281 L 109.527344 27.5625 L 217.847656 0.363281 L 217.847656 215.699219 Z M 1.203125 215.699219 ","tx":900,"ty":203,"g":{"fill":"rgb(255, 87, 142)"}},"metabolic":{"label":"Metabolic Health Banner","poly":[[1124.2,424.9],[1124.2,693.5],[1122.7,699.5],[721,761],[713.8,760.4],[319.2,700],[314.6,696.7],[314.6,428.2],[318.6,424.9],[1116.9,424.9]],"fill":"url(\"#b958a76dbb\")","d":"M 817.15625 7.921875 L 817.15625 282.257812 L 412.359375 344.257812 L 7.5625 282.257812 L 7.5625 7.921875 Z M 817.15625 7.921875 ","tx":307,"ty":417,"g":{"kind":"l","x1":719.353,"y1":424.92,"x2":719.353,"y2":761.258,"s":[[0,"rgb(102, 241, 255)"],[0.0352,"rgb(107, 236, 251)"],[0.0742,"rgb(113, 230, 247)"],[0.1094,"rgb(119, 224, 243)"],[0.1484,"rgb(125, 218, 238)"],[0.1836,"rgb(130, 213, 234)"],[0.2227,"rgb(136, 207, 230)"],[0.2578,"rgb(141, 201, 226)"],[0.2969,"rgb(147, 195, 221)"],[0.332,"rgb(153, 190, 217)"],[0.3711,"rgb(159, 184, 213)"],[0.4063,"rgb(164, 178, 209)"],[0.4453,"rgb(170, 172, 205)"],[0.4805,"rgb(176, 167, 201)"],[0.5195,"rgb(181, 161, 196)"],[0.5547,"rgb(187, 156, 192)"],[0.5938,"rgb(193, 150, 188)"],[0.6289,"rgb(198, 144, 184)"],[0.668,"rgb(204, 138, 180)"],[0.7031,"rgb(210, 133, 176)"],[0.7422,"rgb(216, 127, 171)"],[0.7773,"rgb(221, 121, 167)"],[0.8164,"rgb(227, 115, 163)"],[0.8516,"rgb(232, 110, 159)"],[0.8906,"rgb(238, 104, 154)"],[0.9258,"rgb(244, 98, 150)"],[0.9648,"rgb(250, 92, 146)"],[1,"rgb(255, 87, 142)"]],"fitted":{"x1":718.98,"y1":433.77,"x2":718.99,"y2":874.24}}},"gns":{"label":"Greater Nervous System Banner","poly":[[1094.3,425.5],[1094.3,638.6],[1092.2,643.2],[720.4,688.8],[348.7,643.3],[345.9,639.3],[345.9,426.2],[351.7,425.5],[1087.8,425.5]],"fill":"url(\"#688f918be6\")","d":"M 759.300781 10.503906 L 759.300781 227.933594 L 385.09375 273.863281 L 10.886719 227.933594 L 10.886719 10.503906 Z M 759.300781 10.503906 ","tx":335,"ty":415,"g":{"kind":"l","x1":345.887,"y1":557.183,"x2":1094.298,"y2":557.183,"s":[[0,"rgb(0, 74, 173)"],[0.0391,"rgb(3, 78, 175)"],[0.0703,"rgb(5, 81, 178)"],[0.1094,"rgb(8, 85, 180)"],[0.1484,"rgb(12, 89, 183)"],[0.1875,"rgb(15, 93, 186)"],[0.2188,"rgb(17, 96, 188)"],[0.2578,"rgb(20, 100, 191)"],[0.2969,"rgb(23, 104, 194)"],[0.3359,"rgb(27, 108, 197)"],[0.3672,"rgb(29, 111, 199)"],[0.4063,"rgb(32, 115, 202)"],[0.4453,"rgb(35, 119, 204)"],[0.4844,"rgb(38, 123, 207)"],[0.5156,"rgb(41, 126, 209)"],[0.5547,"rgb(44, 130, 212)"],[0.5938,"rgb(47, 134, 215)"],[0.6328,"rgb(50, 138, 218)"],[0.6641,"rgb(53, 141, 220)"],[0.7031,"rgb(56, 145, 223)"],[0.7422,"rgb(59, 149, 225)"],[0.7813,"rgb(62, 153, 228)"],[0.8125,"rgb(65, 156, 230)"],[0.8516,"rgb(68, 160, 233)"],[0.8906,"rgb(71, 164, 236)"],[0.9297,"rgb(74, 168, 239)"],[0.9609,"rgb(77, 171, 241)"],[1,"rgb(80, 175, 244)"]],"fitted":{"x1":327.89,"y1":887.9,"x2":902.03,"y2":394.27}}},"allostatic":{"label":"Allostatic Load Banner","poly":[[601.2,427.2],[601.2,641.7],[598.9,641.7],[493.7,620.8],[490.9,620.9],[385.7,641.8],[383.6,641.4],[383.8,427.2],[598.3,427.2]],"fill":"rgb(255, 87, 142)","d":"M 218.203125 0.210938 L 218.203125 215.207031 L 109.394531 193.550781 L 0.582031 215.207031 L 0.582031 0.210938 Z M 218.203125 0.210938 ","tx":383,"ty":427,"g":{"fill":"rgb(255, 87, 142)"}},"exec":{"label":"Executive Functioning Banner","poly":[[837.9,425.5],[837.9,503.9],[836.8,505.1],[720.1,526],[601.6,504.7],[601.6,426.3],[602.9,425.5],[835.8,425.5]],"fill":"rgb(56, 182, 255)","d":"M 243.882812 7.503906 L 243.882812 86.90625 L 125.726562 108.105469 L 7.570312 86.90625 L 7.570312 7.503906 Z M 243.882812 7.503906 ","tx":594,"ty":418,"g":{"fill":"rgb(56, 182, 255)"}},"cognitions":{"label":"Cognitions Banner","poly":[[1055.9,427.2],[1055.9,641.3],[1053.9,641.8],[949.1,619.9],[946.3,619.8],[841.5,641.7],[839.2,641.7],[839.2,427.6],[1053,427.2]],"fill":"rgb(255, 87, 142)","d":"M 216.875 0.210938 L 216.875 215.207031 L 108.550781 192.539062 L 0.230469 215.207031 L 0.230469 0.210938 Z M 216.875 0.210938 ","tx":839,"ty":427,"g":{"fill":"rgb(255, 87, 142)"}},"sympathetic":{"label":"Sympathetic Branch Banner","poly":[[829.2,538.8],[829.2,633.5],[718.9,648],[610.4,633.9],[609.5,632.6],[609.5,540],[610.4,538.8],[827.1,538.8]],"fill":"url(\"#4e56dadb38\")","d":"M 220.203125 0.808594 L 220.203125 95.761719 L 110.359375 110.054688 L 0.515625 95.761719 L 0.515625 0.808594 Z M 220.203125 0.808594 ","tx":609,"ty":538,"g":{"kind":"r","cx":609.515,"cy":538.81,"fx":609.515,"fy":538.81,"r":245.351,"s":[[0,"rgb(140, 82, 255)"],[0.0352,"rgb(138, 87, 254)"],[0.0742,"rgb(136, 93, 253)"],[0.1094,"rgb(135, 98, 252)"],[0.1484,"rgb(133, 104, 251)"],[0.1836,"rgb(131, 109, 250)"],[0.2227,"rgb(129, 114, 249)"],[0.2578,"rgb(128, 119, 249)"],[0.2969,"rgb(126, 125, 248)"],[0.332,"rgb(124, 130, 247)"],[0.3711,"rgb(122, 135, 246)"],[0.4063,"rgb(120, 140, 245)"],[0.4453,"rgb(119, 146, 244)"],[0.4805,"rgb(117, 151, 243)"],[0.5195,"rgb(115, 157, 242)"],[0.5547,"rgb(113, 162, 241)"],[0.5938,"rgb(111, 167, 240)"],[0.6289,"rgb(110, 172, 239)"],[0.668,"rgb(108, 178, 238)"],[0.7031,"rgb(106, 183, 237)"],[0.7422,"rgb(104, 188, 236)"],[0.7773,"rgb(103, 193, 236)"],[0.8164,"rgb(101, 199, 235)"],[0.8516,"rgb(99, 204, 234)"],[0.8906,"rgb(97, 210, 233)"],[0.9258,"rgb(95, 215, 232)"],[0.9648,"rgb(94, 220, 231)"],[1,"rgb(92, 225, 230)"]]}}},"decor":{"outside":{"label":"Outside the Skin Banner","d":"M 16.140625 0.484375 L 1009.316406 0.484375 C 1013.894531 0.484375 1018.199219 2.648438 1020.933594 6.324219 C 1023.664062 9.996094 1024.496094 14.746094 1023.175781 19.128906 L 928.882812 332.441406 C 925.550781 343.511719 915.359375 351.085938 903.796875 351.085938 L 121.65625 351.085938 C 110.097656 351.085938 99.902344 343.511719 96.570312 332.441406 L 2.277344 19.128906 C 0.960938 14.746094 1.792969 9.996094 4.523438 6.324219 C 7.253906 2.648438 11.5625 0.484375 16.140625 0.484375 Z M 16.140625 0.484375 ","tx":207,"ty":71,"fill":"url(\"#e391a47554\")","curved":true,"poly":[[223.1,71.5],[1217.9,71.6],[1225.6,74.8],[1230.2,81.8],[1230.2,90.2],[1137,399.6],[1134.2,407.6],[1129.3,414.5],[1122.4,419.4],[1114.3,421.9],[332.1,422.1],[323.6,421.6],[315.7,418.6],[309.1,413.3],[304.6,406.2],[211.3,96.9],[208.9,88.7],[209.8,80.4],[215.1,73.9]],"box":{"x":208.66,"y":71.48,"w":1022.12,"h":350.6},"g":{"kind":"l","x1":719.718,"y1":71.483,"x2":719.718,"y2":422.087,"s":[[0,"rgb(255, 218, 106)"],[0.0391,"rgb(255, 219, 110)"],[0.0703,"rgb(255, 220, 114)"],[0.1094,"rgb(255, 221, 118)"],[0.1484,"rgb(255, 222, 123)"],[0.1875,"rgb(255, 223, 127)"],[0.2188,"rgb(255, 224, 131)"],[0.2578,"rgb(255, 225, 135)"],[0.2969,"rgb(255, 226, 140)"],[0.3359,"rgb(255, 228, 145)"],[0.3672,"rgb(255, 229, 148)"],[0.4063,"rgb(255, 230, 153)"],[0.4453,"rgb(255, 231, 157)"],[0.4844,"rgb(255, 232, 162)"],[0.5156,"rgb(255, 233, 165)"],[0.5547,"rgb(255, 234, 170)"],[0.5938,"rgb(255, 235, 174)"],[0.6328,"rgb(255, 236, 179)"],[0.6641,"rgb(255, 237, 183)"],[0.7031,"rgb(255, 238, 187)"],[0.7422,"rgb(255, 239, 192)"],[0.7813,"rgb(255, 241, 196)"],[0.8125,"rgb(255, 241, 200)"],[0.8516,"rgb(255, 243, 204)"],[0.8906,"rgb(255, 244, 209)"],[0.9297,"rgb(255, 245, 213)"],[0.9609,"rgb(255, 246, 217)"],[1,"rgb(255, 247, 222)"]],"fitted":{"x1":694.44,"y1":71.46,"x2":694.44,"y2":422.29}}},"inside":{"label":"Inside the Skin Banner","d":"M 1008.308594 351.519531 L 15.132812 351.519531 C 10.554688 351.519531 6.246094 349.351562 3.515625 345.679688 C 0.785156 342.003906 -0.046875 337.253906 1.273438 332.871094 L 95.566406 19.558594 C 98.898438 8.492188 109.089844 0.914062 120.648438 0.914062 L 902.792969 0.914062 C 914.351562 0.914062 924.546875 8.492188 927.875 19.558594 L 1022.171875 332.871094 C 1023.488281 337.253906 1022.65625 342.003906 1019.925781 345.679688 C 1017.195312 349.351562 1012.886719 351.519531 1008.308594 351.519531 Z M 1008.308594 351.519531 ","tx":208,"ty":424,"fill":"url(\"#795f4b078f\")","curved":true,"poly":[[1216.3,775.5],[221.6,775.4],[213.9,772.1],[209.3,765.1],[209.3,756.8],[302.4,447.4],[305.2,439.4],[310.2,432.5],[317.1,427.6],[325.2,425.1],[1107.3,424.9],[1115.8,425.4],[1123.8,428.4],[1130.3,433.7],[1134.9,440.8],[1228.1,750.1],[1230.5,758.3],[1229.7,766.6],[1224.3,773.1]],"box":{"x":208.67,"y":424.91,"w":1022.12,"h":350.61},"g":{"kind":"l","x1":719.73,"y1":775.518,"x2":719.73,"y2":424.914,"s":[[0,"rgb(122, 246, 238)"],[0.0391,"rgb(126, 246, 239)"],[0.0703,"rgb(129, 247, 239)"],[0.1094,"rgb(134, 247, 240)"],[0.1484,"rgb(138, 247, 240)"],[0.1875,"rgb(143, 248, 241)"],[0.2188,"rgb(146, 248, 241)"],[0.2578,"rgb(150, 248, 242)"],[0.2969,"rgb(155, 249, 243)"],[0.3359,"rgb(159, 249, 243)"],[0.3672,"rgb(163, 249, 244)"],[0.4063,"rgb(167, 250, 244)"],[0.4453,"rgb(171, 250, 245)"],[0.4844,"rgb(176, 250, 246)"],[0.5156,"rgb(179, 251, 246)"],[0.5547,"rgb(184, 251, 247)"],[0.5938,"rgb(188, 251, 247)"],[0.6328,"rgb(192, 252, 248)"],[0.6641,"rgb(196, 252, 249)"],[0.7031,"rgb(200, 252, 249)"],[0.7422,"rgb(205, 253, 250)"],[0.7813,"rgb(209, 253, 250)"],[0.8125,"rgb(213, 253, 251)"],[0.8516,"rgb(217, 254, 252)"],[0.8906,"rgb(221, 254, 252)"],[0.9297,"rgb(226, 254, 253)"],[0.9609,"rgb(229, 255, 253)"],[1,"rgb(234, 255, 254)"]],"fitted":{"x1":745.07,"y1":775.13,"x2":744.96,"y2":425.81}}},"emotion":{"label":"Emotion Banner","d":"M 204.753906 6.503906 L 204.753906 54.457031 L 105.726562 72.613281 L 6.703125 54.457031 L 6.703125 6.503906 Z M 204.753906 6.503906 ","tx":614,"ty":419,"fill":"rgb(92, 225, 230)","curved":false,"poly":[[818.8,425.5],[818.8,473.4],[719.8,491.6],[620.7,473.5],[620.7,425.6],[817.1,425.5]],"box":{"x":620.7,"y":425.5,"w":198.07,"h":66.11},"g":{"fill":"rgb(92, 225, 230)"}},"catecholamines":{"label":"Catacholamines","d":"M 96.230469 1.011719 L 96.230469 89.636719 L 48.320312 104.136719 L 0.40625 89.636719 L 0.40625 1.011719 Z M 96.230469 1.011719 ","tx":394,"ty":447,"fill":null,"curved":false,"poly":[[490.2,448],[490.2,536.3],[442.9,551],[394.4,536.3],[394.4,448],[489,448]],"box":{"x":394.41,"y":448,"w":95.83,"h":103.31},"g":null},"affect":{"label":"Affect","d":"M 10.429688 0.335938 L 49.765625 0.335938 C 55.429688 0.335938 60.019531 4.925781 60.019531 10.589844 L 60.019531 23.433594 C 60.019531 29.097656 55.429688 33.6875 49.765625 33.6875 L 10.429688 33.6875 C 4.765625 33.6875 0.179688 29.097656 0.179688 23.433594 L 0.179688 10.589844 C 0.179688 4.925781 4.765625 0.335938 10.429688 0.335938 Z M 10.429688 0.335938 ","tx":652,"ty":431,"fill":"rgb(255, 87, 142)","curved":true,"poly":[[662.4,431.3],[702.4,431.4],[705.6,432.1],[708.5,433.9],[710.6,436.5],[711.9,440.2],[711.8,456.5],[710.6,459.6],[708.5,462.2],[705.1,464.1],[701.8,464.7],[661.8,464.7],[658.5,463.9],[656.1,462.5],[653.5,459.6],[652.4,456.4],[652.4,439.6],[653.6,436.4],[655.7,433.8],[658.6,432.1],[661.9,431.4]],"box":{"x":652.18,"y":431.34,"w":59.79,"h":33.35},"g":{"fill":"rgb(255, 87, 142)"}},"concept":{"label":"Concept","d":"M 10.6875 0.335938 L 50.027344 0.335938 C 55.6875 0.335938 60.277344 4.925781 60.277344 10.589844 L 60.277344 23.433594 C 60.277344 29.097656 55.6875 33.6875 50.027344 33.6875 L 10.6875 33.6875 C 5.027344 33.6875 0.4375 29.097656 0.4375 23.433594 L 0.4375 10.589844 C 0.4375 4.925781 5.027344 0.335938 10.6875 0.335938 Z M 10.6875 0.335938 ","tx":727,"ty":431,"fill":"rgb(255, 87, 142)","curved":true,"poly":[[737.7,431.3],[777.6,431.4],[780.9,432.1],[783.8,433.9],[785.9,436.5],[787.2,440.2],[787.1,456.5],[785.9,459.6],[783.7,462.2],[780.3,464.1],[777,464.7],[737.1,464.7],[733.8,463.9],[731.4,462.5],[729.1,460],[727.6,456.4],[727.6,439.6],[728.8,436.4],[731,433.8],[733.8,432.1],[737.1,431.4]],"box":{"x":727.44,"y":431.34,"w":59.79,"h":33.35},"g":{"fill":"rgb(255, 87, 142)"}},"dopamine":{"label":"Dopamine System","d":"M 52.34375 0.914062 C 61.855469 0.914062 69.566406 8.625 69.566406 18.136719 C 69.566406 27.644531 61.855469 35.355469 52.34375 35.355469 L 17.902344 35.355469 C 8.390625 35.355469 0.679688 27.644531 0.679688 18.136719 C 0.679688 8.625 8.390625 0.914062 17.902344 0.914062 Z M 52.34375 0.914062 ","tx":407,"ty":450,"fill":"rgb(140, 82, 255)","curved":true,"poly":[[459.3,450.9],[465.7,452.1],[468.8,453.8],[471.6,456],[473.8,458.7],[475.4,461.9],[476.6,468.2],[475.3,474.6],[473.7,477.7],[471.4,480.4],[466.1,484],[462.7,485],[459.1,485.4],[424.3,485.4],[419.7,484.6],[414.9,482.2],[411.1,478.5],[408.6,473.8],[407.7,468],[408.5,462.8],[410.9,458.1],[414.6,454.3],[419.3,451.8],[424.5,450.9],[458.8,450.9]],"box":{"x":407.68,"y":450.91,"w":68.89,"h":34.44},"g":{"fill":"rgb(140, 82, 255)"}},"ans":{"label":"Autonomic Nervous System","d":"M 52.34375 0.746094 C 61.855469 0.746094 69.566406 8.457031 69.566406 17.96875 C 69.566406 27.480469 61.855469 35.1875 52.34375 35.1875 L 17.902344 35.1875 C 8.390625 35.1875 0.679688 27.480469 0.679688 17.96875 C 0.679688 8.457031 8.390625 0.746094 17.902344 0.746094 Z M 52.34375 0.746094 ","tx":407,"ty":487,"fill":"rgb(140, 82, 255)","curved":true,"poly":[[459.3,487.8],[465.7,488.9],[468.8,490.6],[471.6,492.8],[473.8,495.6],[475.4,498.7],[476.6,505.1],[476.2,508.6],[475.1,511.9],[471.4,517.3],[466.1,520.8],[462.7,521.9],[459.1,522.2],[424.3,522.2],[419.7,521.4],[414.9,519],[411.1,515.3],[408.6,510.7],[407.7,504.9],[408.5,499.6],[410.9,494.9],[415.1,490.8],[419.9,488.5],[424.5,487.8],[458.8,487.8]],"box":{"x":407.68,"y":487.75,"w":68.89,"h":34.44},"g":{"fill":"rgb(140, 82, 255)"}}},"grads":{"e391a47554":{"kind":"l","u":"userSpaceOnUse","tf":"matrix(1.369547, 0, 0, 1.369547, -4.342001, 0.483183)","s":[[0,"rgb(255, 218, 106)"],[0.0391,"rgb(255, 219, 110)"],[0.0703,"rgb(255, 220, 114)"],[0.1094,"rgb(255, 221, 118)"],[0.1484,"rgb(255, 222, 123)"],[0.1875,"rgb(255, 223, 127)"],[0.2188,"rgb(255, 224, 131)"],[0.2578,"rgb(255, 225, 135)"],[0.2969,"rgb(255, 226, 140)"],[0.3359,"rgb(255, 228, 145)"],[0.3672,"rgb(255, 229, 148)"],[0.4063,"rgb(255, 230, 153)"],[0.4453,"rgb(255, 231, 157)"],[0.4844,"rgb(255, 232, 162)"],[0.5156,"rgb(255, 233, 165)"],[0.5547,"rgb(255, 234, 170)"],[0.5938,"rgb(255, 235, 174)"],[0.6328,"rgb(255, 236, 179)"],[0.6641,"rgb(255, 237, 183)"],[0.7031,"rgb(255, 238, 187)"],[0.7422,"rgb(255, 239, 192)"],[0.7813,"rgb(255, 241, 196)"],[0.8125,"rgb(255, 241, 200)"],[0.8516,"rgb(255, 243, 204)"],[0.8906,"rgb(255, 244, 209)"],[0.9297,"rgb(255, 245, 213)"],[0.9609,"rgb(255, 246, 217)"],[1,"rgb(255, 247, 222)"]],"x1":"376.811","y1":"0.000000000000007105","x2":"376.811","y2":"256"},"36a122addd":{"kind":"l","u":"userSpaceOnUse","tf":"matrix(-1.313819, 0, 0, -1.313819, 810.521006, 337.082186)","s":[[0,"rgb(255, 152, 105)"],[0.0391,"rgb(255, 154, 108)"],[0.0703,"rgb(255, 156, 111)"],[0.1094,"rgb(255, 158, 114)"],[0.1484,"rgb(255, 160, 117)"],[0.1875,"rgb(255, 163, 120)"],[0.2188,"rgb(255, 164, 123)"],[0.2578,"rgb(255, 167, 126)"],[0.2969,"rgb(255, 169, 130)"],[0.3359,"rgb(255, 171, 133)"],[0.3672,"rgb(255, 173, 136)"],[0.4063,"rgb(255, 175, 139)"],[0.4453,"rgb(255, 178, 142)"],[0.4844,"rgb(255, 180, 145)"],[0.5156,"rgb(255, 182, 148)"],[0.5547,"rgb(255, 184, 151)"],[0.5938,"rgb(255, 186, 155)"],[0.6328,"rgb(255, 188, 158)"],[0.6641,"rgb(255, 190, 160)"],[0.7031,"rgb(255, 193, 164)"],[0.7422,"rgb(255, 195, 167)"],[0.7813,"rgb(255, 197, 170)"],[0.8125,"rgb(255, 199, 173)"],[0.8516,"rgb(255, 201, 176)"],[0.8906,"rgb(255, 203, 179)"],[0.9297,"rgb(255, 206, 183)"],[0.9609,"rgb(255, 207, 185)"],[1,"rgb(255, 210, 189)"]],"x1":"308.10699","y1":"0","x2":"308.10699","y2":"255.999998"},"b8d03805d7":{"kind":"l","u":"userSpaceOnUse","tf":"matrix(-1.099318, 0, 0, -1.099318, 748.941743, 282.079697)","s":[[0,"rgb(255, 222, 89)"],[0.0391,"rgb(255, 219, 89)"],[0.0703,"rgb(255, 217, 88)"],[0.1094,"rgb(255, 214, 88)"],[0.1484,"rgb(255, 211, 87)"],[0.1875,"rgb(255, 208, 87)"],[0.2188,"rgb(255, 205, 86)"],[0.2578,"rgb(255, 202, 86)"],[0.2969,"rgb(255, 199, 85)"],[0.3359,"rgb(255, 196, 85)"],[0.3672,"rgb(255, 194, 85)"],[0.4063,"rgb(255, 191, 84)"],[0.4453,"rgb(255, 188, 84)"],[0.4844,"rgb(255, 185, 83)"],[0.5156,"rgb(255, 183, 83)"],[0.5547,"rgb(255, 180, 82)"],[0.5938,"rgb(255, 177, 82)"],[0.6328,"rgb(255, 174, 81)"],[0.6641,"rgb(255, 171, 81)"],[0.7031,"rgb(255, 168, 81)"],[0.7422,"rgb(255, 165, 80)"],[0.7813,"rgb(255, 162, 80)"],[0.8125,"rgb(255, 160, 79)"],[0.8516,"rgb(255, 157, 79)"],[0.8906,"rgb(255, 154, 78)"],[0.9297,"rgb(255, 151, 78)"],[0.9609,"rgb(255, 148, 78)"],[1,"rgb(255, 145, 77)"]],"x1":"0.0078879","y1":"128","x2":"680.797","y2":"128"},"795f4b078f":{"kind":"l","u":"userSpaceOnUse","tf":"matrix(-1.369547, 0, 0, -1.369547, 1027.790424, 351.518204)","s":[[0,"rgb(122, 246, 238)"],[0.0391,"rgb(126, 246, 239)"],[0.0703,"rgb(129, 247, 239)"],[0.1094,"rgb(134, 247, 240)"],[0.1484,"rgb(138, 247, 240)"],[0.1875,"rgb(143, 248, 241)"],[0.2188,"rgb(146, 248, 241)"],[0.2578,"rgb(150, 248, 242)"],[0.2969,"rgb(155, 249, 243)"],[0.3359,"rgb(159, 249, 243)"],[0.3672,"rgb(163, 249, 244)"],[0.4063,"rgb(167, 250, 244)"],[0.4453,"rgb(171, 250, 245)"],[0.4844,"rgb(176, 250, 246)"],[0.5156,"rgb(179, 251, 246)"],[0.5547,"rgb(184, 251, 247)"],[0.5938,"rgb(188, 251, 247)"],[0.6328,"rgb(192, 252, 248)"],[0.6641,"rgb(196, 252, 249)"],[0.7031,"rgb(200, 252, 249)"],[0.7422,"rgb(205, 253, 250)"],[0.7813,"rgb(209, 253, 250)"],[0.8125,"rgb(213, 253, 251)"],[0.8516,"rgb(217, 254, 252)"],[0.8906,"rgb(221, 254, 252)"],[0.9297,"rgb(226, 254, 253)"],[0.9609,"rgb(229, 255, 253)"],[1,"rgb(234, 255, 254)"]],"x1":"376.811","y1":"0","x2":"376.811","y2":"256"},"b958a76dbb":{"kind":"l","u":"userSpaceOnUse","tf":"matrix(1.313819, 0, 0, 1.313819, 0.556289, 0.920292)","s":[[0,"rgb(102, 241, 255)"],[0.0352,"rgb(107, 236, 251)"],[0.0742,"rgb(113, 230, 247)"],[0.1094,"rgb(119, 224, 243)"],[0.1484,"rgb(125, 218, 238)"],[0.1836,"rgb(130, 213, 234)"],[0.2227,"rgb(136, 207, 230)"],[0.2578,"rgb(141, 201, 226)"],[0.2969,"rgb(147, 195, 221)"],[0.332,"rgb(153, 190, 217)"],[0.3711,"rgb(159, 184, 213)"],[0.4063,"rgb(164, 178, 209)"],[0.4453,"rgb(170, 172, 205)"],[0.4805,"rgb(176, 167, 201)"],[0.5195,"rgb(181, 161, 196)"],[0.5547,"rgb(187, 156, 192)"],[0.5938,"rgb(193, 150, 188)"],[0.6289,"rgb(198, 144, 184)"],[0.668,"rgb(204, 138, 180)"],[0.7031,"rgb(210, 133, 176)"],[0.7422,"rgb(216, 127, 171)"],[0.7773,"rgb(221, 121, 167)"],[0.8164,"rgb(227, 115, 163)"],[0.8516,"rgb(232, 110, 159)"],[0.8906,"rgb(238, 104, 154)"],[0.9258,"rgb(244, 98, 150)"],[0.9648,"rgb(250, 92, 146)"],[1,"rgb(255, 87, 142)"]],"x1":"308.10699","y1":"0.0000000548021","x2":"308.10699","y2":"256"},"688f918be6":{"kind":"l","u":"userSpaceOnUse","tf":"matrix(1.028741, 0, 0, 1.028741, 0.885926, 0.503944)","s":[[0,"rgb(0, 74, 173)"],[0.0391,"rgb(3, 78, 175)"],[0.0703,"rgb(5, 81, 178)"],[0.1094,"rgb(8, 85, 180)"],[0.1484,"rgb(12, 89, 183)"],[0.1875,"rgb(15, 93, 186)"],[0.2188,"rgb(17, 96, 188)"],[0.2578,"rgb(20, 100, 191)"],[0.2969,"rgb(23, 104, 194)"],[0.3359,"rgb(27, 108, 197)"],[0.3672,"rgb(29, 111, 199)"],[0.4063,"rgb(32, 115, 202)"],[0.4453,"rgb(35, 119, 204)"],[0.4844,"rgb(38, 123, 207)"],[0.5156,"rgb(41, 126, 209)"],[0.5547,"rgb(44, 130, 212)"],[0.5938,"rgb(47, 134, 215)"],[0.6328,"rgb(50, 138, 218)"],[0.6641,"rgb(53, 141, 220)"],[0.7031,"rgb(56, 145, 223)"],[0.7422,"rgb(59, 149, 225)"],[0.7813,"rgb(62, 153, 228)"],[0.8125,"rgb(65, 156, 230)"],[0.8516,"rgb(68, 160, 233)"],[0.8906,"rgb(71, 164, 236)"],[0.9297,"rgb(74, 168, 239)"],[0.9609,"rgb(77, 171, 241)"],[1,"rgb(80, 175, 244)"]],"x1":"0.00150936","y1":"128","x2":"727.50299","y2":"128"},"b08c363ad3":{"kind":"l","u":"userSpaceOnUse","tf":"matrix(-0.830335, 0, 0, -0.830335, 672.876089, 213.079844)","s":[[0,"rgb(255, 87, 142)"],[0.0352,"rgb(255, 92, 140)"],[0.0742,"rgb(255, 97, 138)"],[0.1094,"rgb(255, 102, 136)"],[0.1484,"rgb(255, 107, 134)"],[0.1836,"rgb(255, 112, 132)"],[0.2227,"rgb(255, 117, 130)"],[0.2578,"rgb(255, 122, 128)"],[0.2969,"rgb(255, 127, 126)"],[0.332,"rgb(255, 132, 124)"],[0.3711,"rgb(255, 137, 122)"],[0.4063,"rgb(255, 142, 120)"],[0.4453,"rgb(255, 147, 118)"],[0.4805,"rgb(255, 152, 117)"],[0.5195,"rgb(255, 157, 114)"],[0.5547,"rgb(255, 162, 113)"],[0.5938,"rgb(255, 167, 111)"],[0.6289,"rgb(255, 172, 109)"],[0.668,"rgb(255, 177, 107)"],[0.7031,"rgb(255, 182, 105)"],[0.7422,"rgb(255, 187, 103)"],[0.7773,"rgb(255, 192, 101)"],[0.8164,"rgb(255, 197, 99)"],[0.8516,"rgb(255, 202, 97)"],[0.8906,"rgb(255, 207, 95)"],[0.9258,"rgb(255, 212, 93)"],[0.9648,"rgb(255, 217, 91)"],[1,"rgb(255, 222, 89)"]],"x1":"404.832","y1":"0.0000014741","x2":"404.832","y2":"256"},"4e56dadb38":{"kind":"r","u":"userSpaceOnUse","tf":"matrix(1, 0, 0, 1, 0.515132, 0.809895)","s":[[0,"rgb(140, 82, 255)"],[0.0352,"rgb(138, 87, 254)"],[0.0742,"rgb(136, 93, 253)"],[0.1094,"rgb(135, 98, 252)"],[0.1484,"rgb(133, 104, 251)"],[0.1836,"rgb(131, 109, 250)"],[0.2227,"rgb(129, 114, 249)"],[0.2578,"rgb(128, 119, 249)"],[0.2969,"rgb(126, 125, 248)"],[0.332,"rgb(124, 130, 247)"],[0.3711,"rgb(122, 135, 246)"],[0.4063,"rgb(120, 140, 245)"],[0.4453,"rgb(119, 146, 244)"],[0.4805,"rgb(117, 151, 243)"],[0.5195,"rgb(115, 157, 242)"],[0.5547,"rgb(113, 162, 241)"],[0.5938,"rgb(111, 167, 240)"],[0.6289,"rgb(110, 172, 239)"],[0.668,"rgb(108, 178, 238)"],[0.7031,"rgb(106, 183, 237)"],[0.7422,"rgb(104, 188, 236)"],[0.7773,"rgb(103, 193, 236)"],[0.8164,"rgb(101, 199, 235)"],[0.8516,"rgb(99, 204, 234)"],[0.8906,"rgb(97, 210, 233)"],[0.9258,"rgb(95, 215, 232)"],[0.9648,"rgb(94, 220, 231)"],[1,"rgb(92, 225, 230)"]],"cx":"0","cy":"0","r":"245.351086","fx":"0","fy":"0"},"d8baa4e1c3":{"kind":"l","u":"userSpaceOnUse","tf":"matrix(1, 0, 0, 1, 0, 0)","s":[[0,"rgb(255, 218, 106)"],[0.0391,"rgb(255, 219, 111)"],[0.0781,"rgb(255, 221, 117)"],[0.1133,"rgb(255, 222, 122)"],[0.1523,"rgb(255, 223, 128)"],[0.1875,"rgb(255, 225, 133)"],[0.2266,"rgb(255, 226, 139)"],[0.2617,"rgb(255, 228, 145)"],[0.3008,"rgb(255, 229, 150)"],[0.3359,"rgb(255, 230, 156)"],[0.3711,"rgb(255, 232, 161)"],[0.4102,"rgb(255, 233, 167)"],[0.4453,"rgb(255, 234, 172)"],[0.4844,"rgb(255, 236, 178)"],[0.5195,"rgb(255, 237, 183)"],[0.5586,"rgb(255, 239, 189)"],[0.5938,"rgb(255, 240, 194)"],[0.6328,"rgb(255, 241, 200)"],[0.668,"rgb(255, 243, 205)"],[0.7031,"rgb(255, 244, 211)"],[0.7422,"rgb(255, 245, 216)"],[0.7773,"rgb(255, 247, 222)"],[0.8164,"rgb(255, 248, 228)"],[0.8516,"rgb(255, 249, 233)"],[0.8906,"rgb(255, 251, 239)"],[0.9258,"rgb(255, 252, 244)"],[0.9648,"rgb(255, 254, 250)"],[1,"rgb(255, 255, 255)"]],"x1":"61.042","y1":"-2","x2":"61.042","y2":"450.30051"},"9ae6c37959":{"kind":"l","u":"userSpaceOnUse","tf":"matrix(1, 0, 0, 1, 0, 0)","s":[[0,"rgb(255, 254, 252)"],[0.125,"rgb(255, 254, 252)"],[0.25,"rgb(255, 254, 253)"],[0.375,"rgb(255, 255, 253)"],[0.5,"rgb(255, 255, 254)"],[1,"rgb(255, 255, 255)"]],"x1":"61.042","y1":"440.30051","x2":"61.042","y2":"456.30051"}},"arrows":[{"label":"Affect-Concept Link","html":"<g xmlns=\"http://www.w3.org/2000/svg\" transform=\"matrix(1, 0, 0, 1, 504, 412)\" id=\"g2180\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" inkscape:label=\"Affect-Concept Link\">\n        <g clip-path=\"url(#768a63ce16)\" id=\"g2179\">\n          <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 1.017861, 2.328181)\" fill=\"none\" stroke-linejoin=\"miter\" d=\"M 13.998155 2.000507 L 31.123901 2.000507 \" stroke=\"#ffbd59\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path2176\"/>\n          <g clip-path=\"url(#ffc35957b3)\" id=\"g2177\">\n            <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 1.017861, 2.328181)\" fill=\"none\" stroke-linejoin=\"round\" d=\"M 2.005559 2.000507 L 7.996141 -4.001507 L 13.998155 2.000507 L 7.996141 8.002521 Z M 2.005559 2.000507 \" stroke=\"#ffbd59\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path2177\"/>\n          </g>\n          <g clip-path=\"url(#f74b7364dc)\" id=\"g2178\">\n            <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 1.017861, 2.328181)\" fill=\"none\" stroke-linejoin=\"round\" d=\"M 43.127928 2.000507 L 37.125914 -4.001507 L 31.123901 2.000507 L 37.125914 8.002521 Z M 43.127928 2.000507 \" stroke=\"#ffbd59\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path2178\"/>\n          </g>\n        </g>\n      </g>","m":[1,0,0,1,207,33],"box":{"x":712.7,"y":445.96,"w":14.05,"h":4.1}},{"label":"Relationships to sympathetic branch arrow","html":"<g xmlns=\"http://www.w3.org/2000/svg\" transform=\"matrix(1, 0, 0, 1, 358, 369)\" id=\"g3242\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" inkscape:label=\"Relationships to sympathetic branch arrow\">\n        <g clip-path=\"url(#0582056f82)\" id=\"g3241\">\n          <g clip-path=\"url(#d6d5a436bc)\" id=\"g3240\">\n            <path stroke-linecap=\"butt\" transform=\"matrix(0.341682, 0, 0, 0.341682, 2.802478, 2.829316)\" fill=\"none\" stroke-linejoin=\"miter\" d=\"M 1.995706 -0.00348584 L 1.995706 424.298875 C 1.995706 437.560467 12.742169 448.295497 26.003761 448.295497 L 120.08104 448.295497 \" stroke=\"url(#d8baa4e1c3)\" stroke-width=\"4\" stroke-miterlimit=\"4\" id=\"path3239\"/>\n          </g>\n          <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 2.802478, 2.829316)\" fill=\"none\" stroke-linejoin=\"round\" d=\"M 112.089788 442.304916 L 120.08104 448.295497 L 112.089788 454.297511 \" stroke=\"url(#9ae6c37959)\" stroke-width=\"4\" stroke-miterlimit=\"4\" id=\"path3240\"/>\n        </g>\n      </g>","m":[1,0,0,1,207,33],"box":{"x":568.48,"y":404.83,"w":40.35,"h":155.23}},{"label":"Link between Cognitions and Allostatic Load","html":"<g xmlns=\"http://www.w3.org/2000/svg\" transform=\"matrix(1, 0, 0, 1, 394, 498)\" id=\"g4656\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" inkscape:label=\"Link between Cognitions and Allostatic Load\">\n        <g clip-path=\"url(#99010e9e0b)\" id=\"g4655\">\n          <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 0.204781, 3.02636)\" fill=\"none\" stroke-linejoin=\"miter\" d=\"M 682.63562 2.003549 L 13.999853 2.003549 \" stroke=\"#ffbd59\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4652\"/>\n          <g clip-path=\"url(#d4cd7a0ba1)\" id=\"g4653\">\n            <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 0.204781, 3.02636)\" fill=\"none\" stroke-linejoin=\"round\" d=\"M 694.628215 2.003549 L 688.626202 8.005563 L 682.63562 2.003549 L 688.626202 -3.998464 Z M 694.628215 2.003549 \" stroke=\"#ffbd59\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4653\"/>\n          </g>\n          <g clip-path=\"url(#e878b0b05b)\" id=\"g4654\">\n            <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 0.204781, 3.02636)\" fill=\"none\" stroke-linejoin=\"round\" d=\"M 1.995826 2.003549 L 7.997839 8.005563 L 13.999853 2.003549 L 7.997839 -3.998464 Z M 1.995826 2.003549 \" stroke=\"#ffbd59\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4654\"/>\n          </g>\n        </g>\n      </g>","m":[1,0,0,1,207,33],"box":{"x":601.89,"y":532.66,"w":236.66,"h":4.1}},{"label":"Left arrow metabolic to GNS","html":"<g xmlns=\"http://www.w3.org/2000/svg\" transform=\"matrix(1, 0, 0, 1, 83, 498)\" id=\"g4660\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" inkscape:label=\"Left arrow metabolic to GNS\">\n        <g clip-path=\"url(#0b7d90ac29)\" id=\"g4659\">\n          <g clip-path=\"url(#22ef5fa289)\" id=\"g4657\">\n            <path stroke-linecap=\"butt\" transform=\"matrix(0.341682, 0, 0, 0.341682, 2.278068, 3.02636)\" fill=\"none\" stroke-linejoin=\"miter\" d=\"M 85.272206 172.860875 L 25.995175 172.860875 C 12.745015 172.860875 1.998552 162.114412 1.998552 148.864252 L 1.998552 26.000172 C 1.998552 12.750012 12.745015 2.003549 25.995175 2.003549 L 265.218296 2.003549 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4656\"/>\n          </g>\n          <g clip-path=\"url(#7a7aea7319)\" id=\"g4658\">\n            <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 2.278068, 3.02636)\" fill=\"none\" stroke-linejoin=\"round\" d=\"M 257.215611 -3.998464 L 265.218296 2.003549 L 257.215611 8.005563 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4657\"/>\n          </g>\n        </g>\n      </g>","m":[1,0,0,1,207,33],"box":{"x":292.96,"y":532.66,"w":89.94,"h":60.43}},{"label":"ANS link to Sympathetic Branch","html":"<g xmlns=\"http://www.w3.org/2000/svg\" transform=\"matrix(1, 0, 0, 1, 267, 469)\" id=\"g4664\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" inkscape:label=\"ANS link to Sympathetic Branch\">\n        <g clip-path=\"url(#aef1ce1561)\" id=\"g4663\">\n          <g clip-path=\"url(#60233a1784)\" id=\"g4661\">\n            <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 2.564631, 2.284819)\" fill=\"none\" stroke-linejoin=\"miter\" d=\"M 3.995107 2.001659 L 192.275421 2.001659 C 205.525581 2.001659 216.272043 12.748121 216.272043 25.998281 L 216.272043 262.146084 C 216.272043 275.407677 227.018506 286.154139 240.268666 286.154139 L 385.105833 286.154139 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4660\"/>\n          </g>\n          <g clip-path=\"url(#33daa32722)\" id=\"g4662\">\n            <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 2.564631, 2.284819)\" fill=\"none\" stroke-linejoin=\"round\" d=\"M 1.994435 -4.000355 L 1.994435 8.003672 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4661\"/>\n          </g>\n          <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 2.564631, 2.284819)\" fill=\"none\" stroke-linejoin=\"round\" d=\"M 387.106504 280.152126 L 387.106504 292.144721 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4662\"/>\n        </g>\n      </g>","m":[1,0,0,1,207,33],"box":{"x":477.25,"y":502.92,"w":131.59,"h":101.19}},{"label":"Metabolic to GNS arrow","html":"<g xmlns=\"http://www.w3.org/2000/svg\" transform=\"matrix(1, 0, 0, 1, 83, 506)\" id=\"g4672\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" inkscape:label=\"Metabolic to GNS arrow\">\n        <g clip-path=\"url(#f229e5ba5d)\" id=\"g4671\">\n          <g clip-path=\"url(#4a1012bedb)\" id=\"g4669\">\n            <path stroke-linecap=\"butt\" transform=\"matrix(0.341682, 0, 0, 0.341682, 2.278068, 2.700852)\" fill=\"none\" stroke-linejoin=\"miter\" d=\"M 65.219764 150.399969 L 25.995175 150.399969 C 12.745015 150.399969 1.998552 139.653506 1.998552 126.403346 L 1.998552 26.003946 C 1.998552 12.742354 12.745015 1.995891 25.995175 1.995891 L 154.895566 1.995891 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4668\"/>\n          </g>\n          <g clip-path=\"url(#86753f7d14)\" id=\"g4670\">\n            <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 2.278068, 2.700852)\" fill=\"none\" stroke-linejoin=\"round\" d=\"M 146.892881 -3.994691 L 154.895566 1.995891 L 146.892881 7.997905 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4669\"/>\n          </g>\n        </g>\n      </g>","m":[1,0,0,1,207,33],"box":{"x":292.96,"y":540.34,"w":52.24,"h":52.75}},{"label":"Manage Dopamine to Dopamine System arrow","html":"<g xmlns=\"http://www.w3.org/2000/svg\" transform=\"matrix(1, 0, 0, 1, 181, 432)\" id=\"g4720\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" inkscape:label=\"Manage Dopamine to Dopamine System arrow\">\n        <g clip-path=\"url(#288988df12)\" id=\"g4719\">\n          <g clip-path=\"url(#e325fdd487)\" id=\"g4717\">\n            <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 2.597438, 2.451442)\" fill=\"none\" stroke-linejoin=\"miter\" d=\"M 44.632757 353.312038 L 23.311318 353.312038 C 17.663709 353.312038 12.244748 351.059854 8.243405 347.069944 C 4.242063 343.068601 2.001311 337.64964 2.001311 331.990599 L 2.001311 24.504575 C 2.001311 12.077548 12.073261 2.005597 24.500288 2.005597 L 46.999265 2.005597 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4716\"/>\n          </g>\n          <g clip-path=\"url(#f8a3e44430)\" id=\"g4718\">\n            <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 2.597438, 2.451442)\" fill=\"none\" stroke-linejoin=\"round\" d=\"M 40.002632 -3.996416 L 48.005317 2.005597 L 40.002632 7.996179 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4717\"/>\n          </g>\n        </g>\n      </g>","m":[1,0,0,1,207,33],"box":{"x":391.28,"y":466.09,"w":15.72,"h":122.09}},{"label":"Puprose to Catacholamines arrow","html":"<g xmlns=\"http://www.w3.org/2000/svg\" transform=\"matrix(1, 0, 0, 1, 232, 164)\" id=\"g4724\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" inkscape:label=\"Puprose to Catacholamines arrow\">\n        <g clip-path=\"url(#c5b8682bc4)\" id=\"g4723\">\n          <g clip-path=\"url(#00b7941c3a)\" id=\"g4721\">\n            <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 2.439701, 2.67834)\" fill=\"none\" stroke-linejoin=\"miter\" d=\"M 1662.631402 88.399316 L 1662.631402 26.001238 C 1662.631402 12.739645 1651.884939 2.004615 1638.623347 2.004615 L 26.002285 2.004615 C 12.740693 2.004615 2.005663 12.739645 2.005663 26.001238 L 2.005663 732.295354 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4720\"/>\n          </g>\n          <g clip-path=\"url(#1ee4acfd4f)\" id=\"g4722\">\n            <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 2.439701, 2.67834)\" fill=\"none\" stroke-linejoin=\"round\" d=\"M 7.996244 725.287288 L 2.005663 733.289973 L -3.996351 725.287288 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4721\"/>\n          </g>\n        </g>\n      </g>","m":[1,0,0,1,207,33],"box":{"x":440.07,"y":200.36,"w":569.46,"h":249.87}},{"label":"Dopamine to autonomic arrow","html":"<g xmlns=\"http://www.w3.org/2000/svg\" transform=\"matrix(1, 0, 0, 1, 232, 445)\" id=\"g4728\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" inkscape:label=\"Dopamine to autonomic arrow\">\n        <g clip-path=\"url(#206a715bfb)\" id=\"g4727\">\n          <g clip-path=\"url(#27a27d045c)\" id=\"g4725\">\n            <path stroke-linecap=\"round\" transform=\"matrix(-0.00722848, 0.341606, -0.341606, -0.00722848, 3.997767, 0.523785)\" fill=\"none\" stroke-linejoin=\"miter\" d=\"M 1.996642 1.998073 L 24.054736 2.000151 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4724\"/>\n          </g>\n          <g clip-path=\"url(#4dbde9c853)\" id=\"g4726\">\n            <path stroke-linecap=\"round\" transform=\"matrix(-0.00722848, 0.341606, -0.341606, -0.00722848, 3.997767, 0.523785)\" fill=\"none\" stroke-linejoin=\"round\" d=\"M 17.055277 -4.00375 L 25.049617 2.001969 L 17.057772 8.002912 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4725\"/>\n          </g>\n        </g>\n      </g>","m":[1,0,0,1,207,33],"box":{"x":440.08,"y":479.19,"w":4.16,"h":7.92}},{"label":"Right arrow from Metabolic to Cognitions","html":"<g xmlns=\"http://www.w3.org/2000/svg\" transform=\"matrix(1, 0, 0, 1, 846, 498)\" id=\"g4877\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" inkscape:label=\"Right arrow from Metabolic to Cognitions\">\n        <g clip-path=\"url(#61f1168918)\" id=\"g4876\">\n          <g clip-path=\"url(#f7eb09c823)\" id=\"g4874\">\n            <path stroke-linecap=\"butt\" transform=\"matrix(0.341682, 0, 0, 0.341682, 2.873508, 3.02636)\" fill=\"none\" stroke-linejoin=\"miter\" d=\"M 172.222149 173.866927 L 226.251706 173.866927 C 239.501866 173.866927 250.248328 163.120464 250.248328 149.858872 L 250.248328 26.000172 C 250.248328 19.632321 247.721766 13.527416 243.217398 9.03448 C 238.724462 4.530111 232.619556 2.003549 226.251706 2.003549 L 2.005039 2.003549 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4873\"/>\n          </g>\n          <g clip-path=\"url(#c96bd42485)\" id=\"g4875\">\n            <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 2.873508, 3.02636)\" fill=\"none\" stroke-linejoin=\"round\" d=\"M 9.996291 8.005563 L 2.005039 2.003549 L 9.996291 -3.998464 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4874\"/>\n          </g>\n        </g>\n      </g>","m":[1,0,0,1,207,33],"box":{"x":1056.56,"y":532.66,"w":84.82,"h":60.77}},{"label":"Arrow between behavior and purpose","html":"<g xmlns=\"http://www.w3.org/2000/svg\" mask=\"url(#09569ca345)\" id=\"g4885\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" inkscape:label=\"Arrow between behavior and purpose\">\n        <g transform=\"matrix(1, 0, 0, 1, 630, 336)\" id=\"g4884\">\n          <g clip-path=\"url(#9c0dab07cf)\" id=\"g4883\">\n            <g clip-path=\"url(#6ffa4f66b5)\" id=\"g4882\">\n              <g transform=\"matrix(1, 0, 0, 1, 0, 0.000000000000056843)\" id=\"g4881\">\n                <g clip-path=\"url(#fb82694d4b)\" id=\"g4880\">\n                  <path stroke-linecap=\"butt\" transform=\"matrix(0.341682, 0, 0, 0.341682, 0.194437, 2.686437)\" fill=\"none\" stroke-linejoin=\"miter\" d=\"M 13.00121 2.003783 L 174.346773 2.003783 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4877\"/>\n                  <g clip-path=\"url(#5580576034)\" id=\"g4878\">\n                    <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 0.194437, 2.686437)\" fill=\"none\" stroke-linejoin=\"round\" d=\"M 2.003234 2.003783 L 8.005248 -3.998231 L 13.995829 2.003783 L 8.005248 7.994364 Z M 2.003234 2.003783 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4878\"/>\n                  </g>\n                  <g clip-path=\"url(#a1e107e020)\" id=\"g4879\">\n                    <path stroke-linecap=\"round\" transform=\"matrix(0.341682, 0, 0, 0.341682, 0.194437, 2.686437)\" fill=\"none\" stroke-linejoin=\"round\" d=\"M 185.356181 2.003783 L 179.354167 -3.998231 L 173.352153 2.003783 L 179.354167 7.994364 Z M 185.356181 2.003783 \" stroke=\"#ffffff\" stroke-width=\"4\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" id=\"path4879\"/>\n                  </g>\n                </g>\n              </g>\n            </g>\n          </g>\n        </g>\n      </g>","m":[1,0,0,1,207,33],"box":{"x":837.88,"y":370.32,"w":62.65,"h":4.1}}],"targets":{"Affect Tolerance":{"x":497.41,"y":568.56,"w":71.25,"h":39.23},"Gut Microbiome Probiotics/Prebiotics":{"x":323.22,"y":653.43,"w":71.25,"h":39.23},"Contents of Food":{"x":399.77,"y":662.68,"w":71.25,"h":39.23},"Refined Sugars/Fructose Consumption":{"x":476.42,"y":671.93,"w":71.25,"h":39.23},"Circadian Rhythm":{"x":1043.53,"y":653.43,"w":71.25,"h":39.23},"Substance Use":{"x":553.07,"y":680.22,"w":71.25,"h":39.23},"Physical Activity":{"x":890.22,"y":671.93,"w":71.25,"h":39.23},"Sleep":{"x":966.88,"y":662.68,"w":71.25,"h":39.23},"Inflammation":{"x":813.57,"y":682.29,"w":71.25,"h":39.23},"How You Make Others Feel":{"x":766.01,"y":280.01,"w":71.25,"h":39.22},"Social Homeostatic Needs":{"x":601.57,"y":280.7,"w":71.25,"h":39.22},"Relationship Skills":{"x":684.5,"y":270.8,"w":71.25,"h":39.22},"Experiencing Connection":{"x":518.72,"y":284.53,"w":71.25,"h":39.23},"Control/Demand/Predictability":{"x":646.98,"y":583.16,"w":71.25,"h":39.23},"Evaluation of Performance":{"x":754.91,"y":543.25,"w":71.25,"h":39.23},"Social Heirarchy":{"x":722.93,"y":583.16,"w":71.25,"h":39.23},"Sympathetic Learning History/Trauma":{"x":612.07,"y":543.25,"w":71.25,"h":39.23},"Managing Dopamine System":{"x":406.53,"y":568.56,"w":71.25,"h":39.22},"Acceptance":{"x":862.31,"y":469.47,"w":71.25,"h":39.23},"Locus of Control":{"x":956.56,"y":469.47,"w":71.25,"h":39.23},"Cognitive Distortions":{"x":956.56,"y":520.65,"w":71.25,"h":39.23},"Beliefs":{"x":862.31,"y":520.65,"w":71.25,"h":39.23},"Respondent Conditioning":{"x":956.56,"y":571.84,"w":71.25,"h":39.23},"Attention Regulation":{"x":862.31,"y":571.84,"w":71.25,"h":39.23},"Agency Over Future":{"x":976.1,"y":322.65,"w":71.25,"h":39.23},"Good Things Are Coming/Optimism":{"x":914.12,"y":285.64,"w":71.25,"h":39.23},"Looking Forward to Experiences":{"x":1033.75,"y":285.64,"w":71.25,"h":39.23},"Meaning For Living":{"x":914.12,"y":359.18,"w":71.25,"h":39.23},"Purpose to Others":{"x":1033.75,"y":359.18,"w":71.25,"h":39.23},"Commitment":{"x":914.12,"y":238.61,"w":71.25,"h":39.22},"Accomplishment":{"x":1033.75,"y":238.61,"w":71.25,"h":39.22}},"titles":{"TTIM Title":{"x":553.68,"y":33.12,"w":339.36,"h":26.16},"Dr. Alexey Breuss":{"x":676.08,"y":54,"w":88.8,"h":17.76},"Greater World Title":{"x":628.41,"y":102.48,"w":182.87,"h":21.89},"Culture Banner Title":{"x":668.76,"y":160.43,"w":96.33,"h":21.12},"Relationships Banner Title":{"x":660.04,"y":230.17,"w":127.98,"h":20.13},"Behavior Banner Title":{"x":674.72,"y":397.36,"w":91.89,"h":16.53},"Purpose Banner Title":{"x":988.49,"y":400.78,"w":42.67,"h":10.2},"Metabolic Health Banner Title":{"x":630.95,"y":722.18,"w":186.04,"h":19.96},"Greater Nervous System Banner Title":{"x":611.77,"y":649.95,"w":215.95,"h":20.9},"Executive Functioning Banner Title":{"x":646.12,"y":496.73,"w":147.39,"h":13.32},"Emotion Banner Title":{"x":693.89,"y":470.87,"w":50.68,"h":9.84},"Inside the Skin Banner Title":{"x":691.15,"y":763.96,"w":57.36,"h":6.33}}};
+
+const VW = 1440, VH = 810;
+const U = 2;                       // screen px per diagram unit at scale 1
+const HEXW = 71.25, HEXH = 39.23;  // the real treatment-target size
+const PEAK = 3.85;                 // how far the top/bottom mid-points poke out
+const STORE_KEY = 'ttim-builder-v2';
+
+/* ---------- small geometry helpers ---------- */
+const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+function inPoly(pts,x,y){
+  let inside=false;
+  for(let i=0,j=pts.length-1;i<pts.length;j=i++){
+    const xi=pts[i][0],yi=pts[i][1],xj=pts[j][0],yj=pts[j][1];
+    if(((yi>y)!==(yj>y)) && (x < (xj-xi)*(y-yi)/(yj-yi)+xi)) inside=!inside;
+  }
+  return inside;
+}
+const polyPath = p => 'M'+p.map(q=>q[0].toFixed(2)+' '+q[1].toFixed(2)).join('L')+'Z';
+
+/* resample a polygon so corners are preserved and long edges get points —
+   this is what lets a level deform like a membrane */
+function densify(poly, step){
+  const out=[];
+  for(let i=0;i<poly.length;i++){
+    const a=poly[i], b=poly[(i+1)%poly.length];
+    const len=Math.hypot(b[0]-a[0],b[1]-a[1]);
+    const n=Math.max(1,Math.round(len/step));
+    for(let k=0;k<n;k++){
+      const t=k/n;
+      out.push([a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t]);
+    }
+  }
+  return out;
+}
+
+/* ---------- the eleven levels ---------- */
+const HOLES = {
+  greaterworld:['culture'], culture:['relationships','purpose'],
+  relationships:['behavior','purpose'], behavior:[], purpose:[],
+  metabolic:['gns'], gns:['allostatic','cognitions','exec','sympathetic'],
+  allostatic:['__cate'], exec:[], cognitions:[], sympathetic:[]
+};
+const ZNAME = {
+  greaterworld:'Greater World', culture:'Culture', relationships:'Relationships',
+  behavior:'Behavior', purpose:'Purpose', metabolic:'Metabolic Health',
+  gns:'Greater Nervous System', allostatic:'Allostatic Load',
+  exec:'Executive Functioning', cognitions:'Cognitions / Beliefs / Schemas',
+  sympathetic:'Sympathetic Branch'
+};
+const TINT = {
+  greaterworld:'#ffbd59', culture:'#ffa268', relationships:'#ff8a72', behavior:'#ffbd59',
+  purpose:'#ff578e', metabolic:'#5ce1e6', gns:'#38b6ff', allostatic:'#ff578e',
+  exec:'#38b6ff', cognitions:'#ff578e', sympathetic:'#8c52ff'
+};
+/* innermost first: a point inside several levels belongs to the first match */
+const HIT_ORDER = ['sympathetic','purpose','behavior','allostatic','cognitions','exec',
+                   'relationships','culture','greaterworld','gns','metabolic'];
+
+/* a shape either points at its own resolved gradient, or is a flat colour */
+const paintOf = (src, id) => {
+  if(src.g && src.g.kind) return 'url(#'+id+')';
+  return (src.g && src.g.fill) || src.fill || 'none';
+};
+
+const Z = {};              // live zone records
+for(const [id,src] of Object.entries(G.zones)){
+  const poly = src.poly;
+  Z[id] = {
+    id, name:ZNAME[id], tint:TINT[id], fill:src.fill, poly,
+    paint: paintOf(src, 'zg_'+id),
+    holes:HOLES[id]||[],
+    dense: densify(poly, 9),
+    disp:null, dv:null, hot:0, wob:0
+  };
+  const n = Z[id].dense.length;
+  Z[id].disp = new Float64Array(n*2);
+  Z[id].dv   = new Float64Array(n*2);
+}
+Z.__cate = { poly:G.decor.catecholamines.poly };
+Z.__emo  = { poly:G.decor.emotion.poly };
+
+function zoneHas(z,x,y){
+  if(!inPoly(z.poly,x,y)) return false;
+  for(const h of z.holes||[]){ const o=Z[h]; if(o && inPoly(o.poly,x,y)) return false; }
+  return true;
+}
+/* a target fits when its six corners (drawn in) and centre all sit inside */
+const HEX_PROBE = (()=>{
+  const cx=HEXW/2, cy=HEXH/2, k=0.84;
+  const v=[[0,PEAK],[cx,0],[HEXW,PEAK],[HEXW,HEXH-PEAK],[cx,HEXH],[0,HEXH-PEAK]];
+  return [[cx,cy], ...v.map(p=>[cx+(p[0]-cx)*k, cy+(p[1]-cy)*k])];
+})();
+function hexFits(z,x,y){
+  for(const p of HEX_PROBE) if(!zoneHas(z,x+p[0],y+p[1])) return false;
+  return true;
+}
+function spiral(x,y,test){
+  if(test(x,y)) return [x,y];
+  for(let r=5;r<=420;r+=5)
+    for(let k=0;k<24;k++){
+      const a=(k/24)*Math.PI*2+(r%10?0.13:0);
+      const nx=x+Math.cos(a)*r, ny=y+Math.sin(a)*r*0.7;
+      if(test(nx,ny)) return [nx,ny];
+    }
+  return null;
+}
+const settle = (z,x,y)=>spiral(x,y,(a,b)=>hexFits(z,a,b));
+/* ---------- when do two targets collide? ----------
+   The hexagons have vertical sides, so side-by-side neighbours can never
+   interlock. Stacked ones can: a dipped bottom rides over a peaked top when
+   the two are offset sideways. For a horizontal offset d (< HEXW) the shapes
+   just touch at a vertical separation of  HEXH - PEAK * d / (HEXW/2).
+   This is exact for the artwork's shape, and every pairing in the published
+   model satisfies it. */
+const GX = 3, GY = 2.5;                       // breathing room between targets
+const sepY = adx => HEXH - PEAK*adx/(HEXW/2);
+function conflictXY(ax,ay,bx,by){
+  const adx=Math.abs(ax-bx), ady=Math.abs(ay-by);
+  if(adx >= HEXW+GX) return false;            // clear side to side
+  if(adx >= HEXW)    return ady < HEXH;       // sides nearly touching
+  return ady < sepY(adx) + GY;
+}
+function clearOf(z,x,y,selfId){
+  for(const t of targets){
+    if(t.id===selfId || t.zone!==z.id) continue;
+    if(conflictXY(t.x,t.y,x,y)) return false;
+  }
+  return true;
+}
+
+/* ==========================================================================
+   DRAW THE DIAGRAM
+   ========================================================================== */
+const SVGNS='http://www.w3.org/2000/svg';
+const $ = id => document.getElementById(id);
+function mk(tag,attrs,text){
+  const e=document.createElementNS(SVGNS,tag);
+  for(const k in attrs) if(attrs[k]!=null) e.setAttribute(k,attrs[k]);
+  if(text!=null) e.textContent=text;
+  return e;
+}
+/* Gradients were resolved to absolute viewBox coordinates during extraction,
+   so they can be dropped straight in wherever the shape is drawn. */
+function gradEl(id, g, shift){
+  if(!g || !g.kind) return null;
+  /* prefer the axis measured from the artwork's own render */
+  if(g.fitted) g = {...g, ...g.fitted};
+  const dx = shift ? shift[0] : 0, dy = shift ? shift[1] : 0;
+  const el = g.kind==='r'
+    ? mk('radialGradient',{id, gradientUnits:'userSpaceOnUse',
+        cx:g.cx-dx, cy:g.cy-dy, r:g.r, fx:g.fx-dx, fy:g.fy-dy})
+    : mk('linearGradient',{id, gradientUnits:'userSpaceOnUse',
+        x1:g.x1-dx, y1:g.y1-dy, x2:g.x2-dx, y2:g.y2-dy});
+  for(const [o,c] of g.s) el.appendChild(mk('stop',{offset:o,'stop-color':c}));
+  return el;
+}
+function drawDefs(){
+  const d=$('gDefs'); d.innerHTML='';
+  for(const [id,src] of Object.entries(G.zones)){
+    const el=gradEl('zg_'+id, src.g); if(el) d.appendChild(el);
+  }
+  for(const [id,src] of Object.entries(G.decor)){
+    const el=gradEl('dg_'+id, src.g, [src.tx, src.ty]); if(el) d.appendChild(el);
+  }
+  /* the catecholamine banner's own purple→cyan wash */
+  /* drawn inside translate(tx,ty), so these coordinates are local to the shape */
+  const cg=mk('linearGradient',{id:'gCate',x1:'0',y1:'0',x2:'96',y2:'0',gradientUnits:'userSpaceOnUse'});
+  cg.appendChild(mk('stop',{offset:0,'stop-color':'#8c52ff'}));
+  cg.appendChild(mk('stop',{offset:1,'stop-color':'#5cd9e8'}));
+  d.appendChild(cg);
+}
+function decorPath(rec, fill, stroke){
+  const g=mk('g',{transform:`translate(${rec.tx},${rec.ty})`});
+  g.appendChild(mk('path',{d:rec.d, fill:fill||rec.fill||'none',
+    stroke:stroke||null, 'stroke-width':stroke?1.1:null}));
+  return g;
+}
+function drawDiagram(){
+  drawDefs();
+  const shell=$('gShell'), zs=$('gZones'), dec=$('gDecor'),
+        arr=$('gArrows'), hl=$('gHighlight'), ti=$('gTitles');
+  shell.innerHTML=zs.innerHTML=dec.innerHTML=arr.innerHTML=hl.innerHTML=ti.innerHTML='';
+
+  /* outer shells: the tapered, round-cornered "open laptop" halves */
+  shell.appendChild(decorPath(G.decor.outside, paintOf(G.decor.outside,'dg_outside')));
+  shell.appendChild(decorPath(G.decor.inside,   paintOf(G.decor.inside,'dg_inside')));
+
+  /* the eleven levels, outermost first */
+  const order=['greaterworld','culture','relationships','behavior','purpose',
+               'metabolic','gns','allostatic','exec','cognitions','sympathetic'];
+  for(const id of order){
+    const z=Z[id];
+    const p=mk('path',{d:polyPath(z.poly), fill:z.paint, id:'zp_'+id,
+      stroke:'rgba(255,255,255,.55)','stroke-width':1.1,'stroke-linejoin':'round'});
+    zs.appendChild(p);
+    z.el=p;
+  }
+
+  /* decoration that isn't a drop zone */
+  const WH='rgba(255,255,255,.85)';
+  dec.appendChild(decorPath(G.decor.emotion, paintOf(G.decor.emotion,'dg_emotion')));
+  dec.appendChild(decorPath(G.decor.catecholamines,'url(#gCate)',WH));
+  dec.appendChild(decorPath(G.decor.dopamine,'#8c52ff',WH));
+  dec.appendChild(decorPath(G.decor.ans,'#8c52ff',WH));
+  dec.appendChild(decorPath(G.decor.affect,'#ff578e',WH));
+  dec.appendChild(decorPath(G.decor.concept,'#ff578e',WH));
+
+  /* The connector network, replayed from the original file. Each group is
+     re-hung under its own accumulated parent transform — without it the
+     arrows land wherever their local coordinates happen to fall. */
+  for(const a of G.arrows){
+    const g=mk('g',{transform:'matrix('+a.m.join(',')+')'});
+    const w=document.createElementNS(SVGNS,'g');
+    w.innerHTML=a.html;
+    while(w.firstChild) g.appendChild(w.firstChild);
+    arr.appendChild(g);
+  }
+
+  /* per-level highlight + ring, hidden until a target is dragged over them */
+  for(const id of order){
+    hl.appendChild(mk('path',{d:polyPath(Z[id].poly),class:'zone-hl',id:'hl_'+id,fill:'#fff'}));
+    hl.appendChild(mk('path',{d:polyPath(Z[id].poly),class:'zone-ring',id:'rg_'+id}));
+  }
+  drawTitles();
+}
+
+/* Level names, re-set as live text and scaled to occupy exactly the same
+   space the outlined originals did. */
+const TITLE_TEXT = {
+  'TTIM Title':'Treatment Target Identification Model (TTIM)',
+  'Dr. Alexey Breuss':'Dr. Alexey Breuss',
+  'Greater World Title':'Greater World',
+  'Culture Banner Title':'Culture',
+  'Relationships Banner Title':'Relationships',
+  'Behavior Banner Title':'Behavior',
+  'Purpose Banner Title':'Purpose',
+  'Metabolic Health Banner Title':'Metabolic Health',
+  'Greater Nervous System Banner Title':'Greater Nervous System',
+  'Executive Functioning Banner Title':'Executive Functioning',
+  'Emotion Banner Title':'Emotion',
+  'Inside the Skin Banner Title':'Inside the Skin'
+};
+/* text the original bakes into a banner without giving it its own label */
+const EXTRA_TITLES = [
+  {t:'Outside the Skin',   cx:719.7, cy:83,    size:7.2, dark:true},
+  {t:'Allostatic Load',    cx:492.4, cy:440,   size:11.5},
+  {t:'Cognitions/',        cx:947.5, cy:442,   size:11.5},
+  {t:'Beliefs/Schemas',    cx:947.5, cy:455,   size:11.5},
+  {t:'Sympathetic Branch', cx:719.4, cy:630,   size:7.8},
+  {t:'Catecholamines',     cx:442.3, cy:532,   size:6.2},
+  {t:'Affect',             cx:682.1, cy:452,   size:12.5},
+  {t:'Concept',            cx:757.3, cy:452,   size:12.5},
+  {t:'Dopamine System',    cx:442.1, cy:469,   size:5.4},
+  {t:'Autonomic Nervous',  cx:442.1, cy:502,   size:5.4},
+  {t:'System',             cx:442.1, cy:511,   size:5.4}
+];
+function drawTitles(){
+  const ti=$('gTitles');
+  for(const [label,txt] of Object.entries(TITLE_TEXT)){
+    const b=G.titles[label]; if(!b) continue;
+    const dark = label==='Inside the Skin Banner Title';
+    const e=mk('text',{x:b.x+b.w/2, y:b.y+b.h,
+      'text-anchor':'middle', class:'ttl'+(dark?' dark':''), 'font-size':b.h}, txt);
+    /* inline style, so it wins over the stylesheet's default white */
+    if(label==='TTIM Title') e.style.fill='#38b6ff';
+    if(label==='Dr. Alexey Breuss') e.style.fill='#ff578e';
+    ti.appendChild(e);
+    e.__box=b;
+  }
+  for(const x of EXTRA_TITLES)
+    ti.appendChild(mk('text',{x:x.cx,y:x.cy,'text-anchor':'middle',
+      class:'ttl'+(x.dark?' dark':''),'font-size':x.size}, x.t));
+}
+/* one measure-and-correct pass so each title matches the original's footprint */
+function fitTitles(){
+  for(const e of $('gTitles').querySelectorAll('text')){
+    const b=e.__box; if(!b) continue;
+    let bb;
+    try{ bb=e.getBBox(); }catch(_){ continue; }
+    if(!bb.width) continue;
+    const fs=parseFloat(e.getAttribute('font-size'))*(b.w/bb.width);
+    e.setAttribute('font-size',fs.toFixed(2));
+    try{ bb=e.getBBox(); }catch(_){ continue; }
+    const y=parseFloat(e.getAttribute('y'));
+    e.setAttribute('y',(y+(b.y-bb.y)).toFixed(2));
+  }
+}
+</script>
+
+<script>
+/* ==========================================================================
+   THE TREATMENT TARGETS
+   Positions come from the labelled SVG; rationale, guiding questions and
+   sample interventions mirror the model explorer on the home page.
+   ========================================================================== */
+const SEED_DEF = [
+/* --- Metabolic Health --- */
+['Gut Microbiome Probiotics/Prebiotics','t_gut','Gut Microbiome Probiotics/Prebiotics','metabolic','Metabolic Health',
+ "Gut bacteria produce neurotransmitter precursors and short-chain fatty acids. A poor microbiome fuels inflammation and disrupts the gut-brain axis, feeding depression and anxiety.",
+ ["Does your client eat probiotic or low-sugar fermented foods?"],
+ ["Low-sugar fermented foods","Dietary fiber","Reducing gut-harming foods","Targeted probiotic / prebiotic regimens"]],
+['Contents of Food','t_food','Content of Food','metabolic','Metabolic Health',
+ "The brain needs specific nutrients; deficits (omega-3, vitamin D, magnesium, B vitamins) translate into mental-health symptoms. Diet quality directly shapes mood and cognition.",
+ ["Does your client eat a lot of protein and fiber, or is their diet mostly carbohydrates?"],
+ ["DBT PLEASE skill","Whole, unprocessed foods","Fruits, vegetables, lean protein","Targeted supplementation (omega-3, B vitamins)"]],
+['Refined Sugars/Fructose Consumption','t_sugar','Refined Sugars/Fructose Consumption','metabolic','Metabolic Health',
+ "High refined-sugar and fructose intake drives neuroinflammation, mitochondrial dysfunction and insulin resistance — a modifiable risk factor across mood and cognitive disorders.",
+ ["Does your client eat a lot of foods high in refined sugars?"],
+ ["Reducing processed foods & added sugars","DBT PLEASE skill","Metabolic-health screening","Emphasizing whole foods","Ketogenic metabolic therapy strategies"]],
+['Substance Use','t_subst','Substance Use','metabolic','Metabolic Health',
+ "Psychoactive substances alter physiological baselines, impair executive function bottom-up, and leave metabolic after-effects that can linger for months or years after cessation.",
+ ["Does your client engage in frequent substance use?"],
+ ["Abstinence","Harm reduction","Understanding the substance's function & meeting it through lived experience","Pharmacological support"]],
+['Inflammation','t_inflam','Inflammation','metabolic','Metabolic Health',
+ "Chronic, often-undetected systemic inflammation alters neurotransmitter metabolism, impairs neuroplasticity, and is implicated in depression, bipolar disorder and treatment resistance.",
+ ["Does your client have any chronic inflammation they're aware of? (dry eyes, excess mucus, brain fog, low energy, insulin resistance, skin symptoms, poor digestion, low back pain)"],
+ ["Anti-inflammatory diets","Regular exercise","Cognitive / behavioral stress reduction","Targeted anti-inflammatory supplementation"]],
+['Physical Activity','t_activity','Physical Activity','metabolic','Metabolic Health',
+ "Perhaps the most-researched health intervention: movement modulates BDNF and neurotransmitters, builds metabolic resilience, and rivals therapy for some outcomes.",
+ ["Does your client get a lot of physical activity?"],
+ ["Walking / running / dancing","Resistance training","Monitoring behavioral antecedents & consequences of activity"]],
+['Sleep','t_sleep','Sleep','metabolic','Metabolic Health',
+ "Sleep underwrites neuroplasticity, memory and emotion regulation. Every mental-health condition shows a relationship with disturbed sleep.",
+ ["How many hours a night does the client sleep?","Do they sleep through the night?"],
+ ["CBT-i","Sleep hygiene","Light exposure / chronotherapy","Adequate daytime energy expenditure","Relaxation techniques"]],
+['Circadian Rhythm','t_circ','Circadian Rhythm','metabolic','Metabolic Health',
+ "Cortisol rhythm and sleep-wake timing can be disrupted even when sleep duration is intact — a distinct target. Modern light, screens and shift schedules are common culprits.",
+ ["Does your client get ample early-morning sunlight?","Does your client feel energized during the daylight hours?"],
+ ["Light therapy","Consistent meal timing","Timed exercise","Maintaining regular social rhythms"]],
+
+/* --- Relationships --- */
+['Experiencing Connection','t_conn','Experiencing Connection','relationships','Relationships',
+ "The capacity to feel connection itself can be the target — for relational trauma, insecure attachment, alexithymia or autism. Therapy can be a corrective, co-regulating experience.",
+ ["Does the client feel connected to / understood by those around them?","Do the people around the client feel connected to / understood by them?"],
+ ["Building a strong therapeutic alliance","Attachment-based interventions","The therapeutic relationship as a model for connection","Graded exposure to deeper connection"]],
+['Social Homeostatic Needs','t_social','Social Homeostatic Needs','relationships','Relationships',
+ "Social isolation produces real physiological consequences and rising allostatic load. Unmet social needs are statistically probable for almost anyone presenting for care.",
+ ["Does the client have close relationships (family / friend / romantic)? Do they feel lonely?","Is the client happy with the closeness of their relationships?","How often does the client speak with and spend time with people?"],
+ ["Collaborative problem-solving to find connection","Group therapy","Using the therapeutic relationship to scaffold social needs"]],
+['Relationship Skills','t_relskill','Relationship Skills','relationships','Relationships',
+ "Maintaining relationships is a learned, practiced skill set — communication, boundaries, conflict resolution. Deficits drive interpersonal friction and destabilize attachment.",
+ ["Do people in the client's life often find themselves upset with the client, or take advantage of the client?"],
+ ["Social skills training","DBT Interpersonal Effectiveness","Gottman Method","Family therapy","Modeling in session","Conflict-resolution scripts"]],
+['How You Make Others Feel','t_others','How You Make Others Feel','relationships','Relationships',
+ "Technically correct social behavior can still leave others feeling unseen. Awareness of one's impact — perspective-taking and empathic accuracy — is often the missing piece.",
+ ["Does the client know what they need in relationships, and what people need from them?","Does the client find people avoiding or distancing themselves from them?"],
+ ["Radically-Open DBT","DBT Interpersonal skills","Metacognition / mentalization training","Therapeutic-relationship feedback","Functional Analytic Psychotherapy"]],
+
+/* --- Allostatic Load --- */
+['Managing Dopamine System','t_dopa','Managing Dopamine System','allostatic','Allostatic Load',
+ "Dopamine governs reward, motivation and movement, and operates on relative, prediction-based stimulation. Modern life over-stimulates it; under- and over-activation both produce mental-health consequences.",
+ ["Does the client feel unpleasant when prevented from doing what they want?","Does the client feel their best when they do new things?","Does the client enjoy the early stages of new things, then struggle once novelty wears off?"],
+ ["Abstinence from highly dopaminergic activity (reset)","Aligning values to behavior","Increasing non-dopaminergic pleasures","Structural schedule adjustments","Pharmacology (stimulants / dopamine modulators)"]],
+
+['Affect Tolerance','t_afftol','Affect Tolerance','allostatic','Allostatic Load',
+ "Affect varies along two axes: energy (arousal) and valence. When some regions of that space feel intolerable — high-energy distress like panic or rage, low-energy states like emptiness or boredom, even calm or joy — clients escape them through avoidance, numbing, impulsive action or dissociation. Widening the window of tolerance lets a client stay present and regulated across the full affective range.",
+ ["Does the client have the capacity to handle a range of affective experiences, including all combinations of high and low energy and high and low valence?"],
+ ["Somatic Experiencing (titration & pendulation)", "Sensorimotor Psychotherapy", "Integral Somatic Psychology", "Trauma-informed yoga", "DBT Distress Tolerance", "DBT Emotion Regulation", "ACT willingness & defusion", "Emotion Regulation Therapy", "STAIR", "AEDP / ISTDP", "Emotion-Focused Therapy", "IFS parts work", "EMDR (incl. Positive Affect Tolerance protocol)", "Accelerated Resolution Therapy"]],
+
+/* --- Sympathetic Branch --- */
+['Sympathetic Learning History/Trauma','t_trauma','Sympathetic Learning History/Trauma','sympathetic','Allostatic Load',
+ "Trauma sensitizes the nervous system to threat, producing rigid autonomic states and overgeneralized danger cues that persist long after the events. No formulation is complete without evaluating it.",
+ ["Does the client have a history of working in high-stress environments?","Does the client have any trauma history?"],
+ ["Trauma-focused CBT","EMDR","Cognitive Processing Therapy","Prolonged Exposure","Corrective environments & experiences","Somatic / body-oriented therapies"]],
+['Evaluation of Performance','t_perf','Evaluation of Performance','sympathetic','Allostatic Load',
+ "The SNS mobilizes us toward performance. A poor relationship with performance — or unmet, unrealistic demands — creates sustained arousal where the effort to perform undermines performance itself.",
+ ["Does the client struggle with feelings regarding their performance in life / tasks?"],
+ ["Cognitive restructuring of perfectionism","DBT Building Mastery","Values-based behavioral activation (ACT)","Biofeedback","Mindfulness","Exposure-based interventions"]],
+['Control/Demand/Predictability','t_control','Control/Demand/Predictability','sympathetic','Allostatic Load',
+ "The primate nervous system is built to react to control, demand and predictability. Low control, low predictability or overwhelming demand drives a high allostatic load.",
+ ["Does the client have very little control / predictability and very high demands in their life?","Does the client struggle with a need for control?","Does the client feel resistant to external demands?"],
+ ["Education","Exposure","Behavioral activation / modification","Cognitive reframing","Mindfulness on the controllable","Problem-solving","DBT Distress Tolerance","Adjusting the environment"]],
+['Social Heirarchy','t_hier','Social Hierarchy','sympathetic','Allostatic Load',
+ "The SNS is naturally sensitive to social rank — higher arousal when perceived as lower-status. An under-discussed driver of self-worth struggles, rejection sensitivity and chronic dysregulation.",
+ ["Does the client feel like they are a valuable or worthwhile person?","Does the client feel intense feelings when others question them or their worth?","Are there external or internal factors driving the client to feel lesser?"],
+ ["Cognitive restructuring of status/worth beliefs","Status-based personal values","Radical Acceptance of social status","Biofeedback","Mindfulness","Self-esteem building","Finding ways to be of value to others"]],
+
+/* --- Cognitions --- */
+['Acceptance','t_accept','Acceptance','cognitions','Cognitions',
+ "A mismatch between beliefs about reality and what actually happens drives dissonance, distress, and maladaptive behavior. Accepting reality is often the precondition for effective change.",
+ ["Does the client have a strong acceptance of actual reality / realistic probabilities?"],
+ ["DBT Radical Acceptance","ACT commitment strategies","Psychoeducation","Mindfulness-based practices"]],
+['Locus of Control','t_locus','Locus of Control','cognitions','Cognitions',
+ "An adaptive balance between believing one drives outcomes and recognizing external forces sustains motivation. Too far internal breeds over-responsibility and shame; too far external breeds helplessness.",
+ ["Does the client have an adaptive balance of believing they drive outcomes versus external forces driving outcomes?"],
+ ["Problem-solving therapy","Cognitive restructuring","SAGE skill (RO-DBT)","Responsibility pie chart","Socratic reframing","Behavioral experiments"]],
+['Beliefs','t_beliefs','Beliefs/Education/Experience/Language','cognitions','Cognitions',
+ "The learning of a lifetime shapes which predictions the brain makes. Maladaptive beliefs perpetuate distress through rigid or inaccurate interpretations of inner and outer events.",
+ ["Does the client hold any beliefs, education, experience, or language that are maladaptive to them?"],
+ ["Cognitive restructuring","Psychoeducation","Values exploration","Selective attentional focusing","New linguistic frameworks","Corrective experiences"]],
+['Cognitive Distortions','t_distort','Cognitive Distortions','cognitions','Cognitions',
+ "Systematic thinking errors bias information processing and keep predictive models misaligned with reality, sustaining stress reactivity and draining the body's resources.",
+ ["Does the client hold any cognitive distortions? (Refer to existing questionnaires such as the CD-Quest.)"],
+ ["Cognitive restructuring","Behavioral experiments","Mindfulness-based metacognitive awareness"]],
+['Attention Regulation','t_attn','Attention Regulation','cognitions','Cognitions',
+ "Where attention goes shapes prediction. Affect-biased attention and hypervigilance maintain disordered states; trainable attentional control builds top-down regulation.",
+ ["Does the client focus on the adaptive / important aspects of their life?"],
+ ["DBT Mindfulness skills","Focused-attention meditation","Open-monitoring","Cognitive control exercises","Behavioral activation"]],
+['Respondent Conditioning','t_respond','Respondent Conditioning','cognitions','Cognitions',
+ "Learned associations drive automatic emotional and physiological reactions that operate outside conscious control — and that cognition alone often can't reach.",
+ ["Has the client's life conditioned any maladaptive responses to life situations?","Does the client need to engage with respondent conditioning experiences to address emotional issues?"],
+ ["Exposure & Response Prevention","Exposure therapy","Systematic desensitization","EMDR","Interoceptive exposure","Behavioral experiments"]],
+
+/* --- Purpose --- */
+['Commitment','t_commit','Commitment','purpose','Purpose',
+ "Willingness to engage with effort and change underpins every other intervention. As a facet of Purpose, it is the chosen, values-driven decision to keep moving toward a life worth living.",
+ ["Does the client demonstrate the willingness to engage with effort and change?"],
+ ["Fostering grit / iterative mindset","Behavioral activation","Motivational interviewing","DBT Willingness vs Willfulness","DBT Building Mastery"]],
+['Accomplishment','t_accomp','Accomplishment','purpose','Purpose',
+ "The satisfaction that follows direct effort reinforces agency and reward pathways. Without earned wins, motivation and self-efficacy erode even when meaning and connection are present.",
+ ["Has the client experienced the feelings of satisfaction that follow direct effort?"],
+ ["WOOP method","Micro-goal chunking","Progress journaling","Habit stacking","Deliberate practice","The Progress Principle"]],
+['Good Things Are Coming/Optimism','t_goodthings','Good Things Are Coming/Optimism','purpose','Purpose',
+ "A global conviction that a positive future is possible. Without it, planning and effort can feel hollow — distinct from, and deeper than, looking forward to specific events.",
+ ["Does the client believe good experiences or things are coming?"],
+ ["Cognitive restructuring of future beliefs","Behavioral activation","Future Event Specificity Training","Mindfulness for a more optimistic outlook"]],
+['Looking Forward to Experiences','t_lookfwd','Looking Forward to Experiences','purpose','Purpose',
+ "Anticipating positive experiences sustains the dopamine system and the sense that life is worth living. Anhedonia blunts the drive to pursue goals at all.",
+ ["Is the client looking forward to anything?"],
+ ["Behavioral activation (pleasurable activities)","Savoring","Mindfulness of pleasant experiences","Anticipatory pleasure via guided imagery"]],
+['Agency Over Future','t_agency','Agency Over Future','purpose','Purpose',
+ "Belief in influence over outcomes — an internal locus of control and an iterative mindset — sustains motivation and resilience. Its absence is learned helplessness.",
+ ["Does the client feel like they have some control over their future?"],
+ ["CBT challenging control beliefs","Reattributing success to effort","Growth mindset","Motivational interviewing","DBT Building Mastery"]],
+['Meaning For Living','t_meaning','Meaning For Living','purpose','Purpose',
+ "A reason for living confers resilience even when immediate rewards are scarce — a force that can counteract a chronically over-active lateral habenula and pervasive hopelessness.",
+ ["Does the client have a reason for being on a day-to-day basis? On a lifelong basis?"],
+ ["ACT values work","Narrative Therapy","Existential therapy","Meaning-centered psychotherapy"]],
+['Purpose to Others','t_purpother','Purpose to Others','purpose','Purpose',
+ "Contributing to others' lives builds self-worth and releases prosocial neuromodulators, lowering SNS activity and allostatic load.",
+ ["Does the client contribute to their world in any way?"],
+ ["Volunteer work","Community engagement","DBT ACCEPTS skill","Mentorship","Acts of service"]]
+];
+
+/* one target in the written model that has no hexagon in the figure */
+const BANK_DEF = [
+ ['t_sns','Chronic SNS Activation',null,'Allostatic Load',
+  "When stress mediators exceed coping capacity the system dysregulates into allostatic overload — surfacing as the physical complaints that so often arrive on a therapist's couch. It lives in the model's text but has no hexagon yet — place it wherever your formulation needs it.",
+  ["Does the client wake before they intend to, or have insomnia?","Stomach issues? Autoimmune issues or a weak immune system?","Chronic fatigue? Memory struggles? Sexual dysfunction?","Muscle tension (shoulders / neck / jaw)? High blood pressure?"],
+  ["Down-regulation / relaxation techniques","Behavioral & cognitive stress reduction","Medical collaboration","Address upstream targets (control, trauma, performance)","DBT Distress Tolerance","Biofeedback"]]
+];
+
+function cloneSeed(){
+  const out=[];
+  for(const [svgLabel,id,name,zone,pillar,why,q,ix] of SEED_DEF){
+    const b=G.targets[svgLabel];
+    if(!b){ console.warn('no geometry for',svgLabel); continue; }
+    out.push({id,name,zone,pillar,why,q:[...q],ix:[...ix],
+      x:b.x, y:b.y, tone:'green', notes:'', custom:false,
+      homeZone:zone, homeX:b.x, homeY:b.y});
+  }
+  for(const [id,name,zone,pillar,why,q,ix] of BANK_DEF)
+    out.push({id,name,zone,pillar,why,q:[...q],ix:[...ix],x:0,y:0,
+      tone:'green',notes:'',custom:false,homeZone:zone,homeX:0,homeY:0});
+  return out;
+}
+
+/* ==========================================================================
+   STATE
+   ========================================================================== */
+let targets=[], selectedId=null, showLabels=true, showArrows=true, jelly=true, autoSpace=true;
+let scale=1, fitScale=1, zoom=1, panX=0, panY=0;
+const els=new Map();
+const stage=$('stage'), hexlayer=$('hexlayer'), viewport=$('viewport'),
+      bankGrid=$('bankGrid'), bankEl=$('bank');
+</script>
+
+<script>
+/* ==========================================================================
+   MOTION
+   One animation loop drives three things: the targets' own springs, the
+   squash-and-stretch on whatever is being dragged, and the membrane
+   deformation of the level a target is being pushed into.
+   ========================================================================== */
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* let long slash-joined names break where the original artwork breaks them */
+const breakable = s => String(s).replace(/([\/-])/g,'$1\u200B');
+
+const SPRING_K = 0.155, SPRING_D = 0.78;   // target settle
+const MEM_K = 0.30,  MEM_D = 0.70;         // membrane
+const MEM_SIGMA = 95, MEM_AMP = 13;        // reach and depth of the dent
+const STRETCH = 0.016, STRETCH_MAX = 0.30;
+/* label metrics measured off the original artwork */
+const TFS = 6.3, TLH = 1.42;
+
+let raf=null, lastT=0, dragT=null, dragVX=0, dragVY=0;
+
+function startLoop(){ if(!raf) raf=requestAnimationFrame(tick); }
+
+function tick(now){
+  const dt = clamp((now-lastT)/16.667, 0.3, 2.6) || 1;
+  lastT = now;
+  let alive = false;
+
+  /* --- targets --- */
+  for(const t of targets){
+    if(!t.zone || t===dragT) continue;
+    const el = els.get(t.id); if(!el || el.parentNode!==hexlayer) continue;
+    const gx = t.x + (t.pushX||0), gy = t.y + (t.pushY||0);
+    if(REDUCED || !jelly){
+      t.rx=gx; t.ry=gy; t.vx=t.vy=0;
+    } else {
+      t.vx = (t.vx + (gx-t.rx)*SPRING_K*dt) * Math.pow(SPRING_D, dt);
+      t.vy = (t.vy + (gy-t.ry)*SPRING_K*dt) * Math.pow(SPRING_D, dt);
+      t.rx += t.vx*dt; t.ry += t.vy*dt;
+      if(Math.abs(gx-t.rx)+Math.abs(gy-t.ry)+Math.abs(t.vx)+Math.abs(t.vy) > 0.02) alive = true;
+      else { t.rx=gx; t.ry=gy; t.vx=t.vy=0; }
+    }
+    el.style.transform = `translate(${(t.rx*U).toFixed(2)}px,${(t.ry*U).toFixed(2)}px)`;
+    squash(el, t.vx, t.vy);
+  }
+
+  /* --- the dragged one --- */
+  if(dragT){
+    const el = els.get(dragT.id);
+    if(el) squash(el, dragVX, dragVY);
+    dragVX *= 0.72; dragVY *= 0.72;
+    alive = true;
+  }
+
+  /* --- level membranes --- */
+  for(const id of HIT_ORDER){
+    const z = Z[id];
+    if(!z.hot && !z.wob) continue;
+    if(membrane(z, dt)) alive = true;
+  }
+
+  if(alive) raf = requestAnimationFrame(tick);
+  else { raf = null; lastT = 0; }
+}
+
+function squash(el, vx, vy){
+  const sq = el.__sq; if(!sq) return;
+  if(REDUCED || !jelly){ sq.style.transform=''; return; }
+  const sp = Math.hypot(vx,vy);
+  if(sp < 0.06){ sq.style.transform=''; return; }
+  const s = Math.min(STRETCH_MAX, sp*STRETCH);
+  const a = Math.atan2(vy,vx)*180/Math.PI;
+  sq.style.transform = `rotate(${a.toFixed(1)}deg) scale(${(1+s).toFixed(3)},${(1-s*0.72).toFixed(3)}) rotate(${(-a).toFixed(1)}deg)`;
+}
+
+/* push the outline away from the probe, then let it spring back */
+function membrane(z, dt){
+  const D=z.disp, V=z.dv, pts=z.dense, n=pts.length;
+  const on = z.hot && jelly && !REDUCED;
+  const px=z.px, py=z.py, k=z.hot;
+  let moving=false;
+  for(let i=0;i<n;i++){
+    let tx=0, ty=0;
+    if(on){
+      const dx=pts[i][0]-px, dy=pts[i][1]-py;
+      const d2=dx*dx+dy*dy;
+      const w=Math.exp(-d2/(2*MEM_SIGMA*MEM_SIGMA));
+      if(w>0.004){
+        const d=Math.sqrt(d2)||1;
+        tx = dx/d*MEM_AMP*w*k; ty = dy/d*MEM_AMP*w*k;
+      }
+    }
+    const i2=i*2;
+    V[i2]   = (V[i2]   + (tx-D[i2])  *MEM_K*dt) * Math.pow(MEM_D,dt);
+    V[i2+1] = (V[i2+1] + (ty-D[i2+1])*MEM_K*dt) * Math.pow(MEM_D,dt);
+    D[i2]   += V[i2]*dt;  D[i2+1] += V[i2+1]*dt;
+    if(Math.abs(D[i2])+Math.abs(D[i2+1])+Math.abs(V[i2])+Math.abs(V[i2+1]) > 0.01) moving=true;
+  }
+  if(moving || z.wob){
+    let d='M';
+    for(let i=0;i<n;i++){
+      d += (i?'L':'') + (pts[i][0]+D[i*2]).toFixed(2) + ' ' + (pts[i][1]+D[i*2+1]).toFixed(2);
+    }
+    d+='Z';
+    z.el.setAttribute('d',d);
+    const hlp=$('hl_'+z.id), rgp=$('rg_'+z.id);
+    if(hlp) hlp.setAttribute('d',d);
+    if(rgp) rgp.setAttribute('d',d);
+  }
+  if(!moving && !z.hot){
+    z.wob = 0;
+    const d = polyPath(z.poly);
+    z.el.setAttribute('d',d);
+    $('hl_'+z.id)?.setAttribute('d',d);
+    $('rg_'+z.id)?.setAttribute('d',d);
+    D.fill(0); V.fill(0);
+  } else z.wob = 1;
+  return moving;
+}
+
+/* ==========================================================================
+   TARGET ELEMENTS
+   ========================================================================== */
+function makeHex(t){
+  const el=document.createElement('div');
+  el.className='hex';
+  el.dataset.id=t.id;
+  el.dataset.tone=t.tone||'green';
+  el.style.width=(HEXW*U)+'px';
+  el.style.height=(HEXH*U)+'px';
+  el.setAttribute('tabindex','0');
+  el.setAttribute('role','button');
+  const sq=document.createElement('div'); sq.className='sq';
+  const body=document.createElement('div'); body.className='body';
+  body.textContent=breakable(t.name);
+  body.style.fontSize=(TFS*U)+'px';
+  body.style.lineHeight=String(TLH);
+  sq.appendChild(body); el.appendChild(sq);
+  el.__sq=sq; el.__body=body;
+  el.addEventListener('pointerdown',onGrab);
+  el.addEventListener('dblclick',e=>{e.preventDefault();openModal(t.id);});
+  el.addEventListener('keydown',e=>onHexKey(e,t));
+  els.set(t.id,el);
+  return el;
+}
+function onHexKey(e,t){
+  const step=e.shiftKey?10:3;
+  const map={ArrowLeft:[-step,0],ArrowRight:[step,0],ArrowUp:[0,-step],ArrowDown:[0,step]};
+  if(map[e.key]&&t.zone){
+    e.preventDefault();
+    const z=Z[t.zone], nx=t.x+map[e.key][0], ny=t.y+map[e.key][1];
+    if(hexFits(z,nx,ny)){ t.x=nx; t.y=ny; startLoop(); save(); }
+  } else if(e.key==='Enter'||e.key===' '){ e.preventDefault(); select(t.id); }
+  else if(e.key==='Delete'||e.key==='Backspace'){ e.preventDefault(); toBank(t); }
+}
+/* Nunito is wider than most fallbacks, so once it lands a long label can
+   outgrow its hexagon. Step the size down until it fits. */
+function fitLabel(el){
+  const b=el.__body; if(!b) return;
+  let fs=TFS;
+  b.style.fontSize=(fs*U)+'px';
+  let guard=0;
+  while((b.scrollHeight>b.clientHeight+1 || b.scrollWidth>b.clientWidth+1) && fs>4.4 && guard++<14){
+    fs-=0.25;
+    b.style.fontSize=(fs*U)+'px';
+  }
+}
+function fitAllLabels(){ for(const [,el] of els) if(el.parentNode===hexlayer) fitLabel(el); }
+
+function placeNow(t){
+  const el=els.get(t.id); if(!el) return;
+  t.rx=t.x; t.ry=t.y; t.vx=t.vy=0;
+  el.style.transform=`translate(${(t.x*U).toFixed(2)}px,${(t.y*U).toFixed(2)}px)`;
+}
+
+function render(opts){
+  opts=opts||{};
+  const seen=new Set();
+  for(const t of targets){
+    seen.add(t.id);
+    let el=els.get(t.id);
+    if(!el){ el=makeHex(t); el.classList.add('pop'); setTimeout(()=>el.classList.remove('pop'),520); }
+    el.dataset.tone=t.tone||'green';
+    const disp=breakable(t.name);
+    if(el.__body.textContent!==disp){ el.__body.textContent=disp; el.title=t.name; }
+    el.classList.toggle('sel',t.id===selectedId);
+    if(t.zone){
+      if(el.parentNode!==hexlayer) hexlayer.appendChild(el);
+      el.classList.remove('in-bank');
+      el.style.width=(HEXW*U)+'px'; el.style.height=(HEXH*U)+'px';
+      fitLabel(el);
+      if(t.rx===undefined){ placeNow(t); }
+    } else {
+      if(el.parentNode!==bankGrid) bankGrid.appendChild(el);
+      el.classList.add('in-bank');
+      el.style.width='118px'; el.style.height='65px'; el.style.transform='';
+      el.__body.style.fontSize='9.3px';
+      t.rx=undefined;
+    }
+  }
+  for(const [id,el] of els){ if(!seen.has(id)){ el.remove(); els.delete(id); } }
+
+  const parked=targets.filter(t=>!t.zone).length;
+  $('bankCount').textContent=parked;
+  let empty=bankGrid.querySelector('.bank-empty');
+  if(parked===0){
+    if(!empty){ empty=document.createElement('div'); empty.className='bank-empty';
+      empty.innerHTML='Every target is on the model.<br>Drag one here to set it aside.';
+      bankGrid.appendChild(empty); }
+  } else if(empty) empty.remove();
+
+  if(!opts.keepInspector) renderInspector();
+  startLoop();
+}
+
+/* ==========================================================================
+   DRAG & DROP
+   ========================================================================== */
+let drag=null, armedId=null;
+const screenRect=el=>el.getBoundingClientRect();
+
+function onGrab(e){
+  if(e.button!==undefined && e.button!==0) return;
+  const el=e.currentTarget;
+  const t=targets.find(x=>x.id===el.dataset.id); if(!t) return;
+  e.preventDefault();
+  select(t.id);
+  const r=screenRect(el);
+  drag={t,el,id:e.pointerId,
+    ox:e.clientX-r.left, oy:e.clientY-r.top,
+    sx:e.clientX, sy:e.clientY, lx:e.clientX, ly:e.clientY,
+    fromZone:t.zone, fromX:t.x, fromY:t.y, moved:false, zone:null};
+  window.addEventListener('pointermove',onMove);
+  window.addEventListener('pointerup',onDrop);
+  window.addEventListener('pointercancel',onDrop);
+}
+
+function liftOut(){
+  const {el}=drag;
+  const r=screenRect(el);
+  drag.placeholder=null;
+  if(el.parentNode===bankGrid){
+    const ph=document.createElement('div');
+    ph.style.width=r.width+'px'; ph.style.height=r.height+'px'; ph.style.flex='none';
+    bankGrid.insertBefore(ph,el);
+    drag.placeholder=ph;
+  }
+  const W=HEXW*U*scale, H=HEXH*U*scale;
+  drag.ox = drag.ox*(W/r.width);
+  drag.oy = drag.oy*(H/r.height);
+  document.body.appendChild(el);
+  el.classList.add('dragging');
+  el.classList.remove('in-bank');
+  el.style.position='fixed';
+  el.style.width=(HEXW*U)+'px'; el.style.height=(HEXH*U)+'px';
+  el.__body.style.fontSize=(TFS*U)+'px';
+  el.style.transformOrigin='top left';
+  dragT=drag.t; dragVX=dragVY=0;
+  startLoop();
+}
+
+function onMove(e){
+  if(!drag || e.pointerId!==drag.id) return;
+  if(!drag.moved){
+    if(Math.abs(e.clientX-drag.sx)+Math.abs(e.clientY-drag.sy)<4) return;
+    drag.moved=true; liftOut();
+    $('hint').style.opacity='0';
+  }
+  const {el,t}=drag;
+  const k = drag.overBank ? 1 : scale;
+  el.style.left=(e.clientX-drag.ox)+'px';
+  el.style.top =(e.clientY-drag.oy)+'px';
+
+  /* velocity feeds the squash */
+  dragVX = dragVX*0.55 + (e.clientX-drag.lx)/(U*scale)*0.45;
+  dragVY = dragVY*0.55 + (e.clientY-drag.ly)/(U*scale)*0.45;
+  drag.lx=e.clientX; drag.ly=e.clientY;
+
+  const cx=e.clientX-drag.ox + HEXW*U*scale/2, cy=e.clientY-drag.oy + HEXH*U*scale/2;
+  const overBank=hitTestEl(bankEl,e.clientX,e.clientY);
+  bankEl.classList.toggle('drop-armed',overBank);
+  const z=overBank?null:zoneAtScreen(cx,cy);
+  el.style.transform=`scale(${overBank?1:scale})`;
+  armZone(z?z.id:null, cx, cy);
+  drag.zone=z; drag.overBank=overBank;
+
+  /* neighbours open a gap where the target would land */
+  if(z){
+    const [dx,dy]=screenToDiagram(cx,cy);
+    previewRoom(z, dx-HEXW/2, dy-HEXH/2, t.id);
+  } else clearRoom();
+  startLoop();
+}
+
+function hitTestEl(el,x,y){
+  const r=el.getBoundingClientRect();
+  return x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom;
+}
+function screenToDiagram(x,y){
+  const r=stage.getBoundingClientRect();
+  return [(x-r.left)/(scale*U), (y-r.top)/(scale*U)];
+}
+function zoneAtScreen(x,y){
+  const [dx,dy]=screenToDiagram(x,y);
+  if(dx<0||dy<0||dx>VW||dy>VH) return null;
+  for(const id of HIT_ORDER){ const z=Z[id]; if(zoneHas(z,dx,dy)) return z; }
+  return null;
+}
+function armZone(id,sx,sy){
+  if(armedId!==id){
+    if(armedId){
+      $('hl_'+armedId)?.classList.remove('hot');
+      $('rg_'+armedId)?.classList.remove('hot');
+      const old=Z[armedId]; if(old){ old.hot=0; old.wob=1; }
+    }
+    armedId=id;
+    if(armedId){
+      $('hl_'+armedId)?.classList.add('hot');
+      $('rg_'+armedId)?.classList.add('hot');
+    }
+  }
+  if(armedId && sx!=null){
+    const z=Z[armedId];
+    const [dx,dy]=screenToDiagram(sx,sy);
+    z.px=dx; z.py=dy; z.hot=1;
+  }
+}
+function previewRoom(z,gx,gy,selfId){
+  for(const t of targets){
+    if(t.id===selfId||t.zone!==z.id){ t.pushX=t.pushY=0; continue; }
+    const dx=t.x-gx, dy=t.y-gy;
+    if(conflictXY(t.x,t.y,gx,gy)){
+      const m=Math.hypot(dx,dy)||1;
+      const push=Math.min(HEXW+GX-Math.abs(dx)+4, HEXW*0.75);
+      let nx=dx/m*push, ny=dy/m*push*0.75;
+      if(!hexFits(z,t.x+nx,t.y+ny)){
+        const alt=settle(z,t.x+nx,t.y+ny);
+        if(alt){ nx=alt[0]-t.x; ny=alt[1]-t.y; } else { nx=ny=0; }
+      }
+      t.pushX=nx; t.pushY=ny;
+    } else t.pushX=t.pushY=0;
+  }
+}
+function clearRoom(){ for(const t of targets) t.pushX=t.pushY=0; }
+function commitRoom(zoneId){
+  for(const t of targets){
+    if(t.zone!==zoneId || !(t.pushX||t.pushY)) { t.pushX=t.pushY=0; continue; }
+    const nx=t.x+t.pushX, ny=t.y+t.pushY;
+    if(hexFits(Z[zoneId],nx,ny)){ t.x=nx; t.y=ny; }
+    t.pushX=t.pushY=0;
+  }
+}
+/* after a drop, nudge anything still touching onto the nearest free spot */
+function repairZone(zoneId, anchorId){
+  const z=Z[zoneId]; if(!z) return;
+  const list=targets.filter(t=>t.zone===zoneId);
+  for(let pass=0; pass<3; pass++){
+    let fixed=false;
+    for(const t of list){
+      if(t.id===anchorId) continue;
+      if(clearOf(z,t.x,t.y,t.id)) continue;
+      const spot=spiral(t.x,t.y,(a,b)=>hexFits(z,a,b)&&clearOf(z,a,b,t.id));
+      if(spot){ t.x=spot[0]; t.y=spot[1]; fixed=true; }
+    }
+    if(!fixed) break;
+  }
+}
+
+function onDrop(e){
+  if(!drag||e.pointerId!==drag.id) return;
+  const {el,t}=drag;
+  window.removeEventListener('pointermove',onMove);
+  window.removeEventListener('pointerup',onDrop);
+  window.removeEventListener('pointercancel',onDrop);
+  if(!drag.moved){ drag=null; return; }
+
+  const from=screenRect(el);
+  const z=drag.zone;
+  armZone(null);
+  bankEl.classList.remove('drop-armed');
+  el.classList.remove('dragging');
+  el.style.position=''; el.style.left=''; el.style.top='';
+  el.style.width=''; el.style.height=''; el.style.transform='';
+  el.style.transformOrigin='';
+  drag.placeholder?.remove();
+  dragT=null;
+
+  if(drag.overBank){
+    clearRoom();
+    t.zone=null;
+  } else if(z){
+    const bx=e.clientX-drag.ox, by=e.clientY-drag.oy;
+    const [ccx,ccy]=screenToDiagram(bx+HEXW*U*scale/2, by+HEXH*U*scale/2);
+    const wx=ccx-HEXW/2, wy=ccy-HEXH/2;
+    commitRoom(z.id);
+    const free=spiral(wx,wy,(a,b)=>hexFits(z,a,b)&&clearOf(z,a,b,t.id));
+    if(free){
+      t.zone=z.id; t.x=free[0]; t.y=free[1];
+      /* space the whole level out again around the new arrival */
+      if(autoSpace){
+        const r=packZone(z);
+        if(!r) repairZone(z.id,t.id);
+        else if(r==='crowded') toast(z.name+' is nearly full, so part of it now covers the title.');
+      }
+      else if(!autoSpace) repairZone(z.id,t.id);
+    }
+    else{
+      const snap=targets.filter(o=>o.zone===z.id).map(o=>[o,o.x,o.y]);
+      const any=settle(z,wx,wy);
+      if(any){
+        t.zone=z.id; t.x=any[0]; t.y=any[1];
+        const r=packZone(z);
+        if(r) toast(r==='crowded' ? z.name+' is nearly full, so part of it now covers the title.'
+                                  : z.name+' was full, so it re-packed to fit.');
+        else{
+          for(const [o,ox,oy] of snap){ o.x=ox; o.y=oy; }
+          t.zone=drag.fromZone; t.x=drag.fromX; t.y=drag.fromY;
+          toast(z.name+' is full — move something out of it first.');
+        }
+      } else toast('No room there — try a wider part of '+z.name+'.');
+    }
+  } else {
+    clearRoom();
+    toast('Drop a target inside one of the levels, or in the bank.');
+  }
+
+  /* hand the element to the spring from exactly where the finger let go */
+  if(t.zone){
+    if(el.parentNode!==hexlayer) hexlayer.appendChild(el);
+    el.classList.remove('in-bank');
+    el.style.width=(HEXW*U)+'px'; el.style.height=(HEXH*U)+'px';
+    el.__body.style.fontSize=(TFS*U)+'px';
+    const sr=stage.getBoundingClientRect();
+    t.rx=(from.left-sr.left)/(scale*U);
+    t.ry=(from.top -sr.top )/(scale*U);
+    t.vx=dragVX*0.4; t.vy=dragVY*0.4;
+    el.style.transform=`translate(${(t.rx*U).toFixed(2)}px,${(t.ry*U).toFixed(2)}px)`;
+  }
+  /* the level it came from closes its gap too */
+  if(autoSpace && drag.fromZone && drag.fromZone!==t.zone) packZone(Z[drag.fromZone]);
+
+  render();
+  save(true);
+  drag=null;
+  startLoop();
+}
+
+function toBank(t){
+  if(!t.zone) return;
+  const from=t.zone;
+  t.zone=null; t.rx=undefined;
+  if(autoSpace) packZone(Z[from]);
+  render(); save(true);
+}
+</script>
+
+<script>
+/* ==========================================================================
+   TIDY
+   ========================================================================== */
+/* ==========================================================================
+   EVEN SPACING
+   Each level's usable space is sampled as a grid of every position a target
+   could legally occupy (inside the banner, clear of its holes, clear of its
+   title). Targets are then relaxed toward the centroid of the share of that
+   space nearest to them — Lloyd's algorithm — which spreads any number of
+   targets evenly through any shape: rectangles, gables, V-bands alike.
+   ========================================================================== */
+const GRID = 2.5;
+const FEAS = {};
+let KEEP = null;
+
+/* titles and captions a target shouldn't sit on, bucketed by level */
+function keepouts(){
+  if(KEEP) return KEEP;
+  KEEP = {};
+  const ti=$('gTitles'), wasHidden=ti.style.display==='none';
+  if(wasHidden) ti.style.display='';
+  const add=(x,y,w,h)=>{
+    if(!(w>0&&h>0)) return;
+    const cx=x+w/2, cy=y+h/2;
+    for(const id of HIT_ORDER) if(zoneHas(Z[id],cx,cy)){
+      (KEEP[id]=KEEP[id]||[]).push([x-2,y-1.5,x+w+2,y+h+1.5]); break;
+    }
+  };
+  for(const t of ti.querySelectorAll('text')){
+    try{ const b=t.getBBox(); add(b.x,b.y,b.width,b.height); }catch(_){}
+  }
+  for(const k of ['affect','concept']){
+    const b=G.decor[k]&&G.decor[k].box; if(b) add(b.x,b.y,b.w,b.h);
+  }
+  if(wasHidden) ti.style.display='none';
+  return KEEP;
+}
+function resetSpacingCache(){ KEEP=null; for(const k in FEAS) delete FEAS[k]; }
+
+const hitsKeep=(ko,x,y)=>{
+  for(const r of ko) if(x<r[2] && x+HEXW>r[0] && y<r[3] && y+HEXH>r[1]) return true;
+  return false;
+};
+const okAt=(z,x,y,ko)=>hexFits(z,x,y) && !hitsKeep(ko,x,y);
+
+function feasCells(z, ko, tag){
+  const key=z.id+':'+tag;
+  if(FEAS[key]) return FEAS[key];
+  const xs=z.poly.map(p=>p[0]), ys=z.poly.map(p=>p[1]);
+  const L=Math.min(...xs), R=Math.max(...xs), T=Math.min(...ys), B=Math.max(...ys);
+  const cells=[];
+  for(let y=T; y+HEXH<=B; y+=GRID)
+    for(let x=L; x+HEXW<=R; x+=GRID)
+      if(okAt(z,x,y,ko)) cells.push([x,y]);
+  return FEAS[key]=cells;
+}
+
+/* every visible point of the level's usable area — what "the space of the
+   banner" actually is, independent of where a target's corner may go */
+function areaCells(z, ko, tag){
+  const key=z.id+':a'+tag;
+  if(FEAS[key]) return FEAS[key];
+  const xs=z.poly.map(p=>p[0]), ys=z.poly.map(p=>p[1]);
+  const L=Math.min(...xs), R=Math.max(...xs), T=Math.min(...ys), B=Math.max(...ys);
+  const pts=[];
+  for(let y=T+GRID/2; y<B; y+=GRID)
+    for(let x=L+GRID/2; x<R; x+=GRID){
+      if(!zoneHas(z,x,y)) continue;
+      let inKeep=false;
+      for(const r of ko) if(x>r[0]&&x<r[2]&&y>r[1]&&y<r[3]){ inKeep=true; break; }
+      if(!inKeep) pts.push([x,y]);
+    }
+  return FEAS[key]=pts;
+}
+
+/* densest-first seating, used only when current positions aren't legal */
+function compactSeat(n, cells){
+  const placed=[];
+  for(const c of cells){
+    let ok=true;
+    for(const p of placed) if(conflictXY(p[0],p[1],c[0],c[1])){ ok=false; break; }
+    if(ok){ placed.push(c); if(placed.length===n) return placed; }
+  }
+  return null;
+}
+function nearestCell(cells,x,y){
+  let best=null, bd=Infinity;
+  for(const c of cells){ const d=(c[0]-x)**2+(c[1]-y)**2; if(d<bd){ bd=d; best=c; } }
+  return best;
+}
+function legal(z,P,ko){
+  for(let i=0;i<P.length;i++){
+    if(!okAt(z,P[i][0],P[i][1],ko)) return false;
+    for(let j=i+1;j<P.length;j++) if(conflictXY(P[i][0],P[i][1],P[j][0],P[j][1])) return false;
+  }
+  return true;
+}
+
+function relax(z,P,cells,ko,area){
+  const n=P.length, hw=HEXW/2, hh=HEXH/2;
+  /* distances measured in target-widths and target-heights, so "evenly
+     spaced" means equal visual gaps rather than equal raw units */
+  const SX=1/(HEXW+GX), SY=1/(HEXH+GY);
+  for(let it=0; it<70; it++){
+    const ax=new Float64Array(n), ay=new Float64Array(n), cnt=new Float64Array(n);
+    for(const c of area){
+      let bi=0, bd=Infinity;
+      for(let i=0;i<n;i++){
+        const dx=(c[0]-P[i][0]-hw)*SX, dy=(c[1]-P[i][1]-hh)*SY, d=dx*dx+dy*dy;
+        if(d<bd){ bd=d; bi=i; }
+      }
+      ax[bi]+=c[0]; ay[bi]+=c[1]; cnt[bi]++;
+    }
+    let moved=0;
+    for(let i=0;i<n;i++){
+      if(!cnt[i]) continue;
+      const tx=ax[i]/cnt[i]-hw, ty=ay[i]/cnt[i]-hh;      // centroid → corner
+      for(const f of [1,.6,.35,.18]){
+        let nx=P[i][0]+(tx-P[i][0])*f, ny=P[i][1]+(ty-P[i][1])*f;
+        if(!okAt(z,nx,ny,ko)){ const c=nearestCell(cells,nx,ny); if(!c) continue; nx=c[0]; ny=c[1]; }
+        let clash=false;
+        for(let j=0;j<n;j++) if(j!==i && conflictXY(nx,ny,P[j][0],P[j][1])){ clash=true; break; }
+        if(clash) continue;
+        moved=Math.max(moved,Math.hypot(nx-P[i][0],ny-P[i][1]));
+        P[i]=[nx,ny]; break;
+      }
+    }
+    if(moved<0.2) break;
+  }
+  /* finishing touch: targets that ended up almost level share one baseline */
+  const order=P.map((p,i)=>i).sort((a,b)=>P[a][1]-P[b][1]);
+  let g=[order[0]];
+  const flush=()=>{
+    if(g.length<2) return;
+    const my=g.reduce((a,i)=>a+P[i][1],0)/g.length;
+    const trial=P.map(p=>p.slice()); for(const i of g) trial[i][1]=my;
+    if(legal(z,trial,ko)) for(const i of g) P[i][1]=my;
+  };
+  for(let k=1;k<order.length;k++){
+    if(P[order[k]][1]-P[g[g.length-1]][1] < 10) g.push(order[k]);
+    else { flush(); g=[order[k]]; }
+  }
+  flush();
+}
+
+/* greedy: each target takes the nearest legal free spot, preferring spots the
+   `prefer` test likes — keeps the existing arrangement as intact as possible */
+function nearestSeat(P, cells, prefer){
+  const n=P.length, seat=new Array(n), taken=[];
+  const ord=P.map((p,i)=>i).sort((a,b)=>(P[a][1]-P[b][1])||(P[a][0]-P[b][0]));
+  for(const i of ord){
+    let best=null, bd=Infinity;
+    for(const c of cells){
+      const d=(c[0]-P[i][0])**2+(c[1]-P[i][1])**2 + (prefer&&!prefer(c)?1e7:0);
+      if(d>=bd) continue;
+      let ok=true;
+      for(const t of taken) if(conflictXY(t[0],t[1],c[0],c[1])){ ok=false; break; }
+      if(ok){ bd=d; best=c; }
+    }
+    if(!best) return null;
+    seat[i]=best.slice(); taken.push(seat[i]);
+  }
+  return seat;
+}
+function seatAll(P, cells, prefer){
+  const a=nearestSeat(P,cells,prefer); if(a) return a;
+  const ordered = prefer ? cells.filter(prefer).concat(cells.filter(c=>!prefer(c))) : cells;
+  const b=compactSeat(P.length, ordered); if(!b) return null;
+  /* hand compact seats out nearest-first so targets keep their rough order */
+  const out=new Array(P.length), free=b.slice();
+  const ord=P.map((p,i)=>i).sort((x,y)=>(P[x][1]-P[y][1])||(P[x][0]-P[y][0]));
+  for(const i of ord){
+    let bi=0,bd=Infinity;
+    for(let k=0;k<free.length;k++){ const d=Math.hypot(free[k][0]-P[i][0],free[k][1]-P[i][1]); if(d<bd){bd=d;bi=k;} }
+    out[i]=free.splice(bi,1)[0].slice();
+  }
+  return out;
+}
+
+/* Spread a level's targets evenly through its space.
+   Returns 'ok', 'crowded' (some target had to overlap the level's title),
+   or false, changing nothing, if they cannot all be seated at all. */
+function packZone(z){
+  const list=targets.filter(t=>t.zone===z.id);
+  if(!list.length) return 'ok';
+  const n=list.length, P=list.map(t=>[t.x,t.y]);
+  const ko=keepouts()[z.id]||[];
+  const commit=R=>list.forEach((t,i)=>{ t.x=R[i][0]; t.y=R[i][1]; });
+
+  /* 1. everyone fits clear of the title */
+  const cellsK=feasCells(z,ko,'k'), areaK=areaCells(z,ko,'k');
+  if(cellsK.length>=1){
+    const start = legal(z,P,ko) ? P.map(p=>p.slice()) : seatAll(P,cellsK);
+    if(start){ relax(z,start,cellsK,ko,areaK); commit(start); return 'ok'; }
+  }
+  /* 2. over capacity: seat anywhere legal, but spread through the title-free
+        area so only the overflow ends up touching the title */
+  const cellsN=feasCells(z,[],'n');
+  if(!cellsN.length) return false;
+  const start = legal(z,P,[]) ? P.map(p=>p.slice()) : seatAll(P,cellsN);
+  if(!start) return false;
+  relax(z,start,cellsN,[],areaK.length?areaK:areaCells(z,[],'n'));
+  commit(start);
+  /* only worth mentioning if the level *could* have kept its title clear */
+  return cellsK.length && start.some(p=>hitsKeep(ko,p[0],p[1])) ? 'crowded' : 'ok';
+}
+
+function tidy(){
+  for(const id of HIT_ORDER) packZone(Z[id]);
+  toast('Every level re-packed.');
+  save(true); startLoop();
+}
+
+/* ==========================================================================
+   INSPECTOR
+   ========================================================================== */
+const TONES={green:'#00bf63',amber:'#ffab2e',red:'#ff4d6d',violet:'#8c52ff',blue:'#38b6ff',slate:'#7b8496'};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function renderInspector(){
+  const body=$('inspBody');
+  const t=targets.find(x=>x.id===selectedId);
+  if(!t){
+    body.innerHTML='<div class="insp-empty"><div class="ring">◆</div>'+
+      'Select a treatment target to see why it matters, the guiding questions, and sample interventions.</div>';
+    return;
+  }
+  const z=t.zone?Z[t.zone]:null;
+  const where=z?z.name:'Target bank';
+  const swatch=z?z.tint:'#7b8496';
+  const moved=t.zone!==t.homeZone && !t.custom;
+  const homeName=t.homeZone?(Z[t.homeZone]?Z[t.homeZone].name:t.homeZone):'the bank';
+  body.innerHTML=`
+    <div class="t-name">${esc(t.name)}</div>
+    <span class="t-where"><span class="sw" style="background:${swatch}"></span>${esc(where)}</span>
+    ${moved?`<div class="moved-note">Moved — in the published model this target sits in <strong>${esc(homeName)}</strong>.</div>`:''}
+    ${t.why?`<div class="insp-sec"><h4>Why this matters</h4><p>${esc(t.why)}</p></div>`:''}
+    ${t.q&&t.q.length?`<div class="insp-sec"><h4>Guiding questions</h4>
+      <ul class="qlist">${t.q.map(q=>`<li>${esc(q)}</li>`).join('')}</ul></div>`:''}
+    ${t.ix&&t.ix.length?`<div class="insp-sec"><h4>Sample interventions</h4>
+      <div class="chips">${t.ix.map(i=>`<span class="chip">${esc(i)}</span>`).join('')}</div></div>`:''}
+    <div class="insp-sec"><h4>Flag</h4><div class="tones">${Object.entries(TONES).map(([k,v])=>
+      `<button class="tone ${t.tone===k?'on':''}" data-tone="${k}" style="background:${v}" aria-label="${k}"></button>`).join('')}</div></div>
+    <div class="insp-sec"><h4>Session notes</h4>
+      <textarea class="notes" id="tNotes" placeholder="What you noticed, what you agreed on, what to revisit.">${esc(t.notes||'')}</textarea></div>
+    <div class="acts">
+      <button class="tool" data-act="rename">✎ Rename</button>
+      <button class="tool" data-act="dup">⧉ Duplicate</button>
+      ${t.zone?'<button class="tool" data-act="bank">⇤ To bank</button>':''}
+      ${t.custom?'<button class="tool danger" data-act="del">🗑 Delete</button>':''}
+    </div>`;
+  body.querySelectorAll('.tone').forEach(b=>b.addEventListener('click',()=>{
+    t.tone=b.dataset.tone; render(); save(true);
+  }));
+  const notes=$('tNotes');
+  if(notes) notes.addEventListener('input',()=>{ t.notes=notes.value; save(); });
+  body.querySelectorAll('[data-act]').forEach(b=>b.addEventListener('click',()=>{
+    const a=b.dataset.act;
+    if(a==='rename') openModal(t.id);
+    else if(a==='dup'){
+      const copy={...t,id:'t_'+Math.random().toString(36).slice(2,9),
+        name:t.name+' (copy)',zone:null,custom:true,notes:'',rx:undefined};
+      targets.push(copy); render(); select(copy.id); save(true);
+      toast('Copy added to the bank.');
+    }
+    else if(a==='bank') toBank(t);
+    else if(a==='del'){
+      const el=els.get(t.id); if(el) el.classList.add('leaving');
+      setTimeout(()=>{ targets=targets.filter(x=>x.id!==t.id); selectedId=null; render(); save(true); },310);
+    }
+  }));
+}
+function select(id){
+  selectedId=id;
+  for(const [k,el] of els) el.classList.toggle('sel',k===id);
+  renderInspector();
+  if(window.matchMedia('(max-width:980px)').matches) $('inspector').classList.add('open');
+}
+
+/* ==========================================================================
+   MODAL
+   ========================================================================== */
+let modalFor=null;
+function openModal(id){
+  modalFor=id||null;
+  const t=id?targets.find(x=>x.id===id):null;
+  $('mTitle').textContent=t?'Edit treatment target':'New treatment target';
+  $('mSub').textContent=t?'Changes apply straight away.':'It will appear in your target bank, ready to drag onto the model.';
+  $('mName').value=t?t.name:'';
+  $('mWhy').value=t?(t.why||''):'';
+  $('mOk').textContent=t?'Save changes':'Add target';
+  $('veil').classList.add('open');
+  setTimeout(()=>$('mName').focus(),60);
+}
+const closeModal=()=>{ $('veil').classList.remove('open'); modalFor=null; };
+function commitModal(){
+  const name=$('mName').value.trim();
+  if(!name){ $('mName').focus(); return; }
+  const why=$('mWhy').value.trim();
+  if(modalFor){
+    const t=targets.find(x=>x.id===modalFor);
+    if(t){ t.name=name; if(t.custom||why) t.why=why; }
+  } else {
+    const t={id:'t_'+Math.random().toString(36).slice(2,9),name,pillar:'Custom',
+      zone:null,x:0,y:0,why,q:[],ix:[],tone:'green',notes:'',custom:true,homeZone:null};
+    targets.push(t); selectedId=t.id;
+    toast('Added to the bank — drag it onto the model.');
+  }
+  closeModal(); render(); save(true);
+}
+
+/* ==========================================================================
+   SAVE / LOAD / EXPORT
+   ========================================================================== */
+let saveTimer=null;
+function save(flash){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>{
+    try{
+      localStorage.setItem(STORE_KEY,JSON.stringify({v:2,t:targets.map(t=>({
+        id:t.id,name:t.name,zone:t.zone,x:t.x,y:t.y,tone:t.tone,notes:t.notes,
+        custom:t.custom,why:t.custom?t.why:undefined,homeZone:t.homeZone})),
+        labels:showLabels,arrows:showArrows,jelly,autoSpace}));
+      if(flash){ const n=$('savedNote'); n.classList.add('show'); setTimeout(()=>n.classList.remove('show'),1400); }
+    }catch(_){}
+  },220);
+}
+function hydrate(list){
+  const base=cloneSeed(), byId=Object.fromEntries(base.map(t=>[t.id,t]));
+  const out=list.map(s=>({...(byId[s.id]||{q:[],ix:[],pillar:'Custom'}),...s,rx:undefined}));
+  /* targets added to the model after this formulation was saved (e.g. Affect Tolerance) */
+  const have=new Set(list.map(s=>s.id));
+  for(const t of base) if(!have.has(t.id)) out.push(t);
+  return out;
+}
+function load(){
+  try{
+    const raw=localStorage.getItem(STORE_KEY); if(!raw) return false;
+    const d=JSON.parse(raw);
+    if(!d||!Array.isArray(d.t)||!d.t.length) return false;
+    targets=hydrate(d.t);
+    if(typeof d.labels==='boolean') showLabels=d.labels;
+    if(typeof d.arrows==='boolean') showArrows=d.arrows;
+    if(typeof d.jelly==='boolean') jelly=d.jelly;
+    if(typeof d.autoSpace==='boolean') autoSpace=d.autoSpace;
+    return true;
+  }catch(_){ return false; }
+}
+function resetAll(){
+  targets=cloneSeed(); selectedId=null;
+  for(const [,el] of els) el.remove(); els.clear();
+  render(); save(true);
+  toast('Back to the published model.');
+}
+function download(name,blob){
+  const a=document.createElement('a'), u=URL.createObjectURL(blob);
+  a.href=u; a.download=name; document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(u); a.remove();},400);
+}
+function exportJson(){
+  download('ttim-formulation.json',new Blob([JSON.stringify({v:2,saved:new Date().toISOString(),
+    t:targets.map(t=>({id:t.id,name:t.name,zone:t.zone,x:t.x,y:t.y,tone:t.tone,
+      notes:t.notes,custom:t.custom,why:t.custom?t.why:undefined,homeZone:t.homeZone}))},null,2)],
+    {type:'application/json'}));
+  toast('Saved to your downloads.');
+}
+function importJson(file){
+  const fr=new FileReader();
+  fr.onload=()=>{
+    try{
+      const d=JSON.parse(fr.result);
+      if(!d||!Array.isArray(d.t)) throw 0;
+      targets=hydrate(d.t); selectedId=null;
+      for(const [,el] of els) el.remove(); els.clear();
+      render(); save(true); toast('Formulation opened.');
+    }catch(_){ toast("That file doesn't look like a TTIM formulation."); }
+  };
+  fr.readAsText(file);
+}
+
+/* --- PNG: redraw the targets as real SVG so the whole thing rasterises --- */
+function wrapText(s,maxW,fontPx){
+  const c=wrapText._c||(wrapText._c=document.createElement('canvas').getContext('2d'));
+  c.font=`700 ${fontPx}px Nunito, Inter, system-ui, sans-serif`;
+  /* break on spaces AND on the slashes the artwork breaks at */
+  const words=s.split(/(?<=[\/-])|\s+/).filter(Boolean), lines=[]; let cur='';
+  for(const w of words){
+    const test=cur?(/[\/-]$/.test(cur)?cur+w:cur+' '+w):w;
+    if(c.measureText(test).width>maxW&&cur){ lines.push(cur); cur=w; }
+    else cur=test;
+  }
+  if(cur) lines.push(cur);
+  return lines.slice(0,4);
+}
+function exportPng(){
+  const SC=2.7;
+  const svg=$('diagram').cloneNode(true);
+  svg.setAttribute('width',VW); svg.setAttribute('height',VH);
+  svg.querySelectorAll('.zone-hl,.zone-ring').forEach(n=>n.remove());
+  /* the stylesheet doesn't travel with a serialised SVG — bake the text styling in */
+  const live=$('diagram').querySelectorAll('text'), copy=svg.querySelectorAll('text');
+  for(let i=0;i<copy.length && i<live.length;i++){
+    const cs=getComputedStyle(live[i]), c=copy[i];
+    c.setAttribute('fill',cs.fill);
+    c.setAttribute('font-family',"'Nunito','Inter',system-ui,sans-serif");
+    c.setAttribute('font-weight',cs.fontWeight||'800');
+    if(cs.paintOrder && cs.paintOrder!=='normal') c.setAttribute('paint-order',cs.paintOrder);
+    if(cs.stroke && cs.stroke!=='none'){ c.setAttribute('stroke',cs.stroke);
+      c.setAttribute('stroke-width',cs.strokeWidth||'1'); }
+    c.removeAttribute('class');
+  }
+  if(!showLabels) svg.querySelector('#gTitles')?.remove();
+  if(!showArrows) svg.querySelector('#gArrows')?.remove();
+  /* restore any level still mid-wobble to its true outline */
+  for(const id of HIT_ORDER){
+    const p=svg.querySelector('#zp_'+id);
+    if(p) p.setAttribute('d',polyPath(Z[id].poly));
+  }
+  const bg=mk('rect',{x:0,y:0,width:VW,height:VH,fill:'#000'});
+  svg.insertBefore(bg,svg.firstChild.nextSibling);
+
+  const g=mk('g',{});
+  const fs=TFS;
+  for(const t of targets){
+    if(!t.zone) continue;
+    const c=TONES[t.tone]||TONES.green, x=t.x, y=t.y;
+    g.appendChild(mk('path',{d:
+      `M${x} ${y+PEAK} L${x+HEXW/2} ${y} L${x+HEXW} ${y+PEAK} `+
+      `L${x+HEXW} ${y+HEXH-PEAK} L${x+HEXW/2} ${y+HEXH} L${x} ${y+HEXH-PEAK} Z`, fill:c}));
+    const lines=wrapText(t.name,HEXW*0.90,fs);
+    const lh=fs*TLH, y0=y+HEXH/2-(lines.length-1)*lh/2+fs*0.36;
+    lines.forEach((ln,i)=>{
+      const e=mk('text',{x:x+HEXW/2,y:y0+i*lh,'text-anchor':'middle','font-size':fs,
+        'font-weight':700,fill:'#fff','font-family':"'Nunito','Inter',sans-serif"},ln);
+      g.appendChild(e);
+    });
+  }
+  svg.appendChild(g);
+
+  const src=new XMLSerializer().serializeToString(svg);
+  const img=new Image();
+  img.onload=()=>{
+    const cv=document.createElement('canvas');
+    cv.width=VW*SC; cv.height=VH*SC;
+    const cx=cv.getContext('2d');
+    cx.fillStyle='#000'; cx.fillRect(0,0,cv.width,cv.height);
+    cx.drawImage(img,0,0,cv.width,cv.height);
+    cv.toBlob(b=>{ download('ttim-map.png',b); toast('PNG saved to your downloads.'); },'image/png');
+  };
+  img.onerror=()=>toast("Couldn't render the PNG here — try the File export.");
+  img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(src);
+}
+
+/* ==========================================================================
+   VIEW
+   ========================================================================== */
+function clampPan(){
+  const vw=viewport.clientWidth, vh=viewport.clientHeight;
+  const w=VW*U*scale, h=VH*U*scale;
+  const ox=w<=vw?0:(w-vw)/2+50, oy=h<=vh?0:(h-vh)/2+50;
+  panX=clamp(panX,-ox,ox); panY=clamp(panY,-oy,oy);
+}
+function applyTransform(){
+  scale=fitScale*zoom;
+  clampPan();
+  stage.style.transform=`translate(-50%,-50%) translate(${panX}px,${panY}px) scale(${scale})`;
+  $('zFit').textContent = Math.abs(zoom-1)<0.005 ? 'Fit' : Math.round(zoom*100)+'%';
+}
+function fit(){
+  const pad=24;
+  fitScale=Math.max(.12,Math.min((viewport.clientWidth-pad)/(VW*U),(viewport.clientHeight-pad)/(VH*U)));
+  applyTransform();
+}
+function zoomAt(f,cx,cy){
+  const r0=stage.getBoundingClientRect();
+  const px=(cx-r0.left)/scale, py=(cy-r0.top)/scale;
+  const next=clamp(zoom*f,.6,4);
+  if(next===zoom) return;
+  zoom=next; applyTransform();
+  const r1=stage.getBoundingClientRect();
+  panX+=((cx-r1.left)/scale-px)*scale;
+  panY+=((cy-r1.top )/scale-py)*scale;
+  applyTransform();
+}
+const resetView=()=>{ zoom=1; panX=panY=0; applyTransform(); };
+
+let toastTimer=null;
+function toast(msg){
+  const el=$('toast'); el.textContent=msg; el.classList.add('show');
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2600);
+}
+
+/* ==========================================================================
+   BOOT
+   ========================================================================== */
+function applyToggles(){
+  $('btnLabels').classList.toggle('on',showLabels);
+  $('gTitles').style.display=showLabels?'':'none';
+  $('btnArrows').classList.toggle('on',showArrows);
+  $('gArrows').style.display=showArrows?'':'none';
+  $('btnJelly').classList.toggle('on',jelly&&!REDUCED);
+  $('btnAuto').classList.toggle('on',autoSpace);
+}
+function boot(){
+  stage.style.width=(VW*U)+'px';
+  stage.style.height=(VH*U)+'px';
+  const svg=$('diagram');
+  svg.setAttribute('width',VW*U); svg.setAttribute('height',VH*U);
+
+  drawDiagram();
+  const refit=()=>{ fitTitles(); fitAllLabels(); resetSpacingCache(); };
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(refit);
+  else setTimeout(refit,400);
+  setTimeout(refit,1200);
+
+  if(!load()) targets=cloneSeed();
+  render();
+  fit();
+  applyToggles();
+
+  window.addEventListener('resize',fit);
+  new ResizeObserver(fit).observe(viewport);
+
+  $('btnNew').addEventListener('click',()=>openModal(null));
+  $('btnTidy').addEventListener('click',tidy);
+  $('btnSave').addEventListener('click',()=>{save(true);toast('Saved in this browser.');});
+  $('btnReset').addEventListener('click',()=>{
+    if(confirm('Put every treatment target back where it sits in the published model?\n\nYour custom targets and notes will be removed.')) resetAll();
+  });
+  $('btnPng').addEventListener('click',exportPng);
+  $('btnJson').addEventListener('click',exportJson);
+  $('btnLoad').addEventListener('click',()=>$('fileIn').click());
+  $('fileIn').addEventListener('change',e=>{ if(e.target.files[0]) importJson(e.target.files[0]); e.target.value=''; });
+  $('btnLabels').addEventListener('click',()=>{showLabels=!showLabels;applyToggles();save(true);});
+  $('btnArrows').addEventListener('click',()=>{showArrows=!showArrows;applyToggles();save(true);});
+  $('btnAuto').addEventListener('click',()=>{
+    autoSpace=!autoSpace; applyToggles(); save(true);
+    if(autoSpace){ tidy(); }
+    else toast('Targets now stay exactly where you drop them.');
+  });
+  $('btnJelly').addEventListener('click',()=>{
+    jelly=!jelly; applyToggles(); save(true);
+    toast(jelly?'Springy drag on.':'Springy drag off.');
+    startLoop();
+  });
+
+  $('btnInspClose').addEventListener('click',()=>$('inspector').classList.remove('open'));
+  $('btnInspM').addEventListener('click',()=>$('inspector').classList.add('open'));
+  $('mCancel').addEventListener('click',closeModal);
+  $('mOk').addEventListener('click',commitModal);
+  $('veil').addEventListener('click',e=>{ if(e.target===$('veil')) closeModal(); });
+  $('mName').addEventListener('keydown',e=>{ if(e.key==='Enter') commitModal(); });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){ closeModal(); $('inspector').classList.remove('open'); }
+    if(e.key==='n'&&(e.metaKey||e.ctrlKey)){ e.preventDefault(); openModal(null); }
+  });
+
+  $('zIn').addEventListener('click',()=>{const r=viewport.getBoundingClientRect();zoomAt(1.25,r.left+r.width/2,r.top+r.height/2);});
+  $('zOut').addEventListener('click',()=>{const r=viewport.getBoundingClientRect();zoomAt(1/1.25,r.left+r.width/2,r.top+r.height/2);});
+  $('zFit').addEventListener('click',resetView);
+  viewport.addEventListener('wheel',e=>{e.preventDefault();zoomAt(e.deltaY<0?1.12:1/1.12,e.clientX,e.clientY);},{passive:false});
+
+  let pan=null,pinch=null; const ptrs=new Map();
+  viewport.addEventListener('pointerdown',e=>{
+    if(e.target.closest('.hex')||e.target.closest('.zoombar')) return;
+    ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size===2){
+      if(pan){ try{viewport.releasePointerCapture(pan.id);}catch(_){} }
+      pan=null; viewport.classList.remove('panning');
+      const [a,b]=[...ptrs.values()];
+      pinch={d:Math.hypot(a.x-b.x,a.y-b.y)||1,z:zoom,cx:(a.x+b.x)/2,cy:(a.y+b.y)/2};
+      return;
+    }
+    if(ptrs.size>2) return;
+    selectedId=null; for(const [,el] of els) el.classList.remove('sel'); renderInspector();
+    pan={id:e.pointerId,x:e.clientX,y:e.clientY,px:panX,py:panY};
+    viewport.classList.add('panning');
+    try{ viewport.setPointerCapture(e.pointerId); }catch(_){}
+  });
+  viewport.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId)) ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pinch&&ptrs.size>=2){
+      const [a,b]=[...ptrs.values()];
+      const want=clamp(pinch.z*(Math.hypot(a.x-b.x,a.y-b.y)/pinch.d),.6,4);
+      if(Math.abs(want-zoom)>.002) zoomAt(want/zoom,pinch.cx,pinch.cy);
+      return;
+    }
+    if(!pan) return;
+    panX=pan.px+(e.clientX-pan.x); panY=pan.py+(e.clientY-pan.y);
+    applyTransform();
+  });
+  const endPan=e=>{
+    ptrs.delete(e.pointerId);
+    if(ptrs.size<2) pinch=null;
+    if(!pan) return;
+    try{ viewport.releasePointerCapture(pan.id); }catch(_){}
+    pan=null; viewport.classList.remove('panning');
+  };
+  viewport.addEventListener('pointerup',endPan);
+  viewport.addEventListener('pointercancel',endPan);
+
+  if(window.innerWidth<760) setTimeout(()=>toast('Pinch, or tap +, to zoom in before dragging.'),1400);
+}
+let booted=false;
+const bootOnce=()=>{ if(booted) return; booted=true; boot(); };
+document.addEventListener('DOMContentLoaded',bootOnce);
+if(document.readyState!=='loading') bootOnce();
+</script>
+</body>
+</html>
