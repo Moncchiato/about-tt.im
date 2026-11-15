@@ -286,7 +286,7 @@ footer a{color:rgba(255,255,255,.85)}
 <script>
 /* ==========================================================================
    HOW TO EDIT THIS PAGE
-   - Each diagnosis below has: name, abbr (optional), group, core, also, note (optional).
+   - Each diagnosis below has: name, abbr (optional), group, core, also, note (optional; text or a list of texts).
    - core: [ targetKey, "why it often belongs" ] pairs.
    - also: [ targetKey ] or [ targetKey, "short reason (shown on hover)" ].
    - targetKey must be one of the keys in T (the 32 TTIM treatment targets).
@@ -346,6 +346,19 @@ const DX = [
     ["activity","Exercise acutely improves attention and executive control."]],
   also:[["substance","Self-medication and higher rates of substance use disorders"],["food","Regular meals and protein when stimulants suppress appetite"],["relskills"],["commitment"]],
   cross:"Executive Functioning is central here. In the TTIM it is a cross-cutting area rather than a target: scaffold it (external structure, reminders, environment design) instead of assuming it can be permanently trained." },
+
+{ id:"asd", name:"Autism Spectrum Disorder", abbr:"ASD", group:"Neurodevelopmental",
+  core:[
+    ["connection","Feeling understood and connected on the client's own terms — autism is a named reason this target exists."],
+    ["social","Loneliness is common even when connection is wanted; fit and quality matter more than quantity."],
+    ["control","Distress with unexpected change, a strong need for sameness, and for some, intense demand avoidance."],
+    ["sns","Sensory overload, the cost of masking, and autistic burnout keep the nervous system running hot."],
+    ["affect","Alexithymia and interoceptive differences make emotions hard to read early, leading to meltdowns or shutdowns."],
+    ["sleep","Insomnia is very common and amplifies sensory sensitivity and emotion dysregulation."]],
+  also:[["hierarchy","Social rank is often processed effortfully and explicitly (see note)"],["respondent","Conditioned responses to specific sensory or social situations"],["relskills","Mutual understanding, not compliance"],["others","Through a double-empathy lens: misunderstanding runs both ways"],["food","Restricted or sensory-driven eating (ARFID patterns)"],["gut","GI problems are far more common in autism"],["circadian"],["meaning","Special interests as a source of meaning"],["lookfwd","Special interests as something to anticipate"],["accomplishment"],["attention"]],
+  cross:"Executive Functioning differences are common. In the TTIM it is a cross-cutting area rather than a target: scaffold it with structure, visual schedules and environment design rather than training it away.",
+  note:["The goal is wellbeing — less sensory overload, burnout and loneliness — not appearing neurotypical. Relationship Skills and How You Make Others Feel are two-way work, targeted only where the client wants change.",
+        "People with ASD often process social hierarchy with effort, through explicit, bottom-up reasoning, whereas people with personality disorders tend to show a more implicit hyper-attunement to it. In ASD the concern tends to be outcome-based; in personality disorders it tends to be ego-based. So a person with ASD may miss being “put down” while focused on getting the outcome, whereas a person with a personality disorder may miss the outcome entirely because they are focused on having been put down."] },
 
 /* --- Schizophrenia spectrum --- */
 { id:"scz", name:"Schizophrenia", group:"Schizophrenia Spectrum",
@@ -579,7 +592,7 @@ function dxCard(d){
   const head = `<div class="dx-head"><div class="dx-group">${esc(d.group)}</div><h3>${esc(d.name)}${d.abbr ? `<small>${esc(d.abbr)}</small>` : ""}</h3></div>`;
   const core = `<div class="sec">Core targets</div><ul class="core">${d.core.map(([k,w]) => `<li>${tchip(k)}<span class="why">${esc(w)}</span></li>`).join("")}</ul>`;
   const also = d.also.length ? `<div class="sec" style="margin-top:18px">Also consider</div><div class="also">${d.also.map(([k,w]) => ochip(k,w)).join("")}</div>` : "";
-  const note = d.note ? `<div class="dx-note"><b>Note:</b> ${esc(d.note)}</div>` : "";
+  const note = [].concat(d.note || []).map(n => `<div class="dx-note"><b>Note:</b> ${esc(n)}</div>`).join("");
   const cross = d.cross ? `<div class="cross">${esc(d.cross)}</div>` : "";
   return `<article class="dx" id="dx-${d.id}">${head}<div class="dx-body">${core}${also}${cross}${note}</div></article>`;
 }
