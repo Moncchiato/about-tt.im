@@ -7,7 +7,7 @@
 <meta name="description" content="An interactive guide to the Treatment Target Identification Model (TTIM), a case conceptualization tool by Alexey Breuss for identifying what is missing in a person's life for a good lived experience.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Hanken+Grotesk:wght@400;500;600;650;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#11131a;
@@ -319,6 +319,256 @@ footer .auth b{color:#fff}
 @media(min-width:921px){.modal-back{display:none!important}}
 .modal-card{background:var(--night-2);border:1px solid rgba(255,255,255,.14);border-radius:22px 22px 0 0;width:100%;max-height:86vh;overflow:auto;padding:26px 22px 40px;color:#fff}
 .modal-card .close{float:right;font-size:24px;background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer}
+
+/* =====================================================================
+   WEBSITE 4 THEME — meadow, sage, lichen and forest.
+   The five pillar colours are unchanged; everything else lives here.
+   ===================================================================== */
+:root{
+  --ink:#22281f; --ink-soft:#485040; --muted:#646b58;
+  --paper:#f1f2e0; --paper-2:#e4e6cf; --card:#fcfcf6;
+  --line:rgba(34,40,31,.14);
+  --night:#1e2b24; --night-2:#26352c;
+  --lichen:#c8d35a; --lichen-deep:#b4c044; --moss:#5b6831; --mist:#edf0e9;
+  --on-dark:#f1f2e0; --on-dark-soft:rgba(241,242,224,.78); --line-dark:rgba(241,242,224,.14);
+  --target:#1f9d63; --target-deep:#178452;
+  --shadow:0 22px 44px -30px rgba(30,43,36,.5);
+  --arch:132px; --arch-sm:78px;
+}
+body{font-family:'Hanken Grotesk',system-ui,sans-serif;color:var(--ink);background:var(--paper);font-size:16px;line-height:1.6}
+h1,h2,h3,h4,.serif{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.005em;line-height:1.04}
+strong,b{font-weight:650}
+::selection{background:var(--lichen);color:var(--ink)}
+:focus-visible{outline:2px solid var(--moss);outline-offset:3px;border-radius:6px}
+.eyebrow{font-family:inherit;letter-spacing:0;text-transform:none;font-size:14px;font-weight:600;color:var(--moss)}
+
+/* nav — light at all times */
+nav.top{background:rgba(241,242,224,.9);border-bottom:1px solid var(--line)}
+.brand{color:var(--ink);font-weight:700;letter-spacing:.01em}
+.navlinks{color:var(--ink-soft)}
+.navlinks a{opacity:1;transition:color .2s}
+.navlinks a:hover{color:var(--moss)}
+.navlinks a.active{color:var(--moss);font-weight:650}
+.navback,.tab.navback{background:var(--card)!important;color:var(--ink)!important;border-color:rgba(34,40,31,.2)!important;text-decoration:none!important}
+.navtoggle{background:var(--card)!important;border-color:rgba(34,40,31,.2)!important}
+.navtoggle span{background:var(--ink)!important}
+@media(max-width:780px){
+  .navlinks{background:rgba(252,252,246,.98)!important;color:var(--ink)!important;box-shadow:0 22px 40px -20px rgba(30,43,36,.45)!important}
+  .navlinks a:hover,.navlinks a:active{background:var(--paper-2)!important}
+}
+
+/* buttons */
+.btn{font-weight:650;font-size:15px;padding:12px 22px;border-radius:999px;transition:background .2s,border-color .2s}
+.btn-primary{background:var(--lichen);color:var(--ink);box-shadow:none}
+.btn-primary:hover{background:var(--lichen-deep);transform:none}
+.btn-ghost{background:var(--card);color:var(--ink);border:1px solid rgba(34,40,31,.2)}
+.btn-ghost:hover{background:#fff;border-color:rgba(34,40,31,.35)}
+
+/* footer — forest */
+footer{background:var(--night);color:var(--on-dark-soft)}
+footer a{color:var(--on-dark)}
+footer .btn-ghost{background:transparent;color:var(--on-dark);border-color:rgba(241,242,224,.32)}
+footer .btn-ghost:hover{background:rgba(241,242,224,.08)}
+footer .eyebrow{color:var(--lichen)!important}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- home page ---------- */
+.progress{height:3px}
+nav.top{background:rgba(241,242,224,0);border-bottom-color:transparent}
+nav.top.scrolled{background:rgba(241,242,224,.9);box-shadow:none;border-bottom-color:var(--line)}
+nav.top.scrolled .brand,nav.top.open .brand{color:var(--ink)}
+nav.top.scrolled .navlinks{color:var(--ink-soft)}
+nav.top .navcta,nav.top.scrolled .navcta,nav.top.open .navcta{background:transparent;color:var(--ink);border:1px solid rgba(34,40,31,.22)}
+nav.top.open{background:rgba(241,242,224,.96)}
+
+/* hero */
+.hero{min-height:0;display:block;background:var(--paper);color:var(--ink);padding:136px 0 96px;overflow:visible}
+.hero-kicker{font-size:15px;color:var(--moss);font-weight:600}
+.hero h1{font-size:clamp(54px,8vw,118px);font-weight:400;letter-spacing:-.02em;line-height:.93;margin-top:18px;max-width:12ch;text-wrap:balance}
+.hero-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:end;margin-top:34px}
+.hero .lede{color:var(--ink-soft);font-weight:400;font-size:clamp(17px,1.6vw,19.5px);max-width:36em;margin-top:0;line-height:1.6}
+.hero .lede strong{color:var(--ink)}
+.hero-side{display:flex;flex-direction:column;align-items:flex-end;gap:16px}
+.hero-cta{margin-top:0}
+.hero .meta{margin-top:0;justify-content:flex-end}
+.pill{border:1px solid rgba(34,40,31,.18);color:var(--ink-soft);background:transparent;font-weight:500}
+.hero-art{margin:48px 0 0}
+.hero-art .frame{transform:none;border-radius:var(--arch) 16px 16px 16px;border:1px solid var(--line);
+  background:var(--card);padding:clamp(14px,2.4vw,34px) clamp(10px,2vw,30px) clamp(10px,1.6vw,20px);box-shadow:var(--shadow)}
+.hero-art .frame:hover{transform:none}
+.hero-art .cap{color:var(--muted);text-align:left;font-size:14px;margin-top:14px}
+@media(max-width:860px){
+  .hero{padding:110px 0 64px}
+  .hero-row{grid-template-columns:1fr;gap:24px}
+  .hero-side{align-items:flex-start}
+  .hero .meta{justify-content:flex-start}
+  .hero-art .frame{border-radius:var(--arch-sm) 12px 12px 12px}
+}
+/* the one orchestrated moment: the hero settles in on load */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes unveil{from{opacity:0;clip-path:inset(0 0 22% 0 round var(--arch) 16px 16px 16px)}to{opacity:1;clip-path:inset(0 0 0 0 round var(--arch) 16px 16px 16px)}}
+.hero-kicker,.hero h1,.hero-row{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.hero h1{animation-delay:.08s}.hero-row{animation-delay:.2s}
+.hero-art .frame{animation:unveil 1.2s .3s cubic-bezier(.2,.8,.2,1) both}
+
+/* sections: no slide-in on every block */
+.reveal,.reveal.in{opacity:1;transform:none;transition:none}
+.band{padding:116px 0}
+.section-head{max-width:780px;margin-bottom:56px}
+.section-head h2{font-size:clamp(38px,5vw,64px);margin-top:12px;line-height:1}
+.section-head p{color:var(--ink-soft);font-weight:400;font-size:18px;max-width:40em}
+.kicker-num{font-family:inherit;font-style:normal;font-size:15px;font-weight:600;color:var(--moss)}
+
+/* the paradox */
+.stats{gap:36px}
+.stat{background:transparent;border:none;border-top:1px solid rgba(34,40,31,.22);border-radius:0;box-shadow:none;padding:22px 0 0}
+.stat .big{font-family:'Instrument Serif',serif;font-weight:400;font-size:84px;line-height:.9;background:none;-webkit-text-fill-color:currentColor;color:var(--ink)}
+.stat p{color:var(--ink-soft);font-size:16px}
+.lead-quote{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(28px,3.6vw,44px);line-height:1.15;margin-top:80px;max-width:22em}
+.lead-quote span{background:none;-webkit-text-fill-color:currentColor;color:inherit}
+
+/* what it is */
+.feat{background:var(--card);border-color:var(--line);border-radius:14px;padding:30px}
+.feat:hover{transform:none;box-shadow:none}
+.feat h3{font-size:28px;line-height:1.05}
+.feat p{color:var(--ink-soft);font-size:15.5px}
+.lived{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px 32px;margin-top:34px}
+.culture-note{background:var(--night);color:var(--on-dark);border-radius:var(--arch) 16px 16px 16px;grid-template-columns:1fr;
+  padding:56px clamp(28px,5vw,64px) 52px;box-shadow:none;position:relative;overflow:hidden;margin-top:34px}
+.culture-note::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 90% at 85% 0,rgba(237,240,233,.12),transparent 70%);pointer-events:none}
+.culture-note>*{position:relative}
+.culture-note h3{font-size:clamp(30px,3.4vw,42px);color:var(--on-dark)}
+.culture-note .eyebrow{color:var(--lichen)!important;opacity:1!important}
+.culture-note p{color:var(--on-dark-soft);font-size:16.5px;font-weight:400;max-width:44em}
+
+/* emotion */
+.tce{background:var(--night);border-radius:16px;padding:64px 40px}
+.tce::before{background:radial-gradient(70% 80% at 50% 0,rgba(237,240,233,.1),transparent 65%)}
+.tce .eyebrow{color:var(--lichen)!important}
+.eq .term{border-radius:14px}
+.eq .term .t{text-transform:none;letter-spacing:0;font-size:14px;opacity:.85}
+.eq .term .n{font-family:'Instrument Serif',serif;font-weight:400;font-size:36px}
+.eq .op{font-family:'Instrument Serif',serif;font-size:48px;opacity:.7}
+.eq .affect{background:rgba(255,77,109,.14);border:1px solid rgba(255,77,109,.55)}
+.eq .concept{background:rgba(124,92,255,.18);border:1px solid rgba(124,92,255,.6)}
+.eq .emotion{background:rgba(241,242,224,.07);border:1px solid rgba(241,242,224,.32)}
+.tce .note{color:var(--on-dark-soft);font-weight:400}
+.skin{background:var(--card);border-radius:14px}
+.skin h4 .tag{color:var(--ink);text-transform:none;letter-spacing:0;font-size:13px;font-weight:650;padding:5px 12px}
+.skin p{color:var(--ink-soft)}
+
+/* pillars: arched cards with a pillar-coloured cap */
+.pillars-strip{gap:16px}
+.pcard{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:var(--arch-sm) 14px 14px 14px;
+  padding:0 0 22px;min-height:0;justify-content:flex-start;text-decoration:none;transition:border-color .2s}
+.pcard:hover{transform:none;border-color:rgba(34,40,31,.35)}
+.pcard .pc-cap{display:block;height:112px;background:var(--pc);border-radius:var(--arch-sm) 13px 0 0;margin-bottom:18px}
+.pcard h3,.pcard p,.pcard .cnt{padding:0 20px}
+.pcard h3{font-size:30px;line-height:1}
+.pcard p{color:var(--ink-soft);opacity:1;font-weight:400;font-size:14px}
+.pcard .cnt{color:var(--moss);letter-spacing:0;font-weight:650;opacity:1;margin-top:auto;padding-top:16px}
+
+/* explorer — forest */
+#explorer{background:var(--night);color:var(--on-dark);overflow:hidden}
+#explorer::before{content:"";position:absolute;left:0;right:0;top:0;height:520px;background:radial-gradient(60% 100% at 22% 0,rgba(237,240,233,.11),transparent 70%);pointer-events:none}
+#explorer .wrap{position:relative}
+#explorer .kicker-num{color:var(--lichen)}
+#explorer .section-head p{color:var(--on-dark-soft)}
+.ptab{border-color:rgba(241,242,224,.22);background:transparent;color:var(--on-dark)}
+.ptab:hover{background:rgba(241,242,224,.08)}
+.ptab.active{background:var(--on-dark);color:var(--night);border-color:var(--on-dark)}
+.pillar-pane,.detail-pane{background:var(--night-2);border-color:var(--line-dark)!important;border-radius:16px}
+.pillar-pane{border-top-left-radius:var(--arch-sm);padding-top:40px}
+.pillar-pane .ribbon{background:transparent!important;border:1px solid rgba(241,242,224,.3);color:var(--on-dark);text-transform:none;letter-spacing:0;font-size:13px}
+.pillar-pane h3{font-size:42px}
+.pillar-pane .desc{color:var(--on-dark-soft);font-weight:400}
+.hex{background:var(--target);box-shadow:none;border-radius:10px;font-weight:600}
+.hex:hover{transform:none;filter:none;background:#26b073}
+.detail-empty{color:rgba(241,242,224,.55)}
+.detail-pane h3{font-size:34px}
+.detail-pane .belongs{text-transform:none;letter-spacing:0;font-size:14px}
+.dblock .lbl{text-transform:none;letter-spacing:0;font-size:14px;font-weight:650;color:var(--lichen)}
+.dblock p{color:rgba(241,242,224,.86);font-weight:400}
+.qlist li{background:rgba(241,242,224,.06);border-color:rgba(241,242,224,.14);color:var(--on-dark)}
+.qlist li::before{background:var(--lichen);color:var(--night)}
+.chip{background:rgba(31,157,99,.16);border-color:rgba(31,157,99,.5);color:#d3efdf}
+.svg-viewer{background:var(--card);border-radius:var(--arch-sm) 16px 16px 16px;box-shadow:none;padding:22px 16px 16px}
+.svg-viewer .hint{left:auto;right:20px;background:rgba(252,252,246,.9)}
+.svg-controls button{background:var(--card);box-shadow:none;border-color:var(--line)}
+.modal-card{background:var(--night-2);border-color:var(--line-dark)}
+
+/* in practice */
+.step{background:var(--card);border-radius:14px}
+.step .sn{font-family:'Instrument Serif',serif;font-weight:400;font-size:96px;color:var(--paper-2)}
+.step h3{font-size:28px}
+.balance{background:var(--card);grid-template-columns:1fr;border-radius:14px}
+.balance h3{font-size:30px;line-height:1.05}
+.ef-note{border-left-color:var(--moss);background:var(--card)}
+.ef-note h4{font-size:24px}
+.adapt{background:var(--card);box-shadow:none;border-radius:var(--arch-sm) 16px 16px 16px;padding:44px 38px 38px}
+.adapt-head h3{font-size:clamp(28px,3vw,38px);line-height:1.05}
+.adapt-card{background:var(--paper);border-color:var(--line)}
+.adapt-card:hover{transform:none}
+.adapt-card b{font-family:'Instrument Serif',serif;font-weight:400;font-size:23px}
+
+/* footer */
+footer h3{font-size:clamp(34px,4.4vw,54px);line-height:1}
+footer .auth b{color:var(--on-dark)}
+.contact{background:var(--night-2);border-color:var(--line-dark)}
+.contact h4{font-size:26px!important}
+/* refinements */
+.hero h1{max-width:none;font-size:clamp(54px,7.6vw,118px)}
+.culture-note h3{font-size:clamp(32px,3.6vw,46px)!important;margin-top:10px!important}
+.eq{gap:14px;flex-wrap:nowrap}
+.eq .term{min-width:0;flex:1 1 0;max-width:300px;padding:22px 20px}
+@media(max-width:860px){.eq{flex-wrap:wrap}.eq .term{flex:1 1 100%;max-width:none}}
+.skin h4 .tag{font-family:'Hanken Grotesk',sans-serif}
+.stat .big{font-variant-numeric:lining-nums}
+
+/* "One framework" cards: a small illustrated tile per idea */
+.feat .fi{width:68px;height:68px;border-radius:30px 10px 10px 10px;background:var(--paper);border:1px solid var(--line);
+  display:grid;place-items:center;margin-bottom:20px}
+.feat .fi svg{width:38px;height:38px}
+.feat{display:flex;flex-direction:column}
+.feat h3{font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:650;font-size:21px;line-height:1.25;letter-spacing:-.01em}
+
+/* pillar cards read as buttons */
+.pcard{cursor:pointer;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s,border-color .2s}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 22px 36px -26px rgba(30,43,36,.6);border-color:var(--pc)}
+.pcard:active{transform:translateY(-1px)}
+.pcard:focus-visible{outline:3px solid var(--pc);outline-offset:3px}
+.pcard .cnt{display:none}
+.pcard .pgo{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:auto 16px 0;padding:10px 10px 10px 14px;
+  border-radius:999px;background:var(--paper);border:1px solid var(--line);font-size:14px;font-weight:650;color:var(--ink);transition:background .2s,border-color .2s,color .2s}
+.pcard .pgo i{flex:none;width:28px;height:28px;border-radius:50%;background:var(--pc);display:grid;place-items:center;transition:transform .2s}
+.pcard .pgo i svg{width:14px;height:14px}
+.pcard:hover .pgo{background:var(--night);border-color:var(--night);color:var(--on-dark)}
+.pcard:hover .pgo i{transform:translateX(2px)}
+.pcard p{margin-bottom:18px}
+
+/* culture panel: emotion concepts that vary across languages */
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.culture-note{grid-template-columns:minmax(0,1fr) 340px;gap:48px;align-items:center}
+.cc-fig{margin:0;width:340px}
+.cc-box{position:relative;height:300px}
+.cc-arches{position:absolute;inset:0;width:100%;height:100%}
+.cc-arches path{fill:none;stroke:rgba(241,242,224,.2);stroke-width:1.2}
+.cc-arches .a2{stroke:rgba(200,211,90,.45)}
+.cc-words{list-style:none;position:absolute;inset:0;margin:0;padding:0}
+.cc-words li{position:absolute;transform:translateX(-50%);text-align:center;font-family:'Instrument Serif',Georgia,serif;
+  color:var(--on-dark);line-height:1;white-space:nowrap;cursor:default}
+.cc-words small{display:block;font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--lichen);margin-top:6px}
+.cc-fig figcaption{margin-top:16px;font-size:13px;color:rgba(241,242,224,.6);text-align:center}
+@media(max-width:980px){
+  .culture-note{grid-template-columns:1fr;gap:30px}
+  .cc-fig{width:100%}
+  .cc-box{height:auto}
+  .cc-arches{display:none}
+  .cc-words{position:static;display:flex;flex-wrap:wrap;gap:18px 26px}
+  .cc-words li{position:static;transform:none;text-align:left;font-size:26px!important}
+  .cc-fig figcaption{text-align:left}
+}
 </style>
 </head>
 <body>
@@ -343,37 +593,34 @@ footer .auth b{color:#fff}
 
 <!-- HERO -->
 <header class="hero">
-  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
   <div class="wrap">
-    <div class="hero-grid">
-      <div>
-        <div class="eyebrow" style="color:rgba(255,255,255,.6)">A case conceptualization tool</div>
-        <h1 style="margin-top:18px">The Treatment&nbsp;Target <em>Identification Model</em></h1>
-        <p class="lede">A unifying map for clinicians: instead of inventing new therapies, the TTIM helps you find <strong>what is missing</strong> in a person's life for a good lived experience — and which evidence-based targets to treat.</p>
-        <div class="meta">
-          <span class="pill">✦ Five interconnected pillars</span>
-          <span class="pill">◆ 32 treatment targets</span>
-        </div>
+    <p class="hero-kicker">A case conceptualization tool by Alexey Breuss, Psy.D.</p>
+    <h1>The Treatment Target Identification Model</h1>
+    <div class="hero-row">
+      <p class="lede">A unifying map for clinicians: instead of inventing new therapies, the TTIM helps you find <strong>what is missing</strong> in a person's life for a good lived experience, and which evidence-based targets to treat.</p>
+      <div class="hero-side">
         <div class="hero-cta">
-          <a href="#explorer" class="btn btn-primary">Explore the model →</a>
+          <a href="#explorer" class="btn btn-primary">Explore the model</a>
           <a href="#why" class="btn btn-ghost">Why it exists</a>
         </div>
-        <p style="margin-top:24px;font-size:14px;color:rgba(255,255,255,.55)">Proposed by <b style="color:#fff">Alexey Breuss, Psy.D.</b></p>
-      </div>
-      <div class="hero-art reveal">
-        <div class="frame"><img src="TTIM.svg" alt="The full Treatment Target Identification Model diagram"></div>
-        <div class="cap">The complete TTIM — five pillars, treatment targets, and the systems beneath a lived experience</div>
+        <div class="meta">
+          <span class="pill">Five interconnected pillars</span>
+          <span class="pill">32 treatment targets</span>
+        </div>
       </div>
     </div>
+    <figure class="hero-art">
+      <div class="frame"><img src="TTIM.svg" alt="The full Treatment Target Identification Model diagram"></div>
+      <figcaption class="cap">The complete TTIM: five pillars, 32 treatment targets, and the systems beneath a lived experience.</figcaption>
+    </figure>
   </div>
-  <div class="scrollcue"><div class="mouse"></div>Scroll</div>
 </header>
 
 <!-- WHY -->
 <section class="band" id="why">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="kicker-num">01 — The paradox</span>
+      <span class="kicker-num">The paradox</span>
       <h2>Our therapies work. So why do so many people stay stuck?</h2>
       <p>Mental health interventions show consistent, moderate benefit — yet distress keeps rising and relapse is common. The TTIM proposes that our interventions don't need an overhaul. What needs refining is <strong>which targets we choose</strong>, and how we conceptualize them.</p>
     </div>
@@ -390,39 +637,56 @@ footer .auth b{color:#fff}
 <section class="band" id="model" style="background:var(--paper-2)">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="kicker-num">02 — What the TTIM is</span>
+      <span class="kicker-num">What the TTIM is</span>
       <h2>One framework, beneath every modality</h2>
       <p>The TTIM is a visual, mechanism-oriented tool for case conceptualization. It is built to be used three ways — in <strong>education</strong>, in <strong>supervision</strong>, and in <strong>individual case formulation</strong> — and it deliberately targets "poor lived experience," not just diagnosable pathology.</p>
     </div>
     <div class="feat-grid">
       <div class="feat reveal d1">
-        <div class="ic" style="background:linear-gradient(135deg,var(--cognitions),var(--purpose))">🎯</div>
+        <div class="fi"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5 40.5 14.5v19L24 43 7.5 33.5v-19z" fill="#1f9d63"/><circle cx="24" cy="24" r="8.5" fill="none" stroke="#fcfcf6" stroke-width="2.5"/><circle cx="24" cy="24" r="3" fill="#fcfcf6"/></svg></div>
         <h3>Targets for treatment, more than symptoms for management</h3>
         <p>The TTIM grounds intervention selection in established biological and psychological mechanisms, rather than chasing isolated symptoms or single diagnoses.</p>
       </div>
       <div class="feat reveal d2">
-        <div class="ic" style="background:linear-gradient(135deg,var(--relationships),var(--allostatic))">🌉</div>
+        <div class="fi"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="18" cy="24" r="12" fill="#7c5cff" fill-opacity=".85"/><circle cx="30" cy="24" r="12" fill="#16c2c2" fill-opacity=".85"/><path d="M24 13.6a12 12 0 0 1 0 20.8 12 12 0 0 1 0-20.8z" fill="#1e2b24" fill-opacity=".55"/></svg></div>
         <h3>A shared language</h3>
         <p>The TTIM bridges psychological and biological conceptualizations, giving medical and mental-health providers a common map they can both read.</p>
       </div>
       <div class="feat reveal d3">
-        <div class="ic" style="background:linear-gradient(135deg,var(--metabolic),var(--cognitions))">⚡</div>
+        <div class="fi"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="#5b6831" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M38 20a14.5 14.5 0 0 0-26.6-4"/><path d="M10 9v7.5h7.5"/><path d="M10 28a14.5 14.5 0 0 0 26.6 4"/><path d="M38 39v-7.5h-7.5"/><circle cx="24" cy="24" r="3.2" fill="#c8d35a" stroke="none"/></svg></div>
         <h3>Easy to use, iterative, and adaptable clinical tool</h3>
         <p>Training in guiding questions can surface targets quickly, the formulation evolves as therapy unfolds, and the model expands as the evidence base does.</p>
       </div>
     </div>
-    <div class="reveal" style="margin-top:34px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px 30px">
+    <div class="lived">
       <span class="eyebrow">A note on "lived experience"</span>
       <p style="margin-top:10px;color:var(--ink-soft);font-size:16px;max-width:880px">The TTIM defines <em>lived experience</em> as a firsthand, subjective, personal experience of/reaction to one's environment. This deliberately includes people who present for therapy not because of their own pathology, but because of distress in those around them, or because they are navigating disempowering systems and hard conditions — while still retaining assessment for psychological pathology.</p>
     </div>
 
     <div class="culture-note reveal">
-      <div class="culture-ic">🌍</div>
       <div>
         <span class="eyebrow" style="color:#fff;opacity:.85">Culture is a foundational aspect of the model</span>
         <h3 style="font-size:25px;margin-top:8px">A framework grounded in cross-cultural science</h3>
         <p>The Theory of Constructed Emotion at the heart of the TTIM draws on research spanning diverse global populations — from Western to indigenous peoples — which shows that emotions are not universal but vary with culture, language, and context. Because of that foundation, the TTIM treats culture as a required step in every formulation rather than an afterthought. It helps clinicians distinguish what is innate human biology from what is culturally shaped, supports care when client and clinician share little common life experience, and is designed to act as a protective tool for clients who are culturally different or marginalized.</p>
       </div>
+      <figure class="cc-fig">
+        <div class="cc-box">
+          <svg class="cc-arches" viewBox="0 0 340 300" aria-hidden="true" preserveAspectRatio="none">
+            <path d="M8 300V160A162 162 0 0 1 332 160V300"/>
+            <path class="a2" d="M50 300V168A120 120 0 0 1 290 168V300"/>
+            <path d="M92 300V178A78 78 0 0 1 248 178V300"/>
+          </svg>
+          <ul class="cc-words">
+          <li style="left:50%;top:6.5%;font-size:34px" title="Saudade: a melancholic longing for someone or something absent">Saudade<small>Portuguese</small><span class="sr-only"> (Portuguese): a melancholic longing for someone or something absent</span></li>
+          <li style="left:20%;top:35%;font-size:28px" title="Amae: comfort in relying on another's indulgence">Amae<small>Japanese</small><span class="sr-only"> (Japanese): comfort in relying on another's indulgence</span></li>
+          <li style="left:80%;top:33%;font-size:28px" title="Liget: an energetic surge of anger and passion">Liget<small>Ilongot</small><span class="sr-only"> (Ilongot): an energetic surge of anger and passion</span></li>
+          <li style="left:50%;top:54%;font-size:27px" title="Fago: compassion, love and sadness felt as one">Fago<small>Ifaluk</small><span class="sr-only"> (Ifaluk): compassion, love and sadness felt as one</span></li>
+          <li style="left:17%;top:74%;font-size:27px" title="Han: sorrow and resentment carried across time">Han<small>Korean</small><span class="sr-only"> (Korean): sorrow and resentment carried across time</span></li>
+          <li style="left:68%;top:79%;font-size:23px" title="Schadenfreude: pleasure at another's misfortune">Schadenfreude<small>German</small><span class="sr-only"> (German): pleasure at another's misfortune</span></li>
+          </ul>
+        </div>
+        <figcaption>Emotion concepts that don't translate neatly between languages</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -431,7 +695,7 @@ footer .auth b{color:#fff}
 <section class="band" id="emotion">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="kicker-num">03 — The engine underneath</span>
+      <span class="kicker-num">The engine underneath</span>
       <h2>Emotion is constructed — and so is suffering</h2>
       <p>The TTIM is built on the <strong>Theory of Constructed Emotion</strong> and the biology of <strong>allostasis</strong>: the brain's constant prediction of the body's needs. Emotions emerge as the brain interprets bodily affect through learned concepts. When that predictive process goes awry, distress follows.</p>
     </div>
@@ -463,12 +727,12 @@ footer .auth b{color:#fff}
 <section class="band" id="pillars" style="background:var(--paper-2)">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="kicker-num">04 — The five pillars</span>
+      <span class="kicker-num">The five pillars</span>
       <h2>Five things a good life is built on</h2>
       <p>Each pillar is a domain that must be maintained for positive mental health and a good lived experience. They are heavily interconnected — a deficit in one ripples through the others.</p>
     </div>
     <div class="pillars-strip" id="pillarsStrip"></div>
-    <p class="reveal" style="text-align:center;margin-top:26px;color:var(--muted);font-size:14px">Tap any pillar to jump into the interactive explorer ↓</p>
+    <p style="margin-top:26px;color:var(--muted);font-size:15px">Select a pillar to open its treatment targets in the interactive explorer.</p>
   </div>
 </section>
 
@@ -476,7 +740,7 @@ footer .auth b{color:#fff}
 <section class="band" id="explorer">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="kicker-num">05 — Interactive explorer</span>
+      <span class="kicker-num">Interactive explorer</span>
       <h2>Open the model up</h2>
       <p>Choose a pillar, then select any treatment target to see its rationale, the guiding questions a clinician can ask, and sample evidence-based interventions.</p>
     </div>
@@ -518,7 +782,7 @@ footer .auth b{color:#fff}
 <section class="band" id="use" style="background:var(--paper-2)">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="kicker-num">06 — In practice</span>
+      <span class="kicker-num">In practice</span>
       <h2>How the TTIM works in the room</h2>
       <p>The model is meant to be used as a living cycle — surfacing targets, sharing them with the client, and planning collaboratively as the picture evolves.</p>
     </div>
@@ -528,7 +792,6 @@ footer .auth b{color:#fff}
       <div class="step reveal d3"><div class="sn">3</div><h3>Plan &amp; prioritize</h3><p>Choose targets collaboratively. The most destabilizing ones (often Allostatic Load) come first. Re-prioritize as new data arrives — the cycle repeats.</p></div>
     </div>
     <div class="balance reveal">
-      <div class="scale">⚖️</div>
       <div>
         <h3>Guiding logic of the TTIM: The dose determines the poison — too much, or too little</h3>
         <p>The TTIM never claims a single factor predicts all outcomes. Instead it asks where internal and external factors sit in <strong>excess or deficit</strong>, and how those imbalances ripple through a life — an idea echoed in traditional models of restoring balance and research on trauma and resilience.</p>
@@ -570,7 +833,7 @@ footer .auth b{color:#fff}
         <h4 style="font-size:21px;margin-top:8px">Questions, research, or training on the model</h4>
         <p style="color:rgba(255,255,255,.6);margin-top:6px;font-size:14.5px;max-width:520px">Reach out for general information about the TTIM, research collaboration, or education on how to use the model in practice, supervision, or teaching.</p>
       </div>
-      <a class="btn btn-primary" href="mailto:dr.alexeybreuss@gmail.com?subject=TTIM%20Inquiry">✉&nbsp; Email Dr. Breuss</a>
+      <a class="btn btn-primary" href="mailto:dr.alexeybreuss@gmail.com?subject=TTIM%20Inquiry">Email Dr. Breuss</a>
     </div>
 
     <p class="disclaimer">The TTIM is a theoretically grounded, evidence-based proposal — not yet an empirically validated instrument. It is intended to scaffold clinical reasoning, education, and supervision, and does not replace clinical judgment, diagnosis, or appropriate interdisciplinary collaboration (e.g., with physicians or dietitians for metabolic targets). This site summarizes the model for educational purposes. A formal peer reviewed publication is in the process of being submitted.</p>
@@ -778,9 +1041,10 @@ PILLARS.forEach((p,i)=>{
   }[p.id];
   const a=document.createElement('a');
   a.href="#explorer"; a.className="pcard reveal d"+((i%4)+1);
-  a.style.background=grad;
+  a.style.setProperty('--pc',p.hex);
+  a.setAttribute('aria-label',`Open ${p.name} in the interactive explorer`);
   a.dataset.pillar=p.id;
-  a.innerHTML=`<span class="num">0${i+1}</span><h3>${p.name}</h3><p>${p.blurb}</p><div class="cnt">${p.targets.length} treatment targets →</div>`;
+  a.innerHTML=`<span class="pc-cap" aria-hidden="true"></span><h3>${p.name}</h3><p>${p.blurb}</p><div class="cnt">${p.targets.length} treatment targets</div><span class="pgo">Explore ${p.targets.length} targets<i><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg></i></span>`;
   a.addEventListener('click',()=>setTimeout(()=>selectPillar(p.id),350));
   strip.appendChild(a);
 });
