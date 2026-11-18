@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TTIM — hero concepts (review)</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="An interactive guide to the Treatment Target Identification Model (TTIM), a case conceptualization tool by Alexey Breuss for identifying what is missing in a person's life for a good lived experience.">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Hanken+Grotesk:wght@400;500;600;650;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#11131a;
+  --ink-soft:#3a3f4d;
+  --muted:#6b7180;
+  --paper:#f7f5f1;
+  --paper-2:#efece5;
+  --line:rgba(17,19,26,.12);
+  --night:#0b0e16;
+  --night-2:#121726;
+  --cognitions:#7c5cff;
+  --allostatic:#ff4d6d;
+  --relationships:#ff9f1c;
+  --purpose:#ff5db1;
+  --metabolic:#16c2c2;
+  --target:#13b981;
+  --target-deep:#0c8f63;
+  --ring:rgba(124,92,255,.4);
+  --shadow:0 18px 50px -20px rgba(8,10,20,.45);
+  --maxw:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.08;letter-spacing:-.01em}
+.serif{font-family:'Fraunces',serif}
+a{color:inherit}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.eyebrow{
+  font-family:'Inter',sans-serif;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;font-size:12px;color:var(--muted);
+}
+
+/* ---------- progress + nav ---------- */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:120;
+  background:linear-gradient(90deg,var(--cognitions),var(--purpose),var(--relationships),var(--metabolic));}
+nav.top{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 28px;
+  backdrop-filter:blur(10px);
+  background:rgba(11,14,22,.0);
+  transition:background .4s ease,padding .4s ease,box-shadow .4s;
+}
+nav.top.scrolled{background:rgba(247,245,241,.82);box-shadow:0 1px 0 var(--line);padding:10px 28px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:#fff;transition:color .4s}
+nav.top.scrolled .brand{color:var(--ink)}
+.brand .dot{width:22px;height:22px;border-radius:7px;background:conic-gradient(from 200deg,var(--cognitions),var(--purpose),var(--relationships),var(--metabolic),var(--cognitions))}
+.navlinks{display:flex;gap:26px;font-size:14px;font-weight:500;color:rgba(255,255,255,.85);transition:color .4s}
+nav.top.scrolled .navlinks{color:var(--ink-soft)}
+.navlinks a{text-decoration:none;opacity:.85;transition:opacity .2s}
+.navlinks a:hover{opacity:1}
+.navtoggle{display:none}
+nav.top.scrolled .navcta,nav.top.open .navcta{background:#fff;color:var(--ink);border-color:var(--line)}
+@media(max-width:780px){
+  nav.top{padding:12px 16px;gap:10px}
+  nav.top.scrolled{padding:10px 16px}
+  nav.top .navcta{margin-left:auto;padding:8px 13px!important;font-size:13px!important}
+  /* hamburger */
+  .navtoggle{display:inline-flex;flex-direction:column;justify-content:center;gap:4px;width:40px;height:40px;
+    padding:0 10px;border-radius:12px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);cursor:pointer}
+  .navtoggle span{display:block;height:2px;border-radius:2px;background:#fff;transition:transform .25s,opacity .2s,background .4s}
+  nav.top.scrolled .navtoggle,nav.top.open .navtoggle{border-color:var(--line);background:#fff}
+  nav.top.scrolled .navtoggle span,nav.top.open .navtoggle span{background:var(--ink)}
+  nav.top.open .navtoggle span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  nav.top.open .navtoggle span:nth-child(2){opacity:0}
+  nav.top.open .navtoggle span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+  /* the links become a drop-down panel */
+  .navlinks{position:absolute;top:calc(100% + 6px);left:12px;right:12px;flex-direction:column;gap:2px;
+    padding:8px;border-radius:16px;background:rgba(247,245,241,.97);color:var(--ink)!important;
+    box-shadow:0 18px 40px rgba(11,14,22,.28);border:1px solid var(--line);
+    opacity:0;transform:translateY(-8px);pointer-events:none;visibility:hidden;
+    transition:opacity .2s,transform .2s,visibility 0s .2s}
+  nav.top.open .navlinks{opacity:1;transform:none;pointer-events:auto;visibility:visible;transition:opacity .2s,transform .2s}
+  nav.top.open{background:rgba(247,245,241,.92)}
+  nav.top.open .brand{color:var(--ink)}
+  .navlinks a{display:block;padding:12px 14px;border-radius:10px;font-size:16px;opacity:1}
+  .navlinks a:active,.navlinks a:hover{background:rgba(124,92,255,.08)}
+}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  background:radial-gradient(120% 90% at 78% 18%,#1b2336 0%,#0b0e16 55%);
+  color:#fff;padding:120px 0 60px;overflow:hidden;
+}
+.hero .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 18s ease-in-out infinite}
+.hero .b1{width:460px;height:460px;background:var(--cognitions);top:-120px;left:-80px}
+.hero .b2{width:420px;height:420px;background:var(--purpose);bottom:-140px;right:-60px;animation-delay:-6s}
+.hero .b3{width:360px;height:360px;background:var(--metabolic);bottom:10%;left:8%;animation-delay:-11s;opacity:.35}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(28px,-26px) scale(1.08)}}
+.hero .wrap{position:relative;z-index:2}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:30px}}
+.hero h1{font-size:clamp(40px,6vw,76px);font-weight:600;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:#fff;background:linear-gradient(120deg,#c4b5ff,#ffb3da 55%,#9be7e7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding-right:.14em;margin-right:-.08em}
+.hero .lede{font-size:clamp(17px,2vw,20px);color:rgba(255,255,255,.78);max-width:560px;margin-top:22px;font-weight:300}
+.hero .meta{margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;
+  padding:8px 14px;border-radius:100px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.9);background:rgba(255,255,255,.04)}
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15px;
+  padding:13px 22px;border-radius:100px;text-decoration:none;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s}
+.btn-primary{background:#fff;color:var(--night);box-shadow:0 10px 30px -10px rgba(255,255,255,.5)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.22)}
+.btn-ghost:hover{background:rgba(255,255,255,.16)}
+.hero-cta{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+.hero-art{position:relative}
+.hero-art .frame{
+  border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);
+  border:1px solid rgba(255,255,255,.12);transform:perspective(1400px) rotateY(-7deg) rotateX(3deg);
+  transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.hero-art .frame:hover{transform:perspective(1400px) rotateY(0) rotateX(0)}
+.hero-art img{display:block;width:100%}
+.hero-art .cap{margin-top:14px;font-size:12.5px;color:rgba(255,255,255,.5);text-align:center}
+.scrollcue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;color:rgba(255,255,255,.6);font-size:12px;letter-spacing:.15em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px}
+.scrollcue .mouse{width:22px;height:34px;border:2px solid rgba(255,255,255,.4);border-radius:12px;position:relative}
+.scrollcue .mouse::after{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:3px;height:7px;border-radius:2px;background:rgba(255,255,255,.7);animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:0;top:6px}40%{opacity:1}100%{opacity:0;top:16px}}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+
+/* ---------- sections ---------- */
+section{position:relative}
+.band{padding:104px 0}
+.band.tight{padding:78px 0}
+.section-head{max-width:760px;margin-bottom:52px}
+.section-head h2{font-size:clamp(30px,4vw,48px);margin-top:14px}
+.section-head p{font-size:18px;color:var(--ink-soft);margin-top:18px;font-weight:300}
+.kicker-num{font-family:'Fraunces',serif;font-style:italic;color:var(--muted);font-size:15px}
+
+/* problem stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:10px}
+@media(max-width:780px){.stats{grid-template-columns:1fr}}
+.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px;box-shadow:var(--shadow)}
+.stat .big{font-family:'Fraunces',serif;font-size:46px;font-weight:600;line-height:1;background:linear-gradient(120deg,var(--cognitions),var(--purpose));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat p{margin-top:12px;color:var(--ink-soft);font-size:15px}
+.lead-quote{font-family:'Fraunces',serif;font-size:clamp(22px,3vw,32px);line-height:1.3;font-weight:500;max-width:900px;margin:50px auto 0;text-align:center}
+.lead-quote span{background:linear-gradient(120deg,var(--allostatic),var(--purpose));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+/* what-is feature grid */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:900px){.feat-grid{grid-template-columns:1fr}}
+.feat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px;transition:transform .3s,box-shadow .3s}
+.feat:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.feat .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:20px;margin-bottom:16px;color:#fff}
+.feat h3{font-size:21px}
+.feat p{margin-top:10px;color:var(--ink-soft);font-size:15px}
+
+/* TCE equation */
+.tce{background:var(--night);color:#fff;border-radius:24px;padding:60px 40px;text-align:center;overflow:hidden;position:relative}
+.tce::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 70% at 50% 0,rgba(124,92,255,.25),transparent 60%)}
+.tce>*{position:relative;z-index:1}
+.eq{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin:34px 0 8px}
+.eq .term{padding:22px 26px;border-radius:18px;min-width:170px}
+.eq .op{font-family:'Fraunces',serif;font-size:40px;opacity:.8}
+.eq .term .t{font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.eq .term .n{font-family:'Fraunces',serif;font-size:30px;font-weight:600;margin-top:6px}
+.eq .term small{display:block;font-size:13px;opacity:.78;margin-top:8px;font-weight:300}
+.eq .affect{background:linear-gradient(135deg,rgba(255,77,109,.22),rgba(255,93,177,.16));border:1px solid rgba(255,93,177,.4)}
+.eq .concept{background:linear-gradient(135deg,rgba(124,92,255,.24),rgba(124,92,255,.10));border:1px solid rgba(124,92,255,.45)}
+.eq .emotion{background:linear-gradient(135deg,rgba(22,194,194,.2),rgba(124,92,255,.16));border:1px solid rgba(255,255,255,.3)}
+.tce .note{max-width:680px;margin:24px auto 0;color:rgba(255,255,255,.72);font-weight:300}
+.skin-row{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:34px}
+@media(max-width:780px){.skin-row{grid-template-columns:1fr}}
+.skin{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px}
+.skin h4{font-size:19px;display:flex;align-items:center;gap:10px}
+.skin h4 .tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:100px;color:#fff}
+.skin p{margin-top:12px;color:var(--ink-soft);font-size:15px}
+
+/* pillars overview */
+.pillars-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media(max-width:980px){.pillars-strip{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.pillars-strip{grid-template-columns:1fr}}
+.pcard{position:relative;border-radius:18px;padding:26px 22px;color:#fff;overflow:hidden;min-height:210px;display:flex;flex-direction:column;justify-content:flex-end;transition:transform .3s}
+.pcard:hover{transform:translateY(-5px)}
+.pcard .num{position:absolute;top:16px;right:18px;font-family:'Fraunces',serif;font-size:34px;opacity:.45}
+.pcard h3{font-size:22px}
+.pcard p{margin-top:8px;font-size:13.5px;opacity:.92;font-weight:300}
+.pcard .cnt{margin-top:14px;font-size:12px;font-weight:600;letter-spacing:.05em;opacity:.9}
+
+/* ---------- explorer ---------- */
+#explorer{background:var(--night);color:#fff}
+#explorer .section-head h2{color:#fff}
+#explorer .section-head p{color:rgba(255,255,255,.72)}
+.explorer-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+.ptab{cursor:pointer;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05);color:#fff;
+  padding:11px 18px;border-radius:100px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:9px;transition:all .25s}
+.ptab .swatch{width:11px;height:11px;border-radius:50%}
+.ptab:hover{background:rgba(255,255,255,.12)}
+.ptab.active{color:var(--night);background:#fff;border-color:#fff}
+.explorer-body{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
+@media(max-width:920px){.explorer-body{grid-template-columns:1fr}}
+.pillar-pane{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:30px;min-height:420px}
+.pillar-pane .ribbon{display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:6px 14px;border-radius:100px;color:#fff}
+.pillar-pane h3{font-size:30px;margin:16px 0 0}
+.pillar-pane .desc{color:rgba(255,255,255,.78);margin-top:14px;font-weight:300;font-size:15.5px}
+.hexwrap{display:flex;flex-wrap:wrap;gap:11px;margin-top:24px}
+.hex{cursor:pointer;border:none;text-align:left;color:#fff;font-family:inherit;
+  background:linear-gradient(135deg,var(--target),var(--target-deep));
+  padding:13px 16px;border-radius:13px;font-size:13.5px;font-weight:600;
+  box-shadow:0 8px 22px -10px rgba(19,185,129,.7);transition:transform .2s,filter .2s;position:relative;
+  display:flex;align-items:center;gap:9px;flex:1 1 auto}
+.hex:hover{transform:translateY(-3px);filter:brightness(1.08)}
+.hex::before{content:"";width:8px;height:8px;background:#fff;transform:rotate(45deg);border-radius:1px;opacity:.85}
+.detail-pane{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:30px;min-height:420px;position:sticky;top:90px}
+.detail-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:360px;color:rgba(255,255,255,.5)}
+.detail-empty .ring{width:60px;height:60px;border-radius:50%;border:2px dashed rgba(255,255,255,.3);display:grid;place-items:center;font-size:24px;margin-bottom:16px}
+.detail-pane h3{font-size:25px}
+.detail-pane .belongs{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:8px}
+.dblock{margin-top:22px}
+.dblock .lbl{display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.55);margin-bottom:12px}
+.dblock p{color:rgba(255,255,255,.84);font-weight:300;font-size:15px}
+.qlist{list-style:none;display:flex;flex-direction:column;gap:10px}
+.qlist li{position:relative;padding:12px 14px 12px 40px;background:rgba(124,92,255,.12);border:1px solid rgba(124,92,255,.3);border-radius:11px;font-size:14px;color:rgba(255,255,255,.92)}
+.qlist li::before{content:"?";position:absolute;left:14px;top:11px;width:18px;height:18px;border-radius:50%;background:var(--cognitions);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:12.5px;padding:7px 12px;border-radius:100px;background:rgba(19,185,129,.14);border:1px solid rgba(19,185,129,.4);color:#bdf3df}
+
+/* full svg viewer */
+.svg-viewer{margin-top:30px;background:#fff;border-radius:20px;padding:14px;box-shadow:var(--shadow);position:relative}
+.svg-viewer .hint{position:absolute;top:20px;left:20px;font-size:12px;color:var(--muted);background:rgba(255,255,255,.85);padding:5px 11px;border-radius:100px;border:1px solid var(--line);pointer-events:none;z-index:3}
+.svg-stage{overflow:hidden;border-radius:12px;cursor:grab}
+.svg-stage.grabbing{cursor:grabbing}
+.svg-stage img{display:block;width:100%;transition:transform .15s ease-out;transform-origin:0 0}
+.svg-controls{position:absolute;bottom:20px;right:20px;display:flex;gap:8px;z-index:3}
+.svg-controls button{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:18px;cursor:pointer;box-shadow:var(--shadow);transition:transform .15s}
+.svg-controls button:hover{transform:translateY(-2px)}
+
+/* how to use - steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:900px){.steps{grid-template-columns:1fr}}
+.step{background:#fff;border:1px solid var(--line);border-radius:16px;padding:30px;position:relative;overflow:hidden}
+.step .sn{font-family:'Fraunces',serif;font-size:60px;font-weight:600;line-height:1;color:var(--paper-2);position:absolute;top:8px;right:18px}
+.step h3{font-size:21px;position:relative}
+.step p{margin-top:12px;color:var(--ink-soft);font-size:15px;position:relative}
+.balance{margin-top:34px;background:linear-gradient(135deg,#fff,var(--paper-2));border:1px solid var(--line);border-radius:18px;padding:34px;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center}
+@media(max-width:680px){.balance{grid-template-columns:1fr}}
+.balance .scale{font-size:54px}
+.balance h3{font-size:23px}
+.balance p{margin-top:10px;color:var(--ink-soft)}
+.ef-note{margin-top:22px;border-left:3px solid var(--cognitions);background:#fff;border-radius:0 14px 14px 0;padding:22px 26px}
+.ef-note h4{font-size:18px}
+.ef-note p{margin-top:8px;color:var(--ink-soft);font-size:15px}
+
+/* culture highlight */
+.culture-note{margin-top:22px;display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;
+  border-radius:20px;padding:34px;color:#fff;
+  background:linear-gradient(125deg,#ff9f1c 0%,#ff5db1 48%,#7c5cff 100%);box-shadow:var(--shadow)}
+@media(max-width:680px){.culture-note{grid-template-columns:1fr;gap:16px;padding:28px}}
+.culture-note .culture-ic{font-size:54px;line-height:1}
+.culture-note h3{color:#fff}
+.culture-note p{margin-top:12px;color:rgba(255,255,255,.92);font-weight:300;font-size:15.5px;max-width:760px}
+
+/* adaptability block */
+.adapt{margin-top:34px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:34px;box-shadow:var(--shadow)}
+.adapt-head{max-width:780px}
+.adapt-head h3{font-size:24px;margin-top:8px}
+.adapt-head p{margin-top:12px;color:var(--ink-soft);font-size:15.5px}
+.adapt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+@media(max-width:880px){.adapt-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.adapt-grid{grid-template-columns:1fr}}
+.adapt-card{background:var(--paper-2);border:1px solid var(--line);border-radius:14px;padding:18px 18px 20px;transition:transform .25s}
+.adapt-card:hover{transform:translateY(-4px)}
+.adapt-card b{display:block;font-family:'Fraunces',serif;font-size:16px;font-weight:600;margin-bottom:7px;color:var(--ink)}
+.adapt-card span{font-size:13.5px;color:var(--ink-soft);line-height:1.55}
+
+/* contact */
+.contact{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;
+  margin-top:40px;padding:28px 30px;border-radius:18px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14)}
+.contact h4{color:#fff}
+.contact a.btn{white-space:nowrap}
+
+/* license badge */
+.license{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:30px;padding-top:24px;border-top:1px solid rgba(255,255,255,.12)}
+.cc-badge{display:inline-flex;align-items:center;gap:5px;text-decoration:none;flex-shrink:0}
+.cc-badge svg{width:30px;height:30px;display:block}
+.cc-badge .cc-ring{fill:none;stroke:rgba(255,255,255,.8);stroke-width:2;transition:stroke .2s}
+.cc-badge .cc-mark{fill:rgba(255,255,255,.92);transition:fill .2s}
+.cc-badge .cc-strike{stroke:rgba(255,255,255,.92);stroke-width:2.4;stroke-linecap:round}
+.cc-badge:hover .cc-ring{stroke:#fff}
+.cc-badge:hover .cc-mark{fill:#fff}
+.license .lic-text{font-size:13px;color:rgba(255,255,255,.55);line-height:1.55;max-width:640px}
+.license .lic-text a{color:rgba(255,255,255,.8);text-decoration:underline;text-underline-offset:2px}
+.license .lic-text a:hover{color:#fff}
+
+/* footer */
+footer{background:var(--night);color:rgba(255,255,255,.8);padding:70px 0 40px}
+footer h3{color:#fff;font-size:28px;max-width:560px}
+footer .frow{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-end;margin-top:26px}
+footer .disclaimer{margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.12);font-size:13px;color:rgba(255,255,255,.5);max-width:820px;font-weight:300}
+footer .auth{font-size:14px}
+footer .auth b{color:#fff}
+
+/* modal for mobile detail */
+.modal-back{position:fixed;inset:0;background:rgba(6,8,14,.6);backdrop-filter:blur(4px);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.modal-back.open{display:flex}
+@media(min-width:921px){.modal-back{display:none!important}}
+.modal-card{background:var(--night-2);border:1px solid rgba(255,255,255,.14);border-radius:22px 22px 0 0;width:100%;max-height:86vh;overflow:auto;padding:26px 22px 40px;color:#fff}
+.modal-card .close{float:right;font-size:24px;background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer}
+
+/* =====================================================================
+   WEBSITE 4 THEME — meadow, sage, lichen and forest.
+   The five pillar colours are unchanged; everything else lives here.
+   ===================================================================== */
+:root{
+  --ink:#22281f; --ink-soft:#485040; --muted:#646b58;
+  --paper:#f1f2e0; --paper-2:#e4e6cf; --card:#fcfcf6;
+  --line:rgba(34,40,31,.14);
+  --night:#1e2b24; --night-2:#26352c;
+  --lichen:#c8d35a; --lichen-deep:#b4c044; --moss:#5b6831; --mist:#edf0e9;
+  --on-dark:#f1f2e0; --on-dark-soft:rgba(241,242,224,.78); --line-dark:rgba(241,242,224,.14);
+  --target:#1f9d63; --target-deep:#178452;
+  --shadow:0 22px 44px -30px rgba(30,43,36,.5);
+  --arch:132px; --arch-sm:78px;
+}
+body{font-family:'Hanken Grotesk',system-ui,sans-serif;color:var(--ink);background:var(--paper);font-size:16px;line-height:1.6}
+h1,h2,h3,h4,.serif{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.005em;line-height:1.04}
+strong,b{font-weight:650}
+::selection{background:var(--lichen);color:var(--ink)}
+:focus-visible{outline:2px solid var(--moss);outline-offset:3px;border-radius:6px}
+.eyebrow{font-family:inherit;letter-spacing:0;text-transform:none;font-size:14px;font-weight:600;color:var(--moss)}
+
+/* nav — light at all times */
+nav.top{background:rgba(241,242,224,.9);border-bottom:1px solid var(--line)}
+.brand{color:var(--ink);font-weight:700;letter-spacing:.01em}
+.navlinks{color:var(--ink-soft)}
+.navlinks a{opacity:1;transition:color .2s}
+.navlinks a:hover{color:var(--moss)}
+.navlinks a.active{color:var(--moss);font-weight:650}
+.navback,.tab.navback{background:var(--card)!important;color:var(--ink)!important;border-color:rgba(34,40,31,.2)!important;text-decoration:none!important}
+.navtoggle{background:var(--card)!important;border-color:rgba(34,40,31,.2)!important}
+.navtoggle span{background:var(--ink)!important}
+@media(max-width:780px){
+  .navlinks{background:rgba(252,252,246,.98)!important;color:var(--ink)!important;box-shadow:0 22px 40px -20px rgba(30,43,36,.45)!important}
+  .navlinks a:hover,.navlinks a:active{background:var(--paper-2)!important}
+}
+
+/* buttons */
+.btn{font-weight:650;font-size:15px;padding:12px 22px;border-radius:999px;transition:background .2s,border-color .2s}
+.btn-primary{background:var(--lichen);color:var(--ink);box-shadow:none}
+.btn-primary:hover{background:var(--lichen-deep);transform:none}
+.btn-ghost{background:var(--card);color:var(--ink);border:1px solid rgba(34,40,31,.2)}
+.btn-ghost:hover{background:#fff;border-color:rgba(34,40,31,.35)}
+
+/* footer — forest */
+footer{background:var(--night);color:var(--on-dark-soft)}
+footer a{color:var(--on-dark)}
+footer .btn-ghost{background:transparent;color:var(--on-dark);border-color:rgba(241,242,224,.32)}
+footer .btn-ghost:hover{background:rgba(241,242,224,.08)}
+footer .eyebrow{color:var(--lichen)!important}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- home page ---------- */
+.progress{height:3px}
+nav.top{background:rgba(241,242,224,0);border-bottom-color:transparent}
+nav.top.scrolled{background:rgba(241,242,224,.9);box-shadow:none;border-bottom-color:var(--line)}
+nav.top.scrolled .brand,nav.top.open .brand{color:var(--ink)}
+nav.top.scrolled .navlinks{color:var(--ink-soft)}
+nav.top .navcta,nav.top.scrolled .navcta,nav.top.open .navcta{background:transparent;color:var(--ink);border:1px solid rgba(34,40,31,.22)}
+nav.top.open{background:rgba(241,242,224,.96)}
+
+/* hero */
+.hero{min-height:0;display:block;background:var(--paper);color:var(--ink);padding:136px 0 96px;overflow:visible}
+.hero-kicker{font-size:15px;color:var(--moss);font-weight:600}
+.hero h1{font-size:clamp(54px,8vw,118px);font-weight:400;letter-spacing:-.02em;line-height:.93;margin-top:18px;max-width:12ch;text-wrap:balance}
+.hero-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:end;margin-top:34px}
+.hero .lede{color:var(--ink-soft);font-weight:400;font-size:clamp(17px,1.6vw,19.5px);max-width:36em;margin-top:0;line-height:1.6}
+.hero .lede strong{color:var(--ink)}
+.hero-side{display:flex;flex-direction:column;align-items:flex-end;gap:16px}
+.hero-cta{margin-top:0}
+.hero .meta{margin-top:0;justify-content:flex-end}
+.pill{border:1px solid rgba(34,40,31,.18);color:var(--ink-soft);background:transparent;font-weight:500}
+.hero-art{margin:48px 0 0}
+.hero-art .frame{transform:none;border-radius:var(--arch) 16px 16px 16px;border:1px solid var(--line);
+  background:var(--card);padding:clamp(14px,2.4vw,34px) clamp(10px,2vw,30px) clamp(10px,1.6vw,20px);box-shadow:var(--shadow)}
+.hero-art .frame:hover{transform:none}
+.hero-art .cap{color:var(--muted);text-align:left;font-size:14px;margin-top:14px}
+@media(max-width:860px){
+  .hero{padding:110px 0 64px}
+  .hero-row{grid-template-columns:1fr;gap:24px}
+  .hero-side{align-items:flex-start}
+  .hero .meta{justify-content:flex-start}
+  .hero-art .frame{border-radius:var(--arch-sm) 12px 12px 12px}
+}
+/* the one orchestrated moment: the hero settles in on load */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes unveil{from{opacity:0;clip-path:inset(0 0 22% 0 round var(--arch) 16px 16px 16px)}to{opacity:1;clip-path:inset(0 0 0 0 round var(--arch) 16px 16px 16px)}}
+.hero-kicker,.hero h1,.hero-row{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.hero h1{animation-delay:.08s}.hero-row{animation-delay:.2s}
+.hero-art .frame{animation:unveil 1.2s .3s cubic-bezier(.2,.8,.2,1) both}
+
+/* sections: no slide-in on every block */
+.reveal,.reveal.in{opacity:1;transform:none;transition:none}
+.band{padding:116px 0}
+.section-head{max-width:780px;margin-bottom:56px}
+.section-head h2{font-size:clamp(38px,5vw,64px);margin-top:12px;line-height:1}
+.section-head p{color:var(--ink-soft);font-weight:400;font-size:18px;max-width:40em}
+.kicker-num{font-family:inherit;font-style:normal;font-size:15px;font-weight:600;color:var(--moss)}
+
+/* the paradox */
+.stats{gap:36px}
+.stat{background:transparent;border:none;border-top:1px solid rgba(34,40,31,.22);border-radius:0;box-shadow:none;padding:22px 0 0}
+.stat .big{font-family:'Instrument Serif',serif;font-weight:400;font-size:84px;line-height:.9;background:none;-webkit-text-fill-color:currentColor;color:var(--ink)}
+.stat p{color:var(--ink-soft);font-size:16px}
+.lead-quote{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(28px,3.6vw,44px);line-height:1.15;margin-top:80px;max-width:22em}
+.lead-quote span{background:none;-webkit-text-fill-color:currentColor;color:inherit}
+
+/* what it is */
+.feat{background:var(--card);border-color:var(--line);border-radius:14px;padding:30px}
+.feat:hover{transform:none;box-shadow:none}
+.feat h3{font-size:28px;line-height:1.05}
+.feat p{color:var(--ink-soft);font-size:15.5px}
+.lived{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px 32px;margin-top:34px}
+.culture-note{background:var(--night);color:var(--on-dark);border-radius:var(--arch) 16px 16px 16px;grid-template-columns:1fr;
+  padding:56px clamp(28px,5vw,64px) 52px;box-shadow:none;position:relative;overflow:hidden;margin-top:34px}
+.culture-note::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 90% at 85% 0,rgba(237,240,233,.12),transparent 70%);pointer-events:none}
+.culture-note>*{position:relative}
+.culture-note h3{font-size:clamp(30px,3.4vw,42px);color:var(--on-dark)}
+.culture-note .eyebrow{color:var(--lichen)!important;opacity:1!important}
+.culture-note p{color:var(--on-dark-soft);font-size:16.5px;font-weight:400;max-width:44em}
+
+/* emotion */
+.tce{background:var(--night);border-radius:16px;padding:64px 40px}
+.tce::before{background:radial-gradient(70% 80% at 50% 0,rgba(237,240,233,.1),transparent 65%)}
+.tce .eyebrow{color:var(--lichen)!important}
+.eq .term{border-radius:14px}
+.eq .term .t{text-transform:none;letter-spacing:0;font-size:14px;opacity:.85}
+.eq .term .n{font-family:'Instrument Serif',serif;font-weight:400;font-size:36px}
+.eq .op{font-family:'Instrument Serif',serif;font-size:48px;opacity:.7}
+.eq .affect{background:rgba(255,77,109,.14);border:1px solid rgba(255,77,109,.55)}
+.eq .concept{background:rgba(124,92,255,.18);border:1px solid rgba(124,92,255,.6)}
+.eq .emotion{background:rgba(241,242,224,.07);border:1px solid rgba(241,242,224,.32)}
+.tce .note{color:var(--on-dark-soft);font-weight:400}
+.skin{background:var(--card);border-radius:14px}
+.skin h4 .tag{color:var(--ink);text-transform:none;letter-spacing:0;font-size:13px;font-weight:650;padding:5px 12px}
+.skin p{color:var(--ink-soft)}
+
+/* pillars: arched cards with a pillar-coloured cap */
+.pillars-strip{gap:16px}
+.pcard{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:var(--arch-sm) 14px 14px 14px;
+  padding:0 0 22px;min-height:0;justify-content:flex-start;text-decoration:none;transition:border-color .2s}
+.pcard:hover{transform:none;border-color:rgba(34,40,31,.35)}
+.pcard .pc-cap{display:block;height:112px;background:var(--pc);border-radius:var(--arch-sm) 13px 0 0;margin-bottom:18px}
+.pcard h3,.pcard p,.pcard .cnt{padding:0 20px}
+.pcard h3{font-size:30px;line-height:1}
+.pcard p{color:var(--ink-soft);opacity:1;font-weight:400;font-size:14px}
+.pcard .cnt{color:var(--moss);letter-spacing:0;font-weight:650;opacity:1;margin-top:auto;padding-top:16px}
+
+/* explorer — forest */
+#explorer{background:var(--night);color:var(--on-dark);overflow:hidden}
+#explorer::before{content:"";position:absolute;left:0;right:0;top:0;height:520px;background:radial-gradient(60% 100% at 22% 0,rgba(237,240,233,.11),transparent 70%);pointer-events:none}
+#explorer .wrap{position:relative}
+#explorer .kicker-num{color:var(--lichen)}
+#explorer .section-head p{color:var(--on-dark-soft)}
+.ptab{border-color:rgba(241,242,224,.22);background:transparent;color:var(--on-dark)}
+.ptab:hover{background:rgba(241,242,224,.08)}
+.ptab.active{background:var(--on-dark);color:var(--night);border-color:var(--on-dark)}
+.pillar-pane,.detail-pane{background:var(--night-2);border-color:var(--line-dark)!important;border-radius:16px}
+.pillar-pane{border-top-left-radius:var(--arch-sm);padding-top:40px}
+.pillar-pane .ribbon{background:transparent!important;border:1px solid rgba(241,242,224,.3);color:var(--on-dark);text-transform:none;letter-spacing:0;font-size:13px}
+.pillar-pane h3{font-size:42px}
+.pillar-pane .desc{color:var(--on-dark-soft);font-weight:400}
+.hex{background:var(--target);box-shadow:none;border-radius:10px;font-weight:600}
+.hex:hover{transform:none;filter:none;background:#26b073}
+.detail-empty{color:rgba(241,242,224,.55)}
+.detail-pane h3{font-size:34px}
+.detail-pane .belongs{text-transform:none;letter-spacing:0;font-size:14px}
+.dblock .lbl{text-transform:none;letter-spacing:0;font-size:14px;font-weight:650;color:var(--lichen)}
+.dblock p{color:rgba(241,242,224,.86);font-weight:400}
+.qlist li{background:rgba(241,242,224,.06);border-color:rgba(241,242,224,.14);color:var(--on-dark)}
+.qlist li::before{background:var(--lichen);color:var(--night)}
+.chip{background:rgba(31,157,99,.16);border-color:rgba(31,157,99,.5);color:#d3efdf}
+.svg-viewer{background:var(--card);border-radius:var(--arch-sm) 16px 16px 16px;box-shadow:none;padding:22px 16px 16px}
+.svg-viewer .hint{left:auto;right:20px;background:rgba(252,252,246,.9)}
+.svg-controls button{background:var(--card);box-shadow:none;border-color:var(--line)}
+.modal-card{background:var(--night-2);border-color:var(--line-dark)}
+
+/* in practice */
+.step{background:var(--card);border-radius:14px}
+.step .sn{font-family:'Instrument Serif',serif;font-weight:400;font-size:96px;color:var(--paper-2)}
+.step h3{font-size:28px}
+.balance{background:var(--card);grid-template-columns:1fr;border-radius:14px}
+.balance h3{font-size:30px;line-height:1.05}
+.ef-note{border-left-color:var(--moss);background:var(--card)}
+.ef-note h4{font-size:24px}
+.adapt{background:var(--card);box-shadow:none;border-radius:var(--arch-sm) 16px 16px 16px;padding:44px 38px 38px}
+.adapt-head h3{font-size:clamp(28px,3vw,38px);line-height:1.05}
+.adapt-card{background:var(--paper);border-color:var(--line)}
+.adapt-card:hover{transform:none}
+.adapt-card b{font-family:'Instrument Serif',serif;font-weight:400;font-size:23px}
+
+/* footer */
+footer h3{font-size:clamp(34px,4.4vw,54px);line-height:1}
+footer .auth b{color:var(--on-dark)}
+.contact{background:var(--night-2);border-color:var(--line-dark)}
+.contact h4{font-size:26px!important}
+/* refinements */
+.hero h1{max-width:none;font-size:clamp(54px,7.6vw,118px)}
+.culture-note h3{font-size:clamp(32px,3.6vw,46px)!important;margin-top:10px!important}
+.eq{gap:14px;flex-wrap:nowrap}
+.eq .term{min-width:0;flex:1 1 0;max-width:300px;padding:22px 20px}
+@media(max-width:860px){.eq{flex-wrap:wrap}.eq .term{flex:1 1 100%;max-width:none}}
+.skin h4 .tag{font-family:'Hanken Grotesk',sans-serif}
+.stat .big{font-variant-numeric:lining-nums}
+
+/* "One framework" cards: a small illustrated tile per idea */
+.feat .fi{width:68px;height:68px;border-radius:30px 10px 10px 10px;background:var(--paper);border:1px solid var(--line);
+  display:grid;place-items:center;margin-bottom:20px}
+.feat .fi svg{width:38px;height:38px}
+.feat{display:flex;flex-direction:column}
+.feat h3{font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:650;font-size:21px;line-height:1.25;letter-spacing:-.01em}
+
+/* pillar cards read as buttons */
+.pcard{cursor:pointer;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s,border-color .2s}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 22px 36px -26px rgba(30,43,36,.6);border-color:var(--pc)}
+.pcard:active{transform:translateY(-1px)}
+.pcard:focus-visible{outline:3px solid var(--pc);outline-offset:3px}
+.pcard .cnt{display:none}
+.pcard .pgo{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:auto 16px 0;padding:10px 10px 10px 14px;
+  border-radius:999px;background:var(--paper);border:1px solid var(--line);font-size:14px;font-weight:650;color:var(--ink);transition:background .2s,border-color .2s,color .2s}
+.pcard .pgo i{flex:none;width:28px;height:28px;border-radius:50%;background:var(--pc);display:grid;place-items:center;transition:transform .2s}
+.pcard .pgo i svg{width:14px;height:14px}
+.pcard:hover .pgo{background:var(--night);border-color:var(--night);color:var(--on-dark)}
+.pcard:hover .pgo i{transform:translateX(2px)}
+.pcard p{margin-bottom:18px}
+
+/* culture panel: emotion concepts that vary across languages */
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.culture-note{grid-template-columns:minmax(0,1fr) 340px;gap:48px;align-items:center}
+.cc-fig{margin:0;width:340px}
+.cc-box{position:relative;height:300px}
+.cc-arches{position:absolute;inset:0;width:100%;height:100%}
+.cc-arches path{fill:none;stroke:rgba(241,242,224,.2);stroke-width:1.2}
+.cc-arches .a2{stroke:rgba(200,211,90,.45)}
+.cc-words{list-style:none;position:absolute;inset:0;margin:0;padding:0}
+.cc-words li{position:absolute;transform:translateX(-50%);text-align:center;font-family:'Instrument Serif',Georgia,serif;
+  color:var(--on-dark);line-height:1;white-space:nowrap;cursor:default}
+.cc-words small{display:block;font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--lichen);margin-top:6px}
+.cc-fig figcaption{margin-top:16px;font-size:13px;color:rgba(241,242,224,.6);text-align:center}
+@media(max-width:980px){
+  .culture-note{grid-template-columns:1fr;gap:30px}
+  .cc-fig{width:100%}
+  .cc-box{height:auto}
+  .cc-arches{display:none}
+  .cc-words{position:static;display:flex;flex-wrap:wrap;gap:18px 26px}
+  .cc-words li{position:static;transform:none;text-align:left;font-size:26px!important}
+  .cc-fig figcaption{text-align:left}
+}
+
+/* every treatment target as plain text: readable without JavaScript, by search engines, screen readers and print */
+.alltargets{margin-top:28px;border:1px solid var(--line-dark);border-radius:16px;background:var(--night-2)}
+.alltargets>summary{cursor:pointer;list-style:none;padding:20px 24px;display:flex;align-items:center;gap:16px;color:var(--on-dark);font-weight:650;font-size:16px}
+.alltargets>summary::-webkit-details-marker{display:none}
+.alltargets>summary span{display:block;font-weight:400;font-size:14.5px;color:var(--on-dark-soft);margin-top:2px}
+.alltargets>summary::after{content:"+";margin-left:auto;flex:none;width:32px;height:32px;border-radius:50%;border:1px solid rgba(241,242,224,.3);
+  display:grid;place-items:center;font-size:20px;line-height:1;color:var(--lichen)}
+.alltargets[open]>summary::after{content:"−"}
+#allTargets{padding:0 24px 24px;max-width:880px}
+.at-pillar h3{display:flex;align-items:center;gap:12px;font-size:32px;color:var(--on-dark);margin-top:26px}
+.at-pillar h3 i{width:12px;height:12px;border-radius:50%;flex:none}
+.at-pillar>p{color:var(--on-dark-soft);font-size:15px;margin:8px 0 6px}
+.at-target{padding:16px 0;border-top:1px solid var(--line-dark)}
+.at-target h4{font-family:'Hanken Grotesk',sans-serif;font-weight:650;font-size:16.5px;line-height:1.3;color:var(--on-dark)}
+.at-target p,.at-target li{font-size:14.5px;color:var(--on-dark-soft);line-height:1.55}
+.at-target>p:first-of-type{margin-top:6px}
+.at-target .at-l{font-size:13px;font-weight:650;color:var(--lichen);margin-top:10px}
+.at-target ul{padding-left:18px}
+
+/* ---------- responsive fixes ---------- */
+.step h3{padding-right:46px}
+.step .sn{font-size:64px;top:10px;right:18px}
+.tap-hint{display:none;margin-top:18px;font-size:14px;color:var(--on-dark-soft)}
+.svg-viewer .hint .h-touch{display:none}
+@media(hover:none){.svg-viewer .hint .h-mouse{display:none}.svg-viewer .hint .h-touch{display:inline}}
+@media(max-width:920px){
+  .detail-pane{display:none}   /* targets open in a bottom sheet here, so the side panel would only ever be empty */
+  .pillar-pane{min-height:0}
+  .tap-hint{display:block}
+}
+@media(max-width:780px){
+  .band{padding:76px 0}
+  .section-head{margin-bottom:36px}
+  .hero{padding:104px 0 52px}
+  .lead-quote{margin-top:56px}
+  .stat .big{font-size:68px}
+  .tce{padding:44px 20px}
+  .balance{padding:26px 22px}
+  .adapt{padding:32px 20px 22px}
+  .culture-note{padding:44px 24px 36px}
+  .pillar-pane,.detail-pane{padding:28px 20px 24px}
+  .pcard .pc-cap{height:84px}
+  .alltargets>summary{padding:18px}
+  #allTargets{padding:0 18px 20px}
+}
+@media(max-width:480px){
+  .wrap{padding:0 20px}
+  .band{padding:64px 0}
+}
+</style>
+<link rel="stylesheet" href="hero-concepts.css">
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<nav class="top" id="nav">
+  <div class="brand"><span class="dot"></span> TTIM</div>
+  <div class="navlinks" id="navLinks">
+    <a href="#why">Why</a>
+    <a href="#model">The Model</a>
+    <a href="#emotion">Emotion</a>
+    <a href="#pillars">Five Pillars</a>
+    <a href="#explorer">Explore</a>
+    <a href="../interventions.html">Interventions</a>
+    <a href="../diagnoses.html">Diagnoses</a>
+    <!-- Builder hidden for now: <a href="builder.html">Builder</a> -->
+    <a href="#use">In Practice</a>
+  </div>
+  <a href="../TTIM.png" target="_blank" class="btn btn-ghost navcta" style="padding:9px 16px;font-size:13.5px">Open diagram ↗</a>
+  <button class="navtoggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <p class="hero-kicker">A case conceptualization tool by Alexey Breuss, Psy.D.</p>
+    <h1>The Treatment Target Identification Model</h1>
+    <div class="hero-row">
+      <p class="lede">A unifying map for clinicians: instead of inventing new therapies, the TTIM helps you find <strong>what is missing</strong> in a person's life for a good lived experience, and which evidence-based targets to treat.</p>
+      <div class="hero-side">
+        <div class="hero-cta">
+          <a href="#explorer" class="btn btn-primary">Explore the model</a>
+          <a href="#why" class="btn btn-ghost">Why it exists</a>
+        </div>
+        <div class="meta">
+          <span class="pill">Five interconnected pillars</span>
+          <span class="pill">32 treatment targets</span>
+        </div>
+      </div>
+    </div>
+    <figure class="hero-art">
+      <div class="frame">
+        <div class="hc" data-v="current"><img src="../TTIM.svg" alt="The full Treatment Target Identification Model diagram. A horizontal line, the skin, divides it. Outside the skin, nested from the outside in: Greater World, Culture, Relationships and Behavior, with the Purpose pillar on the right. Inside the skin: Emotion (Affect plus Concept), Executive Functioning, and the Greater Nervous System, which holds the Allostatic Load and Cognitions pillars, all within Metabolic Health. Green hexagons mark the 32 treatment targets."></div>
+        <div class="hc mx" data-v="hourglass" id="mxHourglass"></div>
+        <div class="hc mx" data-v="rings" id="mxRings"></div>
+      </div>
+      <figcaption class="cap" id="heroCap">The complete TTIM: five pillars, 32 treatment targets, and the systems beneath a lived experience.</figcaption>
+    </figure>
+  </div>
+</header>
+
+<!-- WHY -->
+<section class="band" id="why">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker-num">The paradox</span>
+      <h2>Our therapies work. So why do so many people stay stuck?</h2>
+      <p>Mental health interventions show consistent, moderate benefit — yet distress keeps rising and relapse is common. The TTIM proposes that our interventions don't need an overhaul. What needs refining is <strong>which targets we choose</strong>, and how we conceptualize them.</p>
+    </div>
+    <div class="stats">
+      <div class="stat reveal d1"><div class="big">~⅓</div><p>of people who begin therapy end treatment without reliable improvement.</p></div>
+      <div class="stat reveal d2"><div class="big">~6%</div><p>deteriorate over the course of treatment despite our best evidence-based care.</p></div>
+      <div class="stat reveal d3"><div class="big">≈0</div><p>truly new mechanisms — most modalities re-articulate the same enduring human processes.</p></div>
+    </div>
+    <p class="lead-quote reveal">"The interventions we have don't need further editing — instead, <span>treatment-target selection and better case conceptualization</span> warrant refinement."</p>
+  </div>
+</section>
+
+<!-- MODEL -->
+<section class="band" id="model" style="background:var(--paper-2)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker-num">What the TTIM is</span>
+      <h2>One framework, beneath every modality</h2>
+      <p>The TTIM is a visual, mechanism-oriented tool for case conceptualization. It is built to be used three ways — in <strong>education</strong>, in <strong>supervision</strong>, and in <strong>individual case formulation</strong> — and it deliberately targets "poor lived experience," not just diagnosable pathology.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal d1">
+        <div class="fi"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5 40.5 14.5v19L24 43 7.5 33.5v-19z" fill="#1f9d63"/><circle cx="24" cy="24" r="8.5" fill="none" stroke="#fcfcf6" stroke-width="2.5"/><circle cx="24" cy="24" r="3" fill="#fcfcf6"/></svg></div>
+        <h3>Targets for treatment, more than symptoms for management</h3>
+        <p>The TTIM grounds intervention selection in established biological and psychological mechanisms, rather than chasing isolated symptoms or single diagnoses.</p>
+      </div>
+      <div class="feat reveal d2">
+        <div class="fi"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="18" cy="24" r="12" fill="#7c5cff" fill-opacity=".85"/><circle cx="30" cy="24" r="12" fill="#16c2c2" fill-opacity=".85"/><path d="M24 13.6a12 12 0 0 1 0 20.8 12 12 0 0 1 0-20.8z" fill="#1e2b24" fill-opacity=".55"/></svg></div>
+        <h3>A shared language</h3>
+        <p>The TTIM bridges psychological and biological conceptualizations, giving medical and mental-health providers a common map they can both read.</p>
+      </div>
+      <div class="feat reveal d3">
+        <div class="fi"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="#5b6831" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M38 20a14.5 14.5 0 0 0-26.6-4"/><path d="M10 9v7.5h7.5"/><path d="M10 28a14.5 14.5 0 0 0 26.6 4"/><path d="M38 39v-7.5h-7.5"/><circle cx="24" cy="24" r="3.2" fill="#c8d35a" stroke="none"/></svg></div>
+        <h3>Easy to use, iterative, and adaptable clinical tool</h3>
+        <p>Training in guiding questions can surface targets quickly, the formulation evolves as therapy unfolds, and the model expands as the evidence base does.</p>
+      </div>
+    </div>
+    <div class="lived">
+      <span class="eyebrow">A note on "lived experience"</span>
+      <p style="margin-top:10px;color:var(--ink-soft);font-size:16px;max-width:880px">The TTIM defines <em>lived experience</em> as a firsthand, subjective, personal experience of/reaction to one's environment. This deliberately includes people who present for therapy not because of their own pathology, but because of distress in those around them, or because they are navigating disempowering systems and hard conditions — while still retaining assessment for psychological pathology.</p>
+    </div>
+
+    <div class="culture-note reveal">
+      <div>
+        <span class="eyebrow" style="color:#fff;opacity:.85">Culture is a foundational aspect of the model</span>
+        <h3 style="font-size:25px;margin-top:8px">A framework grounded in cross-cultural science</h3>
+        <p>The Theory of Constructed Emotion at the heart of the TTIM draws on research spanning diverse global populations — from Western to indigenous peoples — which shows that emotions are not universal but vary with culture, language, and context. Because of that foundation, the TTIM treats culture as a required step in every formulation rather than an afterthought. It helps clinicians distinguish what is innate human biology from what is culturally shaped, supports care when client and clinician share little common life experience, and is designed to act as a protective tool for clients who are culturally different or marginalized.</p>
+      </div>
+      <figure class="cc-fig">
+        <div class="cc-box">
+          <svg class="cc-arches" viewBox="0 0 340 300" aria-hidden="true" preserveAspectRatio="none">
+            <path d="M8 300V160A162 162 0 0 1 332 160V300"/>
+            <path class="a2" d="M50 300V168A120 120 0 0 1 290 168V300"/>
+            <path d="M92 300V178A78 78 0 0 1 248 178V300"/>
+          </svg>
+          <ul class="cc-words">
+          <li style="left:50%;top:6.5%;font-size:34px" title="Saudade: a melancholic longing for someone or something absent">Saudade<small>Portuguese</small><span class="sr-only"> (Portuguese): a melancholic longing for someone or something absent</span></li>
+          <li style="left:20%;top:35%;font-size:28px" title="Amae: comfort in relying on another's indulgence">Amae<small>Japanese</small><span class="sr-only"> (Japanese): comfort in relying on another's indulgence</span></li>
+          <li style="left:80%;top:33%;font-size:28px" title="Liget: an energetic surge of anger and passion">Liget<small>Ilongot</small><span class="sr-only"> (Ilongot): an energetic surge of anger and passion</span></li>
+          <li style="left:50%;top:54%;font-size:27px" title="Fago: compassion, love and sadness felt as one">Fago<small>Ifaluk</small><span class="sr-only"> (Ifaluk): compassion, love and sadness felt as one</span></li>
+          <li style="left:17%;top:74%;font-size:27px" title="Han: sorrow and resentment carried across time">Han<small>Korean</small><span class="sr-only"> (Korean): sorrow and resentment carried across time</span></li>
+          <li style="left:68%;top:79%;font-size:23px" title="Schadenfreude: pleasure at another's misfortune">Schadenfreude<small>German</small><span class="sr-only"> (German): pleasure at another's misfortune</span></li>
+          </ul>
+        </div>
+        <figcaption>Emotion concepts that don't translate neatly between languages</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- EMOTION / TCE -->
+<section class="band" id="emotion">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker-num">The engine underneath</span>
+      <h2>Emotion is constructed — and so is suffering</h2>
+      <p>The TTIM is built on the <strong>Theory of Constructed Emotion</strong> and the biology of <strong>allostasis</strong>: the brain's constant prediction of the body's needs. Emotions emerge as the brain interprets bodily affect through learned concepts. When that predictive process goes awry, distress follows.</p>
+    </div>
+    <div class="tce reveal">
+      <span class="eyebrow" style="color:rgba(255,255,255,.6)">Theory of Constructed Emotion</span>
+      <div class="eq">
+        <div class="term affect"><div class="t">Affect</div><div class="n">Allostatic Load</div><small>Bodily feeling — valence &amp; arousal — from running allostasis</small></div>
+        <div class="op">+</div>
+        <div class="term concept"><div class="t">Concept</div><div class="n">Cognitions</div><small>Learned categories: beliefs, language, schemas, experience</small></div>
+        <div class="op">=</div>
+        <div class="term emotion"><div class="t">Construction</div><div class="n">Emotion</div><small>Meaning &amp; an action urge, played out as behavior</small></div>
+      </div>
+      <p class="note">In the full model, Affect and Concept grow into two of the pillars — <strong>Allostatic Load</strong> and <strong>Cognitions</strong> — joined because together they produce an emotional experience.</p>
+    </div>
+    <div class="skin-row">
+      <div class="skin reveal d1">
+        <h4><span class="tag" style="background:var(--metabolic)">Inside the Skin</span></h4>
+        <p>Metabolic Health shapes the Greater Nervous System, which produces Emotion (Affect + Concept). Executive Functioning gets special attention for its power to act on concept over raw affect.</p>
+      </div>
+      <div class="skin reveal d2">
+        <h4><span class="tag" style="background:var(--relationships)">Outside the Skin</span></h4>
+        <p>The Greater World, Culture, Relationships and Behavior bidirectionally shape — and are shaped by — what happens inside. Biology and environment are inseparable from lived experience.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="band" id="pillars" style="background:var(--paper-2)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker-num">The five pillars</span>
+      <h2>Five things a good life is built on</h2>
+      <p>Each pillar is a domain that must be maintained for positive mental health and a good lived experience. They are heavily interconnected — a deficit in one ripples through the others.</p>
+    </div>
+    <!-- prerender:pillarsStrip · generated from the page data by tools/prerender.py, don't edit by hand -->
+<div class="pillars-strip" id="pillarsStrip" data-prerender=""><a href="#explorer" class="pcard reveal d1" aria-label="Open Cognitions in the interactive explorer" data-pillar="cognitions" style="--pc: #7c5cff;"><span class="pc-cap" aria-hidden="true"></span><h3>Cognitions</h3><p>The brain-based data — beliefs, language, schemas, education, experience — that the mind uses to make predictions during allostasis.</p><div class="cnt">6 treatment targets</div><span class="pgo">Explore 6 targets<i><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"></path></svg></i></span></a><a href="#explorer" class="pcard reveal d2" aria-label="Open Allostatic Load in the interactive explorer" data-pillar="allostatic" style="--pc: #ff4d6d;"><span class="pc-cap" aria-hidden="true"></span><h3>Allostatic Load</h3><p>The wear-and-tear of chronically mismanaged bodily systems — focused on the sympathetic nervous system and the dopamine system.</p><div class="cnt">7 treatment targets</div><span class="pgo">Explore 7 targets<i><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"></path></svg></i></span></a><a href="#explorer" class="pcard reveal d3" aria-label="Open Relationships in the interactive explorer" data-pillar="relationships" style="--pc: #ff9f1c;"><span class="pc-cap" aria-hidden="true"></span><h3>Relationships</h3><p>The quality and quantity of human connection — a fundamental regulator of stress physiology and a top reason people seek therapy.</p><div class="cnt">4 treatment targets</div><span class="pgo">Explore 4 targets<i><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"></path></svg></i></span></a><a href="#explorer" class="pcard reveal d4" aria-label="Open Purpose in the interactive explorer" data-pillar="purpose" style="--pc: #ff5db1;"><span class="pc-cap" aria-hidden="true"></span><h3>Purpose</h3><p>Meaning, agency and a future worth moving toward — the reason a regulated, connected, healthy person can still feel that life is hollow.</p><div class="cnt">7 treatment targets</div><span class="pgo">Explore 7 targets<i><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"></path></svg></i></span></a><a href="#explorer" class="pcard reveal d1" aria-label="Open Metabolic Health in the interactive explorer" data-pillar="metabolic" style="--pc: #16c2c2;"><span class="pc-cap" aria-hidden="true"></span><h3>Metabolic Health</h3><p>The physiological substrate of the mind — nutrition, movement, sleep, inflammation and substances. Often needs interdisciplinary collaboration.</p><div class="cnt">8 treatment targets</div><span class="pgo">Explore 8 targets<i><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"></path></svg></i></span></a></div>
+<!-- /prerender:pillarsStrip -->
+    <p style="margin-top:26px;color:var(--muted);font-size:15px">Select a pillar to open its treatment targets in the interactive explorer.</p>
+  </div>
+</section>
+
+<!-- EXPLORER -->
+<section class="band" id="explorer">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker-num">Interactive explorer</span>
+      <h2>Open the model up</h2>
+      <p>Choose a pillar, then select any treatment target to see its rationale, the guiding questions a clinician can ask, and sample evidence-based interventions.</p>
+    </div>
+    <!-- prerender:tabs · generated from the page data by tools/prerender.py, don't edit by hand -->
+<div class="explorer-tabs" id="tabs" data-prerender=""><button class="ptab active" data-pillar="cognitions"><span class="swatch" style="background:#7c5cff"></span>Cognitions</button><button class="ptab" data-pillar="allostatic"><span class="swatch" style="background:#ff4d6d"></span>Allostatic Load</button><button class="ptab" data-pillar="relationships"><span class="swatch" style="background:#ff9f1c"></span>Relationships</button><button class="ptab" data-pillar="purpose"><span class="swatch" style="background:#ff5db1"></span>Purpose</button><button class="ptab" data-pillar="metabolic"><span class="swatch" style="background:#16c2c2"></span>Metabolic Health</button></div>
+<!-- /prerender:tabs -->
+    <div class="explorer-body">
+      <!-- prerender:pillarPane · generated from the page data by tools/prerender.py, don't edit by hand -->
+<div class="pillar-pane" id="pillarPane" data-prerender="" style="border-color: rgba(124, 92, 255, 0.333);">
+<span class="ribbon" style="background:#7c5cff">Concept</span>
+<h3 style="color:#7c5cff">Cognitions</h3>
+<p class="desc">Cognitions parallel the “Concept” half of an emotion. This is the historical heartland of cognitive-behavioral work: the thoughts, beliefs, schemas, language and learning that give meaning to bodily sensation and shape the brain's predictions. But cognitive change alone, without addressing the body and the outside world, has limits.</p>
+<div class="hexwrap"><button class="hex" data-i="0">Beliefs / Education / Experience / Language</button><button class="hex" data-i="1">Cognitive Distortions</button><button class="hex" data-i="2">Acceptance</button><button class="hex" data-i="3">Attention Regulation</button><button class="hex" data-i="4">Locus of Control</button><button class="hex" data-i="5">Respondent Conditioning</button></div>
+<p class="tap-hint">Tap a target to see its guiding questions and sample interventions.</p>
+</div>
+<!-- /prerender:pillarPane -->
+      <div class="detail-pane" id="detailPane">
+        <div class="detail-empty"><div class="ring">◆</div>Select a treatment target to explore its questions and interventions.</div>
+      </div>
+    </div>
+
+    <!-- Builder promo hidden for now (restore by removing this comment wrapper)
+    <div class="reveal" style="margin:34px 0 10px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;
+         justify-content:space-between;padding:22px 24px;border-radius:18px;
+         background:linear-gradient(120deg,rgba(124,92,255,.22),rgba(255,93,177,.18) 55%,rgba(22,194,194,.18));
+         border:1px solid rgba(255,255,255,.16)">
+      <div style="min-width:250px;flex:1">
+        <strong style="display:block;font-size:16.5px;color:#fff;margin-bottom:4px">Build your own formulation</strong>
+        <span style="font-size:14px;color:rgba(255,255,255,.76);line-height:1.55">Open the model as a live figure —
+        drag treatment targets between pillars, add your own, and export the map for a session or a supervision group.</span>
+      </div>
+      <a href="builder.html" class="btn btn-primary" style="flex:none;text-decoration:none">Open the TTIM Builder →</a>
+    </div>
+    -->
+
+    <div class="svg-viewer reveal" id="full-diagram">
+      <div class="hint"><span class="h-mouse">Drag to pan · use + / − to zoom</span><span class="h-touch">Pinch or use + / − to zoom</span></div>
+      <div class="svg-stage" id="svgStage"><img src="../TTIM.svg" id="svgImg" alt="The complete TTIM diagram, showing all five pillars and 32 treatment targets inside and outside the skin. Every target is listed as text below."></div>
+      <div class="svg-controls">
+        <button id="zoomOut" aria-label="Zoom out">−</button>
+        <button id="zoomReset" aria-label="Reset">⤢</button>
+        <button id="zoomIn" aria-label="Zoom in">+</button>
+      </div>
+    </div>
+
+    <details class="alltargets" id="all-targets">
+      <summary><div>Browse every treatment target as a list<span>With the reason it matters, guiding questions and sample interventions</span></div></summary>
+      <!-- prerender:allTargets · generated from the page data by tools/prerender.py, don't edit by hand -->
+<div id="allTargets" data-prerender="">
+<section class="at-pillar" id="targets-cognitions">
+<h3><i style="background:#7c5cff"></i>Cognitions</h3>
+<p>The brain-based data — beliefs, language, schemas, education, experience — that the mind uses to make predictions during allostasis.</p>
+<article class="at-target">
+<h4>Beliefs / Education / Experience / Language</h4>
+<p>The learning of a lifetime shapes which predictions the brain makes. Maladaptive beliefs perpetuate distress through rigid or inaccurate interpretations of inner and outer events.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client hold any beliefs, education, experience, or language that are maladaptive to them? (Cognitive evaluation takes time; present emotional symptoms cue the exploration, e.g. the ABC model.)</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Cognitive restructuring · Psychoeducation · Values exploration · Selective attentional focusing · New linguistic frameworks · Corrective experiences</p>
+</article><article class="at-target">
+<h4>Cognitive Distortions</h4>
+<p>Systematic thinking errors bias information processing and keep predictive models misaligned with reality, sustaining stress reactivity and draining the body's resources.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client hold any cognitive distortions? (Refer to existing questionnaires such as the CD-Quest.)</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Cognitive restructuring · Behavioral experiments · Mindfulness-based metacognitive awareness</p>
+</article><article class="at-target">
+<h4>Acceptance</h4>
+<p>A mismatch between beliefs about reality and what actually happens drives dissonance, distress, and maladaptive behavior. Accepting reality is often the precondition for effective change.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client have a strong acceptance of actual reality / realistic probabilities?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>DBT Radical Acceptance · ACT commitment strategies · Psychoeducation · Mindfulness-based practices</p>
+</article><article class="at-target">
+<h4>Attention Regulation</h4>
+<p>Where attention goes shapes prediction. Affect-biased attention and hypervigilance maintain disordered states; trainable attentional control builds top-down regulation.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client focus on the adaptive / important aspects of their life?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>DBT Mindfulness skills · Focused-attention meditation · Open-monitoring · Cognitive control exercises · Behavioral activation</p>
+</article><article class="at-target">
+<h4>Locus of Control</h4>
+<p>An adaptive balance between believing one drives outcomes and recognizing external forces sustains motivation and healthy responsibility. Too far internal breeds over-responsibility and shame; too far external breeds helplessness.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client have an adaptive balance of believing they drive outcomes versus external forces driving outcomes?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Problem-solving therapy · Cognitive restructuring · SAGE skill (RO-DBT) · Responsibility pie chart · Socratic reframing · Behavioral experiments · Radical Openness (RO-DBT) · Self-enquiry (RO-DBT) · Radical Acceptance · Mindfulness of the present moment</p>
+</article><article class="at-target">
+<h4>Respondent Conditioning</h4>
+<p>Learned associations drive automatic emotional and physiological reactions that operate outside conscious control — and that cognition alone often can't reach.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Has the client's life conditioned any maladaptive responses to life situations?</li><li>Does the client need to engage with respondent conditioning experiences to address emotional issues?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Exposure &amp; Response Prevention · Exposure therapy · Systematic desensitization · EMDR · Interoceptive exposure · Behavioral experiments · Behavioral activation</p>
+</article>
+</section>
+<section class="at-pillar" id="targets-allostatic">
+<h3><i style="background:#ff4d6d"></i>Allostatic Load</h3>
+<p>The wear-and-tear of chronically mismanaged bodily systems — focused on the sympathetic nervous system and the dopamine system.</p>
+<article class="at-target">
+<h4>Control / Demand / Predictability</h4>
+<p>The primate nervous system is built to react to control, demand and predictability. Low control, low predictability or overwhelming demand drives a high allostatic load — sometimes from pathology, sometimes from oppressive systems.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client have very little control / predictability and very high demands in their life?</li><li>Does the client struggle with a need for control?</li><li>Does the client need to know what is coming, or struggle with what to expect?</li><li>Does the client feel resistant to external demands?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Education · Exposure · Behavioral activation / modification · DBT eliciting commitment · Cognitive reframing · Mindfulness on the controllable · Problem-solving · Stress-response medication · DBT Distress Tolerance · DBT Building Mastery · Acceptance strategies · Adjusting the environment</p>
+</article><article class="at-target">
+<h4>Evaluation of Performance</h4>
+<p>The SNS mobilizes us toward performance. A poor relationship with performance — or unmet, unrealistic demands — creates sustained arousal where the effort to perform undermines performance itself.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client struggle with feelings regarding their performance in life / tasks?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Cognitive restructuring of perfectionism · DBT Building Mastery · Values-based behavioral activation (ACT) · Biofeedback · Mindfulness · Exposure-based interventions</p>
+</article><article class="at-target">
+<h4>Social Hierarchy</h4>
+<p>The SNS is naturally sensitive to social rank — higher arousal when perceived as lower-status. An under-discussed driver of self-worth struggles, rejection sensitivity and chronic dysregulation.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client feel like they are a valuable or worthwhile person?</li><li>Does the client feel intense feelings when others question them or their worth?</li><li>Are there external or internal factors driving the client to feel lesser?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Cognitive restructuring of status/worth beliefs · Status-based personal values · Radical Acceptance of social status · Letting-go (Buddhist or Yogic-style) approaches · Biofeedback · Mindfulness · Exposure · Supportive environments · Self-esteem building · Finding ways to be of value to others</p>
+</article><article class="at-target">
+<h4>Sympathetic Learning History / Trauma</h4>
+<p>Trauma sensitizes the nervous system to threat, producing rigid autonomic states and overgeneralized danger cues that persist long after the events. No formulation is complete without evaluating it.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client have a history of working in high-stress environments?</li><li>Does the client have any trauma history?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Trauma-focused CBT · EMDR · Cognitive Processing Therapy · Prolonged Exposure · Corrective environments &amp; experiences · Somatic / body-oriented therapies</p>
+</article><article class="at-target">
+<h4>Chronic SNS Activation</h4>
+<p>When stress mediators exceed coping capacity the system dysregulates into allostatic overload — surfacing as the physical complaints that so often arrive on a therapist's couch.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client wake before they intend to, or have insomnia?</li><li>Stomach issues? Autoimmune issues or a weak / inconsistent immune system?</li><li>Chronic fatigue? Memory struggles? Sexual dysfunction?</li><li>Muscle tension (shoulders / neck / jaw)? High blood pressure?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Down-regulation / relaxation techniques · Behavioral &amp; cognitive stress reduction · Medical collaboration · Address upstream targets (control, trauma, performance) · DBT Distress Tolerance skills · DBT Emotion Regulation skills · Mindfulness-based stress reduction · Biofeedback · Physical activity · Sleep hygiene</p>
+</article><article class="at-target">
+<h4>Dopamine System Disruption</h4>
+<p>Dopamine governs reward, motivation and movement, and operates on relative, prediction-based stimulation. Modern life over-stimulates it; under- and over-activation both produce mental-health consequences.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client feel unpleasant when prevented from doing what they want?</li><li>Does the client feel their best when they do new things?</li><li>Does the client feel their best when pursuing a goal?</li><li>Does the client enjoy the early stages of new things, then struggle once novelty wears off?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Abstinence from highly dopaminergic activity (reset) · Aligning values to behavior · Increasing non-dopaminergic pleasures · Structural schedule adjustments · Lifestyle exploration · Pharmacology (stimulants / dopamine modulators; antagonists for excess)</p>
+</article><article class="at-target">
+<h4>Affect Tolerance</h4>
+<p>Affect varies along two axes: energy (arousal) and valence. When some regions of that space feel intolerable — high-energy distress like panic or rage, low-energy states like emptiness or boredom, even calm or joy — clients escape them through avoidance, numbing, impulsive action or dissociation. Widening the window of tolerance lets a client stay present and regulated across the full affective range.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client have the capacity to handle a range of affective experiences, including all combinations of high and low energy and high and low valence?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Somatic Experiencing (titration &amp; pendulation) · Sensorimotor Psychotherapy · Integral Somatic Psychology · Trauma-informed yoga · DBT Distress Tolerance · DBT Emotion Regulation · ACT willingness &amp; defusion · Emotion Regulation Therapy · STAIR · AEDP / ISTDP · Emotion-Focused Therapy · IFS parts work · EMDR (incl. Positive Affect Tolerance protocol) · Accelerated Resolution Therapy</p>
+</article>
+</section>
+<section class="at-pillar" id="targets-relationships">
+<h3><i style="background:#ff9f1c"></i>Relationships</h3>
+<p>The quality and quantity of human connection — a fundamental regulator of stress physiology and a top reason people seek therapy.</p>
+<article class="at-target">
+<h4>Social Homeostatic Needs</h4>
+<p>Social isolation produces real physiological consequences and rising allostatic load. Unmet social needs are statistically probable for almost anyone presenting for care.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client have close relationships (family / friend / romantic)? Do they feel lonely?</li><li>Is the client happy with the closeness of their relationships?</li><li>Is anything missing in the client's life from a social perspective?</li><li>How often does the client speak with and spend time with people?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Collaborative problem-solving to find connection · Group therapy · Using the therapeutic relationship to scaffold social needs</p>
+</article><article class="at-target">
+<h4>Relationship Skills</h4>
+<p>Maintaining relationships is a learned, practiced skill set — communication, boundaries, conflict resolution. Deficits drive interpersonal friction and destabilize attachment.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Do people in the client's life often find themselves upset with the client, or take advantage of the client?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Social skills training · DBT Interpersonal Effectiveness · Gottman Method · Family therapy · CBT for maladaptive interpersonal patterns · Modeling in session · Conflict-resolution scripts · Mindfulness programs involving significant others</p>
+</article><article class="at-target">
+<h4>How You Make Others Feel</h4>
+<p>Technically correct social behavior can still leave others feeling unseen. Awareness of one's impact — perspective-taking and empathic accuracy — is often the missing piece.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client know what they need in relationships, and what people need from them?</li><li>Do people in the client's life make the client feel positive or negative?</li><li>Does the client find people avoiding or distancing themselves from them?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Radically-Open DBT · DBT Interpersonal skills · Metacognition / mentalization training · Mindfulness of one's impact · Therapeutic-relationship feedback · Functional Analytic Psychotherapy</p>
+</article><article class="at-target">
+<h4>Experiencing Connection</h4>
+<p>The capacity to feel connection itself can be the target — for relational trauma, insecure attachment, alexithymia or autism. Therapy can be a corrective, co-regulating experience.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client feel connected to / understood by those around them?</li><li>Do the people around the client feel connected to / understood by them?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Building a strong therapeutic alliance · Attachment-based interventions · The therapeutic relationship as a model for connection · Graded exposure to deeper connection</p>
+</article>
+</section>
+<section class="at-pillar" id="targets-purpose">
+<h3><i style="background:#ff5db1"></i>Purpose</h3>
+<p>Meaning, agency and a future worth moving toward — the reason a regulated, connected, healthy person can still feel that life is hollow.</p>
+<article class="at-target">
+<h4>Meaning for Living</h4>
+<p>A reason for living confers resilience even when immediate rewards are scarce — a force that can counteract a chronically over-active lateral habenula and pervasive hopelessness.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client have a reason for being on a day-to-day basis? On a lifelong basis?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>ACT values work · Narrative Therapy · Existential therapy · Meaning-centered psychotherapy</p>
+</article><article class="at-target">
+<h4>Good Things Are Coming</h4>
+<p>A global conviction that a positive future is possible. Without it, planning and effort can feel hollow — distinct from, and deeper than, looking forward to specific events.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client believe good experiences or things are coming?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Cognitive restructuring of future beliefs · Behavioral activation · Psychoeducation + world engagement · Future Event Specificity Training · Mindfulness for a more optimistic outlook</p>
+</article><article class="at-target">
+<h4>Agency Over Future</h4>
+<p>Belief in influence over outcomes — an internal locus of control and an iterative mindset — sustains motivation and resilience. Its absence is learned helplessness.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client feel like they have some control over their future?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>CBT challenging control beliefs · Reattributing success to effort · Reframing adversity as skill-building · Psychoeducation on locus-of-control malleability · Growth mindset · Motivational interviewing · Mindful 'one step at a time' focus · DBT Building Mastery · Problem-solving &amp; self-efficacy</p>
+</article><article class="at-target">
+<h4>Looking Forward to Experiences</h4>
+<p>Anticipating positive experiences sustains the dopamine system and the sense that life is worth living. Anhedonia blunts the drive to pursue goals at all.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Is the client looking forward to anything?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Behavioral activation (pleasurable activities) · Savoring · Mindfulness of pleasant experiences · Future Event Specificity Training · Anticipatory pleasure via guided imagery &amp; memory recall</p>
+</article><article class="at-target">
+<h4>Purpose to Others</h4>
+<p>Contributing to others' lives builds self-worth and releases prosocial neuromodulators, lowering SNS activity and allostatic load. A modern world of frictionless services makes such roles harder to find.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client contribute to their world in any way?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Volunteer work · Community engagement · DBT ACCEPTS skill · Mentorship · ACT matrix work · Acts of service</p>
+</article><article class="at-target">
+<h4>Commitment</h4>
+<p>Willingness to engage with effort and change underpins every other intervention. Enhancing a sense of control also reduces SNS activation and allostatic load. As a facet of Purpose, it is the chosen, values-driven decision to keep moving toward a life worth living.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does the client demonstrate the willingness to engage with effort and change?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Fostering grit / iterative mindset · Behavioral activation · Motivational interviewing · DBT Willingness vs Willfulness, Willing Hands · DBT Building Mastery · Problem-solving &amp; assertiveness</p>
+</article><article class="at-target">
+<h4>Accomplishment</h4>
+<p>The satisfaction that follows direct effort reinforces agency and reward pathways. Without earned wins, motivation and self-efficacy erode even when meaning and connection are present.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Has the client experienced the feelings of satisfaction that follow direct effort?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>WOOP method · Micro-goal chunking · Progress journaling · Habit stacking · Deliberate practice · Best-Possible-Self imagery · The Progress Principle · Growth mindset</p>
+</article>
+</section>
+<section class="at-pillar" id="targets-metabolic">
+<h3><i style="background:#16c2c2"></i>Metabolic Health</h3>
+<p>The physiological substrate of the mind — nutrition, movement, sleep, inflammation and substances. Often needs interdisciplinary collaboration.</p>
+<article class="at-target">
+<h4>Substance Use</h4>
+<p>Psychoactive substances alter physiological baselines, impair executive function bottom-up, and leave metabolic after-effects that can linger for months or years after cessation.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does your client engage in frequent substance use?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Abstinence · Harm reduction · Understanding the substance's function &amp; meeting it through lived experience · Pharmacological support</p>
+</article><article class="at-target">
+<h4>Gut Microbiome (Probiotics / Prebiotics)</h4>
+<p>Gut bacteria produce neurotransmitter precursors and short-chain fatty acids. A poor microbiome fuels inflammation and disrupts the gut-brain axis, feeding depression and anxiety.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does your client eat probiotic or low-sugar fermented foods?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Low-sugar fermented foods · Dietary fiber · Reducing gut-harming foods · Targeted probiotic / prebiotic regimens · (Rarely) fecal transplant under medical oversight</p>
+</article><article class="at-target">
+<h4>Content of Food</h4>
+<p>The brain needs specific nutrients; deficits (omega-3, vitamin D, magnesium, B vitamins) translate into mental-health symptoms. Diet quality directly shapes mood and cognition.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does your client eat a lot of protein and fiber, or is their diet mostly carbohydrates?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>DBT PLEASE skill · Whole, unprocessed foods · Fruits, vegetables, lean protein · Targeted supplementation (omega-3, B vitamins)</p>
+</article><article class="at-target">
+<h4>Refined Sugars / Fructose Consumption</h4>
+<p>High refined-sugar and fructose intake drives neuroinflammation, mitochondrial dysfunction and insulin resistance — a modifiable risk factor across mood and cognitive disorders.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does your client eat a lot of foods high in refined sugars?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Reducing processed foods &amp; added sugars · DBT PLEASE skill · Metabolic-health screening · Emphasizing whole foods · Education on sugar's effects · Ketogenic metabolic therapy strategies</p>
+</article><article class="at-target">
+<h4>Inflammation</h4>
+<p>Chronic, often-undetected systemic inflammation alters neurotransmitter metabolism, impairs neuroplasticity, and is implicated in depression, bipolar disorder and treatment resistance.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does your client have any chronic inflammation they're aware of? (dry eyes, excess mucus, balance problems, brain fog, low energy, clotting problems, insulin resistance, skin symptoms, poor digestion, low back pain, swollen lymph nodes)</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Anti-inflammatory diets · Regular exercise · Cognitive / behavioral stress reduction · Targeted anti-inflammatory supplementation</p>
+</article><article class="at-target">
+<h4>Physical Activity</h4>
+<p>Perhaps the most-researched health intervention: movement modulates BDNF and neurotransmitters, builds metabolic resilience, and rivals therapy for some outcomes.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does your client get a lot of physical activity?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Walking / running / dancing · Resistance training · Monitoring behavioral antecedents &amp; consequences of activity</p>
+</article><article class="at-target">
+<h4>Sleep</h4>
+<p>Sleep underwrites neuroplasticity, memory and emotion regulation. Every mental-health condition shows a relationship with disturbed sleep.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>How many hours a night does the client sleep?</li><li>Do they sleep through the night?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>CBT-i · Sleep hygiene · Light exposure / chronotherapy · Adequate daytime energy expenditure · Relaxation techniques · Temperature adjustments · Treating comorbidities that disrupt sleep</p>
+</article><article class="at-target">
+<h4>Circadian Rhythm</h4>
+<p>Cortisol rhythm and sleep-wake timing can be disrupted even when sleep duration is intact — a distinct target. Modern light, screens and shift schedules are common culprits.</p>
+<p class="at-l">Guiding questions</p>
+<ul><li>Does your client get ample early-morning sunlight?</li><li>Does your client feel energized during the daylight hours?</li></ul>
+<p class="at-l">Sample interventions</p>
+<p>Light therapy · Consistent meal timing · Timed exercise · Maintaining regular social rhythms</p>
+</article>
+</section></div>
+<!-- /prerender:allTargets -->
+    </details>
+  </div>
+</section>
+
+<!-- USE -->
+<section class="band" id="use" style="background:var(--paper-2)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker-num">In practice</span>
+      <h2>How the TTIM works in the room</h2>
+      <p>The model is meant to be used as a living cycle — surfacing targets, sharing them with the client, and planning collaboratively as the picture evolves.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal d1"><div class="sn">1</div><h3>Assess &amp; formulate</h3><p>Use the guiding questions during intake. Each flagged target invites deeper evaluation, building an idiographic picture of which pillars are in deficit.</p></div>
+      <div class="step reveal d2"><div class="sn">2</div><h3>Share &amp; educate</h3><p>Show the client the pillars and targets in deficit. Matter-of-fact psychoeducation reduces judgment, builds alliance, fosters hope, and is itself an intervention.</p></div>
+      <div class="step reveal d3"><div class="sn">3</div><h3>Plan &amp; prioritize</h3><p>Choose targets collaboratively. The most destabilizing ones (often Allostatic Load) come first. Re-prioritize as new data arrives — the cycle repeats.</p></div>
+    </div>
+    <div class="balance reveal">
+      <div>
+        <h3>Guiding logic of the TTIM: The dose determines the poison — too much, or too little</h3>
+        <p>The TTIM never claims a single factor predicts all outcomes. Instead it asks where internal and external factors sit in <strong>excess or deficit</strong>, and how those imbalances ripple through a life — an idea echoed in traditional models of restoring balance and research on trauma and resilience.</p>
+      </div>
+    </div>
+    <div class="ef-note reveal">
+      <h4>A cross-cutting consideration: Executive Functioning</h4>
+      <p>Executive functioning isn't a pillar — you don't need it to feel positive emotion — but it influences nearly every outcome and every session. The model keeps it visible as a consideration across all targets (e.g., CBT for ADHD, environmental structuring, bottom-up regulatory strategies). Modern research does not support the idea that interventions targetting executive functioning have long-term effects, and instead, executive functioning can be scaffolded as a part of treatment. <em>Guiding question: Does the client experience executive functioning deficits? (e.g., use an existing tool such as the BRIEF2.)</em></p>
+    </div>
+
+    <div class="adapt reveal">
+      <div class="adapt-head">
+        <span class="eyebrow">Adaptable by design</span>
+        <h3>Built to be flexing depending on practical settings — and to grow</h3>
+        <p>The TTIM is not static. It is built to adapt to different practice environments and acuity levels, and to let clinicians add, move, or remove treatment targets wherever a need arises — placing each one where it belongs in the model. As new research and modalities emerge, the framework expands with them.</p>
+      </div>
+      <div class="adapt-grid">
+        <div class="adapt-card"><b>New biology</b><span>Drop a specific peptide or hormone target into Metabolic Health, the Greater Nervous System, or Allostatic Load for higher-acuity and psychiatric work.</span></div>
+        <div class="adapt-card"><b>Genetic influence</b><span>Add a “Genes” category under Inside the Skin (e.g., ADHD, autism, bipolar, alexithymia) when genetic factors shape the picture. Can be helpful for education or epigenetic work.</span></div>
+        <div class="adapt-card"><b>Community practice</b><span>Add Greater World and Culture targets for clinicians, sociologists, anthropologists, and activists working beyond the individual.</span></div>
+        <div class="adapt-card"><b>Executive-function focus</b><span>Expand into sub-targets — inhibition, working memory, shifting, planning, self-monitoring — for ADHD or BPD work.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="eyebrow" style="color:rgba(255,255,255,.55)">Treatment Target Identification Model</span>
+    <h3 style="margin-top:14px">A map for finding what's missing — and treating it on purpose.</h3>
+    <div class="frow">
+      <div class="auth">Proposed by <b>Alexey Breuss, Psy.D.</b><br><span style="color:rgba(255,255,255,.5)">A novel case conceptualization tool</span></div>
+      <a href="../TTIM.png" target="_blank" class="btn btn-ghost">Download the full diagram ↗</a>
+    </div>
+
+    <div class="contact reveal">
+      <div>
+        <span class="eyebrow" style="color:rgba(255,255,255,.55)">Contact</span>
+        <h4 style="font-size:21px;margin-top:8px">Questions, research, or training on the model</h4>
+        <p style="color:rgba(255,255,255,.6);margin-top:6px;font-size:14.5px;max-width:520px">Reach out for general information about the TTIM, research collaboration, or education on how to use the model in practice, supervision, or teaching.</p>
+      </div>
+      <a class="btn btn-primary" href="mailto:dr.alexeybreuss@gmail.com?subject=TTIM%20Inquiry">Email Dr. Breuss</a>
+    </div>
+
+    <p class="disclaimer">The TTIM is a theoretically grounded, evidence-based proposal — not yet an empirically validated instrument. It is intended to scaffold clinical reasoning, education, and supervision, and does not replace clinical judgment, diagnosis, or appropriate interdisciplinary collaboration (e.g., with physicians or dietitians for metabolic targets). This site summarizes the model for educational purposes. A formal peer reviewed publication is in the process of being submitted.</p>
+
+    <div class="license">
+      <a class="cc-badge" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="license noopener" aria-label="Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License">
+        <svg viewBox="0 0 32 32" role="img" aria-hidden="true"><circle class="cc-ring" cx="16" cy="16" r="14"/><text class="cc-mark" x="16" y="21" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700">cc</text></svg>
+        <svg viewBox="0 0 32 32" role="img" aria-hidden="true"><circle class="cc-ring" cx="16" cy="16" r="14"/><circle class="cc-mark" cx="16" cy="11.6" r="3"/><path class="cc-mark" d="M16 15.4c-3.5 0-5.9 2.2-5.9 5.2 0 1 .3 1.9.8 2.6h10.2c.5-.7.8-1.6.8-2.6 0-3-2.4-5.2-5.9-5.2z"/></svg>
+        <svg viewBox="0 0 32 32" role="img" aria-hidden="true"><circle class="cc-ring" cx="16" cy="16" r="14"/><text class="cc-mark" x="16" y="21.5" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700">$</text><line class="cc-strike" x1="8.5" y1="16" x2="23.5" y2="16"/></svg>
+        <svg viewBox="0 0 32 32" role="img" aria-hidden="true"><circle class="cc-ring" cx="16" cy="16" r="14"/><rect class="cc-mark" x="9" y="13" width="14" height="2.6" rx="1.3"/><rect class="cc-mark" x="9" y="17.8" width="14" height="2.6" rx="1.3"/></svg>
+      </a>
+      <p class="lic-text">The Treatment Target Identification Model (TTIM) © 2026 Alexey Breuss, Psy.D., is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="license noopener">CC BY-NC-ND 4.0</a>. You may share it with attribution, but not use it commercially or distribute modified versions.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- mobile modal -->
+<div class="modal-back" id="modalBack"><div class="modal-card" id="modalCard"></div></div>
+
+<script>
+/* Blocks marked data-prerender hold a copy that tools/prerender.py bakes into this file for search engines
+   and AI crawlers. Clear them so the code below renders them fresh from the data. Edit the data, not the copies. */
+document.querySelectorAll('[data-prerender]').forEach(el => { el.innerHTML = ''; });
+
+/* ============== DATA ============== */
+const PILLARS = [
+  {
+    id:"cognitions", name:"Cognitions", color:"var(--cognitions)", hex:"#7c5cff",
+    tag:"Concept",
+    blurb:"The brain-based data — beliefs, language, schemas, education, experience — that the mind uses to make predictions during allostasis.",
+    desc:"Cognitions parallel the “Concept” half of an emotion. This is the historical heartland of cognitive-behavioral work: the thoughts, beliefs, schemas, language and learning that give meaning to bodily sensation and shape the brain's predictions. But cognitive change alone, without addressing the body and the outside world, has limits.",
+    targets:[
+      {name:"Beliefs / Education / Experience / Language",
+        why:"The learning of a lifetime shapes which predictions the brain makes. Maladaptive beliefs perpetuate distress through rigid or inaccurate interpretations of inner and outer events.",
+        q:["Does the client hold any beliefs, education, experience, or language that are maladaptive to them? (Cognitive evaluation takes time; present emotional symptoms cue the exploration, e.g. the ABC model.)"],
+        ix:["Cognitive restructuring","Psychoeducation","Values exploration","Selective attentional focusing","New linguistic frameworks","Corrective experiences"]},
+      {name:"Cognitive Distortions",
+        why:"Systematic thinking errors bias information processing and keep predictive models misaligned with reality, sustaining stress reactivity and draining the body's resources.",
+        q:["Does the client hold any cognitive distortions? (Refer to existing questionnaires such as the CD-Quest.)"],
+        ix:["Cognitive restructuring","Behavioral experiments","Mindfulness-based metacognitive awareness"]},
+      {name:"Acceptance",
+        why:"A mismatch between beliefs about reality and what actually happens drives dissonance, distress, and maladaptive behavior. Accepting reality is often the precondition for effective change.",
+        q:["Does the client have a strong acceptance of actual reality / realistic probabilities?"],
+        ix:["DBT Radical Acceptance","ACT commitment strategies","Psychoeducation","Mindfulness-based practices"]},
+      {name:"Attention Regulation",
+        why:"Where attention goes shapes prediction. Affect-biased attention and hypervigilance maintain disordered states; trainable attentional control builds top-down regulation.",
+        q:["Does the client focus on the adaptive / important aspects of their life?"],
+        ix:["DBT Mindfulness skills","Focused-attention meditation","Open-monitoring","Cognitive control exercises","Behavioral activation"]},
+      {name:"Locus of Control",
+        why:"An adaptive balance between believing one drives outcomes and recognizing external forces sustains motivation and healthy responsibility. Too far internal breeds over-responsibility and shame; too far external breeds helplessness.",
+        q:["Does the client have an adaptive balance of believing they drive outcomes versus external forces driving outcomes?"],
+        ix:["Problem-solving therapy","Cognitive restructuring","SAGE skill (RO-DBT)","Responsibility pie chart","Socratic reframing","Behavioral experiments","Radical Openness (RO-DBT)","Self-enquiry (RO-DBT)","Radical Acceptance","Mindfulness of the present moment"]},
+      {name:"Respondent Conditioning",
+        why:"Learned associations drive automatic emotional and physiological reactions that operate outside conscious control — and that cognition alone often can't reach.",
+        q:["Has the client's life conditioned any maladaptive responses to life situations?","Does the client need to engage with respondent conditioning experiences to address emotional issues?"],
+        ix:["Exposure & Response Prevention","Exposure therapy","Systematic desensitization","EMDR","Interoceptive exposure","Behavioral experiments","Behavioral activation"]}
+    ]
+  },
+  {
+    id:"allostatic", name:"Allostatic Load", color:"var(--allostatic)", hex:"#ff4d6d",
+    tag:"Affect",
+    blurb:"The wear-and-tear of chronically mismanaged bodily systems — focused on the sympathetic nervous system and the dopamine system.",
+    desc:"Allostatic load is the “Affect” half of emotion: the cumulative cost of running allostasis under chronic strain. When load is high — from internal biology or a harsh, demanding world — people experience distress, fatigue and emotion dysregulation. This pillar gives medical and behavioral interventions a clear home, and centres two systems deeply tied to mental health: the sympathetic nervous system and dopamine.",
+    targets:[
+      {name:"Control / Demand / Predictability",
+        why:"The primate nervous system is built to react to control, demand and predictability. Low control, low predictability or overwhelming demand drives a high allostatic load — sometimes from pathology, sometimes from oppressive systems.",
+        q:["Does the client have very little control / predictability and very high demands in their life?","Does the client struggle with a need for control?","Does the client need to know what is coming, or struggle with what to expect?","Does the client feel resistant to external demands?"],
+        ix:["Education","Exposure","Behavioral activation / modification","DBT eliciting commitment","Cognitive reframing","Mindfulness on the controllable","Problem-solving","Stress-response medication","DBT Distress Tolerance","DBT Building Mastery","Acceptance strategies","Adjusting the environment"]},
+      {name:"Evaluation of Performance",
+        why:"The SNS mobilizes us toward performance. A poor relationship with performance — or unmet, unrealistic demands — creates sustained arousal where the effort to perform undermines performance itself.",
+        q:["Does the client struggle with feelings regarding their performance in life / tasks?"],
+        ix:["Cognitive restructuring of perfectionism","DBT Building Mastery","Values-based behavioral activation (ACT)","Biofeedback","Mindfulness","Exposure-based interventions"]},
+      {name:"Social Hierarchy",
+        why:"The SNS is naturally sensitive to social rank — higher arousal when perceived as lower-status. An under-discussed driver of self-worth struggles, rejection sensitivity and chronic dysregulation.",
+        q:["Does the client feel like they are a valuable or worthwhile person?","Does the client feel intense feelings when others question them or their worth?","Are there external or internal factors driving the client to feel lesser?"],
+        ix:["Cognitive restructuring of status/worth beliefs","Status-based personal values","Radical Acceptance of social status","Letting-go (Buddhist or Yogic-style) approaches","Biofeedback","Mindfulness","Exposure","Supportive environments","Self-esteem building","Finding ways to be of value to others"]},
+      {name:"Sympathetic Learning History / Trauma",
+        why:"Trauma sensitizes the nervous system to threat, producing rigid autonomic states and overgeneralized danger cues that persist long after the events. No formulation is complete without evaluating it.",
+        q:["Does the client have a history of working in high-stress environments?","Does the client have any trauma history?"],
+        ix:["Trauma-focused CBT","EMDR","Cognitive Processing Therapy","Prolonged Exposure","Corrective environments & experiences","Somatic / body-oriented therapies"]},
+      {name:"Chronic SNS Activation",
+        why:"When stress mediators exceed coping capacity the system dysregulates into allostatic overload — surfacing as the physical complaints that so often arrive on a therapist's couch.",
+        q:["Does the client wake before they intend to, or have insomnia?","Stomach issues? Autoimmune issues or a weak / inconsistent immune system?","Chronic fatigue? Memory struggles? Sexual dysfunction?","Muscle tension (shoulders / neck / jaw)? High blood pressure?"],
+        ix:["Down-regulation / relaxation techniques","Behavioral & cognitive stress reduction","Medical collaboration","Address upstream targets (control, trauma, performance)", "DBT Distress Tolerance skills", "DBT Emotion Regulation skills", "Mindfulness-based stress reduction", "Biofeedback", "Physical activity", "Sleep hygiene"]},
+      {name:"Dopamine System Disruption",
+        why:"Dopamine governs reward, motivation and movement, and operates on relative, prediction-based stimulation. Modern life over-stimulates it; under- and over-activation both produce mental-health consequences.",
+        q:["Does the client feel unpleasant when prevented from doing what they want?","Does the client feel their best when they do new things?","Does the client feel their best when pursuing a goal?","Does the client enjoy the early stages of new things, then struggle once novelty wears off?"],
+        ix:["Abstinence from highly dopaminergic activity (reset)","Aligning values to behavior","Increasing non-dopaminergic pleasures","Structural schedule adjustments","Lifestyle exploration","Pharmacology (stimulants / dopamine modulators; antagonists for excess)"]},
+      {name:"Affect Tolerance",
+        why:"Affect varies along two axes: energy (arousal) and valence. When some regions of that space feel intolerable — high-energy distress like panic or rage, low-energy states like emptiness or boredom, even calm or joy — clients escape them through avoidance, numbing, impulsive action or dissociation. Widening the window of tolerance lets a client stay present and regulated across the full affective range.",
+        q:["Does the client have the capacity to handle a range of affective experiences, including all combinations of high and low energy and high and low valence?"],
+        ix:["Somatic Experiencing (titration & pendulation)", "Sensorimotor Psychotherapy", "Integral Somatic Psychology", "Trauma-informed yoga", "DBT Distress Tolerance", "DBT Emotion Regulation", "ACT willingness & defusion", "Emotion Regulation Therapy", "STAIR", "AEDP / ISTDP", "Emotion-Focused Therapy", "IFS parts work", "EMDR (incl. Positive Affect Tolerance protocol)", "Accelerated Resolution Therapy"]}
+    ]
+  },
+  {
+    id:"relationships", name:"Relationships", color:"var(--relationships)", hex:"#ff9f1c",
+    tag:"Outside the Skin",
+    blurb:"The quality and quantity of human connection — a fundamental regulator of stress physiology and a top reason people seek therapy.",
+    desc:"Humans are a social species whose neurobiology is organized around connection. Relationships powerfully buffer or amplify allostatic load; isolation registers to the brain as a survival threat. Maintaining good mental health is impossible without attending to the connections in a person's life — their quantity, their quality, and the skills to sustain them.",
+    targets:[
+      {name:"Social Homeostatic Needs",
+        why:"Social isolation produces real physiological consequences and rising allostatic load. Unmet social needs are statistically probable for almost anyone presenting for care.",
+        q:["Does the client have close relationships (family / friend / romantic)? Do they feel lonely?","Is the client happy with the closeness of their relationships?","Is anything missing in the client's life from a social perspective?","How often does the client speak with and spend time with people?"],
+        ix:["Collaborative problem-solving to find connection","Group therapy","Using the therapeutic relationship to scaffold social needs"]},
+      {name:"Relationship Skills",
+        why:"Maintaining relationships is a learned, practiced skill set — communication, boundaries, conflict resolution. Deficits drive interpersonal friction and destabilize attachment.",
+        q:["Do people in the client's life often find themselves upset with the client, or take advantage of the client?"],
+        ix:["Social skills training","DBT Interpersonal Effectiveness","Gottman Method","Family therapy","CBT for maladaptive interpersonal patterns","Modeling in session","Conflict-resolution scripts","Mindfulness programs involving significant others"]},
+      {name:"How You Make Others Feel",
+        why:"Technically correct social behavior can still leave others feeling unseen. Awareness of one's impact — perspective-taking and empathic accuracy — is often the missing piece.",
+        q:["Does the client know what they need in relationships, and what people need from them?","Do people in the client's life make the client feel positive or negative?","Does the client find people avoiding or distancing themselves from them?"],
+        ix:["Radically-Open DBT","DBT Interpersonal skills","Metacognition / mentalization training","Mindfulness of one's impact","Therapeutic-relationship feedback","Functional Analytic Psychotherapy"]},
+      {name:"Experiencing Connection",
+        why:"The capacity to feel connection itself can be the target — for relational trauma, insecure attachment, alexithymia or autism. Therapy can be a corrective, co-regulating experience.",
+        q:["Does the client feel connected to / understood by those around them?","Do the people around the client feel connected to / understood by them?"],
+        ix:["Building a strong therapeutic alliance","Attachment-based interventions","The therapeutic relationship as a model for connection","Graded exposure to deeper connection"]}
+    ]
+  },
+  {
+    id:"purpose", name:"Purpose", color:"var(--purpose)", hex:"#ff5db1",
+    tag:"Outside the Skin · Dopamine",
+    blurb:"Meaning, agency and a future worth moving toward — the reason a regulated, connected, healthy person can still feel that life is hollow.",
+    desc:"A person can hold healthy cognitions, low allostatic load, good relationships and sound metabolic health — and still suffer. Purpose is the pillar that captures meaning, agency and anticipation. It sits where cognition meets the outside world, ties directly into the dopamine system, and links to behavior. Think eudaimonia, or <em>ikigai</em>: a reason for being, both today and across a life.",
+    targets:[
+      {name:"Meaning for Living",
+        why:"A reason for living confers resilience even when immediate rewards are scarce — a force that can counteract a chronically over-active lateral habenula and pervasive hopelessness.",
+        q:["Does the client have a reason for being on a day-to-day basis? On a lifelong basis?"],
+        ix:["ACT values work","Narrative Therapy","Existential therapy","Meaning-centered psychotherapy"]},
+      {name:"Good Things Are Coming",
+        why:"A global conviction that a positive future is possible. Without it, planning and effort can feel hollow — distinct from, and deeper than, looking forward to specific events.",
+        q:["Does the client believe good experiences or things are coming?"],
+        ix:["Cognitive restructuring of future beliefs","Behavioral activation","Psychoeducation + world engagement","Future Event Specificity Training","Mindfulness for a more optimistic outlook"]},
+      {name:"Agency Over Future",
+        why:"Belief in influence over outcomes — an internal locus of control and an iterative mindset — sustains motivation and resilience. Its absence is learned helplessness.",
+        q:["Does the client feel like they have some control over their future?"],
+        ix:["CBT challenging control beliefs","Reattributing success to effort","Reframing adversity as skill-building","Psychoeducation on locus-of-control malleability","Growth mindset","Motivational interviewing","Mindful 'one step at a time' focus","DBT Building Mastery","Problem-solving & self-efficacy"]},
+      {name:"Looking Forward to Experiences",
+        why:"Anticipating positive experiences sustains the dopamine system and the sense that life is worth living. Anhedonia blunts the drive to pursue goals at all.",
+        q:["Is the client looking forward to anything?"],
+        ix:["Behavioral activation (pleasurable activities)","Savoring","Mindfulness of pleasant experiences","Future Event Specificity Training","Anticipatory pleasure via guided imagery & memory recall"]},
+      {name:"Purpose to Others",
+        why:"Contributing to others' lives builds self-worth and releases prosocial neuromodulators, lowering SNS activity and allostatic load. A modern world of frictionless services makes such roles harder to find.",
+        q:["Does the client contribute to their world in any way?"],
+        ix:["Volunteer work","Community engagement","DBT ACCEPTS skill","Mentorship","ACT matrix work","Acts of service"]},
+      {name:"Commitment",
+        why:"Willingness to engage with effort and change underpins every other intervention. Enhancing a sense of control also reduces SNS activation and allostatic load. As a facet of Purpose, it is the chosen, values-driven decision to keep moving toward a life worth living.",
+        q:["Does the client demonstrate the willingness to engage with effort and change?"],
+        ix:["Fostering grit / iterative mindset","Behavioral activation","Motivational interviewing","DBT Willingness vs Willfulness, Willing Hands","DBT Building Mastery","Problem-solving & assertiveness"]},
+      {name:"Accomplishment",
+        why:"The satisfaction that follows direct effort reinforces agency and reward pathways. Without earned wins, motivation and self-efficacy erode even when meaning and connection are present.",
+        q:["Has the client experienced the feelings of satisfaction that follow direct effort?"],
+        ix:["WOOP method","Micro-goal chunking","Progress journaling","Habit stacking","Deliberate practice","Best-Possible-Self imagery","The Progress Principle","Growth mindset"]}
+    ]
+  },
+  {
+    id:"metabolic", name:"Metabolic Health", color:"var(--metabolic)", hex:"#16c2c2",
+    tag:"Inside &amp; Outside the Skin",
+    blurb:"The physiological substrate of the mind — nutrition, movement, sleep, inflammation and substances. Often needs interdisciplinary collaboration.",
+    desc:"Metabolic dysregulation interacts bidirectionally with the nervous system through inflammatory and neuroendocrine pathways. The modern world disrupts metabolism in unprecedented ways. These targets are not mere lifestyle add-ons — they often restore the neurobiological substrate that psychological work depends on. Many require collaboration with dietitians, physicians or physical therapists.",
+    targets:[
+      {name:"Substance Use",
+        why:"Psychoactive substances alter physiological baselines, impair executive function bottom-up, and leave metabolic after-effects that can linger for months or years after cessation.",
+        q:["Does your client engage in frequent substance use?"],
+        ix:["Abstinence","Harm reduction","Understanding the substance's function & meeting it through lived experience","Pharmacological support"]},
+      {name:"Gut Microbiome (Probiotics / Prebiotics)",
+        why:"Gut bacteria produce neurotransmitter precursors and short-chain fatty acids. A poor microbiome fuels inflammation and disrupts the gut-brain axis, feeding depression and anxiety.",
+        q:["Does your client eat probiotic or low-sugar fermented foods?"],
+        ix:["Low-sugar fermented foods","Dietary fiber","Reducing gut-harming foods","Targeted probiotic / prebiotic regimens","(Rarely) fecal transplant under medical oversight"]},
+      {name:"Content of Food",
+        why:"The brain needs specific nutrients; deficits (omega-3, vitamin D, magnesium, B vitamins) translate into mental-health symptoms. Diet quality directly shapes mood and cognition.",
+        q:["Does your client eat a lot of protein and fiber, or is their diet mostly carbohydrates?"],
+        ix:["DBT PLEASE skill","Whole, unprocessed foods","Fruits, vegetables, lean protein","Targeted supplementation (omega-3, B vitamins)"]},
+      {name:"Refined Sugars / Fructose Consumption",
+        why:"High refined-sugar and fructose intake drives neuroinflammation, mitochondrial dysfunction and insulin resistance — a modifiable risk factor across mood and cognitive disorders.",
+        q:["Does your client eat a lot of foods high in refined sugars?"],
+        ix:["Reducing processed foods & added sugars","DBT PLEASE skill","Metabolic-health screening","Emphasizing whole foods","Education on sugar's effects","Ketogenic metabolic therapy strategies"]},
+      {name:"Inflammation",
+        why:"Chronic, often-undetected systemic inflammation alters neurotransmitter metabolism, impairs neuroplasticity, and is implicated in depression, bipolar disorder and treatment resistance.",
+        q:["Does your client have any chronic inflammation they're aware of? (dry eyes, excess mucus, balance problems, brain fog, low energy, clotting problems, insulin resistance, skin symptoms, poor digestion, low back pain, swollen lymph nodes)"],
+        ix:["Anti-inflammatory diets","Regular exercise","Cognitive / behavioral stress reduction","Targeted anti-inflammatory supplementation"]},
+      {name:"Physical Activity",
+        why:"Perhaps the most-researched health intervention: movement modulates BDNF and neurotransmitters, builds metabolic resilience, and rivals therapy for some outcomes.",
+        q:["Does your client get a lot of physical activity?"],
+        ix:["Walking / running / dancing","Resistance training","Monitoring behavioral antecedents & consequences of activity"]},
+      {name:"Sleep",
+        why:"Sleep underwrites neuroplasticity, memory and emotion regulation. Every mental-health condition shows a relationship with disturbed sleep.",
+        q:["How many hours a night does the client sleep?","Do they sleep through the night?"],
+        ix:["CBT-i","Sleep hygiene","Light exposure / chronotherapy","Adequate daytime energy expenditure","Relaxation techniques","Temperature adjustments","Treating comorbidities that disrupt sleep"]},
+      {name:"Circadian Rhythm",
+        why:"Cortisol rhythm and sleep-wake timing can be disrupted even when sleep duration is intact — a distinct target. Modern light, screens and shift schedules are common culprits.",
+        q:["Does your client get ample early-morning sunlight?","Does your client feel energized during the daylight hours?"],
+        ix:["Light therapy","Consistent meal timing","Timed exercise","Maintaining regular social rhythms"]}
+    ]
+  }
+];
+
+/* ============== BUILD UI ============== */
+const cssVar = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+// pillar overview cards
+const strip = document.getElementById('pillarsStrip');
+PILLARS.forEach((p,i)=>{
+  const grad = {
+    cognitions:'linear-gradient(160deg,#8a6bff,#5b3fd6)',
+    allostatic:'linear-gradient(160deg,#ff5d7a,#d62b4e)',
+    relationships:'linear-gradient(160deg,#ffb33d,#f08800)',
+    purpose:'linear-gradient(160deg,#ff77c0,#e23d95)',
+    metabolic:'linear-gradient(160deg,#22d3d3,#0c9c9c)'
+  }[p.id];
+  const a=document.createElement('a');
+  a.href="#explorer"; a.className="pcard reveal d"+((i%4)+1);
+  a.style.setProperty('--pc',p.hex);
+  a.setAttribute('aria-label',`Open ${p.name} in the interactive explorer`);
+  a.dataset.pillar=p.id;
+  a.innerHTML=`<span class="pc-cap" aria-hidden="true"></span><h3>${p.name}</h3><p>${p.blurb}</p><div class="cnt">${p.targets.length} treatment targets</div><span class="pgo">Explore ${p.targets.length} targets<i><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg></i></span>`;
+  a.addEventListener('click',()=>setTimeout(()=>selectPillar(p.id),350));
+  strip.appendChild(a);
+});
+
+// tabs
+const tabs=document.getElementById('tabs');
+PILLARS.forEach(p=>{
+  const b=document.createElement('button');
+  b.className="ptab"; b.dataset.pillar=p.id;
+  b.innerHTML=`<span class="swatch" style="background:${p.hex}"></span>${p.name}`;
+  b.addEventListener('click',()=>selectPillar(p.id));
+  tabs.appendChild(b);
+});
+
+const pillarPane=document.getElementById('pillarPane');
+const detailPane=document.getElementById('detailPane');
+let activePillar=null;
+
+function selectPillar(id){
+  const p=PILLARS.find(x=>x.id===id); if(!p) return;
+  activePillar=p;
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.toggle('active',t.dataset.pillar===id));
+  pillarPane.style.borderColor=p.hex+"55";
+  pillarPane.innerHTML=`
+    <span class="ribbon" style="background:${p.hex}">${p.tag}</span>
+    <h3 style="color:${p.hex}">${p.name}</h3>
+    <p class="desc">${p.desc}</p>
+    <div class="hexwrap">${p.targets.map((t,i)=>`<button class="hex" data-i="${i}">${t.name}</button>`).join('')}</div>
+    <p class="tap-hint">Tap a target to see its guiding questions and sample interventions.</p>
+  `;
+  pillarPane.querySelectorAll('.hex').forEach(h=>{
+    h.addEventListener('click',()=>showTarget(p,p.targets[+h.dataset.i]));
+  });
+  // reset detail
+  detailPane.innerHTML=`<div class="detail-empty"><div class="ring" style="border-color:${p.hex}66;color:${p.hex}">◆</div>Select a treatment target within <b style="color:#fff;margin:0 4px">${p.name}</b> to see its guiding questions and interventions.</div>`;
+}
+
+function targetHTML(p,t){
+  return `
+    <div class="belongs" style="color:${p.hex}">${p.name}</div>
+    <h3>${t.name}</h3>
+    <div class="dblock">
+      <div class="lbl">Why it's a target</div>
+      <p>${t.why}</p>
+    </div>
+    <div class="dblock">
+      <div class="lbl"><span>Guiding questions</span></div>
+      <ul class="qlist">${t.q.map(q=>`<li>${q}</li>`).join('')}</ul>
+    </div>
+    <div class="dblock">
+      <div class="lbl">Sample interventions</div>
+      <div class="chips">${t.ix.map(i=>`<span class="chip">${i}</span>`).join('')}</div>
+    </div>`;
+}
+
+function showTarget(p,t){
+  if(window.matchMedia('(max-width:920px)').matches){
+    const card=document.getElementById('modalCard');
+    card.innerHTML=`<button class="close" id="mClose">×</button>`+targetHTML(p,t);
+    document.getElementById('modalBack').classList.add('open');
+    document.getElementById('mClose').onclick=closeModal;
+  }else{
+    detailPane.innerHTML=targetHTML(p,t);
+    detailPane.style.borderColor=p.hex+"55";
+  }
+}
+function closeModal(){document.getElementById('modalBack').classList.remove('open');}
+document.getElementById('modalBack').addEventListener('click',e=>{if(e.target.id==='modalBack')closeModal();});
+
+selectPillar('cognitions');
+
+/* ============== EVERY TARGET AS TEXT ==============
+   The same data as the explorer, as plain HTML (the "Browse every treatment target" list), plus
+   structured data describing each target for search engines. */
+const stripTags = s => String(s).replace(/<[^>]+>/g,'');
+document.getElementById('allTargets').innerHTML = PILLARS.map(p=>`
+  <section class="at-pillar" id="targets-${p.id}">
+    <h3><i style="background:${p.hex}"></i>${p.name}</h3>
+    <p>${p.blurb}</p>
+    ${p.targets.map(t=>`<article class="at-target">
+      <h4>${t.name}</h4>
+      <p>${t.why}</p>
+      <p class="at-l">Guiding questions</p>
+      <ul>${t.q.map(q=>`<li>${q}</li>`).join('')}</ul>
+      <p class="at-l">Sample interventions</p>
+      <p>${t.ix.join(' · ')}</p>
+    </article>`).join('')}
+  </section>`).join('');
+
+const nTargets = PILLARS.reduce((n,p)=>n+p.targets.length,0);
+document.getElementById('ldTargets').textContent = JSON.stringify({
+  "@context":"https://schema.org",
+  "@type":"DefinedTermSet",
+  "@id":"https://about-tt.im/#treatment-targets",
+  "name":"TTIM treatment targets",
+  "description":`The ${nTargets} treatment targets of the Treatment Target Identification Model, grouped into ${PILLARS.length} pillars.`,
+  "url":"https://about-tt.im/#all-targets",
+  "hasDefinedTerm":PILLARS.flatMap(p=>p.targets.map(t=>({
+    "@type":"DefinedTerm",
+    "name":stripTags(t.name),
+    "description":stripTags(t.why),
+    "inDefinedTermSet":{"@id":"https://about-tt.im/#treatment-targets"}
+  })))
+}, null, 1).replace(/</g,'\\u003c');
+
+/* ============== SVG ZOOM/PAN ============== */
+(function(){
+  const stage=document.getElementById('svgStage'), img=document.getElementById('svgImg');
+  let scale=1,tx=0,ty=0,drag=false,sx=0,sy=0;
+  /* on touch screens: one finger scrolls the page until the diagram is zoomed, then it pans the diagram */
+  function apply(){img.style.transform=`translate(${tx}px,${ty}px) scale(${scale})`;stage.style.touchAction=scale>1?'none':'pan-y';}
+  apply();
+  function clamp(){const w=stage.clientWidth,h=img.clientHeight*scale;
+    const maxX=0,minX=Math.min(0,w-w*scale);
+    tx=Math.max(minX,Math.min(maxX,tx));
+    ty=Math.max(Math.min(0,h?-(h-img.clientHeight):0),Math.min(0,ty));}
+  document.getElementById('zoomIn').onclick=()=>{scale=Math.min(4,scale+.4);clamp();apply();};
+  document.getElementById('zoomOut').onclick=()=>{scale=Math.max(1,scale-.4);if(scale===1){tx=0;ty=0;}clamp();apply();};
+  document.getElementById('zoomReset').onclick=()=>{scale=1;tx=0;ty=0;apply();};
+  stage.addEventListener('mousedown',e=>{if(scale<=1)return;drag=true;stage.classList.add('grabbing');sx=e.clientX-tx;sy=e.clientY-ty;});
+  window.addEventListener('mouseup',()=>{drag=false;stage.classList.remove('grabbing');});
+  window.addEventListener('mousemove',e=>{if(!drag)return;tx=e.clientX-sx;ty=e.clientY-sy;clamp();apply();});
+  stage.addEventListener('wheel',e=>{if(!e.ctrlKey&&!e.metaKey)return;e.preventDefault();scale=Math.max(1,Math.min(4,scale+(e.deltaY<0?.25:-.25)));if(scale===1){tx=0;ty=0;}clamp();apply();},{passive:false});
+  // touch
+  let pinch=0;
+  stage.addEventListener('touchstart',e=>{if(e.touches.length===1&&scale>1){drag=true;sx=e.touches[0].clientX-tx;sy=e.touches[0].clientY-ty;}else if(e.touches.length===2){pinch=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);}},{passive:true});
+  stage.addEventListener('touchmove',e=>{
+    if(e.touches.length===2){const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);if(pinch){scale=Math.max(1,Math.min(4,scale*(d/pinch)));pinch=d;}clamp();apply();e.preventDefault();}
+    else if(drag&&e.touches.length===1){tx=e.touches[0].clientX-sx;ty=e.touches[0].clientY-sy;clamp();apply();}
+  },{passive:false});
+  stage.addEventListener('touchend',()=>{drag=false;pinch=0;});
+})();
+
+/* ============== SCROLL FX ============== */
+const io=new IntersectionObserver((ents)=>{
+  ents.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.14});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const nav=document.getElementById('nav'), prog=document.getElementById('progress');
+/* mobile menu */
+(()=>{
+  const btn=document.getElementById('navToggle'), links=document.getElementById('navLinks');
+  if(!btn||!links) return;
+  const set=open=>{ nav.classList.toggle('open',open); btn.setAttribute('aria-expanded',open);
+    btn.setAttribute('aria-label',open?'Close menu':'Open menu'); };
+  btn.addEventListener('click',e=>{ e.stopPropagation(); set(!nav.classList.contains('open')); });
+  links.addEventListener('click',e=>{ if(e.target.closest('a')) set(false); });
+  document.addEventListener('click',e=>{ if(!nav.contains(e.target)) set(false); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') set(false); });
+  window.addEventListener('resize',()=>{ if(innerWidth>780) set(false); });
+})();
+function onScroll(){
+  const y=window.scrollY;
+  nav.classList.toggle('scrolled',y>40);
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  prog.style.width=(y/h*100)+'%';
+}
+window.addEventListener('scroll',onScroll); onScroll();
+</script>
+<!-- Review only: switch between the current hero diagram and the two concepts (see CLAUDE.md) -->
+<div class="cswitch" role="group" aria-label="Hero concept">
+  <span>Hero concept</span>
+  <button type="button" data-v="current">Current</button>
+  <button type="button" data-v="hourglass">A · Hourglass</button>
+  <button type="button" data-v="rings">B · Horizon</button>
+</div>
+<script src="hero-concepts.js"></script>
+</body>
+</html>
