@@ -964,9 +964,10 @@ footer .auth b{color:var(--on-dark)}
   .stat .big{font-size:68px}
   .tce{padding:44px 20px}
   .balance{padding:26px 22px}
-  .adapt{padding:32px 20px 22px}
-  .culture-note{padding:44px 24px 36px}
-  .pillar-pane,.detail-pane{padding:28px 20px 24px}
+  /* arched cards: a smaller arch, and enough top padding that the first line clears the curve */
+  .adapt{padding:44px 20px 22px}
+  .culture-note{border-radius:var(--arch-sm) 16px 16px 16px;padding:50px 24px 36px}
+  .pillar-pane{padding:44px 20px 24px}
   .pcard .pc-cap{height:84px}
   .alltargets>summary{padding:18px}
   #allTargets{padding:0 18px 20px}
