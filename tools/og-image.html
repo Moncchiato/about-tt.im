@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- Template for og-image.png, the 1200×630 picture shown when a page is shared (Slack, iMessage, LinkedIn, email).
+     Rebuild it with: python3 tools/make_images.py -->
+<html lang="en"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Hanken+Grotesk:wght@500;600;650;700&display=block" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1200px;height:630px;overflow:hidden;background:#f1f2e0}
+body{font-family:'Hanken Grotesk',sans-serif;color:#22281f;position:relative}
+.brand{position:absolute;top:56px;left:72px;display:flex;align-items:center;gap:14px;font-weight:700;font-size:26px;letter-spacing:.01em}
+.dot{width:38px;height:38px;border-radius:12px;background:conic-gradient(from 200deg,#7c5cff,#ff5db1,#ff9f1c,#16c2c2,#7c5cff)}
+.url{position:absolute;top:62px;right:72px;font-weight:600;font-size:22px;color:#5b6831}
+.kicker{position:absolute;top:138px;left:72px;font-weight:600;font-size:25px;color:#5b6831}
+h1{position:absolute;top:178px;left:68px;width:1060px;font-family:'Instrument Serif',serif;font-weight:400;font-size:96px;line-height:.98;letter-spacing:-.02em}
+.pillars{position:absolute;left:72px;right:72px;bottom:0;display:grid;grid-template-columns:repeat(5,1fr);gap:14px;height:150px;align-items:end}
+.p{border-radius:72px 14px 0 0;background:var(--c);height:var(--h);display:flex;align-items:flex-end;padding:0 18px 20px}
+.p span{font-weight:650;font-size:20px;line-height:1.15;color:#22281f}
+.p.light span{color:#fff}
+</style></head>
+<body>
+  <div class="brand"><span class="dot"></span>TTIM</div>
+  <div class="url">about-tt.im</div>
+  <div class="kicker">A case conceptualization tool by Alexey Breuss, Psy.D.</div>
+  <h1>The Treatment Target Identification Model</h1>
+  <div class="pillars">
+    <div class="p light" style="--c:#7c5cff;--h:118px"><span>Cognitions</span></div>
+    <div class="p" style="--c:#ff4d6d;--h:150px"><span>Allostatic Load</span></div>
+    <div class="p" style="--c:#ff9f1c;--h:104px"><span>Relationships</span></div>
+    <div class="p" style="--c:#ff5db1;--h:136px"><span>Purpose</span></div>
+    <div class="p" style="--c:#16c2c2;--h:124px"><span>Metabolic Health</span></div>
+  </div>
+</body></html>

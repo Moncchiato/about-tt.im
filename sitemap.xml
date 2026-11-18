@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Public pages for search engines. Add any new public page here (and to llms.txt). -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://about-tt.im/</loc>
+  </url>
+  <url>
+    <loc>https://about-tt.im/interventions.html</loc>
+  </url>
+  <url>
+    <loc>https://about-tt.im/diagnoses.html</loc>
+  </url>
+</urlset>

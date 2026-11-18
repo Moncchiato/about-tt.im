@@ -1,0 +1,1166 @@
+# The Treatment Target Identification Model (TTIM): full reference
+
+> An interactive guide to the Treatment Target Identification Model (TTIM), a case conceptualization tool by Alexey Breuss for identifying what is missing in a person's life for a good lived experience.
+
+The TTIM was proposed by Alexey Breuss, Psy.D. It has 5 interconnected pillars and 32 treatment targets. Website: https://about-tt.im/ . License: CC BY-NC-ND 4.0 (https://creativecommons.org/licenses/by-nc-nd/4.0/). Please cite the TTIM and Alexey Breuss, Psy.D. when you use or summarize this material.
+
+The TTIM is a theoretically grounded, evidence-based proposal — not yet an empirically validated instrument. It is intended to scaffold clinical reasoning, education, and supervision, and does not replace clinical judgment, diagnosis, or appropriate interdisciplinary collaboration (e.g., with physicians or dietitians for metabolic targets). This site summarizes the model for educational purposes. A formal peer reviewed publication is in the process of being submitted.
+
+This file is generated from the website's data by tools/prerender.py. A shorter overview is at https://about-tt.im/llms.txt .
+
+## Contents
+
+1. The five pillars and their treatment targets
+2. Intervention options for each target
+3. Treatment targets by diagnosis
+
+## 1. The five pillars and their treatment targets
+
+Source: https://about-tt.im/#explorer
+
+### Cognitions (6 treatment targets)
+
+Position in the model: Concept. The brain-based data — beliefs, language, schemas, education, experience — that the mind uses to make predictions during allostasis.
+
+Cognitions parallel the “Concept” half of an emotion. This is the historical heartland of cognitive-behavioral work: the thoughts, beliefs, schemas, language and learning that give meaning to bodily sensation and shape the brain's predictions. But cognitive change alone, without addressing the body and the outside world, has limits.
+
+#### Beliefs / Education / Experience / Language
+
+Why it is a target: The learning of a lifetime shapes which predictions the brain makes. Maladaptive beliefs perpetuate distress through rigid or inaccurate interpretations of inner and outer events.
+
+Guiding questions:
+- Does the client hold any beliefs, education, experience, or language that are maladaptive to them? (Cognitive evaluation takes time; present emotional symptoms cue the exploration, e.g. the ABC model.)
+
+Sample interventions: Cognitive restructuring; Psychoeducation; Values exploration; Selective attentional focusing; New linguistic frameworks; Corrective experiences
+
+#### Cognitive Distortions
+
+Why it is a target: Systematic thinking errors bias information processing and keep predictive models misaligned with reality, sustaining stress reactivity and draining the body's resources.
+
+Guiding questions:
+- Does the client hold any cognitive distortions? (Refer to existing questionnaires such as the CD-Quest.)
+
+Sample interventions: Cognitive restructuring; Behavioral experiments; Mindfulness-based metacognitive awareness
+
+#### Acceptance
+
+Why it is a target: A mismatch between beliefs about reality and what actually happens drives dissonance, distress, and maladaptive behavior. Accepting reality is often the precondition for effective change.
+
+Guiding questions:
+- Does the client have a strong acceptance of actual reality / realistic probabilities?
+
+Sample interventions: DBT Radical Acceptance; ACT commitment strategies; Psychoeducation; Mindfulness-based practices
+
+#### Attention Regulation
+
+Why it is a target: Where attention goes shapes prediction. Affect-biased attention and hypervigilance maintain disordered states; trainable attentional control builds top-down regulation.
+
+Guiding questions:
+- Does the client focus on the adaptive / important aspects of their life?
+
+Sample interventions: DBT Mindfulness skills; Focused-attention meditation; Open-monitoring; Cognitive control exercises; Behavioral activation
+
+#### Locus of Control
+
+Why it is a target: An adaptive balance between believing one drives outcomes and recognizing external forces sustains motivation and healthy responsibility. Too far internal breeds over-responsibility and shame; too far external breeds helplessness.
+
+Guiding questions:
+- Does the client have an adaptive balance of believing they drive outcomes versus external forces driving outcomes?
+
+Sample interventions: Problem-solving therapy; Cognitive restructuring; SAGE skill (RO-DBT); Responsibility pie chart; Socratic reframing; Behavioral experiments; Radical Openness (RO-DBT); Self-enquiry (RO-DBT); Radical Acceptance; Mindfulness of the present moment
+
+#### Respondent Conditioning
+
+Why it is a target: Learned associations drive automatic emotional and physiological reactions that operate outside conscious control — and that cognition alone often can't reach.
+
+Guiding questions:
+- Has the client's life conditioned any maladaptive responses to life situations?
+- Does the client need to engage with respondent conditioning experiences to address emotional issues?
+
+Sample interventions: Exposure & Response Prevention; Exposure therapy; Systematic desensitization; EMDR; Interoceptive exposure; Behavioral experiments; Behavioral activation
+
+### Allostatic Load (7 treatment targets)
+
+Position in the model: Affect. The wear-and-tear of chronically mismanaged bodily systems — focused on the sympathetic nervous system and the dopamine system.
+
+Allostatic load is the “Affect” half of emotion: the cumulative cost of running allostasis under chronic strain. When load is high — from internal biology or a harsh, demanding world — people experience distress, fatigue and emotion dysregulation. This pillar gives medical and behavioral interventions a clear home, and centres two systems deeply tied to mental health: the sympathetic nervous system and dopamine.
+
+#### Control / Demand / Predictability
+
+Why it is a target: The primate nervous system is built to react to control, demand and predictability. Low control, low predictability or overwhelming demand drives a high allostatic load — sometimes from pathology, sometimes from oppressive systems.
+
+Guiding questions:
+- Does the client have very little control / predictability and very high demands in their life?
+- Does the client struggle with a need for control?
+- Does the client need to know what is coming, or struggle with what to expect?
+- Does the client feel resistant to external demands?
+
+Sample interventions: Education; Exposure; Behavioral activation / modification; DBT eliciting commitment; Cognitive reframing; Mindfulness on the controllable; Problem-solving; Stress-response medication; DBT Distress Tolerance; DBT Building Mastery; Acceptance strategies; Adjusting the environment
+
+#### Evaluation of Performance
+
+Why it is a target: The SNS mobilizes us toward performance. A poor relationship with performance — or unmet, unrealistic demands — creates sustained arousal where the effort to perform undermines performance itself.
+
+Guiding questions:
+- Does the client struggle with feelings regarding their performance in life / tasks?
+
+Sample interventions: Cognitive restructuring of perfectionism; DBT Building Mastery; Values-based behavioral activation (ACT); Biofeedback; Mindfulness; Exposure-based interventions
+
+#### Social Hierarchy
+
+Why it is a target: The SNS is naturally sensitive to social rank — higher arousal when perceived as lower-status. An under-discussed driver of self-worth struggles, rejection sensitivity and chronic dysregulation.
+
+Guiding questions:
+- Does the client feel like they are a valuable or worthwhile person?
+- Does the client feel intense feelings when others question them or their worth?
+- Are there external or internal factors driving the client to feel lesser?
+
+Sample interventions: Cognitive restructuring of status/worth beliefs; Status-based personal values; Radical Acceptance of social status; Letting-go (Buddhist or Yogic-style) approaches; Biofeedback; Mindfulness; Exposure; Supportive environments; Self-esteem building; Finding ways to be of value to others
+
+#### Sympathetic Learning History / Trauma
+
+Why it is a target: Trauma sensitizes the nervous system to threat, producing rigid autonomic states and overgeneralized danger cues that persist long after the events. No formulation is complete without evaluating it.
+
+Guiding questions:
+- Does the client have a history of working in high-stress environments?
+- Does the client have any trauma history?
+
+Sample interventions: Trauma-focused CBT; EMDR; Cognitive Processing Therapy; Prolonged Exposure; Corrective environments & experiences; Somatic / body-oriented therapies
+
+#### Chronic SNS Activation
+
+Why it is a target: When stress mediators exceed coping capacity the system dysregulates into allostatic overload — surfacing as the physical complaints that so often arrive on a therapist's couch.
+
+Guiding questions:
+- Does the client wake before they intend to, or have insomnia?
+- Stomach issues? Autoimmune issues or a weak / inconsistent immune system?
+- Chronic fatigue? Memory struggles? Sexual dysfunction?
+- Muscle tension (shoulders / neck / jaw)? High blood pressure?
+
+Sample interventions: Down-regulation / relaxation techniques; Behavioral & cognitive stress reduction; Medical collaboration; Address upstream targets (control, trauma, performance); DBT Distress Tolerance skills; DBT Emotion Regulation skills; Mindfulness-based stress reduction; Biofeedback; Physical activity; Sleep hygiene
+
+#### Dopamine System Disruption
+
+Why it is a target: Dopamine governs reward, motivation and movement, and operates on relative, prediction-based stimulation. Modern life over-stimulates it; under- and over-activation both produce mental-health consequences.
+
+Guiding questions:
+- Does the client feel unpleasant when prevented from doing what they want?
+- Does the client feel their best when they do new things?
+- Does the client feel their best when pursuing a goal?
+- Does the client enjoy the early stages of new things, then struggle once novelty wears off?
+
+Sample interventions: Abstinence from highly dopaminergic activity (reset); Aligning values to behavior; Increasing non-dopaminergic pleasures; Structural schedule adjustments; Lifestyle exploration; Pharmacology (stimulants / dopamine modulators; antagonists for excess)
+
+#### Affect Tolerance
+
+Why it is a target: Affect varies along two axes: energy (arousal) and valence. When some regions of that space feel intolerable — high-energy distress like panic or rage, low-energy states like emptiness or boredom, even calm or joy — clients escape them through avoidance, numbing, impulsive action or dissociation. Widening the window of tolerance lets a client stay present and regulated across the full affective range.
+
+Guiding questions:
+- Does the client have the capacity to handle a range of affective experiences, including all combinations of high and low energy and high and low valence?
+
+Sample interventions: Somatic Experiencing (titration & pendulation); Sensorimotor Psychotherapy; Integral Somatic Psychology; Trauma-informed yoga; DBT Distress Tolerance; DBT Emotion Regulation; ACT willingness & defusion; Emotion Regulation Therapy; STAIR; AEDP / ISTDP; Emotion-Focused Therapy; IFS parts work; EMDR (incl. Positive Affect Tolerance protocol); Accelerated Resolution Therapy
+
+### Relationships (4 treatment targets)
+
+Position in the model: Outside the Skin. The quality and quantity of human connection — a fundamental regulator of stress physiology and a top reason people seek therapy.
+
+Humans are a social species whose neurobiology is organized around connection. Relationships powerfully buffer or amplify allostatic load; isolation registers to the brain as a survival threat. Maintaining good mental health is impossible without attending to the connections in a person's life — their quantity, their quality, and the skills to sustain them.
+
+#### Social Homeostatic Needs
+
+Why it is a target: Social isolation produces real physiological consequences and rising allostatic load. Unmet social needs are statistically probable for almost anyone presenting for care.
+
+Guiding questions:
+- Does the client have close relationships (family / friend / romantic)? Do they feel lonely?
+- Is the client happy with the closeness of their relationships?
+- Is anything missing in the client's life from a social perspective?
+- How often does the client speak with and spend time with people?
+
+Sample interventions: Collaborative problem-solving to find connection; Group therapy; Using the therapeutic relationship to scaffold social needs
+
+#### Relationship Skills
+
+Why it is a target: Maintaining relationships is a learned, practiced skill set — communication, boundaries, conflict resolution. Deficits drive interpersonal friction and destabilize attachment.
+
+Guiding questions:
+- Do people in the client's life often find themselves upset with the client, or take advantage of the client?
+
+Sample interventions: Social skills training; DBT Interpersonal Effectiveness; Gottman Method; Family therapy; CBT for maladaptive interpersonal patterns; Modeling in session; Conflict-resolution scripts; Mindfulness programs involving significant others
+
+#### How You Make Others Feel
+
+Why it is a target: Technically correct social behavior can still leave others feeling unseen. Awareness of one's impact — perspective-taking and empathic accuracy — is often the missing piece.
+
+Guiding questions:
+- Does the client know what they need in relationships, and what people need from them?
+- Do people in the client's life make the client feel positive or negative?
+- Does the client find people avoiding or distancing themselves from them?
+
+Sample interventions: Radically-Open DBT; DBT Interpersonal skills; Metacognition / mentalization training; Mindfulness of one's impact; Therapeutic-relationship feedback; Functional Analytic Psychotherapy
+
+#### Experiencing Connection
+
+Why it is a target: The capacity to feel connection itself can be the target — for relational trauma, insecure attachment, alexithymia or autism. Therapy can be a corrective, co-regulating experience.
+
+Guiding questions:
+- Does the client feel connected to / understood by those around them?
+- Do the people around the client feel connected to / understood by them?
+
+Sample interventions: Building a strong therapeutic alliance; Attachment-based interventions; The therapeutic relationship as a model for connection; Graded exposure to deeper connection
+
+### Purpose (7 treatment targets)
+
+Position in the model: Outside the Skin · Dopamine. Meaning, agency and a future worth moving toward — the reason a regulated, connected, healthy person can still feel that life is hollow.
+
+A person can hold healthy cognitions, low allostatic load, good relationships and sound metabolic health — and still suffer. Purpose is the pillar that captures meaning, agency and anticipation. It sits where cognition meets the outside world, ties directly into the dopamine system, and links to behavior. Think eudaimonia, or ikigai: a reason for being, both today and across a life.
+
+#### Meaning for Living
+
+Why it is a target: A reason for living confers resilience even when immediate rewards are scarce — a force that can counteract a chronically over-active lateral habenula and pervasive hopelessness.
+
+Guiding questions:
+- Does the client have a reason for being on a day-to-day basis? On a lifelong basis?
+
+Sample interventions: ACT values work; Narrative Therapy; Existential therapy; Meaning-centered psychotherapy
+
+#### Good Things Are Coming
+
+Why it is a target: A global conviction that a positive future is possible. Without it, planning and effort can feel hollow — distinct from, and deeper than, looking forward to specific events.
+
+Guiding questions:
+- Does the client believe good experiences or things are coming?
+
+Sample interventions: Cognitive restructuring of future beliefs; Behavioral activation; Psychoeducation + world engagement; Future Event Specificity Training; Mindfulness for a more optimistic outlook
+
+#### Agency Over Future
+
+Why it is a target: Belief in influence over outcomes — an internal locus of control and an iterative mindset — sustains motivation and resilience. Its absence is learned helplessness.
+
+Guiding questions:
+- Does the client feel like they have some control over their future?
+
+Sample interventions: CBT challenging control beliefs; Reattributing success to effort; Reframing adversity as skill-building; Psychoeducation on locus-of-control malleability; Growth mindset; Motivational interviewing; Mindful 'one step at a time' focus; DBT Building Mastery; Problem-solving & self-efficacy
+
+#### Looking Forward to Experiences
+
+Why it is a target: Anticipating positive experiences sustains the dopamine system and the sense that life is worth living. Anhedonia blunts the drive to pursue goals at all.
+
+Guiding questions:
+- Is the client looking forward to anything?
+
+Sample interventions: Behavioral activation (pleasurable activities); Savoring; Mindfulness of pleasant experiences; Future Event Specificity Training; Anticipatory pleasure via guided imagery & memory recall
+
+#### Purpose to Others
+
+Why it is a target: Contributing to others' lives builds self-worth and releases prosocial neuromodulators, lowering SNS activity and allostatic load. A modern world of frictionless services makes such roles harder to find.
+
+Guiding questions:
+- Does the client contribute to their world in any way?
+
+Sample interventions: Volunteer work; Community engagement; DBT ACCEPTS skill; Mentorship; ACT matrix work; Acts of service
+
+#### Commitment
+
+Why it is a target: Willingness to engage with effort and change underpins every other intervention. Enhancing a sense of control also reduces SNS activation and allostatic load. As a facet of Purpose, it is the chosen, values-driven decision to keep moving toward a life worth living.
+
+Guiding questions:
+- Does the client demonstrate the willingness to engage with effort and change?
+
+Sample interventions: Fostering grit / iterative mindset; Behavioral activation; Motivational interviewing; DBT Willingness vs Willfulness, Willing Hands; DBT Building Mastery; Problem-solving & assertiveness
+
+#### Accomplishment
+
+Why it is a target: The satisfaction that follows direct effort reinforces agency and reward pathways. Without earned wins, motivation and self-efficacy erode even when meaning and connection are present.
+
+Guiding questions:
+- Has the client experienced the feelings of satisfaction that follow direct effort?
+
+Sample interventions: WOOP method; Micro-goal chunking; Progress journaling; Habit stacking; Deliberate practice; Best-Possible-Self imagery; The Progress Principle; Growth mindset
+
+### Metabolic Health (8 treatment targets)
+
+Position in the model: Inside & Outside the Skin. The physiological substrate of the mind — nutrition, movement, sleep, inflammation and substances. Often needs interdisciplinary collaboration.
+
+Metabolic dysregulation interacts bidirectionally with the nervous system through inflammatory and neuroendocrine pathways. The modern world disrupts metabolism in unprecedented ways. These targets are not mere lifestyle add-ons — they often restore the neurobiological substrate that psychological work depends on. Many require collaboration with dietitians, physicians or physical therapists.
+
+#### Substance Use
+
+Why it is a target: Psychoactive substances alter physiological baselines, impair executive function bottom-up, and leave metabolic after-effects that can linger for months or years after cessation.
+
+Guiding questions:
+- Does your client engage in frequent substance use?
+
+Sample interventions: Abstinence; Harm reduction; Understanding the substance's function & meeting it through lived experience; Pharmacological support
+
+#### Gut Microbiome (Probiotics / Prebiotics)
+
+Why it is a target: Gut bacteria produce neurotransmitter precursors and short-chain fatty acids. A poor microbiome fuels inflammation and disrupts the gut-brain axis, feeding depression and anxiety.
+
+Guiding questions:
+- Does your client eat probiotic or low-sugar fermented foods?
+
+Sample interventions: Low-sugar fermented foods; Dietary fiber; Reducing gut-harming foods; Targeted probiotic / prebiotic regimens; (Rarely) fecal transplant under medical oversight
+
+#### Content of Food
+
+Why it is a target: The brain needs specific nutrients; deficits (omega-3, vitamin D, magnesium, B vitamins) translate into mental-health symptoms. Diet quality directly shapes mood and cognition.
+
+Guiding questions:
+- Does your client eat a lot of protein and fiber, or is their diet mostly carbohydrates?
+
+Sample interventions: DBT PLEASE skill; Whole, unprocessed foods; Fruits, vegetables, lean protein; Targeted supplementation (omega-3, B vitamins)
+
+#### Refined Sugars / Fructose Consumption
+
+Why it is a target: High refined-sugar and fructose intake drives neuroinflammation, mitochondrial dysfunction and insulin resistance — a modifiable risk factor across mood and cognitive disorders.
+
+Guiding questions:
+- Does your client eat a lot of foods high in refined sugars?
+
+Sample interventions: Reducing processed foods & added sugars; DBT PLEASE skill; Metabolic-health screening; Emphasizing whole foods; Education on sugar's effects; Ketogenic metabolic therapy strategies
+
+#### Inflammation
+
+Why it is a target: Chronic, often-undetected systemic inflammation alters neurotransmitter metabolism, impairs neuroplasticity, and is implicated in depression, bipolar disorder and treatment resistance.
+
+Guiding questions:
+- Does your client have any chronic inflammation they're aware of? (dry eyes, excess mucus, balance problems, brain fog, low energy, clotting problems, insulin resistance, skin symptoms, poor digestion, low back pain, swollen lymph nodes)
+
+Sample interventions: Anti-inflammatory diets; Regular exercise; Cognitive / behavioral stress reduction; Targeted anti-inflammatory supplementation
+
+#### Physical Activity
+
+Why it is a target: Perhaps the most-researched health intervention: movement modulates BDNF and neurotransmitters, builds metabolic resilience, and rivals therapy for some outcomes.
+
+Guiding questions:
+- Does your client get a lot of physical activity?
+
+Sample interventions: Walking / running / dancing; Resistance training; Monitoring behavioral antecedents & consequences of activity
+
+#### Sleep
+
+Why it is a target: Sleep underwrites neuroplasticity, memory and emotion regulation. Every mental-health condition shows a relationship with disturbed sleep.
+
+Guiding questions:
+- How many hours a night does the client sleep?
+- Do they sleep through the night?
+
+Sample interventions: CBT-i; Sleep hygiene; Light exposure / chronotherapy; Adequate daytime energy expenditure; Relaxation techniques; Temperature adjustments; Treating comorbidities that disrupt sleep
+
+#### Circadian Rhythm
+
+Why it is a target: Cortisol rhythm and sleep-wake timing can be disrupted even when sleep duration is intact — a distinct target. Modern light, screens and shift schedules are common culprits.
+
+Guiding questions:
+- Does your client get ample early-morning sunlight?
+- Does your client feel energized during the daylight hours?
+
+Sample interventions: Light therapy; Consistent meal timing; Timed exercise; Maintaining regular social rhythms
+
+## 2. Intervention options for each target
+
+Source: https://about-tt.im/interventions.html . Sample, evidence-based options drawn from across modalities, with a note on how each one works on the target's mechanism. Illustrative, not exhaustive or prescriptive, and not treatment advice.
+
+### Beliefs / Education / Experience / Language (Cognitions, treatment target)
+
+- Cognitive restructuring (CBT): Identify and re-evaluate maladaptive beliefs so predictions better fit reality.
+- ABC model & disputation (REBT): Trace activating event → belief → consequence, then dispute irrational beliefs.
+- Cognitive Processing Therapy (Trauma-Focused): Challenge assimilated trauma beliefs and 'stuck points'.
+- Socratic questioning (CBT): Guided questioning loosens rigid conclusions and invites new evidence.
+- Psychoeducation (Psychoeducation): Accurate frameworks replace inaccurate or missing knowledge.
+- Values exploration (ACT): Clarifying values reshapes which concepts guide behavior.
+- Schema Therapy (Psychodynamic): Targets early maladaptive schemas formed in development.
+- Reframing / new linguistic frames (CBT): New language re-categorizes an experience and its meaning.
+- Corrective Experiences (Exposure): Find experiences with environments, people, animals, or activities that have positive or tolerable outcomes.
+- Bibliotherapy (Psychoeducation): Recommend helpful literature or media that provides corrective education and reframing.
+
+### Cognitive Distortions (Cognitions, treatment target)
+
+- Cognitive restructuring (CBT): Name the distortion and generate a balanced alternative thought.
+- Thought records (CBT): Log automatic thoughts with evidence for and against.
+- Behavioral experiments (Behavioral): Test distorted predictions against real-world outcomes.
+- Decatastrophizing (CBT): Walk through 'what's the worst / most likely' to right-size threat.
+- Metacognitive Therapy (CBT): Targets the worry/rumination process rather than thought content.
+- Mindful defusion (Mindfulness): Observe thoughts as mental events rather than facts.
+
+### Acceptance (Cognitions, treatment target)
+
+- Radical Acceptance (DBT): Fully accept reality as it is to reduce suffering added by fighting it.
+- Cognitive defusion (ACT): Unhook from thoughts so they no longer dictate action.
+- Willingness exercises (ACT): Practice openness to experience rather than avoidance.
+- Mindfulness practice (Mindfulness): Present-moment, nonjudgmental contact with what is.
+- Grief processing (Psychodynamic): Mourn the gap between expectation and reality to move forward.
+- Acceptance vs. approval psychoeducation (Psychoeducation): Clarify that accepting reality is not endorsing it.
+- Accurate In-Depth Education (Psychoeducation): Understanding how the natural or man-made world functions can help with acceptance of reality.
+- Parts Work (IFS): Discover 'parts' resistant to radical acceptance.
+
+### Attention Regulation (Cognitions, treatment target)
+
+- Mindfulness skills (DBT): Observe, describe, participate — deploy attention on purpose.
+- Focused-attention meditation (Mindfulness): Strengthens sustained attention and reduces threat bias.
+- Open-monitoring meditation (Mindfulness): Flexibly re-orient attention amid emotional stimuli.
+- Attention Training Technique (CBT): Metacognitive drill that builds attentional flexibility.
+- Attention-bias modification (CBT): Retrain automatic orienting away from threat cues.
+- Yoga / tai chi (Somatic): Movement-anchored attention de-automatizes habitual responses.
+
+### Locus of Control (Cognitions, treatment target)
+
+- Problem-solving therapy (CBT): Increases locus of control.
+- Cognitive Restructuring (CBT): Building an adaptive balance of internal vs external locus of control.
+- SAGE Skill (DBT): RO-DBT skill targeting whether shame is warranted for an overpowering internal locus of control.
+- Responsibility Pie Chart (CBT): Visual representation of the percentage of responsibility for a situation.
+- Socratic Reframing (CBT): If a friend did this, who is responsible?
+- Behavioral Experimenting (Behavioral): What happens if you do X or Y?
+- Radical Openness (DBT): RO-DBT skill focused on seeking discomfort, being wrong, and being willing to learn.
+- Self-Enquiry (DBT): RO-DBT skill that checks what underlying motives an urge may have.
+- Radical Acceptance (DBT): Turning the Mind, Willingness, and acceptance of reality as it is.
+- Mindfulness of Present Moment (Mindfulness): Bring attention to the current moment rather than a personal belief about attribution.
+
+### Respondent Conditioning (Cognitions, treatment target)
+
+- Exposure therapy (Exposure): Repeated safe contact extinguishes conditioned fear.
+- Exposure & Response Prevention (Exposure): Block avoidance/rituals to break the reinforcement loop (OCD).
+- Systematic desensitization (Behavioral): Pair a graded fear hierarchy with relaxation.
+- Interoceptive exposure (Exposure): Expose feared bodily sensations (panic).
+- EMDR (Trauma-Focused): Reprocess distressing memories to update associations.
+- Inhibitory-learning exposure (Exposure): Maximize expectancy violation to build new safety learning.
+- Behavioral activation (Behavioral): Re-approach avoided activities to disconfirm predictions.
+- Corrective Experiences (Exposure): Find experiences with environments, people, animals, or activities that have positive or tolerable outcomes.
+
+### Control / Demand / Predictability (Allostatic Load, treatment target)
+
+- Distress Tolerance skills (DBT): Survive crises without worsening them (TIPP, ACCEPTS).
+- Problem-solving therapy (CBT): Systematically increase real control over stressors.
+- Cognitive reframing of control (CBT): Separate what is and isn't controllable.
+- Exposure to uncertainty (Exposure): Build tolerance for not-knowing.
+- Mindfulness on the controllable (Mindfulness): Anchor attention to present, actionable elements.
+- Stress-response medication (Psychiatric): e.g., beta-blockers/alpha-2 agonists to dampen arousal.
+- Environmental modification (Systemic): Change the demand load via resources and case management.
+- Acceptance strategies (ACT): Reduce the added load of struggling with the uncontrollable.
+- Building Self-Efficacy (CBT): Build the belief that one can respond to the unpredictable or uncontrollable in effective ways.
+- Building Mastery (DBT): Build mastery over specific stressors.
+- Specific Non-Therapy Skill Building (Behavioral): e.g., help a client learn self-defense so they don't feel unsafe.
+- Parts Work (IFS): Discover 'parts' wanting control/predictability and avoiding demand.
+
+### Evaluation of Performance (Allostatic Load, treatment target)
+
+- Restructuring perfectionism (CBT): Loosen rigid standards and all-or-nothing self-evaluation.
+- Values-based activation (ACT): Act for meaning rather than external validation.
+- Building Mastery (DBT): Graded successes rebuild a realistic sense of competence.
+- Biofeedback (Somatic): Make performance-related arousal visible and trainable.
+- Self-compassion training (Compassion-Focused): Replace harsh self-criticism with a supportive inner stance.
+- Mistake / 'good-enough' exposure (Exposure): Deliberately tolerate imperfect performance.
+- Reframe Failure as an Indicator of Growth (CBT): Errors are the trigger for neuroplasticity and learning.
+- EMDR (Trauma-Focused): Target themes and memories of 'performance'.
+- Parts Work (IFS): Discover 'parts' with attachment to outcomes.
+
+### Social Hierarchy (Allostatic Load, treatment target)
+
+- Restructuring status/worth beliefs (CBT): Challenge rank-contingent self-worth.
+- Compassion-Focused Therapy (Compassion-Focused): Soothe rank-based shame and threat with self-compassion.
+- Status-independent values (ACT): Anchor worth to values rather than comparison.
+- Radical Acceptance of status (DBT): Accept current standing to lower chronic threat arousal.
+- Mindfulness of comparison (Mindfulness): Notice comparison urges without acting on them.
+- Defense exploration (Psychodynamic): Surface immature defenses tied to self/other-image.
+- Being of value to others (Behavioral): Prosocial contribution restores a felt sense of worth.
+- Self-Validation (DBT): Internalize your own positive value and hold it without needing others to confirm it.
+- Self-Gratitude (CBT): Acknowledge what you've contributed to the lives of others.
+- Exposure to Being Lesser (Exposure): Tolerate being 'lowered' on the social ladder so it doesn't drive reactions elsewhere.
+- Neutralization of Rank (Mindfulness): Common in Buddhism, the Yogic practice of Shunya, Transpersonal Psychotherapy, and Relational-Cultural Therapy.
+- Psilocybin-Assisted Ego-Death (Psychiatric): Using psilocybin to help scaffold letting go of social rank.
+- Accepting Love/Affection (Exposure): Find others who care and allow that care to be felt.
+- EMDR (Trauma-Focused): Target themes and memories of 'feeling lesser'.
+- Mentalization-Based Treatment (Psychodynamic): Build the capacity to understand that everyone will see you differently.
+- Parts Work (IFS): Discover and soothe 'parts' that need recognition or fear being lesser.
+
+### Sympathetic Learning History / Trauma (Allostatic Load, treatment target)
+
+- Prolonged Exposure (Trauma-Focused): Revisit trauma memories and cues to extinguish fear.
+- Cognitive Processing Therapy (Trauma-Focused): Modify trauma-related beliefs maintaining threat.
+- EMDR (Trauma-Focused): Adaptive reprocessing of distressing memories.
+- Somatic Experiencing (Somatic): Discharge and regulate stuck autonomic activation.
+- Grounding & stabilization (DBT): Skills to return to the window of tolerance.
+- Prazosin (nightmares) (Psychiatric): Alpha-blocker that can reduce trauma nightmares.
+- Corrective relational experience (Psychodynamic): A safe relationship updates threat expectancies.
+- Support Groups (Group): Shared experiences, mutual support, and bonding over survivorship.
+- Meaning Making (CBT): Re-author your story and put negative experiences in service of personal values.
+- Parts Work (IFS): Discover and soothe traumatized 'parts'.
+
+### Chronic SNS Activation (Allostatic Load, treatment target)
+
+- Paced / diaphragmatic breathing (Somatic): Lengthened exhale shifts toward parasympathetic tone.
+- Progressive muscle relaxation (Behavioral): Systematic tension-release lowers baseline arousal.
+- HRV biofeedback (Somatic): Train autonomic flexibility via heart-rate variability.
+- DBT TIPP (DBT): Rapidly down-regulate acute arousal (temperature, exercise, breathing).
+- MBSR (Mindfulness): Reduces perceived stress and physiological reactivity.
+- Physical activity (Metabolic / Lifestyle): Improves stress resilience and lowers allostatic load.
+- Pharmacotherapy (Psychiatric): e.g., SSRIs, buspirone, beta-blockers for arousal symptoms.
+- Medical collaboration (Medical): Rule out and treat contributing somatic conditions.
+
+### Dopamine System Disruption (Allostatic Load, treatment target)
+
+- Dopaminergic 'reset' / abstinence (Behavioral): Reduce supernormal stimulation so natural rewards regain salience.
+- Behavioral activation (natural rewards) (Behavioral): Re-engage effortful, life-preserving reinforcers.
+- Values–behavior alignment (ACT): Direct drive toward valued rather than compulsive pursuits.
+- Stimulus control / scheduling (Behavioral): Restructure cues and access to high-stimulation activities.
+- Contingency management (Behavioral): Reinforce target behaviors with structured rewards (strong SUD evidence).
+- Stimulant / dopamine modulators (Psychiatric): Address hypodopaminergic states (e.g., ADHD).
+- Dopamine antagonists (Psychiatric): For hyperdopaminergic states / psychosis.
+- Letting Go of Expectations (CBT): Denied expectations cause a severe dopamine drop; reframing expectations reduces the crash.
+
+### Affect Tolerance (Allostatic Load, treatment target)
+
+- Somatic Experiencing (Somatic): Titrate activation in small doses and pendulate between distress and safety to gradually stretch nervous-system capacity.
+- Sensorimotor Psychotherapy (Somatic): Track posture, movement and autonomic shifts at the edges of the window; build physical containment and grounding.
+- Integral Somatic Psychology (Somatic): Spread emotional resonance across more of the body so an emotion feels less concentrated and easier to hold.
+- Trauma-informed yoga (Somatic): Build interoceptive awareness and tolerance for fear-linked sensations without dissociating.
+- DBT Distress Tolerance (DBT): TIPP, self-soothing and radical acceptance to ride out acute high-energy spikes without impulsive action.
+- DBT Emotion Regulation (DBT): Reduce emotional vulnerability so intense affect arrives less often and is easier to stay with.
+- ACT willingness & defusion (ACT): Target experiential avoidance; make room for uncomfortable affect while acting on values.
+- Emotion Regulation Therapy (CBT): Mindful attention regulation plus metacognitive reframing to allow anxiety, anger or sadness instead of worrying or ruminating.
+- STAIR (Trauma-Focused): Builds emotional awareness and modulation skills before trauma narrative work; designed for complex trauma.
+- AEDP / ISTDP (Psychodynamic): Treat 'affect phobia': name the defenses against core emotions, then experience them to completion in a safe dyad.
+- Emotion-Focused Therapy (Experiential): Deepen emotional processing in session, rather than intellectualizing or bypassing, to transform maladaptive emotion schemes.
+- Parts Work (IFS): Unblend from overwhelmed or protective 'parts' so intense states can be witnessed with curiosity rather than flooding.
+- EMDR (Trauma-Focused): Process distressing memories with dual attention while staying anchored in the present.
+- Positive Affect Tolerance (PAT) protocol (Trauma-Focused): EMDR adaptation for clients who can't tolerate praise, warmth or connection — common after neglect.
+- Accelerated Resolution Therapy (Trauma-Focused): Eye movements with imagery rescripting to reduce physiological reactivity and expand emotional resilience.
+
+### Social Homeostatic Needs (Relationships, treatment target)
+
+- Collaborative problem-solving (CBT): Practical planning to build and access connection.
+- Group therapy (Group): A built-in social context and corrective experience.
+- Therapeutic relationship as scaffold (Interpersonal): Partially meet social needs while skills grow.
+- Behavioral activation (social) (Behavioral): Schedule and reinforce social contact.
+- Social prescribing / community linkage (Systemic): Connect to groups, classes, and community resources.
+
+### Relationship Skills (Relationships, treatment target)
+
+- Interpersonal Effectiveness (DBT): DEAR MAN / GIVE / FAST for asks, relationships, and self-respect.
+- Social skills training (Behavioral): Model, rehearse, and reinforce specific skills.
+- Gottman Method (Interpersonal): Research-based couples skills for conflict and connection.
+- Family therapy (Systemic): Shift the relational patterns maintaining distress.
+- CBT for interpersonal patterns (CBT): Target beliefs and behaviors that create friction.
+- Conflict-resolution scripts (Behavioral): Rehearse concrete language for hard conversations.
+
+### How You Make Others Feel (Relationships, treatment target)
+
+- Radically-Open DBT (DBT): Loosen overcontrol and improve social signaling.
+- Mentalization-Based Treatment (Psychodynamic): Build capacity to hold others' minds in mind.
+- Affect-recognition training (Interpersonal): Improve reading of others' emotional cues.
+- Functional Analytic Psychotherapy (Behavioral): Use in-vivo feedback on interpersonal impact.
+- Mindfulness of impact (Mindfulness): Notice one's effect on others in real time.
+- Therapeutic-relationship feedback (Interpersonal): The therapist offers direct, caring feedback.
+- Emotion-Focused Therapy (Interpersonal): Help the client understand how attachment and emotions shape their relationships.
+- Imago Relationship Therapy (Interpersonal): Learn to send and receive messages within a relationship.
+- Relational Life Therapy (Interpersonal): Therapist directly addresses power dynamics in a relationship.
+- Parts Work (IFS): Discover how 'parts' may impact relationships.
+
+### Experiencing Connection (Relationships, treatment target)
+
+- Strong therapeutic alliance (Interpersonal): A reliable bond is itself corrective and regulating.
+- Attachment-based therapy (Psychodynamic): Reorganize insecure attachment patterns.
+- Emotionally Focused Therapy (Interpersonal): Restructure bonding interactions in couples/families.
+- Therapist as model (Interpersonal): Experience attuned responsiveness and co-regulation.
+- Graded intimacy exposure (Exposure): Practice vulnerability at tolerable increments.
+- Group therapy (Group): Repeated experiences of being understood by peers.
+- Parallel Experience (Interpersonal): Foster parallel experiences between individuals in and outside of therapy.
+- Behavioral Activation (social) (Behavioral): Engage socially and frequently to increase the odds of connection.
+
+### Meaning for Living (Purpose, treatment target)
+
+- Values clarification (ACT): Identify what matters to guide action and meaning.
+- Narrative Therapy (Existential): Re-author a coherent, agentic life story.
+- Existential therapy (Existential): Engage directly with meaning, freedom, and mortality.
+- Meaning-Centered Psychotherapy (Existential): Structured work to cultivate sources of meaning.
+- Logotherapy techniques (Existential): Find meaning even within unavoidable suffering.
+- Internal Goal Setting (Existential): What do you want to change in the world?
+
+### Good Things Are Coming (Purpose, treatment target)
+
+- Restructuring future beliefs (CBT): Challenge hopeless predictions about the future.
+- Behavioral activation (Behavioral): Action generates disconfirming, hopeful evidence.
+- Future Event Specificity Training (CBT): Build vivid, specific positive future thinking.
+- Best-Possible-Self imagery (Positive Psychology): Imagining a good future lifts optimism.
+- Hope-focused psychoeducation (Psychoeducation): Teach the mechanics of hope and expectancy.
+- Therapeutic Ketamine Use (Psychiatric): May dampen lateral habenula activation and shift AMPA/NMDA receptor activity.
+
+### Agency Over Future (Purpose, treatment target)
+
+- Reattribution of success (CBT): Credit effort and strategy for good outcomes.
+- Growth-mindset coaching (Psychoeducation): Frame ability and outcomes as changeable.
+- Motivational interviewing (Motivational): Strengthen confidence and the client's own agency.
+- Building Mastery (DBT): Accumulated competence rebuilds felt control.
+- Problem-solving therapy (CBT): Demonstrate that action changes outcomes.
+- Self-efficacy experiments (Behavioral): Structured wins prove capability to the client.
+- Dialectical 'one step' focus (DBT): Attend to the next action rather than the whole mountain.
+- Iterative Mindset Coaching (Psychoeducation): Set aside overall progress and focus on moving in the desired direction.
+
+### Looking Forward to Experiences (Purpose, treatment target)
+
+- Pleasant activity scheduling (Behavioral): Systematically re-introduce rewarding activities.
+- Savoring interventions (Positive Psychology): Amplify and prolong positive experience.
+- Mindfulness of pleasant events (Mindfulness): Notice and register everyday positives.
+- Future Event Specificity Training (CBT): Increase anticipatory pleasure through specificity.
+- Positive Affect Treatment (CBT): Directly target reward deficits and anhedonia.
+- Pleasant Event Problem Solving (CBT): Collaborate to explore potential positive experiences.
+
+### Purpose to Others (Purpose, treatment target)
+
+- Volunteering / acts of service (Behavioral): Concrete contribution restores felt usefulness.
+- Community engagement (Systemic): Build a valued role within a group.
+- ACCEPTS (contribute) (DBT): Use contribution to shift distressing states.
+- ACT matrix (ACT): Map values into prosocial committed action.
+- Mentorship roles (Behavioral): Being needed reinforces meaning and worth.
+- Vocational Pursuits (Behavioral): Explore how a role in society can provide purpose.
+
+### Commitment (Purpose, treatment target)
+
+- Motivational interviewing (Motivational): Resolve ambivalence and evoke the client's own change talk.
+- Eliciting commitment (DBT): Structured strategies to obtain and strengthen commitment.
+- Committed action (ACT): Link concrete behavior to chosen values.
+- Behavioral activation (Behavioral): Action first — engagement builds motivation, not the reverse.
+- Building Mastery (DBT): Scheduled competence-building tasks raise agency.
+- Growth-mindset / grit coaching (Psychoeducation): Frame effort and setbacks as part of learning.
+- Parts Work (IFS): Discover which 'parts' may be in conflict over goals.
+
+### Accomplishment (Purpose, treatment target)
+
+- WOOP Method (CBT): Positive visualization paired with realistic obstacle planning.
+- Micro-Goal Chunking (Behavioral): Break big goals into smaller, more approachable ones.
+- Progress Journaling (CBT): Keep a record of steps completed.
+- Habit Stacking (Behavioral): Build an automated routine toward goals.
+- Deliberate Practice (Behavioral): Isolate sub-skills to develop.
+- Best-Possible-Self imagery (Positive Psychology): Write about the path you took to your accomplishments.
+- The Progress Principle (Positive Psychology): Keep a 'Done List' rather than only a 'To-Do List'.
+- Growth Mindset (CBT): Focus on effort and strategy over talent.
+
+### Substance Use (Metabolic Health, treatment target)
+
+Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.
+
+- Motivational interviewing (Motivational): Build motivation for change without confrontation.
+- Relapse-prevention CBT (CBT): Identify triggers and rehearse coping plans.
+- Contingency management (Behavioral): Reinforce abstinence with structured rewards.
+- Medication-assisted treatment (Medical): e.g., naltrexone, buprenorphine for craving/withdrawal.
+- Harm reduction (Medical): Reduce risk and harm when abstinence isn't the goal.
+- Mutual-help linkage (Systemic): Connect to 12-step or alternative recovery communities.
+- Functional analysis of use (Behavioral): Map the function the substance serves, then meet it otherwise.
+- Naltrexone (Psychiatric): Long-term maintenance medication for various substance use issues.
+- Naloxone (Psychiatric): Emergency reversal agent for active overdose.
+
+### Gut Microbiome (Probiotics / Prebiotics) (Metabolic Health, treatment target)
+
+Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.
+
+- Low-sugar fermented foods (Metabolic / Lifestyle): Support a diverse, balanced microbiome.
+- Dietary fiber / prebiotics (Metabolic / Lifestyle): Feed beneficial gut bacteria.
+- Targeted probiotics (Medical): Specific strains studied for mood/anxiety.
+- Reduce ultra-processed foods (Metabolic / Lifestyle): Remove inputs that harm gut flora.
+- Registered dietitian referral (Medical): Collaborate for individualized nutrition planning.
+
+### Content of Food (Metabolic Health, treatment target)
+
+Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.
+
+- PLEASE skill (DBT): Treat physical illness, balanced eating, sleep, exercise to protect mood.
+- Mediterranean-style diet (Metabolic / Lifestyle): Anti-inflammatory pattern linked to better mental health.
+- Omega-3 (EPA) supplementation (Medical): Supports neuronal membranes; evidence in depression.
+- Micronutrient repletion (Medical): Correct vitamin D, B12, magnesium deficiencies.
+- Registered dietitian referral (Medical): Individualized, sustainable nutrition change.
+- Behavioral meal planning (Behavioral): Make healthy choices the easy default.
+
+### Refined Sugars / Fructose Consumption (Metabolic Health, treatment target)
+
+Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.
+
+- Reduce added sugars (Metabolic / Lifestyle): Lower the inflammatory and glycemic load.
+- PLEASE skill (DBT): Frame nutrition as emotion-regulation infrastructure.
+- Metabolic screening referral (Medical): Assess glucose/insulin markers.
+- Ketogenic metabolic therapy (Medical): Emerging option under medical supervision for select cases.
+- Sugar–mood psychoeducation (Psychoeducation): Connect intake to symptoms to motivate change.
+- Habit / stimulus control (Behavioral): Reduce cues and access to sugary foods.
+
+### Inflammation (Metabolic Health, treatment target)
+
+Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.
+
+- Anti-inflammatory diet (Metabolic / Lifestyle): Fiber- and plant-rich pattern lowers inflammatory markers.
+- Regular exercise (Metabolic / Lifestyle): Reduces systemic inflammation over time.
+- Stress reduction (Mindfulness): Lowering allostatic load reduces inflammatory signaling.
+- Sleep optimization (Metabolic / Lifestyle): Restorative sleep dampens inflammation.
+- Medical workup / supplementation (Medical): Test markers and treat underlying causes.
+- Replenish Necessary Nutrients / Vitamins (Metabolic / Lifestyle): Several deficiencies are common in high inflammation, such as Vitamin B1.
+
+### Physical Activity (Metabolic Health, treatment target)
+
+Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.
+
+- Aerobic exercise (Metabolic / Lifestyle): Improves mood, cognition, and stress resilience.
+- Resistance training (Metabolic / Lifestyle): Builds muscle, insulin sensitivity, and resilience.
+- Movement as behavioral activation (Behavioral): Use activity to break withdrawal/avoidance cycles.
+- Exercise prescription (with PT) (Medical): Collaborate for safe, tailored programming.
+- Dance / group movement (Somatic): Combines movement with social connection.
+- Exercise Classes (Metabolic / Lifestyle): Options range from pilates and yoga to boxing and cycling.
+
+### Sleep (Metabolic Health, treatment target)
+
+Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.
+
+- CBT-I (CBT): First-line, durable treatment for insomnia.
+- Stimulus control & sleep restriction (Behavioral): Re-associate bed with sleep; consolidate sleep.
+- Sleep hygiene (Psychoeducation): Optimize environment and pre-sleep routine.
+- Light exposure / chronotherapy (Metabolic / Lifestyle): Align timing cues to improve sleep.
+- Relaxation training (Somatic): Lower pre-sleep arousal.
+- Sleep study / medical referral (Medical): Assess apnea and other disorders.
+- DORAs (Psychiatric): Dual Orexin Receptor Antagonists reduce excitability to help transition to sleep.
+- Trazodone (Psychiatric): Common first-line sleep medication.
+- Z-Drugs (Psychiatric): High-efficacy but higher-risk sleep drugs that may cause dependence or next-day drowsiness.
+- Non-Medication Sleep Aids (Medical): 3rd-party tested melatonin ≤3mg, L-theanine, magnesium glycinate, apigenin.
+- Yoga Nidra (Somatic): Body scan plus breathing for deep relaxation.
+- Mindfulness Interventions (Mindfulness): Mindfulness activities that help the brain stop noticing the body.
+
+### Circadian Rhythm (Metabolic Health, treatment target)
+
+Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.
+
+- Morning bright-light therapy (Metabolic / Lifestyle): Anchor the clock with early light.
+- Consistent meal timing (Metabolic / Lifestyle): Stabilize peripheral circadian cues.
+- Timed exercise (Metabolic / Lifestyle): Reinforce day-night rhythm.
+- Interpersonal & Social Rhythm Therapy (Interpersonal): Regularize daily routines (esp. bipolar).
+- Reduce evening light/screens (Metabolic / Lifestyle): Protect melatonin onset.
+- Timed melatonin (medical) (Medical): Shift the clock under guidance.
+
+### Executive Functioning (Cross-cutting, cross-cutting area)
+
+Not a pillar — you don't need it to feel positive emotion — but it influences nearly every outcome and every session. Scaffold it rather than assume it can be permanently 'trained.'
+
+Guiding questions:
+- Any executive-functioning deficits? (e.g., screen with the BRIEF2.)
+
+- CBT for ADHD (CBT): Skills for planning, initiation, and follow-through.
+- Environmental / external systems (Behavioral): Offload EF onto structure, reminders, and checklists.
+- Implementation intentions (Behavioral): 'If-then' plans bridge intention and action.
+- Coaching & scaffolding (Behavioral): External support during skill-building.
+- Bottom-up regulation (Somatic): Regulate arousal first when cognition is intact but affect isn't.
+- Stimulant / non-stimulant medication (Psychiatric): Improve EF capacity where clinically indicated.
+
+## 3. Treatment targets by diagnosis
+
+Source: https://about-tt.im/diagnoses.html . Sample combinations of TTIM treatment targets for common psychiatric diagnoses. They are examples, not rules: different individuals need different targets at different points in treatment.
+
+### Attention-Deficit/Hyperactivity Disorder (ADHD)
+
+Group: Neurodevelopmental
+
+Core targets:
+- Dopamine System Disruption (Allostatic Load): Hypodopaminergic reward signaling drives novelty-seeking, boredom intolerance and difficulty sustaining effort.
+- Social Hierarchy (Allostatic Load): Years of criticism and comparison leave intense rejection sensitivity and a felt loss of standing.
+- Evaluation of Performance (Allostatic Load): A long history of negative feedback on performance breeds shame and avoidance of tasks.
+- Accomplishment (Purpose): Earned, visible wins rebuild self-efficacy that repeated unfinished work has eroded.
+- Sleep (Metabolic Health): Delayed sleep onset and short sleep are very common and worsen attention and mood.
+- Circadian Rhythm (Metabolic Health): A delayed circadian phase often underlies the late nights and hard mornings.
+- Physical Activity (Metabolic Health): Exercise acutely improves attention and executive control.
+
+Also consider:
+- Substance Use (Metabolic Health): Self-medication and higher rates of substance use disorders
+- Content of Food (Metabolic Health): Regular meals and protein when stimulants suppress appetite
+- Relationship Skills (Relationships)
+- Commitment (Purpose)
+
+Cross-cutting: Executive Functioning is central here. In the TTIM it is a cross-cutting area rather than a target: scaffold it (external structure, reminders, environment design) instead of assuming it can be permanently trained.
+
+### Autism Spectrum Disorder (ASD)
+
+Group: Neurodevelopmental
+
+Core targets:
+- Experiencing Connection (Relationships): Feeling understood and connected on the client's own terms — autism is a named reason this target exists.
+- Social Homeostatic Needs (Relationships): Loneliness is common even when connection is wanted; fit and quality matter more than quantity.
+- Control / Demand / Predictability (Allostatic Load): Distress with unexpected change, a strong need for sameness, and for some, intense demand avoidance.
+- Chronic SNS Activation (Allostatic Load): Sensory overload, the cost of masking, and autistic burnout keep the nervous system running hot.
+- Affect Tolerance (Allostatic Load): Alexithymia and interoceptive differences make emotions hard to read early, leading to meltdowns or shutdowns.
+- Sleep (Metabolic Health): Insomnia is very common and amplifies sensory sensitivity and emotion dysregulation.
+
+Also consider:
+- Social Hierarchy (Allostatic Load): Social rank is often processed effortfully and explicitly (see note)
+- Respondent Conditioning (Cognitions): Conditioned responses to specific sensory or social situations
+- Relationship Skills (Relationships): Mutual understanding, not compliance
+- How You Make Others Feel (Relationships): Through a double-empathy lens: misunderstanding runs both ways
+- Content of Food (Metabolic Health): Restricted or sensory-driven eating (ARFID patterns)
+- Gut Microbiome (Probiotics / Prebiotics) (Metabolic Health): GI problems are far more common in autism
+- Circadian Rhythm (Metabolic Health)
+- Meaning for Living (Purpose): Special interests as a source of meaning
+- Looking Forward to Experiences (Purpose): Special interests as something to anticipate
+- Accomplishment (Purpose)
+- Attention Regulation (Cognitions)
+
+Cross-cutting: Executive Functioning differences are common. In the TTIM it is a cross-cutting area rather than a target: scaffold it with structure, visual schedules and environment design rather than training it away.
+
+Note: The goal is wellbeing — less sensory overload, burnout and loneliness — not appearing neurotypical. Relationship Skills and How You Make Others Feel are two-way work, targeted only where the client wants change.
+
+Note: People with ASD often process social hierarchy with effort, through explicit, bottom-up reasoning, whereas people with personality disorders tend to show a more implicit hyper-attunement to it. In ASD the concern tends to be outcome-based; in personality disorders it tends to be ego-based. So a person with ASD may miss being “put down” while focused on getting the outcome, whereas a person with a personality disorder may miss the outcome entirely because they are focused on having been put down.
+
+### Schizophrenia
+
+Group: Schizophrenia Spectrum
+
+Core targets:
+- Beliefs / Education / Experience / Language (Cognitions): How delusions and voices are appraised shapes the distress they cause (the focus of CBT for psychosis).
+- Attention Regulation (Cognitions): Aberrant salience and attention captured by voices or threat cues.
+- Dopamine System Disruption (Allostatic Load): Dysregulated dopamine signaling is central to positive symptoms and the target of antipsychotics.
+- Substance Use (Metabolic Health): Cannabis and stimulants raise relapse risk; smoking rates and their health toll are very high.
+- Social Homeostatic Needs (Relationships): Isolation and shrinking networks often follow illness onset and negative symptoms.
+- Looking Forward to Experiences (Purpose): Negative symptoms blunt anticipatory pleasure and the drive to pursue goals.
+- Physical Activity (Metabolic Health): Antipsychotic-related metabolic syndrome drives a large life-expectancy gap; movement is protective.
+- Content of Food (Metabolic Health): Diet quality is a lever against antipsychotic-related weight gain and insulin resistance.
+
+Also consider:
+- Sleep (Metabolic Health)
+- Inflammation (Metabolic Health)
+- Relationship Skills (Relationships): Social skills training
+- Meaning for Living (Purpose): Recovery-oriented care
+
+### Schizoaffective Disorder
+
+Group: Schizophrenia Spectrum
+
+Core targets:
+- Beliefs / Education / Experience / Language (Cognitions): Appraisal of psychotic experiences shapes distress and functioning.
+- Attention Regulation (Cognitions): Aberrant salience and attention captured by voices or threat cues.
+- Dopamine System Disruption (Allostatic Load): Dopamine dysregulation underlies psychotic symptoms and is a primary medication target.
+- Substance Use (Metabolic Health): Substance use destabilizes both psychotic and mood symptoms.
+- Social Homeostatic Needs (Relationships): Isolation commonly follows illness onset and negative symptoms.
+- Sleep (Metabolic Health): Sleep loss is an early warning sign and trigger for mood and psychotic episodes.
+- Circadian Rhythm (Metabolic Health): Stable daily rhythms help prevent manic and depressive episodes.
+- Physical Activity (Metabolic Health): Medication-related metabolic risk makes movement a core health target.
+- Content of Food (Metabolic Health): Diet quality counters medication-related weight gain and insulin resistance.
+
+Also consider:
+- Good Things Are Coming (Purpose): Hopelessness in the depressive type
+- Looking Forward to Experiences (Purpose)
+- Commitment (Purpose): Medication adherence
+- Refined Sugars / Fructose Consumption (Metabolic Health)
+
+### Bipolar I & II Disorders (BD)
+
+Group: Bipolar
+
+Core targets:
+- Circadian Rhythm (Metabolic Health): Disrupted social and circadian rhythms precede episodes — the focus of IPSRT.
+- Sleep (Metabolic Health): Sleep loss can trigger mania; protecting sleep is a frontline relapse-prevention strategy.
+- Dopamine System Disruption (Allostatic Load): Reward hypersensitivity: goal pursuit and goal-attainment events can tip into hypomania.
+- Substance Use (Metabolic Health): Highly comorbid and destabilizing to mood and medication response.
+- Commitment (Purpose): Sustained commitment to medication and routine during well periods prevents relapse.
+
+Also consider:
+- Physical Activity (Metabolic Health)
+- Content of Food (Metabolic Health): Metabolic effects of lithium and antipsychotics
+- Refined Sugars / Fructose Consumption (Metabolic Health)
+- Evaluation of Performance (Allostatic Load): Ambitious goal-striving
+
+Cross-cutting: Executive Functioning often dips during and between episodes — scaffold it rather than assume it will return on its own.
+
+### Major Depressive Disorder (MDD)
+
+Group: Depressive
+
+Core targets:
+- Looking Forward to Experiences (Purpose): Anhedonia: nothing ahead feels worth anticipating.
+- Good Things Are Coming (Purpose): Hopelessness about the future maintains withdrawal and low effort.
+- Accomplishment (Purpose): Behavioral activation works through earned wins that restart reward learning.
+- Cognitive Distortions (Cognitions): The negative cognitive triad biases how the self, world and future are read.
+- Sleep (Metabolic Health): Insomnia and hypersomnia both maintain depression and predict relapse.
+- Inflammation (Metabolic Health): An inflammatory subtype is linked to fatigue, anhedonia and treatment resistance.
+
+Also consider:
+- Physical Activity (Metabolic Health)
+- Social Homeostatic Needs (Relationships)
+- Dopamine System Disruption (Allostatic Load)
+- Meaning for Living (Purpose)
+- Circadian Rhythm (Metabolic Health)
+
+### Persistent Depressive Disorder (PDD)
+
+Group: Depressive
+
+Core targets:
+- Beliefs / Education / Experience / Language (Cognitions): Long-standing self-schemas — “this is just who I am” — keep low mood entrenched.
+- Agency Over Future (Purpose): Years of low mood breed learned helplessness about changing outcomes.
+- Experiencing Connection (Relationships): Chronic depression often involves interpersonal detachment (a focus of CBASP).
+- How You Make Others Feel (Relationships): Learning one's impact on others is central to CBASP's interpersonal work.
+- Meaning for Living (Purpose): A reason for living sustains effort when mood offers little reward.
+
+Also consider:
+- Good Things Are Coming (Purpose)
+- Commitment (Purpose)
+- Physical Activity (Metabolic Health)
+- Inflammation (Metabolic Health)
+- Sleep (Metabolic Health)
+
+### Social Anxiety Disorder
+
+Group: Anxiety
+
+Core targets:
+- Social Hierarchy (Allostatic Load): Fear of negative evaluation is fundamentally a fear of losing social standing.
+- Evaluation of Performance (Allostatic Load): Social situations are experienced as performances that are being judged.
+- Attention Regulation (Cognitions): Self-focused attention fuels anxiety and blocks disconfirming evidence (Clark & Wells).
+- Respondent Conditioning (Cognitions): Avoidance and safety behaviors keep conditioned fear alive; exposure updates it.
+- Social Homeostatic Needs (Relationships): Avoidance leaves social needs chronically unmet.
+
+Also consider:
+- Cognitive Distortions (Cognitions): Mind reading, fortune telling
+- Relationship Skills (Relationships)
+- Substance Use (Metabolic Health): Alcohol as social lubricant
+
+### Agoraphobia
+
+Group: Anxiety
+
+Core targets:
+- Respondent Conditioning (Cognitions): Situational and interoceptive exposure extinguish conditioned fear of places and sensations.
+- Cognitive Distortions (Cognitions): Catastrophic misinterpretation of bodily sensations drives panic and avoidance.
+- Affect Tolerance (Allostatic Load): Building tolerance for physiological arousal without escaping.
+- Control / Demand / Predictability (Allostatic Load): Fear centers on being trapped or unable to get help.
+- Chronic SNS Activation (Allostatic Load): Elevated baseline arousal keeps the alarm system primed.
+
+Also consider:
+- Social Homeostatic Needs (Relationships): A shrinking life
+- Looking Forward to Experiences (Purpose)
+- Physical Activity (Metabolic Health)
+- Substance Use (Metabolic Health): Caffeine, alcohol
+
+### Generalized Anxiety Disorder (GAD)
+
+Group: Anxiety
+
+Core targets:
+- Control / Demand / Predictability (Allostatic Load): Intolerance of uncertainty is a primary maintaining factor.
+- Chronic SNS Activation (Allostatic Load): Chronic tension, restlessness and insomnia reflect sustained sympathetic activation.
+- Attention Regulation (Cognitions): Attention is biased toward threat and captured by worry.
+- Acceptance (Cognitions): Accepting realistic probabilities rather than seeking certainty.
+- Affect Tolerance (Allostatic Load): Worry can function to avoid sharp emotional shifts (the contrast-avoidance model).
+
+Also consider:
+- Cognitive Distortions (Cognitions)
+- Evaluation of Performance (Allostatic Load)
+- Sleep (Metabolic Health)
+- Substance Use (Metabolic Health): Alcohol or benzodiazepines as self-medication
+
+### Obsessive-Compulsive Disorder (OCD)
+
+Group: Obsessive-Compulsive
+
+Core targets:
+- Respondent Conditioning (Cognitions): Exposure and response prevention breaks the obsession–compulsion conditioning loop.
+- Control / Demand / Predictability (Allostatic Load): Intolerance of uncertainty drives checking and reassurance seeking.
+- Locus of Control (Cognitions): Inflated responsibility for preventing harm.
+- Beliefs / Education / Experience / Language (Cognitions): Thought–action fusion and overestimation of threat.
+- Affect Tolerance (Allostatic Load): Sitting with anxiety, disgust or “not just right” feelings without performing the compulsion.
+
+Also consider:
+- Acceptance (Cognitions): ACT-informed ERP
+- Attention Regulation (Cognitions)
+
+### Posttraumatic Stress Disorder (PTSD)
+
+Group: Trauma & Stressor
+
+Core targets:
+- Sympathetic Learning History / Trauma (Allostatic Load): The trauma history itself sensitizes the nervous system to threat.
+- Respondent Conditioning (Cognitions): Fear conditioning and failed extinction keep reminders dangerous.
+- Chronic SNS Activation (Allostatic Load): Hyperarousal, startle and hypervigilance.
+- Beliefs / Education / Experience / Language (Cognitions): Trauma-related “stuck points” about safety, trust, blame and worth (the focus of CPT).
+- Sleep (Metabolic Health): Nightmares and insomnia maintain symptoms and are independently treatable.
+- Affect Tolerance (Allostatic Load): A narrowed window of tolerance for trauma-related emotion.
+
+Also consider:
+- Experiencing Connection (Relationships)
+- Substance Use (Metabolic Health)
+- Agency Over Future (Purpose): Sense of a foreshortened future
+- Physical Activity (Metabolic Health)
+- Inflammation (Metabolic Health)
+
+### Adjustment Disorder
+
+Group: Trauma & Stressor
+
+Core targets:
+- Control / Demand / Predictability (Allostatic Load): The stressor has abruptly shifted demand and predictability.
+- Acceptance (Cognitions): Coming to terms with a changed reality.
+- Agency Over Future (Purpose): Restoring a sense of influence over what comes next.
+- Social Homeostatic Needs (Relationships): Mobilizing support during the transition.
+- Sleep (Metabolic Health): Stress-related sleep disruption amplifies distress.
+
+Also consider:
+- Meaning for Living (Purpose)
+- Physical Activity (Metabolic Health)
+- Commitment (Purpose)
+
+Note: Usually time-limited and strengths-based: often fewer targets, worked more briefly.
+
+### Paranoid Personality Disorder
+
+Group: Personality · Cluster A
+
+Core targets:
+- Beliefs / Education / Experience / Language (Cognitions): Hostile-attribution schemas: others are presumed to intend harm.
+- Sympathetic Learning History / Trauma (Allostatic Load): Mistrust is often learned in threatening or betraying environments.
+- Social Hierarchy (Allostatic Load): Heightened sensitivity to slights and threats to status.
+- Experiencing Connection (Relationships): Trust is the barrier to feeling connected.
+- How You Make Others Feel (Relationships): Guardedness elicits the very rejection the client expects, confirming the belief.
+
+Also consider:
+- Chronic SNS Activation (Allostatic Load)
+- Cognitive Distortions (Cognitions)
+
+### Schizoid Personality Disorder
+
+Group: Personality · Cluster A
+
+Core targets:
+- Experiencing Connection (Relationships): The capacity to experience connection itself may be the target.
+- Looking Forward to Experiences (Purpose): Restricted pleasure and anticipation (anhedonia).
+- Meaning for Living (Purpose): A sense of meaning that fits the client's own values.
+
+Also consider:
+- Purpose to Others (Purpose)
+- Physical Activity (Metabolic Health)
+- Social Homeostatic Needs (Relationships): Only if the client experiences it as a need
+
+Note: Social needs may genuinely be lower for this client. Target Social Homeostatic Needs or connection only if the client experiences distress or wants change.
+
+### Schizotypal Personality Disorder
+
+Group: Personality · Cluster A
+
+Core targets:
+- Beliefs / Education / Experience / Language (Cognitions): Magical thinking and ideas of reference.
+- Attention Regulation (Cognitions): Unusual perceptual experiences and idiosyncratic attention to cues.
+- Social Homeostatic Needs (Relationships): Few close relationships beyond family.
+- Relationship Skills (Relationships): Odd communication creates friction and distance.
+- Chronic SNS Activation (Allostatic Load): Social anxiety that doesn't fade with familiarity.
+
+Also consider:
+- Substance Use (Metabolic Health): Cannabis and psychosis risk
+- Sleep (Metabolic Health)
+
+### Antisocial Personality Disorder
+
+Group: Personality · Cluster B
+
+Core targets:
+- Dopamine System Disruption (Allostatic Load): Sensation and reward seeking with low sensitivity to punishment.
+- Substance Use (Metabolic Health): Very high comorbidity; intoxication amplifies impulsive harm.
+- How You Make Others Feel (Relationships): Limited awareness of one's impact on others.
+- Locus of Control (Cognitions): Externalizing blame for outcomes.
+- Purpose to Others (Purpose): Prosocial roles build an identity incompatible with harming others.
+- Commitment (Purpose): Sustained, values-driven willingness to change.
+
+Also consider:
+- Sympathetic Learning History / Trauma (Allostatic Load)
+- Accomplishment (Purpose): Wins earned prosocially
+- Physical Activity (Metabolic Health)
+
+### Borderline Personality Disorder (BPD)
+
+Group: Personality · Cluster B
+
+Core targets:
+- Affect Tolerance (Allostatic Load): Emotional intensity and slow return to baseline — the heart of DBT.
+- Social Hierarchy (Allostatic Load): Rejection sensitivity and unstable self-worth react strongly to perceived devaluation.
+- Sympathetic Learning History / Trauma (Allostatic Load): Invalidating or traumatic environments shape the biosocial vulnerability.
+- Relationship Skills (Relationships): Interpersonal effectiveness for stable, less chaotic relationships.
+- Experiencing Connection (Relationships): Fear of abandonment and insecure attachment.
+- Social Homeostatic Needs (Relationships): Unmet needs for closeness and fear of being alone intensify distress and crises.
+- Substance Use (Metabolic Health): Substance use as impulsive emotional escape.
+
+Also consider:
+- Acceptance (Cognitions): Radical acceptance
+- Meaning for Living (Purpose): Chronic emptiness
+- How You Make Others Feel (Relationships): Impact of emotional intensity on others
+- Dopamine System Disruption (Allostatic Load): Impulsivity and reward-driven escape
+- Locus of Control (Cognitions): Swings between self-blame and blaming others
+- Agency Over Future (Purpose): Unstable sense of direction and self
+- Purpose to Others (Purpose): Valued roles that stabilize identity
+- Commitment (Purpose)
+- Sleep (Metabolic Health)
+
+### Histrionic Personality Disorder (HPD)
+
+Group: Personality · Cluster B
+
+Core targets:
+- Social Hierarchy (Allostatic Load): Self-worth is tied to attention and standing in others' eyes.
+- Social Homeostatic Needs (Relationships): A strong need for attention and approval.
+- How You Make Others Feel (Relationships): Impact on others when bids for attention escalate.
+- Experiencing Connection (Relationships): Relationships may feel closer than they are; depth over surface.
+- Affect Tolerance (Allostatic Load): Rapidly shifting emotion; tolerating not being the center.
+- Meaning for Living (Purpose): An identity that doesn't depend on others' attention.
+
+Also consider:
+- Relationship Skills (Relationships)
+- Evaluation of Performance (Allostatic Load)
+
+### Narcissistic Personality Disorder (NPD)
+
+Group: Personality · Cluster B
+
+Core targets:
+- Social Hierarchy (Allostatic Load): Central: worth is contingent on status and rank.
+- Evaluation of Performance (Allostatic Load): Achievement props up a fragile self-image.
+- How You Make Others Feel (Relationships): Empathic accuracy and awareness of impact.
+- Affect Tolerance (Allostatic Load): Intolerance of shame, especially in vulnerable presentations.
+- Experiencing Connection (Relationships): Relationships organized around admiration rather than mutuality.
+
+Also consider:
+- Beliefs / Education / Experience / Language (Cognitions): Grandiose self-schema over a defective one
+- Purpose to Others (Purpose)
+- Acceptance (Cognitions)
+
+### Avoidant Personality Disorder
+
+Group: Personality · Cluster C
+
+Core targets:
+- Social Hierarchy (Allostatic Load): Pervasive feelings of inadequacy and sensitivity to rejection.
+- Respondent Conditioning (Cognitions): Graded exposure to the social situations that are avoided.
+- Beliefs / Education / Experience / Language (Cognitions): A defectiveness schema: “if they really knew me…”
+- Social Homeostatic Needs (Relationships): Social needs go chronically unmet.
+- Relationship Skills (Relationships): Skills to enter and sustain relationships.
+
+Also consider:
+- Evaluation of Performance (Allostatic Load)
+- Affect Tolerance (Allostatic Load)
+
+### Dependent Personality Disorder
+
+Group: Personality · Cluster C
+
+Core targets:
+- Agency Over Future (Purpose): Little belief in one's ability to steer one's own future.
+- Locus of Control (Cognitions): Outcomes are attributed to others' care and decisions.
+- Accomplishment (Purpose): Independent wins build self-efficacy.
+- Relationship Skills (Relationships): Assertiveness and the ability to disagree.
+- Control / Demand / Predictability (Allostatic Load): Fear of facing life's demands alone.
+
+Also consider:
+- Experiencing Connection (Relationships)
+- Commitment (Purpose)
+
+### Obsessive-Compulsive Personality Disorder (OCPD)
+
+Group: Personality · Cluster C
+
+Core targets:
+- Control / Demand / Predictability (Allostatic Load): A strong need for order, control and predictability.
+- Evaluation of Performance (Allostatic Load): Perfectionism that interferes with finishing tasks.
+- Acceptance (Cognitions): Accepting imperfection and other people's ways of doing things.
+- How You Make Others Feel (Relationships): Rigidity leaves others feeling controlled (RO-DBT's overcontrol model).
+- Relationship Skills (Relationships): Flexibility, delegation and repair in relationships.
+
+Also consider:
+- Looking Forward to Experiences (Purpose): Work crowds out leisure
+- Locus of Control (Cognitions): Over-responsibility
+- Chronic SNS Activation (Allostatic Load)

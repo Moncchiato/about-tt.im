@@ -1,0 +1,29 @@
+# The Treatment Target Identification Model (TTIM)
+
+> A case conceptualization tool by Alexey Breuss, Psy.D. Instead of inventing new therapies, the TTIM helps clinicians find what is missing in a person's life for a good lived experience, and which evidence-based treatment targets to work on. Five interconnected pillars hold 32 treatment targets.
+
+Key ideas:
+
+- The skin divides the model. Outside the skin are the Greater World, Culture, Relationships and Behavior. Inside the skin are Emotion, Executive Functioning, the Greater Nervous System and Metabolic Health.
+- The five pillars are Cognitions, Allostatic Load, Relationships, Purpose and Metabolic Health. Each pillar holds treatment targets, and a deficit in one ripples through the others.
+- The model builds on the Theory of Constructed Emotion and the biology of allostasis: Affect (Allostatic Load) and Concept (Cognitions) together construct Emotion.
+- Executive Functioning is a cross-cutting consideration rather than a pillar.
+- Its guiding logic is "the dose determines the poison": it asks where internal and external factors sit in excess or deficit.
+- It is built for education, supervision and individual case formulation, and it deliberately targets poor lived experience, not only diagnosable pathology.
+- Status: a theoretically grounded, evidence-based proposal, not yet an empirically validated instrument. A peer-reviewed publication is being submitted. It does not replace clinical judgment.
+- License: CC BY-NC-ND 4.0. Please credit Alexey Breuss, Psy.D., and link to https://about-tt.im/ when you use or summarize it.
+
+## Pages
+
+- [The TTIM model](https://about-tt.im/): the model, why it exists, its five pillars, and an explorer of every treatment target with guiding questions and sample interventions
+- [Intervention Explorer](https://about-tt.im/interventions.html): sample evidence-based interventions for every treatment target, filterable by pillar and modality
+- [Targets by Diagnosis](https://about-tt.im/diagnoses.html): sample combinations of treatment targets for common psychiatric diagnoses
+
+## Full text
+
+- [llms-full.txt](https://about-tt.im/llms-full.txt): every pillar, treatment target, guiding question, intervention and diagnosis on this site, in plain text
+
+## Optional
+
+- [The complete TTIM diagram (PNG)](https://about-tt.im/TTIM.png)
+- [Contact Dr. Breuss](mailto:dr.alexeybreuss@gmail.com?subject=TTIM%20Inquiry): questions, research collaboration, or training on the model
