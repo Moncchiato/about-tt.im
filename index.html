@@ -1814,7 +1814,8 @@ document.getElementById('allTargets').innerHTML = PILLARS.map(p=>`
   </section>`).join('');
 
 const nTargets = PILLARS.reduce((n,p)=>n+p.targets.length,0);
-document.getElementById('ldTargets').textContent = JSON.stringify({
+const ldTargets = document.getElementById('ldTargets');
+if (ldTargets) ldTargets.textContent = JSON.stringify({
   "@context":"https://schema.org",
   "@type":"DefinedTermSet",
   "@id":"https://about-tt.im/#treatment-targets",

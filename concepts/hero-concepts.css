@@ -109,21 +109,6 @@
 .cswitch button.on{background:var(--lichen);color:var(--ink)}
 @media(max-width:520px){.cswitch>span{display:none}.cswitch button{padding:8px 10px;font-size:12.5px}}
 
-/* ---------- Concept C: step-through (Dr. Breuss's own artwork) ---------- */
-.st-stage{display:grid;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.st-stage img{grid-area:1/1;width:100%;height:auto;display:block;opacity:0;transition:opacity .5s ease}
-.st-stage img.on{opacity:1}
-.st-panel{justify-content:flex-start;min-height:360px}
-.st-tabs{display:flex;gap:6px;padding:4px;border-radius:999px;background:var(--paper);border:1px solid var(--line);align-self:flex-start;margin-bottom:22px}
-.st-tabs button{font:inherit;font-size:13.5px;font-weight:650;color:var(--ink-soft);background:none;border:none;border-radius:999px;
-  padding:7px 13px 7px 8px;display:inline-flex;align-items:center;gap:7px;cursor:pointer}
-.st-tabs button b{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;background:var(--paper-2);color:var(--ink)}
-.st-tabs button.done b{background:var(--moss);color:#fff}
-.st-tabs button[aria-selected="true"]{background:var(--night);color:var(--on-dark)}
-.st-tabs button[aria-selected="true"] b{background:var(--lichen);color:var(--ink)}
-.st-link{font:inherit;font-size:14px;font-weight:650;color:var(--moss);background:none;border:none;cursor:pointer;padding:10px 6px}
-@media(max-width:900px){.st-panel{min-height:0}}
-
 /* ---------- review option: pillar-card titles inside the colored header ---------- */
 .review-note{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:-24px 0 22px;padding:10px 12px;border-radius:14px;
   border:1px dashed rgba(91,104,49,.5);background:rgba(200,211,90,.14);font-size:13.5px;font-weight:600;color:var(--moss)}

@@ -668,7 +668,6 @@ footer .auth b{color:var(--on-dark)}
         <div class="hc" data-v="current"><img src="../TTIM.svg" alt="The full Treatment Target Identification Model diagram. A horizontal line, the skin, divides it. Outside the skin, nested from the outside in: Greater World, Culture, Relationships and Behavior, with the Purpose pillar on the right. Inside the skin: Emotion (Affect plus Concept), Executive Functioning, and the Greater Nervous System, which holds the Allostatic Load and Cognitions pillars, all within Metabolic Health. Green hexagons mark the 32 treatment targets."></div>
         <div class="hc mx" data-v="hourglass" id="mxHourglass"></div>
         <div class="hc mx" data-v="rings" id="mxRings"></div>
-        <div class="hc mx st" data-v="steps" id="mxSteps"></div>
       </div>
       <figcaption class="cap" id="heroCap">The complete TTIM: five pillars, 32 treatment targets, and the systems beneath a lived experience.</figcaption>
     </figure>
@@ -1466,7 +1465,8 @@ document.getElementById('allTargets').innerHTML = PILLARS.map(p=>`
   </section>`).join('');
 
 const nTargets = PILLARS.reduce((n,p)=>n+p.targets.length,0);
-document.getElementById('ldTargets').textContent = JSON.stringify({
+const ldTargets = document.getElementById('ldTargets');
+if (ldTargets) ldTargets.textContent = JSON.stringify({
   "@context":"https://schema.org",
   "@type":"DefinedTermSet",
   "@id":"https://about-tt.im/#treatment-targets",
@@ -1542,7 +1542,6 @@ window.addEventListener('scroll',onScroll); onScroll();
   <button type="button" data-v="current">Current</button>
   <button type="button" data-v="hourglass"><span class="l">A · Hourglass</span><span class="s">A</span></button>
   <button type="button" data-v="rings"><span class="l">B · Horizon</span><span class="s">B</span></button>
-  <button type="button" data-v="steps"><span class="l">C · Step-through</span><span class="s">C</span></button>
 </div>
 <script src="hero-concepts.js"></script>
 </body>
