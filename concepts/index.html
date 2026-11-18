@@ -610,9 +610,10 @@ footer .auth b{color:var(--on-dark)}
   .stat .big{font-size:68px}
   .tce{padding:44px 20px}
   .balance{padding:26px 22px}
-  .adapt{padding:32px 20px 22px}
-  .culture-note{padding:44px 24px 36px}
-  .pillar-pane,.detail-pane{padding:28px 20px 24px}
+  /* arched cards: a smaller arch, and enough top padding that the first line clears the curve */
+  .adapt{padding:44px 20px 22px}
+  .culture-note{border-radius:var(--arch-sm) 16px 16px 16px;padding:50px 24px 36px}
+  .pillar-pane{padding:44px 20px 24px}
   .pcard .pc-cap{height:84px}
   .alltargets>summary{padding:18px}
   #allTargets{padding:0 18px 20px}
@@ -667,6 +668,7 @@ footer .auth b{color:var(--on-dark)}
         <div class="hc" data-v="current"><img src="../TTIM.svg" alt="The full Treatment Target Identification Model diagram. A horizontal line, the skin, divides it. Outside the skin, nested from the outside in: Greater World, Culture, Relationships and Behavior, with the Purpose pillar on the right. Inside the skin: Emotion (Affect plus Concept), Executive Functioning, and the Greater Nervous System, which holds the Allostatic Load and Cognitions pillars, all within Metabolic Health. Green hexagons mark the 32 treatment targets."></div>
         <div class="hc mx" data-v="hourglass" id="mxHourglass"></div>
         <div class="hc mx" data-v="rings" id="mxRings"></div>
+        <div class="hc mx st" data-v="steps" id="mxSteps"></div>
       </div>
       <figcaption class="cap" id="heroCap">The complete TTIM: five pillars, 32 treatment targets, and the systems beneath a lived experience.</figcaption>
     </figure>
@@ -1534,12 +1536,13 @@ function onScroll(){
 }
 window.addEventListener('scroll',onScroll); onScroll();
 </script>
-<!-- Review only: switch between the current hero diagram and the two concepts (see CLAUDE.md) -->
+<!-- Review only: switch between the current hero diagram and the concepts (see CLAUDE.md) -->
 <div class="cswitch" role="group" aria-label="Hero concept">
   <span>Hero concept</span>
   <button type="button" data-v="current">Current</button>
-  <button type="button" data-v="hourglass">A · Hourglass</button>
-  <button type="button" data-v="rings">B · Horizon</button>
+  <button type="button" data-v="hourglass"><span class="l">A · Hourglass</span><span class="s">A</span></button>
+  <button type="button" data-v="rings"><span class="l">B · Horizon</span><span class="s">B</span></button>
+  <button type="button" data-v="steps"><span class="l">C · Step-through</span><span class="s">C</span></button>
 </div>
 <script src="hero-concepts.js"></script>
 </body>

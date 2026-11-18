@@ -104,7 +104,36 @@
 /* concept switcher (review only) */
 .cswitch{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:150;display:flex;align-items:center;gap:4px;
   padding:5px;border-radius:999px;background:rgba(30,43,36,.94);box-shadow:0 14px 40px -12px rgba(0,0,0,.5);max-width:calc(100vw - 24px)}
-.cswitch span{color:rgba(241,242,224,.6);font-size:12.5px;font-weight:600;padding:0 8px 0 10px;white-space:nowrap}
+.cswitch>span{color:rgba(241,242,224,.6);font-size:12.5px;font-weight:600;padding:0 8px 0 10px;white-space:nowrap}
 .cswitch button{font:inherit;font-size:13px;font-weight:650;color:var(--on-dark);background:transparent;border:none;border-radius:999px;padding:8px 13px;cursor:pointer;white-space:nowrap}
 .cswitch button.on{background:var(--lichen);color:var(--ink)}
-@media(max-width:520px){.cswitch span{display:none}.cswitch button{padding:8px 10px;font-size:12.5px}}
+@media(max-width:520px){.cswitch>span{display:none}.cswitch button{padding:8px 10px;font-size:12.5px}}
+
+/* ---------- Concept C: step-through (Dr. Breuss's own artwork) ---------- */
+.st-stage{display:grid;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.st-stage img{grid-area:1/1;width:100%;height:auto;display:block;opacity:0;transition:opacity .5s ease}
+.st-stage img.on{opacity:1}
+.st-panel{justify-content:flex-start;min-height:360px}
+.st-tabs{display:flex;gap:6px;padding:4px;border-radius:999px;background:var(--paper);border:1px solid var(--line);align-self:flex-start;margin-bottom:22px}
+.st-tabs button{font:inherit;font-size:13.5px;font-weight:650;color:var(--ink-soft);background:none;border:none;border-radius:999px;
+  padding:7px 13px 7px 8px;display:inline-flex;align-items:center;gap:7px;cursor:pointer}
+.st-tabs button b{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;background:var(--paper-2);color:var(--ink)}
+.st-tabs button.done b{background:var(--moss);color:#fff}
+.st-tabs button[aria-selected="true"]{background:var(--night);color:var(--on-dark)}
+.st-tabs button[aria-selected="true"] b{background:var(--lichen);color:var(--ink)}
+.st-link{font:inherit;font-size:14px;font-weight:650;color:var(--moss);background:none;border:none;cursor:pointer;padding:10px 6px}
+@media(max-width:900px){.st-panel{min-height:0}}
+
+/* ---------- review option: pillar-card titles inside the colored header ---------- */
+.review-note{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:-24px 0 22px;padding:10px 12px;border-radius:14px;
+  border:1px dashed rgba(91,104,49,.5);background:rgba(200,211,90,.14);font-size:13.5px;font-weight:600;color:var(--moss)}
+.review-note span{margin-right:4px}
+.review-note button{font:inherit;font-size:13px;font-weight:650;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+.review-note button.on{background:var(--night);color:var(--on-dark);border-color:var(--night)}
+.pc-title-in-cap .pcard h3{position:absolute;top:0;left:0;right:0;height:112px;margin:0;padding:0 20px 16px;display:flex;align-items:flex-end;color:var(--ink)}
+.pc-title-in-cap .pcard .pc-cap{margin-bottom:16px}
+@media(max-width:780px){.pc-title-in-cap .pcard h3{height:84px;padding-bottom:12px}}
+
+/* switcher: short labels on phones */
+.cswitch .s{display:none}
+@media(max-width:520px){.cswitch .l{display:none}.cswitch .s{display:inline}}

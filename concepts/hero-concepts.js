@@ -213,11 +213,77 @@
   mount(document.getElementById('mxHourglass'), hourglass, 'The Treatment Target Identification Model, simplified as an hourglass');
   mount(document.getElementById('mxRings'), rings, 'The Treatment Target Identification Model, drawn as layers around a person');
 
+  /* =================================================================
+     Concept C — Step-through: Dr. Breuss's own artwork, built up in
+     three steps (layers → pillars → treatment targets). The images are
+     his intermediate exports, trimmed to the same frame (concepts/steps/).
+     ================================================================= */
+  const nTargets = PILLARS.reduce((n, p) => n + p.targets.length, 0);
+  const STEPS = [
+    { tab: 'Layers', img: 'steps/ttim-1-layers.webp', h: 'The layers of a life',
+      p: 'The line through the middle is the <b>skin</b>. Above it is everything outside a person: Behavior, Relationships, Culture and the Greater World. Below it is everything inside: Emotion (Affect + Concept), Executive Functioning, the Greater Nervous System and Metabolic Health.',
+      alt: 'The TTIM layers. An hourglass split by the skin. Outside the skin, from the inside out: Behavior, Relationships, Culture and the Greater World. Inside the skin: Emotion (Affect and Concept), Executive Functioning, the Greater Nervous System and Metabolic Health.' },
+    { tab: 'Pillars', img: 'steps/ttim-2-pillars.webp', h: 'Five pillars',
+      p: 'Five pillars hold up a good lived experience. <b>Relationships</b> and <b>Metabolic Health</b> are whole layers; <b>Purpose</b>, <b>Allostatic Load</b> and <b>Cognitions</b> are the pink banners. They are heavily interconnected: a deficit in one ripples through the others.',
+      alt: 'The TTIM with its five pillars: Relationships and Metabolic Health as layers, and Purpose, Allostatic Load and Cognitions as pink banners.' },
+    { tab: 'Targets', img: 'steps/ttim-3-targets.webp', h: `${nTargets} treatment targets`,
+      p: `Each green hexagon is a <b>treatment target</b>: something a clinician can assess with guiding questions and treat with evidence-based interventions. There are ${nTargets} across the five pillars.`,
+      alt: `The complete TTIM, with all ${nTargets} treatment targets shown as green hexagons inside the five pillars.` }
+  ];
+  function mountSteps(el) {
+    el.innerHTML = `<div class="mx-fig st-fig"><div class="st-stage" role="button" tabindex="-1" title="Next step">
+        ${STEPS.map((s, i) => `<img src="${s.img}" alt="${s.alt}" class="${i ? '' : 'on'}" ${i ? 'aria-hidden="true"' : ''}>`).join('')}
+      </div></div>
+      <div class="mx-panel st-panel">
+        <div class="st-tabs" role="tablist" aria-label="Steps">${STEPS.map((s, i) =>
+          `<button type="button" role="tab" data-i="${i}"><b>${i + 1}</b>${s.tab}</button>`).join('')}</div>
+        <div class="st-text" aria-live="polite"></div>
+      </div>`;
+    const imgs = [...el.querySelectorAll('.st-stage img')], tabs = [...el.querySelectorAll('.st-tabs button')], text = el.querySelector('.st-text');
+    let at = 0;
+    const go = i => {
+      at = Math.max(0, Math.min(STEPS.length - 1, i));
+      imgs.forEach((im, j) => { im.classList.toggle('on', j === at); im.toggleAttribute('aria-hidden', j !== at); });
+      tabs.forEach((t, j) => { t.setAttribute('aria-selected', j === at); t.classList.toggle('done', j < at); });
+      const s = STEPS[at], last = at === STEPS.length - 1;
+      text.innerHTML = `<p class="mx-k">Step ${at + 1} of ${STEPS.length}</p><h3>${s.h}</h3><p class="blurb">${s.p}</p>
+        <div class="mx-actions">${last
+          ? `<a class="btn btn-primary" href="#explorer">Explore the targets</a><a class="btn btn-ghost" href="#full-diagram">See the full diagram</a><button type="button" class="st-link" data-go="0">Start over</button>`
+          : `<button type="button" class="btn btn-primary" data-go="${at + 1}">Next: ${STEPS[at + 1].tab.toLowerCase()} &rarr;</button>${at ? `<button type="button" class="st-link" data-go="${at - 1}">Back</button>` : ''}`}</div>`;
+    };
+    el.addEventListener('click', e => {
+      const b = e.target.closest('[data-go],.st-tabs button'); if (b) { go(+(b.dataset.go ?? b.dataset.i)); return; }
+      if (e.target.closest('.st-stage')) go(at === STEPS.length - 1 ? 0 : at + 1);
+    });
+    el.querySelector('.st-tabs').addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { go(at + (e.key === 'ArrowRight' ? 1 : -1)); tabs[at].focus(); }
+    });
+    go(0);
+  }
+  mountSteps(document.getElementById('mxSteps'));
+
+  /* ---------- review option: pillar-card titles inside the colored header ---------- */
+  const strip = document.getElementById('pillarsStrip');
+  if (strip) {
+    const note = document.createElement('div');
+    note.className = 'review-note';
+    note.innerHTML = `<span>For review: where should the pillar names sit?</span>
+      <button type="button" class="on" data-t="below">Below the color (current)</button>
+      <button type="button" data-t="cap">Inside the colored header</button>`;
+    strip.before(note);
+    note.addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      note.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+      document.body.classList.toggle('pc-title-in-cap', b.dataset.t === 'cap');
+    });
+  }
+
   /* ---------- concept switcher (review only) ---------- */
   const caps = {
     current: 'The complete TTIM: five pillars, 32 treatment targets, and the systems beneath a lived experience.',
     hourglass: 'The TTIM at a glance. Explore any pillar here, or see the full clinical diagram further down the page.',
-    rings: 'The TTIM at a glance. Explore any pillar here, or see the full clinical diagram further down the page.'
+    rings: 'The TTIM at a glance. Explore any pillar here, or see the full clinical diagram further down the page.',
+    steps: 'The TTIM in three steps. Tap the diagram or use the steps to build it up; the full clinical diagram is further down the page.'
   };
   function show(v) {
     if (!caps[v]) v = 'rings';
