@@ -1,0 +1,5 @@
+# GitHub Pages builds this site with Jekyll. Everything listed here stays in the
+# repository but is not published on the website.
+exclude:
+  - CLAUDE.md
+  - tools/

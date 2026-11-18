@@ -1,0 +1,124 @@
+/* =====================================================================
+   TTIM hero concepts (prototype for review — not wired into the live site)
+   Reuses the site's tokens: --ink, --card, --paper, pillar hexes, fonts.
+   ===================================================================== */
+.hc{display:none}
+.hc.on{display:block}
+.hc[data-v="current"] img{display:block;width:100%}
+
+/* layout: diagram + reading panel */
+.mx.on{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(250px,1fr);gap:clamp(18px,3vw,40px);align-items:center;position:relative}
+.mx-fig{position:relative;min-width:0}
+.mx path{fill-rule:evenodd}
+.mx svg{display:block;width:100%;height:auto;max-height:620px;overflow:hidden;-webkit-tap-highlight-color:transparent}
+@media(max-width:900px){.mx.on{grid-template-columns:1fr}}
+
+/* context layers (not pillars) */
+.mx .ctx path{stroke:var(--card);stroke-width:3;stroke-linejoin:round}
+.mx .ctx-name{font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:14px;fill:var(--ink-soft);letter-spacing:.01em}
+.mx .ctx-sub{font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:11.5px;fill:var(--muted)}
+.mx .core path{fill:var(--night)}
+.mx .core .ctx-name{fill:var(--on-dark);font-size:15px}
+.mx .core .ctx-sub{fill:rgba(241,242,224,.7)}
+.mx .arc-label{font-family:'Hanken Grotesk',sans-serif;font-weight:650;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;fill:rgba(34,40,31,.55)}
+.mx .arc-label.ef{font-size:9.5px;letter-spacing:.12em;fill:rgba(34,40,31,.62)}
+.mx .skin-line{stroke:var(--ink);stroke-width:1.6}
+.mx .skin-tag{font-family:'Hanken Grotesk',sans-serif;font-weight:650;font-size:12.5px;fill:var(--moss);letter-spacing:.02em}
+.mx .edge-label{font-family:'Hanken Grotesk',sans-serif;font-weight:650;font-size:12.5px;fill:var(--moss);letter-spacing:.12em;text-transform:uppercase}
+
+/* pillars */
+.mx .pz{cursor:pointer;outline:none}
+.mx .pz-fill{fill:var(--pc);stroke:var(--card);stroke-width:3;stroke-linejoin:round;transition:opacity .25s,filter .25s}
+.mx .pz-name{font-family:'Instrument Serif',Georgia,serif;font-size:25px;fill:var(--ink);pointer-events:none}
+.mx .pz[data-p="cognitions"] .pz-name{fill:#fff}
+.mx .pz:focus-visible .pz-fill{stroke:var(--ink);stroke-width:3.5}
+.mx svg.dim .pz:not(.on) .pz-fill{opacity:.28}
+.mx svg.dim .pz:not(.on) .pz-name{opacity:.45}
+.mx svg.dim .ctx{opacity:.7}
+.mx .ctx{transition:opacity .25s}
+
+/* targets: the ◆ the explorer already uses */
+.mx .tg{cursor:pointer}
+.mx .tg-mark{fill:var(--card);transition:fill .15s,transform .15s;transform-box:fill-box;transform-origin:center}
+.mx .tg-hit{fill:transparent}
+.mx .tg:hover .tg-mark,.mx .tg.hot .tg-mark{fill:var(--target);transform:scale(1.35)}
+.mx svg.dim .pz:not(.on) .tg-mark{opacity:.5}
+
+/* tooltip */
+.mx-tip{position:absolute;z-index:5;pointer-events:none;transform:translate(-50%,calc(-100% - 12px));
+  background:var(--night);color:var(--on-dark);font-size:13px;font-weight:600;line-height:1.3;
+  padding:7px 11px;border-radius:9px;white-space:nowrap;opacity:0;transition:opacity .12s}
+.mx-tip.show{opacity:1}
+
+/* reading panel */
+.mx-panel{align-self:stretch;display:flex;flex-direction:column;justify-content:center;min-height:300px}
+.mx-k{font-size:14px;font-weight:650;color:var(--moss)}
+.mx-panel h3{font-size:clamp(30px,3vw,40px);margin-top:6px;line-height:1}
+.mx-panel ol{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.mx-panel ol li{position:relative;padding-left:34px;font-size:15px;color:var(--ink-soft);line-height:1.5;counter-increment:s}
+.mx-panel ol li::before{content:counter(s);position:absolute;left:0;top:1px;width:22px;height:22px;border-radius:50%;
+  background:var(--paper-2);color:var(--ink);font-size:12px;font-weight:700;display:grid;place-items:center}
+.mx-panel ol li b{color:var(--ink)}
+.mx-panel .blurb{margin-top:12px;color:var(--ink-soft);font-size:15px;line-height:1.55}
+.mx-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.mx-chip{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);
+  padding:7px 12px 7px 10px;border-radius:999px;border:1px solid var(--line);background:var(--paper);cursor:pointer;transition:border-color .2s,background .2s}
+.mx-chip i{width:10px;height:10px;border-radius:50%;background:var(--pc);flex:none}
+.mx-chip small{font-size:12px;color:var(--muted);font-weight:600}
+.mx-chip:hover,.mx-chip.on{border-color:var(--pc);background:#fff}
+.mx-tl{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.mx-tl button{font:inherit;font-size:13px;font-weight:600;color:var(--ink);background:var(--paper);border:1px solid var(--line);
+  border-radius:9px;padding:6px 10px 6px 9px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;text-align:left}
+.mx-tl button::before{content:"";width:7px;height:7px;background:var(--target);transform:rotate(45deg);border-radius:1px;flex:none}
+.mx-tl button:hover{border-color:var(--target);background:#fff}
+.mx-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.mx-actions .btn{padding:10px 18px;font-size:14px}
+.mx-back{font:inherit;font-size:13.5px;font-weight:650;color:var(--moss);background:none;border:none;cursor:pointer;padding:0;margin-bottom:10px;align-self:flex-start}
+
+/* load-in: the hero's one orchestrated moment */
+@keyframes mx-draw{from{stroke-dashoffset:1000}to{stroke-dashoffset:0}}
+@keyframes mx-up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes mx-down{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+@keyframes mx-pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+.mx.on .skin-line{stroke-dasharray:1000;animation:mx-draw .9s .1s cubic-bezier(.4,0,.2,1) both}
+.mx.on .rise{animation:mx-up .7s var(--d,0s) cubic-bezier(.2,.8,.2,1) both}
+.mx.on .sink{animation:mx-down .7s var(--d,0s) cubic-bezier(.2,.8,.2,1) both}
+.mx.on .tg{animation:mx-pop .35s var(--d,1.4s) cubic-bezier(.3,1.4,.5,1) both;transform-box:fill-box;transform-origin:center}
+
+/* phones: fewer, larger words */
+@media(max-width:640px){
+  .mx .pz-name{font-size:27px}
+  .mx .ctx-name{font-size:19px}
+  .mx .core .ctx-name{font-size:21px}
+  .hero-art{margin-inline:-16px}
+  .hero-art .frame{padding:14px 4px 10px}
+  .hero-art .cap{padding-inline:16px}
+  .mx .flare{display:none}
+  .mx-panel{padding:4px 14px 10px}
+  .mx .ctx-sub,.mx .arc-label,.mx .skin-tag{display:none}
+  .mx .edge-label{font-size:17px}
+  .mx .tg-mark{transform:scale(1.25)}
+  .mx-panel{min-height:0}
+}
+
+/* concept switcher (review only) */
+.cswitch{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:150;display:flex;align-items:center;gap:4px;
+  padding:5px;border-radius:999px;background:rgba(30,43,36,.94);box-shadow:0 14px 40px -12px rgba(0,0,0,.5);max-width:calc(100vw - 24px)}
+.cswitch>span{color:rgba(241,242,224,.6);font-size:12.5px;font-weight:600;padding:0 8px 0 10px;white-space:nowrap}
+.cswitch button{font:inherit;font-size:13px;font-weight:650;color:var(--on-dark);background:transparent;border:none;border-radius:999px;padding:8px 13px;cursor:pointer;white-space:nowrap}
+.cswitch button.on{background:var(--lichen);color:var(--ink)}
+@media(max-width:520px){.cswitch>span{display:none}.cswitch button{padding:8px 10px;font-size:12.5px}}
+
+/* ---------- review option: pillar-card titles inside the colored header ---------- */
+.review-note{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:-24px 0 22px;padding:10px 12px;border-radius:14px;
+  border:1px dashed rgba(91,104,49,.5);background:rgba(200,211,90,.14);font-size:13.5px;font-weight:600;color:var(--moss)}
+.review-note span{margin-right:4px}
+.review-note button{font:inherit;font-size:13px;font-weight:650;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+.review-note button.on{background:var(--night);color:var(--on-dark);border-color:var(--night)}
+.pc-title-in-cap .pcard h3{position:absolute;top:0;left:0;right:0;height:112px;margin:0;padding:0 20px 16px;display:flex;align-items:flex-end;color:var(--ink)}
+.pc-title-in-cap .pcard .pc-cap{margin-bottom:16px}
+@media(max-width:780px){.pc-title-in-cap .pcard h3{height:84px;padding-bottom:12px}}
+
+/* switcher: short labels on phones */
+.cswitch .s{display:none}
+@media(max-width:520px){.cswitch .l{display:none}.cswitch .s{display:inline}}

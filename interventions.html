@@ -1,10 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google Analytics (GA4). Keep this on every public page: it was lost once when an older copy of a file was re-uploaded. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-69RR52KN9Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-69RR52KN9Y');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TTIM — Intervention Explorer</title>
+<title>Intervention Explorer · Treatment Target Identification Model (TTIM)</title>
 <meta name="description" content="Explore evidence-based intervention options for each treatment target in the Treatment Target Identification Model (TTIM), organized by modality.">
+<!-- Search engines, social previews and AI tools (see CLAUDE.md) -->
+<link rel="canonical" href="https://about-tt.im/interventions.html">
+<meta name="author" content="Alexey Breuss, Psy.D.">
+<meta name="theme-color" content="#f1f2e0">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Treatment Target Identification Model (TTIM)">
+<meta property="og:title" content="Intervention Explorer · TTIM">
+<meta property="og:description" content="Sample evidence-based interventions for every TTIM treatment target, across modalities, with a note on how each one works on the target's mechanism.">
+<meta property="og:url" content="https://about-tt.im/interventions.html">
+<meta property="og:image" content="https://about-tt.im/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Treatment Target Identification Model (TTIM), a case conceptualization tool by Alexey Breuss, Psy.D.">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://about-tt.im/interventions.html#webpage",
+      "url": "https://about-tt.im/interventions.html",
+      "name": "Intervention Explorer · Treatment Target Identification Model (TTIM)",
+      "description": "Sample evidence-based intervention options for each treatment target in the Treatment Target Identification Model (TTIM), organized by pillar and modality, with a note on how each works on the target's mechanism.",
+      "inLanguage": "en",
+      "isPartOf": { "@type": "WebSite", "@id": "https://about-tt.im/#website", "url": "https://about-tt.im/", "name": "The Treatment Target Identification Model (TTIM)" },
+      "about": { "@type": "CreativeWork", "@id": "https://about-tt.im/#ttim", "name": "Treatment Target Identification Model", "alternateName": "TTIM" },
+      "author": { "@type": "Person", "@id": "https://about-tt.im/#author", "name": "Alexey Breuss", "honorificSuffix": "Psy.D." },
+      "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "breadcrumb": { "@id": "https://about-tt.im/interventions.html#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://about-tt.im/interventions.html#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TTIM", "item": "https://about-tt.im/" },
+        { "@type": "ListItem", "position": 2, "name": "Intervention Explorer", "item": "https://about-tt.im/interventions.html" }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Hanken+Grotesk:wght@400;500;600;650;700&display=swap" rel="stylesheet">
@@ -229,6 +283,23 @@ footer .eyebrow{color:var(--lichen)!important}
 .dx h3{font-size:22px;margin-top:4px}
 .match h4{font-size:19px}
 .dx h3 small{font-weight:600}
+
+/* ---------- responsive fixes ---------- */
+.ivmore{display:none}
+@media(max-width:720px){
+  /* the filter bar scrolls away on phones instead of covering a third of the screen */
+  .controls{position:static}
+  .tcard .thead{display:block;padding:20px 18px 16px 22px}
+  .tcard .tcount{position:absolute;top:22px;right:18px}
+  .ivx{padding:14px 16px 18px;gap:10px}
+  .collab{margin:0 16px 14px}
+  /* long lists start with three options; "Show all" opens the rest */
+  .ivx.clip .iv:nth-child(n+4){display:none}
+  .ivmore{display:block;margin:-6px 16px 18px;width:calc(100% - 32px);padding:11px 14px;border-radius:12px;border:1px solid var(--line);
+    background:var(--paper);font:inherit;font-size:14px;font-weight:650;color:var(--ink);cursor:pointer}
+}
+@media(pointer:coarse){.tab,.chip-f{min-height:38px}}
+@media(max-width:480px){.wrap{padding:0 20px}}
 </style>
 </head>
 <body>
@@ -260,24 +331,2284 @@ footer .eyebrow{color:var(--lichen)!important}
   <div class="wrap">
     <div class="control-row">
       <span class="clabel">Pillar</span>
-      <div id="pillarTabs" style="display:flex;flex-wrap:wrap;gap:10px"></div>
+      <!-- prerender:pillarTabs · generated from the page data by tools/prerender.py, don't edit by hand -->
+<div id="pillarTabs" style="display:flex;flex-wrap:wrap;gap:10px" data-prerender=""><button class="tab active" data-p="all" style="background: rgb(30, 43, 36);">All pillars</button><button class="tab" data-p="cognitions" style="background: rgb(252, 252, 246);"><span class="swatch" style="background:#7c5cff"></span>Cognitions</button><button class="tab" data-p="allostatic" style="background: rgb(252, 252, 246);"><span class="swatch" style="background:#ff4d6d"></span>Allostatic Load</button><button class="tab" data-p="relationships" style="background: rgb(252, 252, 246);"><span class="swatch" style="background:#ff9f1c"></span>Relationships</button><button class="tab" data-p="purpose" style="background: rgb(252, 252, 246);"><span class="swatch" style="background:#ff5db1"></span>Purpose</button><button class="tab" data-p="metabolic" style="background: rgb(252, 252, 246);"><span class="swatch" style="background:#16c2c2"></span>Metabolic Health</button><button class="tab" data-p="crosscutting" style="background: rgb(252, 252, 246);"><span class="swatch" style="background:#64748b"></span>Cross-cutting</button></div>
+<!-- /prerender:pillarTabs -->
     </div>
     <div class="control-row">
       <span class="clabel">Modality</span>
-      <div id="modTabs" style="display:flex;flex-wrap:wrap;gap:8px;flex:1"></div>
+      <!-- prerender:modTabs · generated from the page data by tools/prerender.py, don't edit by hand -->
+<div id="modTabs" style="display:flex;flex-wrap:wrap;gap:8px;flex:1" data-prerender=""><button class="chip-f active" style="background: rgb(30, 43, 36);">All modalities</button><button class="chip-f" data-m="ACT" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#f97316"></span>ACT</button><button class="chip-f" data-m="Behavioral" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#3b82f6"></span>Behavioral</button><button class="chip-f" data-m="CBT" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#6d5efc"></span>CBT</button><button class="chip-f" data-m="Compassion-Focused" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#db2777"></span>Compassion-Focused</button><button class="chip-f" data-m="DBT" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#f43f5e"></span>DBT</button><button class="chip-f" data-m="Existential" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#b45309"></span>Existential</button><button class="chip-f" data-m="Experiential" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#c026d3"></span>Experiential</button><button class="chip-f" data-m="Exposure" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#eab308"></span>Exposure</button><button class="chip-f" data-m="Group" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#0891b2"></span>Group</button><button class="chip-f" data-m="IFS" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#9333ea"></span>IFS</button><button class="chip-f" data-m="Interpersonal" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#ec4899"></span>Interpersonal</button><button class="chip-f" data-m="Medical" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#0ea5e9"></span>Medical</button><button class="chip-f" data-m="Metabolic / Lifestyle" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#16a34a"></span>Metabolic / Lifestyle</button><button class="chip-f" data-m="Mindfulness" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#14b8a6"></span>Mindfulness</button><button class="chip-f" data-m="Motivational" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#a855f7"></span>Motivational</button><button class="chip-f" data-m="Positive Psychology" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#f59e0b"></span>Positive Psychology</button><button class="chip-f" data-m="Psychiatric" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#e11d48"></span>Psychiatric</button><button class="chip-f" data-m="Psychodynamic" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#8b5cf6"></span>Psychodynamic</button><button class="chip-f" data-m="Psychoeducation" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#4f46e5"></span>Psychoeducation</button><button class="chip-f" data-m="REBT" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#8b5cf6"></span>REBT</button><button class="chip-f" data-m="Somatic" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#06b6d4"></span>Somatic</button><button class="chip-f" data-m="Systemic" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#64748b"></span>Systemic</button><button class="chip-f" data-m="Trauma-Focused" style="background: rgb(252, 252, 246);"><span class="dot2" style="background:#dc2626"></span>Trauma-Focused</button></div>
+<!-- /prerender:modTabs -->
     </div>
     <div class="control-row">
       <div class="searchbox">
         <span style="opacity:.5">🔎</span>
         <input id="search" type="text" placeholder="Search targets or interventions…" aria-label="Search">
       </div>
-      <span class="count" id="count"></span>
+      <!-- prerender:count · generated from the page data by tools/prerender.py, don't edit by hand -->
+<span class="count" id="count" data-prerender="">32 targets + 1 cross-cutting area · 264 interventions</span>
+<!-- /prerender:count -->
     </div>
   </div>
 </div>
 
 <main class="results">
-  <div class="wrap" id="out"></div>
+  <!-- prerender:out · generated from the page data by tools/prerender.py, don't edit by hand -->
+<div class="wrap" id="out" data-prerender=""><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#7c5cff"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#7c5cff">Cognitions</span>
+<h3>Beliefs / Education / Experience / Language</h3>
+<p class="why">The learning of a lifetime shapes the brain's predictions. Adjusting maladaptive beliefs and the language used to frame experience changes the concepts that drive emotion and behavior.</p>
+<div class="q"><b>Guiding question:</b> Does the client hold any beliefs, education, experience, or language that are maladaptive to them?</div>
+</div>
+<span class="tcount">10 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Cognitive restructuring</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Identify and re-evaluate maladaptive beliefs so predictions better fit reality.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">ABC model &amp; disputation</span>
+<span class="mod" style="background:#8b5cf6">REBT</span>
+</div>
+<div class="how">Trace activating event → belief → consequence, then dispute irrational beliefs.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Cognitive Processing Therapy</span>
+<span class="mod" style="background:#dc2626">Trauma-Focused</span>
+</div>
+<div class="how">Challenge assimilated trauma beliefs and 'stuck points'.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Socratic questioning</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Guided questioning loosens rigid conclusions and invites new evidence.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Psychoeducation</span>
+<span class="mod" style="background:#4f46e5">Psychoeducation</span>
+</div>
+<div class="how">Accurate frameworks replace inaccurate or missing knowledge.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Values exploration</span>
+<span class="mod" style="background:#f97316">ACT</span>
+</div>
+<div class="how">Clarifying values reshapes which concepts guide behavior.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Schema Therapy</span>
+<span class="mod" style="background:#8b5cf6">Psychodynamic</span>
+</div>
+<div class="how">Targets early maladaptive schemas formed in development.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Reframing / new linguistic frames</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">New language re-categorizes an experience and its meaning.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Corrective Experiences</span>
+<span class="mod" style="background:#eab308">Exposure</span>
+</div>
+<div class="how">Find experiences with environments, people, animals, or activities that have positive or tolerable outcomes.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Bibliotherapy</span>
+<span class="mod" style="background:#4f46e5">Psychoeducation</span>
+</div>
+<div class="how">Recommend helpful literature or media that provides corrective education and reframing.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 10 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#7c5cff"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#7c5cff">Cognitions</span>
+<h3>Cognitive Distortions</h3>
+<p class="why">Systematic thinking errors bias information processing and keep predictive models misaligned with reality, sustaining stress reactivity.</p>
+<div class="q"><b>Guiding question:</b> Does the client hold any cognitive distortions? (e.g., screen with the CD-Quest.)</div>
+</div>
+<span class="tcount">6 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Cognitive restructuring</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Name the distortion and generate a balanced alternative thought.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Thought records</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Log automatic thoughts with evidence for and against.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Behavioral experiments</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Test distorted predictions against real-world outcomes.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Decatastrophizing</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Walk through 'what's the worst / most likely' to right-size threat.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Metacognitive Therapy</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Targets the worry/rumination process rather than thought content.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Mindful defusion</span>
+<span class="mod" style="background:#14b8a6">Mindfulness</span>
+</div>
+<div class="how">Observe thoughts as mental events rather than facts.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 6 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#7c5cff"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#7c5cff">Cognitions</span>
+<h3>Acceptance</h3>
+<p class="why">A mismatch between beliefs about reality and what actually happens drives dissonance and distress. Accepting reality is often the precondition for effective change.</p>
+<div class="q"><b>Guiding question:</b> Does the client have a strong acceptance of actual reality / realistic probabilities?</div>
+</div>
+<span class="tcount">8 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Radical Acceptance</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Fully accept reality as it is to reduce suffering added by fighting it.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Cognitive defusion</span>
+<span class="mod" style="background:#f97316">ACT</span>
+</div>
+<div class="how">Unhook from thoughts so they no longer dictate action.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Willingness exercises</span>
+<span class="mod" style="background:#f97316">ACT</span>
+</div>
+<div class="how">Practice openness to experience rather than avoidance.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Mindfulness practice</span>
+<span class="mod" style="background:#14b8a6">Mindfulness</span>
+</div>
+<div class="how">Present-moment, nonjudgmental contact with what is.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Grief processing</span>
+<span class="mod" style="background:#8b5cf6">Psychodynamic</span>
+</div>
+<div class="how">Mourn the gap between expectation and reality to move forward.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Acceptance vs. approval psychoeducation</span>
+<span class="mod" style="background:#4f46e5">Psychoeducation</span>
+</div>
+<div class="how">Clarify that accepting reality is not endorsing it.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Accurate In-Depth Education</span>
+<span class="mod" style="background:#4f46e5">Psychoeducation</span>
+</div>
+<div class="how">Understanding how the natural or man-made world functions can help with acceptance of reality.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Parts Work</span>
+<span class="mod" style="background:#9333ea">IFS</span>
+</div>
+<div class="how">Discover 'parts' resistant to radical acceptance.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 8 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#7c5cff"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#7c5cff">Cognitions</span>
+<h3>Attention Regulation</h3>
+<p class="why">Where attention goes shapes prediction. Affect-biased attention and hypervigilance maintain disordered states; attentional control is trainable and builds top-down regulation.</p>
+<div class="q"><b>Guiding question:</b> Does the client focus on the adaptive / important aspects of their life?</div>
+</div>
+<span class="tcount">6 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Mindfulness skills</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Observe, describe, participate — deploy attention on purpose.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Focused-attention meditation</span>
+<span class="mod" style="background:#14b8a6">Mindfulness</span>
+</div>
+<div class="how">Strengthens sustained attention and reduces threat bias.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Open-monitoring meditation</span>
+<span class="mod" style="background:#14b8a6">Mindfulness</span>
+</div>
+<div class="how">Flexibly re-orient attention amid emotional stimuli.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Attention Training Technique</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Metacognitive drill that builds attentional flexibility.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Attention-bias modification</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Retrain automatic orienting away from threat cues.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Yoga / tai chi</span>
+<span class="mod" style="background:#06b6d4">Somatic</span>
+</div>
+<div class="how">Movement-anchored attention de-automatizes habitual responses.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 6 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#7c5cff"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#7c5cff">Cognitions</span>
+<h3>Locus of Control</h3>
+<p class="why">An adaptive balance between believing one drives outcomes and recognizing the role of external forces supports motivation, healthy responsibility, and emotional regulation. Too far internal breeds over-responsibility and shame; too far external breeds helplessness.</p>
+<div class="q"><b>Guiding question:</b> Does the client have an adaptive balance of believing they drive outcomes versus external forces driving outcomes?</div>
+</div>
+<span class="tcount">10 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Problem-solving therapy</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Increases locus of control.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Cognitive Restructuring</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Building an adaptive balance of internal vs external locus of control.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">SAGE Skill</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">RO-DBT skill targeting whether shame is warranted for an overpowering internal locus of control.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Responsibility Pie Chart</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Visual representation of the percentage of responsibility for a situation.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Socratic Reframing</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">If a friend did this, who is responsible?</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Behavioral Experimenting</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">What happens if you do X or Y?</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Radical Openness</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">RO-DBT skill focused on seeking discomfort, being wrong, and being willing to learn.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Self-Enquiry</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">RO-DBT skill that checks what underlying motives an urge may have.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Radical Acceptance</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Turning the Mind, Willingness, and acceptance of reality as it is.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Mindfulness of Present Moment</span>
+<span class="mod" style="background:#14b8a6">Mindfulness</span>
+</div>
+<div class="how">Bring attention to the current moment rather than a personal belief about attribution.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 10 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#7c5cff"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#7c5cff">Cognitions</span>
+<h3>Respondent Conditioning</h3>
+<p class="why">Learned associations drive automatic emotional and physiological reactions that operate outside conscious control — and that cognition alone often can't reach.</p>
+<div class="q"><b>Guiding question:</b> Has the client's life conditioned maladaptive responses?</div><div class="q"><b>Guiding question:</b> Do they need corrective conditioning experiences?</div>
+</div>
+<span class="tcount">8 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Exposure therapy</span>
+<span class="mod" style="background:#eab308">Exposure</span>
+</div>
+<div class="how">Repeated safe contact extinguishes conditioned fear.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Exposure &amp; Response Prevention</span>
+<span class="mod" style="background:#eab308">Exposure</span>
+</div>
+<div class="how">Block avoidance/rituals to break the reinforcement loop (OCD).</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Systematic desensitization</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Pair a graded fear hierarchy with relaxation.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Interoceptive exposure</span>
+<span class="mod" style="background:#eab308">Exposure</span>
+</div>
+<div class="how">Expose feared bodily sensations (panic).</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">EMDR</span>
+<span class="mod" style="background:#dc2626">Trauma-Focused</span>
+</div>
+<div class="how">Reprocess distressing memories to update associations.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Inhibitory-learning exposure</span>
+<span class="mod" style="background:#eab308">Exposure</span>
+</div>
+<div class="how">Maximize expectancy violation to build new safety learning.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Behavioral activation</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Re-approach avoided activities to disconfirm predictions.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Corrective Experiences</span>
+<span class="mod" style="background:#eab308">Exposure</span>
+</div>
+<div class="how">Find experiences with environments, people, animals, or activities that have positive or tolerable outcomes.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 8 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff4d6d"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff4d6d">Allostatic Load</span>
+<h3>Control / Demand / Predictability</h3>
+<p class="why">The nervous system reacts to control, demand, and predictability. Low control/predictability or overwhelming demand drives high allostatic load — from pathology or from oppressive systems.</p>
+<div class="q"><b>Guiding question:</b> Very little control/predictability and very high demands?</div><div class="q"><b>Guiding question:</b> A need for control, or difficulty tolerating uncertainty?</div><div class="q"><b>Guiding question:</b> Resistance to external demands?</div>
+</div>
+<span class="tcount">12 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Distress Tolerance skills</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Survive crises without worsening them (TIPP, ACCEPTS).</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Problem-solving therapy</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Systematically increase real control over stressors.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Cognitive reframing of control</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Separate what is and isn't controllable.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Exposure to uncertainty</span>
+<span class="mod" style="background:#eab308">Exposure</span>
+</div>
+<div class="how">Build tolerance for not-knowing.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Mindfulness on the controllable</span>
+<span class="mod" style="background:#14b8a6">Mindfulness</span>
+</div>
+<div class="how">Anchor attention to present, actionable elements.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Stress-response medication</span>
+<span class="mod" style="background:#e11d48">Psychiatric</span>
+</div>
+<div class="how">e.g., beta-blockers/alpha-2 agonists to dampen arousal.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Environmental modification</span>
+<span class="mod" style="background:#64748b">Systemic</span>
+</div>
+<div class="how">Change the demand load via resources and case management.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Acceptance strategies</span>
+<span class="mod" style="background:#f97316">ACT</span>
+</div>
+<div class="how">Reduce the added load of struggling with the uncontrollable.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Building Self-Efficacy</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Build the belief that one can respond to the unpredictable or uncontrollable in effective ways.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Building Mastery</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Build mastery over specific stressors.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Specific Non-Therapy Skill Building</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">e.g., help a client learn self-defense so they don't feel unsafe.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Parts Work</span>
+<span class="mod" style="background:#9333ea">IFS</span>
+</div>
+<div class="how">Discover 'parts' wanting control/predictability and avoiding demand.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 12 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff4d6d"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff4d6d">Allostatic Load</span>
+<h3>Evaluation of Performance</h3>
+<p class="why">The SNS mobilizes us toward performance; a poor relationship with performance or unmet unrealistic demands creates sustained arousal where effort undermines outcomes.</p>
+<div class="q"><b>Guiding question:</b> Does the client struggle with feelings about their performance in life or tasks?</div>
+</div>
+<span class="tcount">9 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Restructuring perfectionism</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Loosen rigid standards and all-or-nothing self-evaluation.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Values-based activation</span>
+<span class="mod" style="background:#f97316">ACT</span>
+</div>
+<div class="how">Act for meaning rather than external validation.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Building Mastery</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Graded successes rebuild a realistic sense of competence.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Biofeedback</span>
+<span class="mod" style="background:#06b6d4">Somatic</span>
+</div>
+<div class="how">Make performance-related arousal visible and trainable.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Self-compassion training</span>
+<span class="mod" style="background:#db2777">Compassion-Focused</span>
+</div>
+<div class="how">Replace harsh self-criticism with a supportive inner stance.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Mistake / 'good-enough' exposure</span>
+<span class="mod" style="background:#eab308">Exposure</span>
+</div>
+<div class="how">Deliberately tolerate imperfect performance.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Reframe Failure as an Indicator of Growth</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Errors are the trigger for neuroplasticity and learning.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">EMDR</span>
+<span class="mod" style="background:#dc2626">Trauma-Focused</span>
+</div>
+<div class="how">Target themes and memories of 'performance'.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Parts Work</span>
+<span class="mod" style="background:#9333ea">IFS</span>
+</div>
+<div class="how">Discover 'parts' with attachment to outcomes.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 9 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff4d6d"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff4d6d">Allostatic Load</span>
+<h3>Social Hierarchy</h3>
+<p class="why">The SNS is naturally sensitive to social rank — higher arousal when perceived as lower-status. An under-discussed driver of self-worth struggles, rejection sensitivity, and chronic dysregulation.</p>
+<div class="q"><b>Guiding question:</b> Does the client feel valuable or worthwhile?</div><div class="q"><b>Guiding question:</b> Intense reactions when others question them or their worth?</div><div class="q"><b>Guiding question:</b> External/internal factors making them feel lesser?</div>
+</div>
+<span class="tcount">16 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Restructuring status/worth beliefs</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Challenge rank-contingent self-worth.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Compassion-Focused Therapy</span>
+<span class="mod" style="background:#db2777">Compassion-Focused</span>
+</div>
+<div class="how">Soothe rank-based shame and threat with self-compassion.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Status-independent values</span>
+<span class="mod" style="background:#f97316">ACT</span>
+</div>
+<div class="how">Anchor worth to values rather than comparison.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Radical Acceptance of status</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Accept current standing to lower chronic threat arousal.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Mindfulness of comparison</span>
+<span class="mod" style="background:#14b8a6">Mindfulness</span>
+</div>
+<div class="how">Notice comparison urges without acting on them.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Defense exploration</span>
+<span class="mod" style="background:#8b5cf6">Psychodynamic</span>
+</div>
+<div class="how">Surface immature defenses tied to self/other-image.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Being of value to others</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Prosocial contribution restores a felt sense of worth.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Self-Validation</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Internalize your own positive value and hold it without needing others to confirm it.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Self-Gratitude</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Acknowledge what you've contributed to the lives of others.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Exposure to Being Lesser</span>
+<span class="mod" style="background:#eab308">Exposure</span>
+</div>
+<div class="how">Tolerate being 'lowered' on the social ladder so it doesn't drive reactions elsewhere.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Neutralization of Rank</span>
+<span class="mod" style="background:#14b8a6">Mindfulness</span>
+</div>
+<div class="how">Common in Buddhism, the Yogic practice of Shunya, Transpersonal Psychotherapy, and Relational-Cultural Therapy.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Psilocybin-Assisted Ego-Death</span>
+<span class="mod" style="background:#e11d48">Psychiatric</span>
+</div>
+<div class="how">Using psilocybin to help scaffold letting go of social rank.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Accepting Love/Affection</span>
+<span class="mod" style="background:#eab308">Exposure</span>
+</div>
+<div class="how">Find others who care and allow that care to be felt.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">EMDR</span>
+<span class="mod" style="background:#dc2626">Trauma-Focused</span>
+</div>
+<div class="how">Target themes and memories of 'feeling lesser'.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Mentalization-Based Treatment</span>
+<span class="mod" style="background:#8b5cf6">Psychodynamic</span>
+</div>
+<div class="how">Build the capacity to understand that everyone will see you differently.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Parts Work</span>
+<span class="mod" style="background:#9333ea">IFS</span>
+</div>
+<div class="how">Discover and soothe 'parts' that need recognition or fear being lesser.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 16 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff4d6d"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff4d6d">Allostatic Load</span>
+<h3>Sympathetic Learning History / Trauma</h3>
+<p class="why">Trauma sensitizes the nervous system to threat, producing rigid autonomic states and overgeneralized danger cues that persist long after events. No formulation is complete without evaluating it.</p>
+<div class="q"><b>Guiding question:</b> History of high-stress environments?</div><div class="q"><b>Guiding question:</b> Any trauma history?</div>
+</div>
+<span class="tcount">10 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Prolonged Exposure</span>
+<span class="mod" style="background:#dc2626">Trauma-Focused</span>
+</div>
+<div class="how">Revisit trauma memories and cues to extinguish fear.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Cognitive Processing Therapy</span>
+<span class="mod" style="background:#dc2626">Trauma-Focused</span>
+</div>
+<div class="how">Modify trauma-related beliefs maintaining threat.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">EMDR</span>
+<span class="mod" style="background:#dc2626">Trauma-Focused</span>
+</div>
+<div class="how">Adaptive reprocessing of distressing memories.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Somatic Experiencing</span>
+<span class="mod" style="background:#06b6d4">Somatic</span>
+</div>
+<div class="how">Discharge and regulate stuck autonomic activation.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Grounding &amp; stabilization</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Skills to return to the window of tolerance.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Prazosin (nightmares)</span>
+<span class="mod" style="background:#e11d48">Psychiatric</span>
+</div>
+<div class="how">Alpha-blocker that can reduce trauma nightmares.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Corrective relational experience</span>
+<span class="mod" style="background:#8b5cf6">Psychodynamic</span>
+</div>
+<div class="how">A safe relationship updates threat expectancies.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Support Groups</span>
+<span class="mod" style="background:#0891b2">Group</span>
+</div>
+<div class="how">Shared experiences, mutual support, and bonding over survivorship.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Meaning Making</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Re-author your story and put negative experiences in service of personal values.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Parts Work</span>
+<span class="mod" style="background:#9333ea">IFS</span>
+</div>
+<div class="how">Discover and soothe traumatized 'parts'.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 10 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff4d6d"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff4d6d">Allostatic Load</span>
+<h3>Chronic SNS Activation</h3>
+<p class="why">When stress mediators exceed coping capacity the system tips into allostatic overload — surfacing as the physical complaints that so often arrive on a therapist's couch.</p>
+<div class="q"><b>Guiding question:</b> Early waking or insomnia? GI issues? Immune problems?</div><div class="q"><b>Guiding question:</b> Chronic fatigue, memory issues, sexual dysfunction?</div><div class="q"><b>Guiding question:</b> Muscle tension (neck/jaw/shoulders)? High blood pressure?</div>
+</div>
+<span class="tcount">8 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Paced / diaphragmatic breathing</span>
+<span class="mod" style="background:#06b6d4">Somatic</span>
+</div>
+<div class="how">Lengthened exhale shifts toward parasympathetic tone.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Progressive muscle relaxation</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Systematic tension-release lowers baseline arousal.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">HRV biofeedback</span>
+<span class="mod" style="background:#06b6d4">Somatic</span>
+</div>
+<div class="how">Train autonomic flexibility via heart-rate variability.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">DBT TIPP</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Rapidly down-regulate acute arousal (temperature, exercise, breathing).</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">MBSR</span>
+<span class="mod" style="background:#14b8a6">Mindfulness</span>
+</div>
+<div class="how">Reduces perceived stress and physiological reactivity.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Physical activity</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Improves stress resilience and lowers allostatic load.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Pharmacotherapy</span>
+<span class="mod" style="background:#e11d48">Psychiatric</span>
+</div>
+<div class="how">e.g., SSRIs, buspirone, beta-blockers for arousal symptoms.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Medical collaboration</span>
+<span class="mod" style="background:#0ea5e9">Medical</span>
+</div>
+<div class="how">Rule out and treat contributing somatic conditions.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 8 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff4d6d"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff4d6d">Allostatic Load</span>
+<h3>Dopamine System Disruption</h3>
+<p class="why">Dopamine governs reward, motivation, and movement, operating on relative, prediction-based stimulation. Modern life over-stimulates it; under- and over-activation both carry consequences.</p>
+<div class="q"><b>Guiding question:</b> Unpleasant feelings when prevented from doing what they want?</div><div class="q"><b>Guiding question:</b> Feels best doing new things or pursuing goals?</div><div class="q"><b>Guiding question:</b> Loves the novelty phase, then loses steam?</div>
+</div>
+<span class="tcount">8 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Dopaminergic 'reset' / abstinence</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Reduce supernormal stimulation so natural rewards regain salience.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Behavioral activation (natural rewards)</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Re-engage effortful, life-preserving reinforcers.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Values–behavior alignment</span>
+<span class="mod" style="background:#f97316">ACT</span>
+</div>
+<div class="how">Direct drive toward valued rather than compulsive pursuits.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Stimulus control / scheduling</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Restructure cues and access to high-stimulation activities.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Contingency management</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Reinforce target behaviors with structured rewards (strong SUD evidence).</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Stimulant / dopamine modulators</span>
+<span class="mod" style="background:#e11d48">Psychiatric</span>
+</div>
+<div class="how">Address hypodopaminergic states (e.g., ADHD).</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Dopamine antagonists</span>
+<span class="mod" style="background:#e11d48">Psychiatric</span>
+</div>
+<div class="how">For hyperdopaminergic states / psychosis.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Letting Go of Expectations</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Denied expectations cause a severe dopamine drop; reframing expectations reduces the crash.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 8 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff4d6d"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff4d6d">Allostatic Load</span>
+<h3>Affect Tolerance</h3>
+<p class="why">Affect varies along two axes: energy (arousal) and valence. When some regions of that space feel intolerable — high-energy distress like panic or rage, low-energy states like emptiness or boredom, even calm or joy — clients escape them through avoidance, numbing, impulsive action or dissociation. Widening the window of tolerance lets a client stay present and regulated across the full affective range.</p>
+<div class="q"><b>Guiding question:</b> Does the client have the capacity to handle a range of affective experiences, including all combinations of high and low energy and high and low valence?</div>
+</div>
+<span class="tcount">15 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Somatic Experiencing</span>
+<span class="mod" style="background:#06b6d4">Somatic</span>
+</div>
+<div class="how">Titrate activation in small doses and pendulate between distress and safety to gradually stretch nervous-system capacity.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Sensorimotor Psychotherapy</span>
+<span class="mod" style="background:#06b6d4">Somatic</span>
+</div>
+<div class="how">Track posture, movement and autonomic shifts at the edges of the window; build physical containment and grounding.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Integral Somatic Psychology</span>
+<span class="mod" style="background:#06b6d4">Somatic</span>
+</div>
+<div class="how">Spread emotional resonance across more of the body so an emotion feels less concentrated and easier to hold.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Trauma-informed yoga</span>
+<span class="mod" style="background:#06b6d4">Somatic</span>
+</div>
+<div class="how">Build interoceptive awareness and tolerance for fear-linked sensations without dissociating.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">DBT Distress Tolerance</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">TIPP, self-soothing and radical acceptance to ride out acute high-energy spikes without impulsive action.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">DBT Emotion Regulation</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Reduce emotional vulnerability so intense affect arrives less often and is easier to stay with.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">ACT willingness &amp; defusion</span>
+<span class="mod" style="background:#f97316">ACT</span>
+</div>
+<div class="how">Target experiential avoidance; make room for uncomfortable affect while acting on values.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Emotion Regulation Therapy</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Mindful attention regulation plus metacognitive reframing to allow anxiety, anger or sadness instead of worrying or ruminating.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">STAIR</span>
+<span class="mod" style="background:#dc2626">Trauma-Focused</span>
+</div>
+<div class="how">Builds emotional awareness and modulation skills before trauma narrative work; designed for complex trauma.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">AEDP / ISTDP</span>
+<span class="mod" style="background:#8b5cf6">Psychodynamic</span>
+</div>
+<div class="how">Treat 'affect phobia': name the defenses against core emotions, then experience them to completion in a safe dyad.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Emotion-Focused Therapy</span>
+<span class="mod" style="background:#c026d3">Experiential</span>
+</div>
+<div class="how">Deepen emotional processing in session, rather than intellectualizing or bypassing, to transform maladaptive emotion schemes.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Parts Work</span>
+<span class="mod" style="background:#9333ea">IFS</span>
+</div>
+<div class="how">Unblend from overwhelmed or protective 'parts' so intense states can be witnessed with curiosity rather than flooding.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">EMDR</span>
+<span class="mod" style="background:#dc2626">Trauma-Focused</span>
+</div>
+<div class="how">Process distressing memories with dual attention while staying anchored in the present.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Positive Affect Tolerance (PAT) protocol</span>
+<span class="mod" style="background:#dc2626">Trauma-Focused</span>
+</div>
+<div class="how">EMDR adaptation for clients who can't tolerate praise, warmth or connection — common after neglect.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Accelerated Resolution Therapy</span>
+<span class="mod" style="background:#dc2626">Trauma-Focused</span>
+</div>
+<div class="how">Eye movements with imagery rescripting to reduce physiological reactivity and expand emotional resilience.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 15 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff9f1c"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff9f1c">Relationships</span>
+<h3>Social Homeostatic Needs</h3>
+<p class="why">Isolation produces real physiological consequences and rising allostatic load; unmet social needs are statistically probable for almost anyone presenting for care.</p>
+<div class="q"><b>Guiding question:</b> Close relationships (family/friend/romantic)? Lonely?</div><div class="q"><b>Guiding question:</b> Happy with the closeness of their relationships?</div><div class="q"><b>Guiding question:</b> How often do they speak with and see people?</div>
+</div>
+<span class="tcount">5 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Collaborative problem-solving</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Practical planning to build and access connection.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Group therapy</span>
+<span class="mod" style="background:#0891b2">Group</span>
+</div>
+<div class="how">A built-in social context and corrective experience.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Therapeutic relationship as scaffold</span>
+<span class="mod" style="background:#ec4899">Interpersonal</span>
+</div>
+<div class="how">Partially meet social needs while skills grow.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Behavioral activation (social)</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Schedule and reinforce social contact.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Social prescribing / community linkage</span>
+<span class="mod" style="background:#64748b">Systemic</span>
+</div>
+<div class="how">Connect to groups, classes, and community resources.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 5 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff9f1c"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff9f1c">Relationships</span>
+<h3>Relationship Skills</h3>
+<p class="why">Maintaining relationships is a learned, practiced skill set — communication, boundaries, conflict resolution. Deficits drive interpersonal friction and destabilize attachment.</p>
+<div class="q"><b>Guiding question:</b> Do people often end up upset with the client, or take advantage of them?</div>
+</div>
+<span class="tcount">6 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Interpersonal Effectiveness</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">DEAR MAN / GIVE / FAST for asks, relationships, and self-respect.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Social skills training</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Model, rehearse, and reinforce specific skills.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Gottman Method</span>
+<span class="mod" style="background:#ec4899">Interpersonal</span>
+</div>
+<div class="how">Research-based couples skills for conflict and connection.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Family therapy</span>
+<span class="mod" style="background:#64748b">Systemic</span>
+</div>
+<div class="how">Shift the relational patterns maintaining distress.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">CBT for interpersonal patterns</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Target beliefs and behaviors that create friction.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Conflict-resolution scripts</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Rehearse concrete language for hard conversations.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 6 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff9f1c"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff9f1c">Relationships</span>
+<h3>How You Make Others Feel</h3>
+<p class="why">Technically correct social behavior can still leave others feeling unseen. Awareness of one's impact — perspective-taking and empathic accuracy — is often the missing piece.</p>
+<div class="q"><b>Guiding question:</b> Do they know what they need, and what others need from them?</div><div class="q"><b>Guiding question:</b> Do people around them feel positive or negative?</div><div class="q"><b>Guiding question:</b> Do people avoid or distance from them?</div>
+</div>
+<span class="tcount">10 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Radically-Open DBT</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Loosen overcontrol and improve social signaling.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Mentalization-Based Treatment</span>
+<span class="mod" style="background:#8b5cf6">Psychodynamic</span>
+</div>
+<div class="how">Build capacity to hold others' minds in mind.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Affect-recognition training</span>
+<span class="mod" style="background:#ec4899">Interpersonal</span>
+</div>
+<div class="how">Improve reading of others' emotional cues.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Functional Analytic Psychotherapy</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Use in-vivo feedback on interpersonal impact.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Mindfulness of impact</span>
+<span class="mod" style="background:#14b8a6">Mindfulness</span>
+</div>
+<div class="how">Notice one's effect on others in real time.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Therapeutic-relationship feedback</span>
+<span class="mod" style="background:#ec4899">Interpersonal</span>
+</div>
+<div class="how">The therapist offers direct, caring feedback.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Emotion-Focused Therapy</span>
+<span class="mod" style="background:#ec4899">Interpersonal</span>
+</div>
+<div class="how">Help the client understand how attachment and emotions shape their relationships.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Imago Relationship Therapy</span>
+<span class="mod" style="background:#ec4899">Interpersonal</span>
+</div>
+<div class="how">Learn to send and receive messages within a relationship.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Relational Life Therapy</span>
+<span class="mod" style="background:#ec4899">Interpersonal</span>
+</div>
+<div class="how">Therapist directly addresses power dynamics in a relationship.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Parts Work</span>
+<span class="mod" style="background:#9333ea">IFS</span>
+</div>
+<div class="how">Discover how 'parts' may impact relationships.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 10 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff9f1c"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff9f1c">Relationships</span>
+<h3>Experiencing Connection</h3>
+<p class="why">The capacity to feel connection itself can be the target — for relational trauma, insecure attachment, alexithymia, or autism. Therapy can be a corrective, co-regulating experience.</p>
+<div class="q"><b>Guiding question:</b> Does the client feel connected to / understood by others?</div><div class="q"><b>Guiding question:</b> Do others feel connected to / understood by them?</div>
+</div>
+<span class="tcount">8 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Strong therapeutic alliance</span>
+<span class="mod" style="background:#ec4899">Interpersonal</span>
+</div>
+<div class="how">A reliable bond is itself corrective and regulating.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Attachment-based therapy</span>
+<span class="mod" style="background:#8b5cf6">Psychodynamic</span>
+</div>
+<div class="how">Reorganize insecure attachment patterns.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Emotionally Focused Therapy</span>
+<span class="mod" style="background:#ec4899">Interpersonal</span>
+</div>
+<div class="how">Restructure bonding interactions in couples/families.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Therapist as model</span>
+<span class="mod" style="background:#ec4899">Interpersonal</span>
+</div>
+<div class="how">Experience attuned responsiveness and co-regulation.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Graded intimacy exposure</span>
+<span class="mod" style="background:#eab308">Exposure</span>
+</div>
+<div class="how">Practice vulnerability at tolerable increments.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Group therapy</span>
+<span class="mod" style="background:#0891b2">Group</span>
+</div>
+<div class="how">Repeated experiences of being understood by peers.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Parallel Experience</span>
+<span class="mod" style="background:#ec4899">Interpersonal</span>
+</div>
+<div class="how">Foster parallel experiences between individuals in and outside of therapy.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Behavioral Activation (social)</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Engage socially and frequently to increase the odds of connection.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 8 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff5db1"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff5db1">Purpose</span>
+<h3>Meaning for Living</h3>
+<p class="why">A reason for living confers resilience even when immediate rewards are scarce — a force that can counteract a chronically over-active reward-error system and pervasive hopelessness.</p>
+<div class="q"><b>Guiding question:</b> Does the client have a reason for being day-to-day? Across a lifetime?</div>
+</div>
+<span class="tcount">6 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Values clarification</span>
+<span class="mod" style="background:#f97316">ACT</span>
+</div>
+<div class="how">Identify what matters to guide action and meaning.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Narrative Therapy</span>
+<span class="mod" style="background:#b45309">Existential</span>
+</div>
+<div class="how">Re-author a coherent, agentic life story.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Existential therapy</span>
+<span class="mod" style="background:#b45309">Existential</span>
+</div>
+<div class="how">Engage directly with meaning, freedom, and mortality.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Meaning-Centered Psychotherapy</span>
+<span class="mod" style="background:#b45309">Existential</span>
+</div>
+<div class="how">Structured work to cultivate sources of meaning.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Logotherapy techniques</span>
+<span class="mod" style="background:#b45309">Existential</span>
+</div>
+<div class="how">Find meaning even within unavoidable suffering.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Internal Goal Setting</span>
+<span class="mod" style="background:#b45309">Existential</span>
+</div>
+<div class="how">What do you want to change in the world?</div>
+</div>
+</div><button type="button" class="ivmore">Show all 6 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff5db1"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff5db1">Purpose</span>
+<h3>Good Things Are Coming</h3>
+<p class="why">A global conviction that a positive future is possible. Without it, planning and effort feel hollow — distinct from, and deeper than, looking forward to specific events.</p>
+<div class="q"><b>Guiding question:</b> Does the client believe good experiences or things are coming?</div>
+</div>
+<span class="tcount">6 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Restructuring future beliefs</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Challenge hopeless predictions about the future.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Behavioral activation</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Action generates disconfirming, hopeful evidence.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Future Event Specificity Training</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Build vivid, specific positive future thinking.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Best-Possible-Self imagery</span>
+<span class="mod" style="background:#f59e0b">Positive Psychology</span>
+</div>
+<div class="how">Imagining a good future lifts optimism.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Hope-focused psychoeducation</span>
+<span class="mod" style="background:#4f46e5">Psychoeducation</span>
+</div>
+<div class="how">Teach the mechanics of hope and expectancy.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Therapeutic Ketamine Use</span>
+<span class="mod" style="background:#e11d48">Psychiatric</span>
+</div>
+<div class="how">May dampen lateral habenula activation and shift AMPA/NMDA receptor activity.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 6 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff5db1"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff5db1">Purpose</span>
+<h3>Agency Over Future</h3>
+<p class="why">Belief in influence over outcomes — an internal locus of control and an iterative mindset — sustains motivation and resilience. Its absence is learned helplessness.</p>
+<div class="q"><b>Guiding question:</b> Does the client feel they have some control over their future?</div>
+</div>
+<span class="tcount">8 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Reattribution of success</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Credit effort and strategy for good outcomes.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Growth-mindset coaching</span>
+<span class="mod" style="background:#4f46e5">Psychoeducation</span>
+</div>
+<div class="how">Frame ability and outcomes as changeable.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Motivational interviewing</span>
+<span class="mod" style="background:#a855f7">Motivational</span>
+</div>
+<div class="how">Strengthen confidence and the client's own agency.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Building Mastery</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Accumulated competence rebuilds felt control.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Problem-solving therapy</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Demonstrate that action changes outcomes.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Self-efficacy experiments</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Structured wins prove capability to the client.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Dialectical 'one step' focus</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Attend to the next action rather than the whole mountain.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Iterative Mindset Coaching</span>
+<span class="mod" style="background:#4f46e5">Psychoeducation</span>
+</div>
+<div class="how">Set aside overall progress and focus on moving in the desired direction.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 8 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff5db1"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff5db1">Purpose</span>
+<h3>Looking Forward to Experiences</h3>
+<p class="why">Anticipating positive experiences sustains the dopamine system and the sense that life is worth living. Anhedonia blunts the drive to pursue goals at all.</p>
+<div class="q"><b>Guiding question:</b> Is the client looking forward to anything?</div>
+</div>
+<span class="tcount">6 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Pleasant activity scheduling</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Systematically re-introduce rewarding activities.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Savoring interventions</span>
+<span class="mod" style="background:#f59e0b">Positive Psychology</span>
+</div>
+<div class="how">Amplify and prolong positive experience.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Mindfulness of pleasant events</span>
+<span class="mod" style="background:#14b8a6">Mindfulness</span>
+</div>
+<div class="how">Notice and register everyday positives.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Future Event Specificity Training</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Increase anticipatory pleasure through specificity.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Positive Affect Treatment</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Directly target reward deficits and anhedonia.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Pleasant Event Problem Solving</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Collaborate to explore potential positive experiences.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 6 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff5db1"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff5db1">Purpose</span>
+<h3>Purpose to Others</h3>
+<p class="why">Contributing to others builds self-worth and releases prosocial neuromodulators, lowering SNS activity and allostatic load. A frictionless modern world makes such roles harder to find.</p>
+<div class="q"><b>Guiding question:</b> Does the client contribute to their world in any way?</div>
+</div>
+<span class="tcount">6 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Volunteering / acts of service</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Concrete contribution restores felt usefulness.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Community engagement</span>
+<span class="mod" style="background:#64748b">Systemic</span>
+</div>
+<div class="how">Build a valued role within a group.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">ACCEPTS (contribute)</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Use contribution to shift distressing states.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">ACT matrix</span>
+<span class="mod" style="background:#f97316">ACT</span>
+</div>
+<div class="how">Map values into prosocial committed action.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Mentorship roles</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Being needed reinforces meaning and worth.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Vocational Pursuits</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Explore how a role in society can provide purpose.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 6 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff5db1"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff5db1">Purpose</span>
+<h3>Commitment</h3>
+<p class="why">Willingness to engage with effort and change underpins every other intervention; a sense of control also lowers SNS activation and allostatic load. As a facet of Purpose, it reflects the chosen, values-driven decision to keep moving toward a life worth living.</p>
+<div class="q"><b>Guiding question:</b> Does the client demonstrate the willingness to engage with effort and change?</div>
+</div>
+<span class="tcount">7 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Motivational interviewing</span>
+<span class="mod" style="background:#a855f7">Motivational</span>
+</div>
+<div class="how">Resolve ambivalence and evoke the client's own change talk.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Eliciting commitment</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Structured strategies to obtain and strengthen commitment.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Committed action</span>
+<span class="mod" style="background:#f97316">ACT</span>
+</div>
+<div class="how">Link concrete behavior to chosen values.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Behavioral activation</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Action first — engagement builds motivation, not the reverse.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Building Mastery</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Scheduled competence-building tasks raise agency.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Growth-mindset / grit coaching</span>
+<span class="mod" style="background:#4f46e5">Psychoeducation</span>
+</div>
+<div class="how">Frame effort and setbacks as part of learning.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Parts Work</span>
+<span class="mod" style="background:#9333ea">IFS</span>
+</div>
+<div class="how">Discover which 'parts' may be in conflict over goals.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 7 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#ff5db1"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#ff5db1">Purpose</span>
+<h3>Accomplishment</h3>
+<p class="why">The satisfaction that follows direct effort reinforces agency and healthy reward pathways. Without experiences of earned accomplishment, motivation and self-efficacy erode even when meaning and connection are present.</p>
+<div class="q"><b>Guiding question:</b> Has the client experienced the feelings of satisfaction that follow direct effort?</div>
+</div>
+<span class="tcount">8 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">WOOP Method</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Positive visualization paired with realistic obstacle planning.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Micro-Goal Chunking</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Break big goals into smaller, more approachable ones.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Progress Journaling</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Keep a record of steps completed.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Habit Stacking</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Build an automated routine toward goals.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Deliberate Practice</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Isolate sub-skills to develop.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Best-Possible-Self imagery</span>
+<span class="mod" style="background:#f59e0b">Positive Psychology</span>
+</div>
+<div class="how">Write about the path you took to your accomplishments.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">The Progress Principle</span>
+<span class="mod" style="background:#f59e0b">Positive Psychology</span>
+</div>
+<div class="how">Keep a 'Done List' rather than only a 'To-Do List'.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Growth Mindset</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Focus on effort and strategy over talent.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 8 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#16c2c2"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#16c2c2">Metabolic Health</span>
+<h3>Substance Use</h3>
+<p class="why">Psychoactive substances alter physiological baselines, impair executive function bottom-up, and leave metabolic after-effects that can linger long after cessation.</p>
+<div class="q"><b>Guiding question:</b> Does the client engage in frequent substance use?</div>
+</div>
+<span class="tcount">9 options</span>
+</div>
+<div class="collab">🤝 Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Motivational interviewing</span>
+<span class="mod" style="background:#a855f7">Motivational</span>
+</div>
+<div class="how">Build motivation for change without confrontation.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Relapse-prevention CBT</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Identify triggers and rehearse coping plans.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Contingency management</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Reinforce abstinence with structured rewards.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Medication-assisted treatment</span>
+<span class="mod" style="background:#0ea5e9">Medical</span>
+</div>
+<div class="how">e.g., naltrexone, buprenorphine for craving/withdrawal.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Harm reduction</span>
+<span class="mod" style="background:#0ea5e9">Medical</span>
+</div>
+<div class="how">Reduce risk and harm when abstinence isn't the goal.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Mutual-help linkage</span>
+<span class="mod" style="background:#64748b">Systemic</span>
+</div>
+<div class="how">Connect to 12-step or alternative recovery communities.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Functional analysis of use</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Map the function the substance serves, then meet it otherwise.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Naltrexone</span>
+<span class="mod" style="background:#e11d48">Psychiatric</span>
+</div>
+<div class="how">Long-term maintenance medication for various substance use issues.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Naloxone</span>
+<span class="mod" style="background:#e11d48">Psychiatric</span>
+</div>
+<div class="how">Emergency reversal agent for active overdose.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 9 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#16c2c2"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#16c2c2">Metabolic Health</span>
+<h3>Gut Microbiome (Probiotics / Prebiotics)</h3>
+<p class="why">Gut bacteria produce neurotransmitter precursors and short-chain fatty acids; a poor microbiome fuels inflammation and disrupts the gut-brain axis.</p>
+<div class="q"><b>Guiding question:</b> Does the client eat probiotic or low-sugar fermented foods?</div>
+</div>
+<span class="tcount">5 options</span>
+</div>
+<div class="collab">🤝 Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Low-sugar fermented foods</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Support a diverse, balanced microbiome.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Dietary fiber / prebiotics</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Feed beneficial gut bacteria.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Targeted probiotics</span>
+<span class="mod" style="background:#0ea5e9">Medical</span>
+</div>
+<div class="how">Specific strains studied for mood/anxiety.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Reduce ultra-processed foods</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Remove inputs that harm gut flora.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Registered dietitian referral</span>
+<span class="mod" style="background:#0ea5e9">Medical</span>
+</div>
+<div class="how">Collaborate for individualized nutrition planning.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 5 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#16c2c2"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#16c2c2">Metabolic Health</span>
+<h3>Content of Food</h3>
+<p class="why">The brain needs specific nutrients; deficits (omega-3, vitamin D, magnesium, B vitamins) translate into symptoms, and diet quality shapes mood and cognition.</p>
+<div class="q"><b>Guiding question:</b> Plenty of protein and fiber, or mostly carbohydrates?</div>
+</div>
+<span class="tcount">6 options</span>
+</div>
+<div class="collab">🤝 Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">PLEASE skill</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Treat physical illness, balanced eating, sleep, exercise to protect mood.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Mediterranean-style diet</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Anti-inflammatory pattern linked to better mental health.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Omega-3 (EPA) supplementation</span>
+<span class="mod" style="background:#0ea5e9">Medical</span>
+</div>
+<div class="how">Supports neuronal membranes; evidence in depression.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Micronutrient repletion</span>
+<span class="mod" style="background:#0ea5e9">Medical</span>
+</div>
+<div class="how">Correct vitamin D, B12, magnesium deficiencies.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Registered dietitian referral</span>
+<span class="mod" style="background:#0ea5e9">Medical</span>
+</div>
+<div class="how">Individualized, sustainable nutrition change.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Behavioral meal planning</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Make healthy choices the easy default.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 6 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#16c2c2"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#16c2c2">Metabolic Health</span>
+<h3>Refined Sugars / Fructose Consumption</h3>
+<p class="why">High refined-sugar and fructose intake drives neuroinflammation, mitochondrial dysfunction, and insulin resistance — a modifiable risk factor across mood and cognitive disorders.</p>
+<div class="q"><b>Guiding question:</b> Does the client eat a lot of foods high in refined sugars?</div>
+</div>
+<span class="tcount">6 options</span>
+</div>
+<div class="collab">🤝 Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Reduce added sugars</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Lower the inflammatory and glycemic load.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">PLEASE skill</span>
+<span class="mod" style="background:#f43f5e">DBT</span>
+</div>
+<div class="how">Frame nutrition as emotion-regulation infrastructure.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Metabolic screening referral</span>
+<span class="mod" style="background:#0ea5e9">Medical</span>
+</div>
+<div class="how">Assess glucose/insulin markers.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Ketogenic metabolic therapy</span>
+<span class="mod" style="background:#0ea5e9">Medical</span>
+</div>
+<div class="how">Emerging option under medical supervision for select cases.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Sugar–mood psychoeducation</span>
+<span class="mod" style="background:#4f46e5">Psychoeducation</span>
+</div>
+<div class="how">Connect intake to symptoms to motivate change.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Habit / stimulus control</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Reduce cues and access to sugary foods.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 6 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#16c2c2"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#16c2c2">Metabolic Health</span>
+<h3>Inflammation</h3>
+<p class="why">Chronic, often-undetected systemic inflammation alters neurotransmitter metabolism, impairs neuroplasticity, and is implicated in depression, bipolar disorder, and treatment resistance.</p>
+<div class="q"><b>Guiding question:</b> Any known chronic inflammation? (brain fog, low energy, poor digestion, skin issues, aches, insulin resistance)</div>
+</div>
+<span class="tcount">6 options</span>
+</div>
+<div class="collab">🤝 Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Anti-inflammatory diet</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Fiber- and plant-rich pattern lowers inflammatory markers.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Regular exercise</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Reduces systemic inflammation over time.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Stress reduction</span>
+<span class="mod" style="background:#14b8a6">Mindfulness</span>
+</div>
+<div class="how">Lowering allostatic load reduces inflammatory signaling.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Sleep optimization</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Restorative sleep dampens inflammation.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Medical workup / supplementation</span>
+<span class="mod" style="background:#0ea5e9">Medical</span>
+</div>
+<div class="how">Test markers and treat underlying causes.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Replenish Necessary Nutrients / Vitamins</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Several deficiencies are common in high inflammation, such as Vitamin B1.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 6 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#16c2c2"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#16c2c2">Metabolic Health</span>
+<h3>Physical Activity</h3>
+<p class="why">Among the most-researched interventions: movement modulates BDNF and neurotransmitters, builds metabolic resilience, and rivals therapy for some outcomes.</p>
+<div class="q"><b>Guiding question:</b> Does the client get a lot of physical activity?</div>
+</div>
+<span class="tcount">6 options</span>
+</div>
+<div class="collab">🤝 Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Aerobic exercise</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Improves mood, cognition, and stress resilience.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Resistance training</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Builds muscle, insulin sensitivity, and resilience.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Movement as behavioral activation</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Use activity to break withdrawal/avoidance cycles.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Exercise prescription (with PT)</span>
+<span class="mod" style="background:#0ea5e9">Medical</span>
+</div>
+<div class="how">Collaborate for safe, tailored programming.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Dance / group movement</span>
+<span class="mod" style="background:#06b6d4">Somatic</span>
+</div>
+<div class="how">Combines movement with social connection.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Exercise Classes</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Options range from pilates and yoga to boxing and cycling.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 6 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#16c2c2"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#16c2c2">Metabolic Health</span>
+<h3>Sleep</h3>
+<p class="why">Sleep underwrites neuroplasticity, memory, and emotion regulation; every mental-health condition shows a relationship with disturbed sleep.</p>
+<div class="q"><b>Guiding question:</b> How many hours a night? Do they sleep through the night?</div>
+</div>
+<span class="tcount">12 options</span>
+</div>
+<div class="collab">🤝 Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">CBT-I</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">First-line, durable treatment for insomnia.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Stimulus control &amp; sleep restriction</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Re-associate bed with sleep; consolidate sleep.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Sleep hygiene</span>
+<span class="mod" style="background:#4f46e5">Psychoeducation</span>
+</div>
+<div class="how">Optimize environment and pre-sleep routine.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Light exposure / chronotherapy</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Align timing cues to improve sleep.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Relaxation training</span>
+<span class="mod" style="background:#06b6d4">Somatic</span>
+</div>
+<div class="how">Lower pre-sleep arousal.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Sleep study / medical referral</span>
+<span class="mod" style="background:#0ea5e9">Medical</span>
+</div>
+<div class="how">Assess apnea and other disorders.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">DORAs</span>
+<span class="mod" style="background:#e11d48">Psychiatric</span>
+</div>
+<div class="how">Dual Orexin Receptor Antagonists reduce excitability to help transition to sleep.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Trazodone</span>
+<span class="mod" style="background:#e11d48">Psychiatric</span>
+</div>
+<div class="how">Common first-line sleep medication.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Z-Drugs</span>
+<span class="mod" style="background:#e11d48">Psychiatric</span>
+</div>
+<div class="how">High-efficacy but higher-risk sleep drugs that may cause dependence or next-day drowsiness.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Non-Medication Sleep Aids</span>
+<span class="mod" style="background:#0ea5e9">Medical</span>
+</div>
+<div class="how">3rd-party tested melatonin ≤3mg, L-theanine, magnesium glycinate, apigenin.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Yoga Nidra</span>
+<span class="mod" style="background:#06b6d4">Somatic</span>
+</div>
+<div class="how">Body scan plus breathing for deep relaxation.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Mindfulness Interventions</span>
+<span class="mod" style="background:#14b8a6">Mindfulness</span>
+</div>
+<div class="how">Mindfulness activities that help the brain stop noticing the body.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 12 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#16c2c2"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#16c2c2">Metabolic Health</span>
+<h3>Circadian Rhythm</h3>
+<p class="why">Cortisol rhythm and sleep-wake timing can be disrupted even when total sleep is intact — a distinct target. Modern light, screens, and shift schedules are common culprits.</p>
+<div class="q"><b>Guiding question:</b> Ample early-morning sunlight?</div><div class="q"><b>Guiding question:</b> Energized during daylight hours?</div>
+</div>
+<span class="tcount">6 options</span>
+</div>
+<div class="collab">🤝 Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Morning bright-light therapy</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Anchor the clock with early light.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Consistent meal timing</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Stabilize peripheral circadian cues.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Timed exercise</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Reinforce day-night rhythm.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Interpersonal &amp; Social Rhythm Therapy</span>
+<span class="mod" style="background:#ec4899">Interpersonal</span>
+</div>
+<div class="how">Regularize daily routines (esp. bipolar).</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Reduce evening light/screens</span>
+<span class="mod" style="background:#16a34a">Metabolic / Lifestyle</span>
+</div>
+<div class="how">Protect melatonin onset.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Timed melatonin (medical)</span>
+<span class="mod" style="background:#0ea5e9">Medical</span>
+</div>
+<div class="how">Shift the clock under guidance.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 6 options</button></section><section class="tcard">
+<div class="thead">
+<div class="bar" style="background:#64748b"></div>
+<div class="thead-txt">
+<span class="pill-badge" style="background:#64748b">Cross-cutting</span>
+<h3>Executive Functioning</h3>
+<p class="why">Not a pillar — you don't need it to feel positive emotion — but it influences nearly every outcome and every session. Scaffold it rather than assume it can be permanently 'trained.'</p>
+<div class="q"><b>Guiding question:</b> Any executive-functioning deficits? (e.g., screen with the BRIEF2.)</div>
+</div>
+<span class="tcount">6 options</span>
+</div>
+<div class="ivx clip">
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">CBT for ADHD</span>
+<span class="mod" style="background:#6d5efc">CBT</span>
+</div>
+<div class="how">Skills for planning, initiation, and follow-through.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Environmental / external systems</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">Offload EF onto structure, reminders, and checklists.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Implementation intentions</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">'If-then' plans bridge intention and action.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Coaching &amp; scaffolding</span>
+<span class="mod" style="background:#3b82f6">Behavioral</span>
+</div>
+<div class="how">External support during skill-building.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Bottom-up regulation</span>
+<span class="mod" style="background:#06b6d4">Somatic</span>
+</div>
+<div class="how">Regulate arousal first when cognition is intact but affect isn't.</div>
+</div>
+<div class="iv">
+<div class="iv-top">
+<span class="iv-name">Stimulant / non-stimulant medication</span>
+<span class="mod" style="background:#e11d48">Psychiatric</span>
+</div>
+<div class="how">Improve EF capacity where clinically indicated.</div>
+</div>
+</div><button type="button" class="ivmore">Show all 6 options</button></section></div>
+<!-- /prerender:out -->
 </main>
 
 <footer>
@@ -288,6 +2619,10 @@ footer .eyebrow{color:var(--lichen)!important}
 </footer>
 
 <script>
+/* Blocks marked data-prerender hold a copy that tools/prerender.py bakes into this file for search engines
+   and AI crawlers. Clear them so the code below renders them fresh from the data. Edit the data, not the copies. */
+document.querySelectorAll('[data-prerender]').forEach(el => { el.innerHTML = ''; });
+
 /* mobile menu */
 (()=>{
   const nav=document.querySelector('nav.top'), btn=document.getElementById('navToggle'), links=document.getElementById('navLinks');
@@ -876,6 +3211,8 @@ function render(){
     const meta=PILLAR_META[t.pillar];
     const card=document.createElement("section"); card.className="tcard";
     const q=(t.questions||[]).map(x=>`<div class="q"><b>Guiding question:</b> ${x}</div>`).join("");
+    /* on phones, long unfiltered lists start collapsed to three (see .ivx.clip in the CSS) */
+    const clip=!state.q && !state.modality && !state.only && ivs.length>4;
     card.innerHTML=`
       <div class="thead">
         <div class="bar" style="background:${meta.hex}"></div>
@@ -888,7 +3225,7 @@ function render(){
         <span class="tcount">${ivs.length} option${ivs.length!==1?"s":""}</span>
       </div>
       ${t.collab?`<div class="collab">🤝 Metabolic targets typically require collaboration with a physician, NP, or registered dietitian.</div>`:""}
-      <div class="ivx">
+      <div class="ivx${clip?" clip":""}">
         ${ivs.map(iv=>`
           <div class="iv">
             <div class="iv-top">
@@ -897,13 +3234,18 @@ function render(){
             </div>
             <div class="how">${iv.how}</div>
           </div>`).join("")}
-      </div>`;
+      </div>${clip?`<button type="button" class="ivmore">Show all ${ivs.length} options</button>`:""}`;
     out.appendChild(card);
   });
   if(shownTargets+shownCross===0){ out.innerHTML=`<div class="empty">No matches. Try clearing the search or choosing “All modalities.”</div>`; }
   const crossTxt = shownCross ? ` + ${shownCross} cross-cutting area${shownCross!==1?"s":""}` : "";
   countEl.textContent=`${shownTargets} target${shownTargets!==1?"s":""}${crossTxt} · ${shownIv} intervention${shownIv!==1?"s":""}`;
 }
+
+out.addEventListener("click",e=>{
+  const more=e.target.closest(".ivmore"); if(!more) return;
+  more.previousElementSibling.classList.remove("clip"); more.remove();
+});
 
 syncTabs(); syncMods(); render();
 </script>

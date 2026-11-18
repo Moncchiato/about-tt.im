@@ -1,0 +1,57 @@
+# Keeps the search-engine copy of the site up to date, and checks nothing important went missing.
+#
+# Every time index.html, interventions.html, diagnoses.html or builder.html changes on main (including uploads
+# through the GitHub website), this runs tools/prerender.py, which:
+#   - re-bakes the plain-HTML copy of each page's content that search engines and AI crawlers read,
+#   - rebuilds llms-full.txt,
+#   - checks every public page still has Google Analytics, its canonical link, social preview and structured data.
+# If the baked copy changed, it commits the update. If a check fails, the run fails and GitHub emails whoever pushed.
+name: Refresh search-engine copy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - interventions.html
+      - diagnoses.html
+      - builder.html
+      - tools/**
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prerender
+  cancel-in-progress: false
+
+jobs:
+  prerender:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bake crawler-readable HTML and check the pages
+        id: bake
+        run: |
+          set +e
+          python3 tools/prerender.py
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Commit the refreshed copy
+        run: |
+          if git diff --quiet; then
+            echo "Already up to date."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -am "Refresh search-engine copy of the pages (automatic)"
+            git push
+          fi
+
+      - name: Fail if a page lost something important
+        if: steps.bake.outputs.status != '0'
+        run: |
+          echo "tools/prerender.py reported a problem; see the 'Bake' step above and CLAUDE.md."
+          exit 1
