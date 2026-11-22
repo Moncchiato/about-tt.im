@@ -976,6 +976,128 @@ footer .auth b{color:var(--on-dark)}
   .wrap{padding:0 20px}
   .band{padding:64px 0}
 }
+/* =====================================================================
+   TTIM hero concepts (prototype for review — not wired into the live site)
+   Reuses the site's tokens: --ink, --card, --paper, pillar hexes, fonts.
+   ===================================================================== */
+.hc{display:none}
+.hc.on{display:block}
+.hc[data-v="current"] img{display:block;width:100%}
+
+/* layout: diagram + reading panel */
+.mx.on{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(250px,1fr);gap:clamp(18px,3vw,40px);align-items:center;position:relative}
+.mx-fig{position:relative;min-width:0}
+.mx path{fill-rule:evenodd}
+.mx svg{display:block;width:100%;height:auto;max-height:620px;overflow:hidden;-webkit-tap-highlight-color:transparent}
+@media(max-width:900px){.mx.on{grid-template-columns:1fr}}
+
+/* context layers (not pillars) */
+.mx .ctx path{stroke:var(--card);stroke-width:3;stroke-linejoin:round}
+.mx .ctx-name{font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:14px;fill:var(--ink-soft);letter-spacing:.01em}
+.mx .ctx-sub{font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:11.5px;fill:var(--muted)}
+.mx .core path{fill:var(--night)}
+.mx .core .ctx-name{fill:var(--on-dark);font-size:15px}
+.mx .core .ctx-sub{fill:rgba(241,242,224,.7)}
+.mx .arc-label{font-family:'Hanken Grotesk',sans-serif;font-weight:650;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;fill:rgba(34,40,31,.55)}
+.mx .arc-label.ef{font-size:9.5px;letter-spacing:.12em;fill:rgba(34,40,31,.62)}
+.mx .skin-line{stroke:var(--ink);stroke-width:1.6}
+.mx .skin-tag{font-family:'Hanken Grotesk',sans-serif;font-weight:650;font-size:12.5px;fill:var(--moss);letter-spacing:.02em}
+.mx .edge-label{font-family:'Hanken Grotesk',sans-serif;font-weight:650;font-size:12.5px;fill:var(--moss);letter-spacing:.12em;text-transform:uppercase}
+
+/* pillars */
+.mx .pz{cursor:pointer;outline:none}
+.mx .pz-fill{fill:var(--pc);stroke:var(--card);stroke-width:3;stroke-linejoin:round;transition:opacity .25s,filter .25s}
+.mx .pz-name{font-family:'Instrument Serif',Georgia,serif;font-size:25px;fill:var(--ink);pointer-events:none}
+.mx .pz[data-p="cognitions"] .pz-name{fill:#fff}
+.mx .pz:focus-visible .pz-fill{stroke:var(--ink);stroke-width:3.5}
+.mx svg.dim .pz:not(.on) .pz-fill{opacity:.28}
+.mx svg.dim .pz:not(.on) .pz-name{opacity:.45}
+.mx svg.dim .ctx{opacity:.7}
+.mx .ctx{transition:opacity .25s}
+
+/* targets: the ◆ the explorer already uses */
+.mx .tg{cursor:pointer}
+.mx .tg-mark{fill:var(--card);transition:fill .15s,transform .15s;transform-box:fill-box;transform-origin:center}
+.mx .tg-hit{fill:transparent}
+.mx .tg:hover .tg-mark,.mx .tg.hot .tg-mark{fill:var(--target);transform:scale(1.35)}
+.mx svg.dim .pz:not(.on) .tg-mark{opacity:.5}
+
+/* tooltip */
+.mx-tip{position:absolute;z-index:5;pointer-events:none;transform:translate(-50%,calc(-100% - 12px));
+  background:var(--night);color:var(--on-dark);font-size:13px;font-weight:600;line-height:1.3;
+  padding:7px 11px;border-radius:9px;white-space:nowrap;opacity:0;transition:opacity .12s}
+.mx-tip.show{opacity:1}
+
+/* reading panel */
+.mx-panel{align-self:stretch;display:flex;flex-direction:column;justify-content:center;min-height:300px}
+.mx-k{font-size:14px;font-weight:650;color:var(--moss)}
+.mx-panel h3{font-size:clamp(30px,3vw,40px);margin-top:6px;line-height:1}
+.mx-panel ol{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.mx-panel ol li{position:relative;padding-left:34px;font-size:15px;color:var(--ink-soft);line-height:1.5;counter-increment:s}
+.mx-panel ol li::before{content:counter(s);position:absolute;left:0;top:1px;width:22px;height:22px;border-radius:50%;
+  background:var(--paper-2);color:var(--ink);font-size:12px;font-weight:700;display:grid;place-items:center}
+.mx-panel ol li b{color:var(--ink)}
+.mx-panel .blurb{margin-top:12px;color:var(--ink-soft);font-size:15px;line-height:1.55}
+.mx-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.mx-chip{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);
+  padding:7px 12px 7px 10px;border-radius:999px;border:1px solid var(--line);background:var(--paper);cursor:pointer;transition:border-color .2s,background .2s}
+.mx-chip i{width:10px;height:10px;border-radius:50%;background:var(--pc);flex:none}
+.mx-chip small{font-size:12px;color:var(--muted);font-weight:600}
+.mx-chip:hover,.mx-chip.on{border-color:var(--pc);background:#fff}
+.mx-tl{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.mx-tl button{font:inherit;font-size:13px;font-weight:600;color:var(--ink);background:var(--paper);border:1px solid var(--line);
+  border-radius:9px;padding:6px 10px 6px 9px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;text-align:left}
+.mx-tl button::before{content:"";width:7px;height:7px;background:var(--target);transform:rotate(45deg);border-radius:1px;flex:none}
+.mx-tl button:hover{border-color:var(--target);background:#fff}
+.mx-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.mx-actions .btn{padding:10px 18px;font-size:14px}
+.mx-back{font:inherit;font-size:13.5px;font-weight:650;color:var(--moss);background:none;border:none;cursor:pointer;padding:0;margin-bottom:10px;align-self:flex-start}
+
+/* load-in: the hero's one orchestrated moment */
+@keyframes mx-draw{from{stroke-dashoffset:1000}to{stroke-dashoffset:0}}
+@keyframes mx-up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes mx-down{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+@keyframes mx-pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+.mx.on .skin-line{stroke-dasharray:1000;animation:mx-draw .9s .1s cubic-bezier(.4,0,.2,1) both}
+.mx.on .rise{animation:mx-up .7s var(--d,0s) cubic-bezier(.2,.8,.2,1) both}
+.mx.on .sink{animation:mx-down .7s var(--d,0s) cubic-bezier(.2,.8,.2,1) both}
+.mx.on .tg{animation:mx-pop .35s var(--d,1.4s) cubic-bezier(.3,1.4,.5,1) both;transform-box:fill-box;transform-origin:center}
+
+/* phones: fewer, larger words */
+@media(max-width:640px){
+  .mx .pz-name{font-size:27px}
+  .mx .ctx-name{font-size:19px}
+  .mx .core .ctx-name{font-size:21px}
+  .hero-art{margin-inline:-16px}
+  .hero-art .frame{padding:14px 4px 10px}
+  .hero-art .cap{padding-inline:16px}
+  .mx .flare{display:none}
+  .mx-panel{padding:4px 14px 10px}
+  .mx .ctx-sub,.mx .arc-label,.mx .skin-tag{display:none}
+  .mx .edge-label{font-size:17px}
+  .mx .tg-mark{transform:scale(1.25)}
+  .mx-panel{min-height:0}
+}
+
+
+/* ---------- hero: full diagram <-> "How to read the model" (hourglass) ---------- */
+.hero-art .frame .hc img{display:block;width:100%}
+.hero-switch{display:flex;justify-content:center;margin-top:20px}
+.hero-toggle{display:inline-flex;align-items:center;gap:10px;font:inherit;font-size:15px;font-weight:650;cursor:pointer;
+  color:var(--on-dark);background:var(--night);border:1px solid var(--night);border-radius:999px;padding:12px 22px 12px 18px;
+  transition:background .2s,border-color .2s,color .2s}
+.hero-toggle:hover{background:#2c3d33;border-color:#2c3d33}
+.hero-toggle svg{width:18px;height:18px;flex:none}
+.hero-toggle[aria-pressed="true"]{background:var(--card);color:var(--ink);border-color:rgba(34,40,31,.25)}
+.hero-toggle[aria-pressed="true"]:hover{background:#fff}
+.hero-art .cap{text-align:center}
+@media(max-width:640px){.hero-toggle{width:calc(100% - 32px);justify-content:center}}
+
+/* ---------- pillar cards: the pillar name sits inside the colored header ---------- */
+.pcard h3{position:absolute;top:0;left:0;right:0;height:112px;margin:0;padding:0 20px 16px;display:flex;align-items:flex-end;color:var(--ink)}
+.pcard[data-pillar="cognitions"] h3{color:#fff}
+.pcard .pc-cap{margin-bottom:16px}
+@media(max-width:780px){.pcard h3{height:84px;padding-bottom:12px}}
 </style>
 </head>
 <body>
@@ -1017,8 +1139,12 @@ footer .auth b{color:var(--on-dark)}
       </div>
     </div>
     <figure class="hero-art">
-      <div class="frame"><img src="TTIM.svg" alt="The full Treatment Target Identification Model diagram. A horizontal line, the skin, divides it. Outside the skin, nested from the outside in: Greater World, Culture, Relationships and Behavior, with the Purpose pillar on the right. Inside the skin: Emotion (Affect plus Concept), Executive Functioning, and the Greater Nervous System, which holds the Allostatic Load and Cognitions pillars, all within Metabolic Health. Green hexagons mark the 32 treatment targets."></div>
-      <figcaption class="cap">The complete TTIM: five pillars, 32 treatment targets, and the systems beneath a lived experience.</figcaption>
+      <div class="frame">
+        <div class="hc on" id="heroDiagram"><img src="TTIM.svg" alt="The full Treatment Target Identification Model diagram. A horizontal line, the skin, divides it. Outside the skin, nested from the outside in: Greater World, Culture, Relationships and Behavior, with the Purpose pillar on the right. Inside the skin: Emotion (Affect plus Concept), Executive Functioning, and the Greater Nervous System, which holds the Allostatic Load and Cognitions pillars, all within Metabolic Health. Green hexagons mark the 32 treatment targets."></div>
+        <div class="hc mx" id="mxHero"></div>
+      </div>
+      <div class="hero-switch"><button type="button" class="hero-toggle" id="heroToggle" aria-pressed="false" aria-controls="heroDiagram mxHero">How to read the model</button></div>
+      <figcaption class="cap" id="heroCap">The complete TTIM: five pillars, 32 treatment targets, and the systems beneath a lived experience.</figcaption>
     </figure>
   </div>
 </header>
@@ -1884,6 +2010,186 @@ function onScroll(){
   prog.style.width=(y/h*100)+'%';
 }
 window.addEventListener('scroll',onScroll); onScroll();
+
+/* ============== HERO: HOW TO READ THE MODEL (hourglass) ==============
+   Drawn live from PILLARS; adapted from the concepts/ prototype. */
+(function () {
+  const PC = Object.fromEntries(PILLARS.map(p => [p.id, p]));
+  const f = n => Math.round(n * 10) / 10;
+  const esc = s => String(s).replace(/&(?!amp;)/g, '&amp;');
+  const mobile = matchMedia('(max-width:640px)');
+
+  /* ---------- shared SVG helpers ---------- */
+  const text = (x, y, s, cls, anchor = 'middle') =>
+    `<text x="${f(x)}" y="${f(y)}" class="${cls}" text-anchor="${anchor}">${s}</text>`;
+  const lines = (x, y, arr, cls, lh) =>
+    `<text class="${cls}" text-anchor="middle">${arr.map((l, i) => `<tspan x="${f(x)}" y="${f(y + i * lh)}">${l}</tspan>`).join('')}</text>`;
+  const diamond = 'M0,-7.2L7.2,0L0,7.2L-7.2,0Z';
+  const beads = (id, pts, d0) => pts.map(([x, y], i) =>
+    `<g transform="translate(${f(x)} ${f(y)})"><g class="tg" data-p="${id}" data-i="${i}" style="--d:${(d0 + i * .05).toFixed(2)}s">` +
+    `<circle class="tg-hit" r="13"/><path class="tg-mark" d="${diamond}"/></g></g>`).join('');
+  const rowPts = (cx, y, n, gap = 24) => Array.from({ length: n }, (_, i) => [cx + (i - (n - 1) / 2) * gap, y]);
+
+  function ctx(d, fill, labelSvg, side, delay, extraCls = '') {
+    return `<g class="ctx ${extraCls} ${side > 0 ? 'rise' : 'sink'}" style="--d:${delay}s"><path d="${d}" style="fill:${fill}"/>${labelSvg || ''}</g>`;
+  }
+  function pillar(id, d, labelSvg, pts, side, delay) {
+    const p = PC[id];
+    return `<g class="${side > 0 ? 'rise' : 'sink'}" style="--d:${delay}s"><g class="pz" data-p="${id}" tabindex="0" role="button" ` +
+      `aria-label="${p.name}: ${p.targets.length} treatment targets" style="--pc:${p.hex}">` +
+      `<path class="pz-fill" d="${d}"/>${labelSvg}${beads(id, pts, 1.25 + delay * .4)}</g></g>`;
+  }
+  const skin = (x1, x2, y, tag) =>
+    `<line class="skin-line" x1="${x1}" x2="${x2}" y1="${y}" y2="${y}"/>` +
+    (tag ? text(x1 - 10, y + 4.5, 'Skin', 'skin-tag', 'end') : '');
+
+  /* =================================================================
+     Concept A — Hourglass: the author's own geometry, redrawn calmly.
+     ================================================================= */
+  function hourglass() {
+    const Y = 300;
+    const up = (hw, eave, peak) => `M${500 - hw},${Y}L${500 - hw},${eave}L500,${peak}L${500 + hw},${eave}L${500 + hw},${Y}Z`;
+    const dn = (hw, eave, peak) => `M${500 - hw},${Y}L${500 - hw},${eave}L500,${peak}L${500 + hw},${eave}L${500 + hw},${Y}Z`;
+    const band = (a, b) => a + b; // even-odd fill turns two nested shapes into a band
+    const bannerUp = (x1, x2, top, notch) => `M${x1},${top}L${(x1 + x2) / 2},${top + notch}L${x2},${top}L${x2},${Y}L${x1},${Y}Z`;
+    const bannerDn = (x1, x2, bot, notch) => `M${x1},${Y}L${x2},${Y}L${x2},${bot}L${(x1 + x2) / 2},${bot - notch}L${x1},${bot}Z`;
+
+    const s = [];
+    // outside the skin
+    s.push(ctx('M118,40L882,40L802,300L198,300Z', '#f5efda', '', 1, .25, 'flare'));
+    s.push(ctx(band(up(292, 98, 80), up(256, 140, 124)), '#ebe3c4', text(500, 112, 'Greater World', 'ctx-name'), 1, .4));
+    s.push(ctx(band(up(256, 140, 124), up(214, 182, 166)), '#e0d7b3', text(500, 154, 'Culture', 'ctx-name'), 1, .5));
+    s.push(pillar('relationships', band(up(214, 182, 166), up(60, 236, 226)),
+      text(362, 216, 'Relationships', 'pz-name'), rowPts(362, 246, 4), 1, .6));
+    s.push(pillar('purpose', bannerUp(566, 714, 148, 14),
+      text(640, 198, 'Purpose', 'pz-name'), [...rowPts(640, 228, 4), ...rowPts(640, 254, 3)], 1, .7));
+    s.push(ctx(up(60, 236, 226), '', text(500, 276, 'Behavior', 'ctx-name'), 1, .35, 'core'));
+    // inside the skin
+    s.push(ctx('M198,300L802,300L882,572L118,572Z', '#e4ede8', '', -1, .25, 'flare'));
+    s.push(pillar('metabolic', band(dn(292, 524, 546), dn(250, 448, 462)),
+      text(500, 526, 'Metabolic Health', 'pz-name'), rowPts(500, 485, 8, 26), -1, .7));
+    s.push(ctx(dn(250, 448, 462), '#cbd9d3', text(500, 440, 'Greater Nervous System', 'ctx-name'), -1, .55));
+    s.push(pillar('allostatic', bannerDn(288, 436, 420, 12),
+      lines(362, 328, ['Allostatic', 'Load'], 'pz-name', 24), [...rowPts(362, 374, 4), ...rowPts(362, 397, 3)], -1, .6));
+    s.push(pillar('cognitions', bannerDn(564, 712, 420, 12),
+      text(638, 340, 'Cognitions', 'pz-name'), [...rowPts(638, 374, 3), ...rowPts(638, 397, 3)], -1, .6));
+    s.push(ctx('M440,300H560V360H440Z', '', text(500, 328, 'Emotion', 'ctx-name') + text(500, 346, 'Affect + Concept', 'ctx-sub'), -1, .35, 'core'));
+    s.push(ctx('M440,360H560V408H440Z', '#b9cbc4', lines(500, 380, ['Executive', 'functioning'], 'ctx-sub', 13), -1, .45));
+    s.push(skin(150, 850, Y, true));
+    s.push(text(500, 27, 'Outside the skin', 'edge-label'));
+    s.push(text(500, 594, 'Inside the skin', 'edge-label'));
+    return { svg: s.join(''), vb: '96 6 808 600', vbm: '196 6 608 600' };
+  }
+
+  /* ---------- reading panel ---------- */
+  const chips = () => PILLARS.map(p =>
+    `<button type="button" class="mx-chip" data-p="${p.id}" style="--pc:${p.hex}"><i></i>${p.name}<small>${p.targets.length}</small></button>`).join('');
+  const defaultPanel = () => `
+    <p class="mx-k">How to read the model</p>
+    <h3>Five pillars around one person</h3>
+    <ol>
+      <li><b>The line through the middle is the skin.</b> Above it is everything outside a person; below it, everything inside.</li>
+      <li><b>The five colored pillars</b> are the domains a good lived experience is built on.</li>
+      <li><b>Each ◆ is a treatment target</b>, 32 in all. Hover or tap one to see it.</li>
+    </ol>
+    <div class="mx-chips">${chips()}</div>`;
+  const pillarPanel = id => {
+    const p = PC[id];
+    return `
+    <button type="button" class="mx-back">&larr; How to read the model</button>
+    <p class="mx-k"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${p.hex};margin-right:7px"></span>${p.targets.length} treatment targets &middot; ${p.tag}</p>
+    <h3>${p.name}</h3>
+    <p class="blurb">${p.blurb}</p>
+    <ul class="mx-tl">${p.targets.map((t, i) => `<li><button type="button" data-p="${id}" data-i="${i}">${esc(t.name)}</button></li>`).join('')}</ul>
+    <div class="mx-actions"><a class="btn btn-primary" href="#explorer" data-open="${id}">Open in the explorer</a></div>`;
+  };
+
+  /* ---------- mount + interactions ---------- */
+  function openTarget(id, i) {
+    const p = PC[id];
+    selectPillar(id);
+    if (matchMedia('(max-width:920px)').matches) showTarget(p, p.targets[i]);
+    else { document.getElementById('explorer').scrollIntoView({ behavior: 'smooth' }); setTimeout(() => showTarget(p, p.targets[i]), 350); }
+  }
+
+  function mount(el, build, title) {
+    const g = build();
+    el.innerHTML = `<div class="mx-fig"><svg viewBox="${g.vb}" role="group" aria-label="${title}">${g.svg}</svg><div class="mx-tip" aria-hidden="true"></div></div>
+      <div class="mx-panel" aria-live="polite"></div>`;
+    const svg = el.querySelector('svg'), panel = el.querySelector('.mx-panel'), tip = el.querySelector('.mx-tip'), fig = el.querySelector('.mx-fig');
+    const fitVB = () => svg.setAttribute('viewBox', mobile.matches ? g.vbm : g.vb);
+    fitVB(); mobile.addEventListener('change', fitVB);
+
+    let pinned = null, shown;
+    const render = id => {
+      if (id === shown) return; shown = id;
+      svg.classList.toggle('dim', !!id);
+      svg.querySelectorAll('.pz').forEach(z => z.classList.toggle('on', z.dataset.p === id));
+      panel.innerHTML = id ? pillarPanel(id) : defaultPanel();
+      panel.querySelectorAll('.mx-chip').forEach(c => c.classList.toggle('on', c.dataset.p === id));
+    };
+    render(null);
+
+    svg.addEventListener('pointerover', e => { const z = e.target.closest('.pz'); if (z && !pinned) render(z.dataset.p); });
+    svg.addEventListener('pointerleave', () => { tip.classList.remove('show'); render(pinned); });
+    svg.addEventListener('click', e => {
+      const t = e.target.closest('.tg');
+      if (t) { pinned = t.dataset.p; render(pinned); return; }
+      const z = e.target.closest('.pz');
+      pinned = z ? (pinned === z.dataset.p ? null : z.dataset.p) : null;
+      render(pinned);
+    });
+    svg.addEventListener('focusin', e => { const z = e.target.closest('.pz'); if (z) render(z.dataset.p); });
+    svg.addEventListener('keydown', e => {
+      const z = e.target.closest('.pz'); if (!z || (e.key !== 'Enter' && e.key !== ' ')) return;
+      e.preventDefault(); pinned = z.dataset.p; render(pinned);
+    });
+    // target tooltip
+    svg.addEventListener('pointerover', e => {
+      const t = e.target.closest('.tg'); if (!t) return;
+      const p = PC[t.dataset.p], r = t.getBoundingClientRect(), fr = fig.getBoundingClientRect();
+      tip.textContent = p.targets[+t.dataset.i].name.replace(/&amp;/g, '&');
+      tip.style.left = (r.left + r.width / 2 - fr.left) + 'px';
+      tip.style.top = (r.top - fr.top) + 'px';
+      tip.classList.add('show');
+    });
+    svg.addEventListener('pointerout', e => { if (e.target.closest('.tg')) tip.classList.remove('show'); });
+
+    panel.addEventListener('click', e => {
+      const chip = e.target.closest('.mx-chip'); if (chip) { pinned = chip.dataset.p; render(pinned); return; }
+      if (e.target.closest('.mx-back')) { pinned = null; render(null); return; }
+      const tb = e.target.closest('.mx-tl button'); if (tb) { openTarget(tb.dataset.p, +tb.dataset.i); return; }
+      const op = e.target.closest('[data-open]'); if (op) setTimeout(() => selectPillar(op.dataset.open), 350);
+    });
+    panel.addEventListener('pointerover', e => {
+      const tb = e.target.closest('.mx-tl button');
+      svg.querySelectorAll('.tg.hot').forEach(x => x.classList.remove('hot'));
+      if (tb) svg.querySelector(`.tg[data-p="${tb.dataset.p}"][data-i="${tb.dataset.i}"]`)?.classList.add('hot');
+    });
+  }
+
+
+  /* ---------- hero toggle: full diagram <-> How to read the model ---------- */
+  const heroDiagram = document.getElementById('heroDiagram'), heroRead = document.getElementById('mxHero'),
+        heroBtn = document.getElementById('heroToggle'), heroCap = document.getElementById('heroCap');
+  if (heroDiagram && heroRead && heroBtn) {
+    const ICON_READ = '<svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 3h12L10 10 16 17H4l6-7z"/><path d="M4 10h12" stroke-linecap="round"/></svg>';
+    const ICON_FULL = '<svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="14" height="12" rx="2"/><path d="M3 10h14"/></svg>';
+    const CAP_FULL = heroCap ? heroCap.textContent : '';
+    const CAP_READ = 'The TTIM at a glance: hover or tap a pillar, or any ◆ treatment target, to explore it.';
+    let mounted = false;
+    const setView = read => {
+      if (read && !mounted) { mount(heroRead, hourglass, 'How to read the Treatment Target Identification Model, simplified as an hourglass'); mounted = true; }
+      heroDiagram.classList.toggle('on', !read);
+      heroRead.classList.toggle('on', read);
+      heroBtn.setAttribute('aria-pressed', read);
+      heroBtn.innerHTML = read ? ICON_FULL + 'Show the full diagram' : ICON_READ + 'How to read the model';
+      if (heroCap) heroCap.textContent = read ? CAP_READ : CAP_FULL;
+    };
+    heroBtn.addEventListener('click', () => setView(heroBtn.getAttribute('aria-pressed') !== 'true'));
+    setView(false);
+  }
+})();
 </script>
 </body>
 </html>

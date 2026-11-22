@@ -4,26 +4,15 @@ This repository is the website for the **Treatment Target Identification Model (
 
 Dr. Breuss is a clinician, not a developer. Explain things in plain language, make the changes for him, and show him the result (screenshots or a local preview) before you push.
 
-## ⚠️ A decision is waiting: the new home-page graphic
+## Home-page graphic: decided (November 2026)
 
-The full TTIM diagram is the first thing visitors see, but it's hard to read as an introduction, especially on phones. Its text is also drawn as shapes, so search engines and AI tools can't read it. Two replacements were prototyped in `concepts/` (added November 2026):
+Dr. Breuss chose **A · Hourglass**, but as a toggle rather than a replacement:
 
-- **A · Hourglass:** Dr. Breuss's own hourglass layout, redrawn simply. It matches the full diagram one-to-one.
-- **B · Horizon:** the same structure drawn as rings split by the skin line: the world spreads outward above it, the body inward below it, and the person sits at the dark core.
-
-Both are drawn live from the page data. They color only the five pillars, mark each of the 32 targets with a ◆ you can hover or tap, include a short "How to read the model" panel, and keep the full clinical diagram one click away (`#full-diagram`, further down the page).
-
-**What to do:** the first time you work with Dr. Breuss, show him both options and ask which he wants: A, B, or keep the current diagram.
-
-1. Preview them: run `python3 -m http.server 8000` in this folder, then open http://localhost:8000/concepts/. A switcher at the bottom flips between Current, A and B. If this branch has been merged, https://about-tt.im/concepts/ also works; that page is marked noindex.
-2. Once he chooses, build it into `index.html`:
-   - Replace the hero's `<figure class="hero-art">…</figure>` with `<figure class="hero-art"><div class="frame"><div class="hc mx on" id="mxHero"></div></div><figcaption class="cap">…</figcaption></figure>`.
-   - Copy the rules from `concepts/hero-concepts.css` into the `<style>` of `index.html`, leaving out the "concept switcher" and "review option" blocks.
-   - Copy `concepts/hero-concepts.js` into the end of the main `<script>` of `index.html`. Keep the helpers, `mount()` and only the chosen drawing function (`hourglass()` or `rings()`). Call `mount(document.getElementById('mxHero'), <chosen>, '<title>')`, and delete the switcher and review-option code. The code reads `PILLARS`, `selectPillar()` and `showTarget()` from the page.
-   - Delete the `concepts/` folder, run `python3 tools/prerender.py`, and check the page on a phone-sized window.
-3. If he keeps the current diagram, just delete `concepts/`.
-
-**A second, smaller suggestion to show him:** put each pillar's name inside the colored header of its card in the "Five pillars" section, instead of below it. On the concepts page, a dashed "For review" bar above the pillar cards toggles between the two. If he likes it, copy the `.pc-title-in-cap` rules from `concepts/hero-concepts.css` into `index.html` without the `.pc-title-in-cap` prefix.
+- The hero still opens on the full TTIM diagram (`#heroDiagram`).
+- A button under it (`#heroToggle`, "How to read the model") swaps the frame to the live hourglass drawing with its reading panel (`#mxHero`). The same button switches back ("Show the full diagram").
+- The hourglass code lives at the end of the main `<script>` in `index.html` (section "HERO: HOW TO READ THE MODEL"). It is drawn from `PILLARS` and mounts the first time the button is pressed. The Horizon (rings) concept, the concept switcher and the review bar were not carried over.
+- The pillar names now sit inside the colored header of each card in the "Five pillars" section (the former `.pc-title-in-cap` option, applied site-wide).
+- The `concepts/` prototype folder is not part of this version.
 
 ## Rules that keep the site healthy
 
