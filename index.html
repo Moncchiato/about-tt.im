@@ -80,7 +80,7 @@
       "@id": "https://about-tt.im/#ttim",
       "name": "Treatment Target Identification Model",
       "alternateName": "TTIM",
-      "description": "A visual, mechanism-oriented case conceptualization tool for education, supervision and individual case formulation. Five interconnected pillars (Cognitions, Allostatic Load, Relationships, Purpose and Metabolic Health) hold 32 evidence-based treatment targets, built on the Theory of Constructed Emotion and the biology of allostasis.",
+      "description": "A visual, mechanism-oriented case conceptualization tool for education, supervision and individual case formulation. Five interconnected pillars (Cognitions, Allostatic Load, Relationships, Purpose and Metabolic Health) hold 32 evidence-based treatment targets, inspired by the Theory of Constructed Emotion and the biology of allostasis.",
       "author": { "@id": "https://about-tt.im/#author" },
       "copyrightHolder": { "@id": "https://about-tt.im/#author" },
       "copyrightYear": 2026,
@@ -1098,6 +1098,18 @@ footer .auth b{color:var(--on-dark)}
 .pcard[data-pillar="cognitions"] h3{color:#fff}
 .pcard .pc-cap{margin-bottom:16px}
 @media(max-width:780px){.pcard h3{height:84px;padding-bottom:12px}}
+
+/* TCE card: Affect + Concept = Emotion, then the TTIM translation */
+.tce-example{max-width:640px;margin:22px auto 0;color:var(--on-dark);font-family:'Instrument Serif',Georgia,serif;font-size:clamp(20px,2.2vw,25px);line-height:1.25}
+.eq-ttim{margin:30px auto 0;padding-top:26px;border-top:1px dashed rgba(241,242,224,.22);max-width:820px}
+.eq-ttim-k{display:block;font-size:14px;font-weight:650;color:var(--lichen);margin-bottom:14px}
+.eq-ttim-row{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.tt-chip{display:inline-flex;align-items:center;padding:10px 16px;border-radius:12px;font-size:15px;font-weight:650;color:var(--on-dark);border:1px solid}
+.tt-allo{background:rgba(255,77,109,.12);border-color:rgba(255,77,109,.6)}
+.tt-cog{background:rgba(124,92,255,.16);border-color:rgba(124,92,255,.65)}
+.tt-result{background:var(--lichen);border-color:var(--lichen);color:var(--ink)}
+.tt-op{font-family:'Instrument Serif',Georgia,serif;font-size:30px;line-height:1;color:var(--on-dark-soft)}
+@media(max-width:640px){.eq-ttim-row{flex-direction:column;gap:8px}.tt-arrow{transform:rotate(90deg)}}
 </style>
 </head>
 <body>
@@ -1200,7 +1212,7 @@ footer .auth b{color:var(--on-dark)}
       <div>
         <span class="eyebrow" style="color:#fff;opacity:.85">Culture is a foundational aspect of the model</span>
         <h3 style="font-size:25px;margin-top:8px">A framework grounded in cross-cultural science</h3>
-        <p>The Theory of Constructed Emotion at the heart of the TTIM draws on research spanning diverse global populations — from Western to indigenous peoples — which shows that emotions are not universal but vary with culture, language, and context. Because of that foundation, the TTIM treats culture as a required step in every formulation rather than an afterthought. It helps clinicians distinguish what is innate human biology from what is culturally shaped, supports care when client and clinician share little common life experience, and is designed to act as a protective tool for clients who are culturally different or marginalized.</p>
+        <p>The Theory of Constructed Emotion, which inspired the TTIM, draws on research spanning diverse global populations — from Western to indigenous peoples — which shows that emotions are not universal but vary with culture, language, and context. Because of that foundation, the TTIM treats culture as a required step in every formulation rather than an afterthought. It helps clinicians distinguish what is innate human biology from what is culturally shaped, supports care when client and clinician share little common life experience, and is designed to act as a protective tool for clients who are culturally different or marginalized.</p>
       </div>
       <figure class="cc-fig">
         <div class="cc-box">
@@ -1230,18 +1242,29 @@ footer .auth b{color:var(--on-dark)}
     <div class="section-head reveal">
       <span class="kicker-num">The engine underneath</span>
       <h2>Emotion is constructed — and so is suffering</h2>
-      <p>The TTIM is built on the <strong>Theory of Constructed Emotion</strong> and the biology of <strong>allostasis</strong>: the brain's constant prediction of the body's needs. Emotions emerge as the brain interprets bodily affect through learned concepts. When that predictive process goes awry, distress follows.</p>
+      <p>The TTIM is inspired by Lisa Feldman Barrett's <strong>Theory of Constructed Emotion</strong> and the biology of <strong>allostasis</strong>: the brain's constant prediction of the body's needs. Emotions are not hard-wired reactions; the brain constructs them by making sense of bodily affect through learned concepts. When that predictive process goes awry, distress follows.</p>
     </div>
     <div class="tce reveal">
       <span class="eyebrow" style="color:rgba(255,255,255,.6)">Theory of Constructed Emotion</span>
       <div class="eq">
-        <div class="term affect"><div class="t">Affect</div><div class="n">Allostatic Load</div><small>Bodily feeling — valence &amp; arousal — from running allostasis</small></div>
-        <div class="op">+</div>
-        <div class="term concept"><div class="t">Concept</div><div class="n">Cognitions</div><small>Learned categories: beliefs, language, schemas, experience</small></div>
-        <div class="op">=</div>
-        <div class="term emotion"><div class="t">Construction</div><div class="n">Emotion</div><small>Meaning &amp; an action urge, played out as behavior</small></div>
+        <div class="term affect"><div class="t">From innate biology</div><div class="n">Affect</div><small>Simple feeling, from pleasant to unpleasant and calm to activated, sensed from inside the body (interoception) as the brain runs its energy budget (allostasis)</small></div>
+        <div class="op" aria-hidden="true">+</div>
+        <div class="term concept"><div class="t">From learning</div><div class="n">Concept</div><small>Categories built from culture, language and experience that tell the brain what a feeling means</small></div>
+        <div class="op" aria-hidden="true">=</div>
+        <div class="term emotion"><div class="t">Constructed in the moment</div><div class="n">Emotion</div><small>The brain's best guess about what a sensation means, and what to do about it</small></div>
       </div>
-      <p class="note">In the full model, Affect and Concept grow into two of the pillars — <strong>Allostatic Load</strong> and <strong>Cognitions</strong> — joined because together they produce an emotional experience.</p>
+      <p class="tce-example">The same pounding heart can be constructed as fear, excitement or anticipation, depending on the concept the brain applies.</p>
+      <div class="eq-ttim" aria-label="In the TTIM: managed allostatic load plus adaptive cognitions lead toward a positive lived experience">
+        <span class="eq-ttim-k">In the TTIM</span>
+        <div class="eq-ttim-row">
+          <span class="tt-chip tt-allo">Managed Allostatic Load</span>
+          <span class="tt-op" aria-hidden="true">+</span>
+          <span class="tt-chip tt-cog">Adaptive Cognitions</span>
+          <span class="tt-op tt-arrow" aria-hidden="true">&rarr;</span>
+          <span class="tt-chip tt-result">Positive lived experience</span>
+        </div>
+      </div>
+      <p class="note">Affect and Concept grow into two of the model's pillars, <strong>Allostatic Load</strong> and <strong>Cognitions</strong>. When the body's budget is well managed and the concepts a person brings are adaptive, the emotions they construct are more likely to support a positive lived experience.</p>
     </div>
     <div class="skin-row">
       <div class="skin reveal d1">

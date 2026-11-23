@@ -6,7 +6,7 @@ Key ideas:
 
 - The skin divides the model. Outside the skin are the Greater World, Culture, Relationships and Behavior. Inside the skin are Emotion, Executive Functioning, the Greater Nervous System and Metabolic Health.
 - The five pillars are Cognitions, Allostatic Load, Relationships, Purpose and Metabolic Health. Each pillar holds treatment targets, and a deficit in one ripples through the others.
-- The model builds on the Theory of Constructed Emotion and the biology of allostasis: Affect (Allostatic Load) and Concept (Cognitions) together construct Emotion.
+- The model is inspired by the Theory of Constructed Emotion and the biology of allostasis: Affect and Concept together construct Emotion. In the TTIM these become two pillars, so a managed Allostatic Load plus adaptive Cognitions support a positive lived experience.
 - Executive Functioning is a cross-cutting consideration rather than a pillar.
 - Its guiding logic is "the dose determines the poison": it asks where internal and external factors sit in excess or deficit.
 - It is built for education, supervision and individual case formulation, and it deliberately targets poor lived experience, not only diagnosable pathology.
